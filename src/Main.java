@@ -1,3 +1,5 @@
+package src;
+
 /**
  * This is the Main class.
  */
