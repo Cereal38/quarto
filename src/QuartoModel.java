@@ -265,6 +265,10 @@ public class QuartoModel {
         return selectedPawn;
     }
 
+    public void setSelectedPawn(QuartoPawn pawn) {
+        selectedPawn = pawn;
+    }
+
     public QuartoPawn getPawnAtPosition(int line, int column) {
         if (line < 0 || line >= 4 || column < 0 || column >= 4) {
             throw new IllegalArgumentException("Invalid position: (" + line + ", " + column + ")");
