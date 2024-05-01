@@ -1,11 +1,12 @@
 package src;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /* TODO
  * 
- * 
- * redo
- * undo
- * save
  * charge
  */
 
@@ -14,8 +15,9 @@ public class QuartoModel {
     private int player;//1 for Player 1 and 2 for Player 2
     private QuartoPawn[] pawnAvailable;
     private QuartoPawn selectedPawn;
-
-    public QuartoModel() {
+    History save, head;
+    
+    private void newTable() {
         table = new QuartoPawn[4][4];//table filled with null
         player = 1;//starting player is player 1
         pawnAvailable = new QuartoPawn[16];
@@ -32,16 +34,119 @@ public class QuartoModel {
         }
     }
 
+    public QuartoModel() {
+        newTable();
+        head = new History();
+        save = head;
+    }
+
+    public void saveFile(String fileName) throws IOException {
+        try {
+            // We create the variable to write in the filename
+            FileWriter fileWriter = new FileWriter(fileName);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            History head_cp = head;
+            while (head_cp != null) { //while we go through all the history we have
+                if (head_cp.equals(save)) {//If we are on the current move, we'll write a special caractere to know which move we'll return.
+                    if (head_cp.state == 0) {// If we have placed a pawn
+                        //we write all the information of the pawn
+                        printWriter.print(head_cp.indexPawn + " *\n");
+                    } else if (head_cp.state == 1) {//If we choosed a pawn to give to the next player
+                        //we write the position of the pawn we placed.
+                        printWriter.print(head_cp.line + " " + head_cp.column + " *\n");
+                    }
+                } else {
+                    if (head_cp.state == 0) {
+                        printWriter.print(+head_cp.indexPawn + "\n");
+                    } else if (head_cp.state == 1) {
+                        printWriter.print(head_cp.line + " " + head_cp.column + "\n");
+                    }
+                }
+                head_cp = head_cp.next;
+            }
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("impossible de trouver le fichier " + fileName);
+        }
+    }
+
+    private void removePawn(int pawnRemoved) {
+        QuartoPawn[] newList = new QuartoPawn[pawnAvailable.length - 1];
+        int j = 0;
+        for(int i = 0; i < newList.length; i++){
+            if(j == pawnRemoved){
+                j++;
+            }
+            newList[i] = pawnAvailable[j];
+            j++;
+        }
+        pawnAvailable = newList;
+    }
+
+    private boolean canRedo() {
+        if (save.next != null)
+            return true;
+        return false;
+    }
+
+    public void redo() {
+        if (canRedo()) {
+            if (save.next.state == 0) {//choice of pawn
+                selectedPawn = pawnAvailable[save.next.indexPawn];
+                //fonction remove pawn from pawnAvailable
+                removePawn(save.next.indexPawn);
+            } else if (save.next.state == 1) { //choice of place
+                table[save.next.line][save.next.column] = selectedPawn;
+            }
+            save = save.next;
+        }
+    }
+
+    private boolean canUndo() {
+        if (save.precedent != null)
+            return true;
+        return false;
+    }
+
+    //We add a pawn we removed from the game to can use it again.
+    private void addPawnAvailable(int indexPawn) {
+        //we grow the list of pawn available;
+        QuartoPawn[] newPawnAvailable = new QuartoPawn[pawnAvailable.length + 1];
+        int count_old = 0;
+        for (int count_new = 0; count_new < pawnAvailable.length + 1; count_new++) {
+            //if the index of the pawn we want to add is equal to the counter, then we add it a this index.
+            if (count_new == indexPawn) {
+                newPawnAvailable[count_new] = selectedPawn;
+                count_new++;
+            }
+            newPawnAvailable[count_new] = pawnAvailable[count_old];
+            count_old++;
+        }
+        pawnAvailable = newPawnAvailable;
+    }
+
+    public void undo() {
+        if (canUndo()) {
+            if (save.precedent.state == 0) {//we remove a pawn we placed
+                table[save.line][save.column] = null;
+            } else if (save.precedent.state == 1) {//we add the pawn choosen to the list of pawn available.
+                addPawnAvailable(save.indexPawn);
+            }
+            save = save.precedent;
+        }
+    }
+
     public boolean isTableEmpty(int line, int column) {
         return table[line][column] == null;
     }
 
     public void selectPawn(int pawnRemoved) {
         selectedPawn = pawnAvailable[pawnRemoved];
-         for (int count = pawnRemoved; count + 1 < pawnAvailable.length; count++) {
-             pawnAvailable[count] = pawnAvailable[count + 1];
-            }
-            pawnAvailable[pawnAvailable.length-1] = null;
+        //Add a new history because we choosed what pawn the next player will play.
+        save.next = new History(pawnRemoved, save);
+        save.next.precedent = save;
+        save = save.next;
+        removePawn(pawnRemoved);
     }
 
     public boolean isPawnListEmpty() {
@@ -55,6 +160,9 @@ public class QuartoModel {
     public void playShot(QuartoPawn pawn, int line, int column) {
         if (isTableEmpty(line, column)) {
             table[line][column] = pawn;
+            save.next = new History(line, column, save);
+            save.next.precedent = save;
+            save = save.next;
         }
     }
 
@@ -155,6 +263,14 @@ public class QuartoModel {
 
     public QuartoPawn getSelectedPawn() {
         return selectedPawn;
+    }
+
+    public QuartoPawn getPawnAtPosition(int line, int column) {
+        if (line < 0 || line >= 4 || column < 0 || column >= 4) {
+            throw new IllegalArgumentException("Invalid position: (" + line + ", " + column + ")");
+        }
+
+        return table[line][column];
     }
 
     public QuartoPawn[][] getTable() {

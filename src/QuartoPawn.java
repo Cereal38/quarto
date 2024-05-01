@@ -33,4 +33,20 @@ public class QuartoPawn {
             return false;
         return true;
     }
+
+    public int getRound() {
+        return r;
+    }
+
+    public int getWhite() {
+        return w;
+    }
+
+    public int getLittle() {
+        return l;
+    }
+
+    public int getHollow() {
+        return h;
+    }
 }
