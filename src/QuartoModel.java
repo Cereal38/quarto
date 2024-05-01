@@ -157,9 +157,9 @@ public class QuartoModel {
         player = (player == 1) ? 2 : 1;
     }
 
-    public void playShot(QuartoPawn pawn, int line, int column) {
+    public void playShot(int line, int column) {
         if (isTableEmpty(line, column)) {
-            table[line][column] = pawn;
+            table[line][column] = selectedPawn;
             save.next = new History(line, column, save);
             save.next.precedent = save;
             save = save.next;
