@@ -34,14 +34,8 @@ public class QuartoModel {
         pawnAvailable = newList;
     }
 
-    private boolean canRedo() {
-        if (histo.save.next != null)
-            return true;
-        return false;
-    }
-
     public void redo() {
-        if (canRedo()) {
+        if (histo.canRedo()) {
             if (histo.save.next.state == 0) {//choice of pawn
                 selectedPawn = pawnAvailable[histo.save.next.indexPawn];
                 removePawn(histo.save.next.indexPawn);
@@ -51,12 +45,6 @@ public class QuartoModel {
             }
             histo.save = histo.save.next;
         }
-    }
-
-    private boolean canUndo() {
-        if (histo.save.precedent != null)
-            return true;
-        return false;
     }
 
     //We add a pawn we removed from the game to can use it again.
@@ -77,7 +65,7 @@ public class QuartoModel {
     }
 
     public void undo() {
-        if (canUndo()) {
+        if (histo.canUndo()) {
             if (histo.save.precedent.state == 0) {//we remove a pawn we placed
                 table[histo.save.line][histo.save.column] = null;
                 //switchplayer
@@ -187,7 +175,7 @@ public class QuartoModel {
             return false;
         }
         if (isTableEmpty(0, column))
-                return false;
+            return false;
         boolean round = table[0][column].isRound();
         boolean rTrue = true;
         boolean white = table[0][column].isWhite();
@@ -212,6 +200,21 @@ public class QuartoModel {
         }
         return rTrue || wTrue || lTrue || hTrue;
     }
+    
+    public void chargeGame(String fileName) {
+        histo.chargeFile(fileName);
+        QuartoHistory copy = histo.head;
+        while(!copy.equals(histo.save)) {
+            if (copy.state == 0) {
+                selectedPawn = pawnAvailable[copy.indexPawn];
+                removePawn(copy.indexPawn);
+            } else if (copy.state == 1) {
+                table[copy.line][copy.column] = selectedPawn;
+            }
+            copy = copy.next;
+        }
+    }
+
 
     public QuartoPawn getSelectedPawn() {
         return selectedPawn;

@@ -16,6 +16,18 @@ public class QuartoFile {
         save = head;
     }
 
+    public boolean canRedo() {
+        if (save.next != null)
+            return true;
+        return false;
+    }
+
+    public boolean canUndo() {
+        if (save.precedent != null)
+            return true;
+        return false;
+    }
+
     public void saveFile(String fileName) throws IOException {
         try {
             // We create the variable to write in the filename
@@ -45,52 +57,42 @@ public class QuartoFile {
             System.err.println("impossible de trouver le fichier " + fileName);
         }
     }
-    //a changer
+
     public void chargeFile(String fileName) {
         InputStream in = null;
-		boolean debut = true;
-		Maillon m = null;
-		String[] ligne;
+		String[] line;
+		head = new QuartoHistory();
+		QuartoHistory temp = head;
 		try {
-      		in = new FileInputStream(arg);
+      		in = new FileInputStream(fileName);
 			Scanner s = new Scanner(in);
 			while (s.hasNextLine()) {
-				ligne = s.nextLine().split(" ");
-				if (debut) {
-					cases = new int[Integer.parseInt(ligne[0])][Integer.parseInt(ligne[1])];
-					for(int i = 0; i < Integer.parseInt(ligne[0]); i++) {
-						for(int j = 0; j < Integer.parseInt(ligne[1]); j++) {
-							cases[i][j] = 0;
-						}
-					}
-					tete_cases = new Maillon(null, cases);
-					actuel_cases = tete_cases;
-					if (ligne.length == 3)
-						m = actuel_cases;
-					debut = false;
-				} else {
-					if (ligne[0].equals("joue")) {
-						joue(Integer.parseInt(ligne[1]), Integer.parseInt(ligne[2]), Integer.parseInt(ligne[3]));
-						if (ligne.length == 5)
-						m = actuel_cases;
-					} else if (ligne[0].equals("deplace")) {
-						deplace(Integer.parseInt(ligne[1]), Integer.parseInt(ligne[2]), Integer.parseInt(ligne[3]),
-								Integer.parseInt(ligne[4]));
-						if (ligne.length == 6)
-							m = actuel_cases;
-					}
+				line = s.nextLine().split(" ");
+				if (line.length == 1) { //state == 0
+					temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
+					temp.next.precedent = temp;
+					temp = temp.next;
+				} else if (line.length == 2) {//(state == 1) or (state == 0 and actual state)
+					if (line[1].equals("*")) {
+					    temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
+                        temp.next.precedent = temp;
+                        temp = temp.next;
+                        save = temp;
+                    } else {
+                        temp.next = new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp);
+                        temp.next.precedent = temp;
+                        temp = temp.next;
+                    }
+                } else { //state == 1 and actual state
+                    temp.next = new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp);
+                    temp.next.precedent = temp;
+                    temp = temp.next;
+                    save = temp;
 				}
 			}
 			s.close();
-			actuel_cases = m;
-			cases = new int[actuel_cases.cases.length][actuel_cases.cases[0].length];
-			for(int i = 0; i < actuel_cases.cases.length; i++) {
-				for(int j = 0; j < actuel_cases.cases[0].length; j++) {
-					cases[i][j] = actuel_cases.cases[i][j];
-				}
-			}
 		} catch (FileNotFoundException e) {
-			System.err.println("impossible de trouver le fichier " + arg);
+			System.err.println("impossible de trouver le fichier " + fileName);
 		}
     }
 }
