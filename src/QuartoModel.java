@@ -1,15 +1,11 @@
 package src;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 public class QuartoModel {
     private QuartoPawn[][] table;
     private int player;//1 for Player 1 and 2 for Player 2
     private QuartoPawn[] pawnAvailable;
     private QuartoPawn selectedPawn;
-    History save, head;
+    QuartoFile histo;
     
     private void newTable() {
         table = new QuartoPawn[4][4];//table filled with null
@@ -22,41 +18,8 @@ public class QuartoModel {
 
     public QuartoModel() {
         newTable();
-        head = new History();
-        save = head;
+        histo = new QuartoFile();
     }
-
-    public void saveFile(String fileName) throws IOException {
-        try {
-            // We create the variable to write in the filename
-            FileWriter fileWriter = new FileWriter(fileName);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            History head_cp = head;
-            while (head_cp != null) { //while we go through all the history we have
-                if (head_cp.equals(save)) {//If we are on the current move, we'll write a special caractere to know which move we'll return.
-                    if (head_cp.state == 0) {// If we have placed a pawn
-                        //we write all the information of the pawn
-                        printWriter.print(head_cp.indexPawn + " *\n");
-                    } else if (head_cp.state == 1) {//If we choosed a pawn to give to the next player
-                        //we write the position of the pawn we placed.
-                        printWriter.print(head_cp.line + " " + head_cp.column + " *\n");
-                    }
-                } else {
-                    if (head_cp.state == 0) {
-                        printWriter.print(+head_cp.indexPawn + "\n");
-                    } else if (head_cp.state == 1) {
-                        printWriter.print(head_cp.line + " " + head_cp.column + "\n");
-                    }
-                }
-                head_cp = head_cp.next;
-            }
-            printWriter.close();
-        } catch (FileNotFoundException e) {
-            System.err.println("impossible de trouver le fichier " + fileName);
-        }
-    }
-
-
 
     private void removePawn(int pawnRemoved) {
         QuartoPawn[] newList = new QuartoPawn[pawnAvailable.length - 1];
@@ -72,26 +35,26 @@ public class QuartoModel {
     }
 
     private boolean canRedo() {
-        if (save.next != null)
+        if (histo.save.next != null)
             return true;
         return false;
     }
 
     public void redo() {
         if (canRedo()) {
-            if (save.next.state == 0) {//choice of pawn
-                selectedPawn = pawnAvailable[save.next.indexPawn];
-                removePawn(save.next.indexPawn);
+            if (histo.save.next.state == 0) {//choice of pawn
+                selectedPawn = pawnAvailable[histo.save.next.indexPawn];
+                removePawn(histo.save.next.indexPawn);
                 //switchplayer
-            } else if (save.next.state == 1) { //choice of place
-                table[save.next.line][save.next.column] = selectedPawn;
+            } else if (histo.save.next.state == 1) { //choice of place
+                table[histo.save.next.line][histo.save.next.column] = selectedPawn;
             }
-            save = save.next;
+            histo.save = histo.save.next;
         }
     }
 
     private boolean canUndo() {
-        if (save.precedent != null)
+        if (histo.save.precedent != null)
             return true;
         return false;
     }
@@ -115,13 +78,13 @@ public class QuartoModel {
 
     public void undo() {
         if (canUndo()) {
-            if (save.precedent.state == 0) {//we remove a pawn we placed
-                table[save.line][save.column] = null;
+            if (histo.save.precedent.state == 0) {//we remove a pawn we placed
+                table[histo.save.line][histo.save.column] = null;
                 //switchplayer
-            } else if (save.precedent.state == 1) {//we add the pawn choosen to the list of pawn available.
-                addPawnAvailable(save.indexPawn);
+            } else if (histo.save.precedent.state == 1) {//we add the pawn choosen to the list of pawn available.
+                addPawnAvailable(histo.save.indexPawn);
             }
-            save = save.precedent;
+            histo.save = histo.save.precedent;
         }
     }
 
@@ -132,9 +95,9 @@ public class QuartoModel {
     public void selectPawn(int pawnRemoved) {
         selectedPawn = pawnAvailable[pawnRemoved];
         //Add a new history because we chose what pawn the next player will play.
-        save.next = new History(pawnRemoved, save);
-        save.next.precedent = save;
-        save = save.next;
+        histo.save.next = new QuartoHistory(pawnRemoved, histo.save);
+        histo.save.next.precedent = histo.save;
+        histo.save = histo.save.next;
         removePawn(pawnRemoved);
     }
 
@@ -149,9 +112,9 @@ public class QuartoModel {
     public void playShot(int line, int column) {
         if (isTableEmpty(line, column)) {
             table[line][column] = selectedPawn;
-            save.next = new History(line, column, save);
-            save.next.precedent = save;
-            save = save.next;
+            histo.save.next = new QuartoHistory(line, column, histo.save);
+            histo.save.next.precedent = histo.save;
+            histo.save = histo.save.next;
         }
     }
 
