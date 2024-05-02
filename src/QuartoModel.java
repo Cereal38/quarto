@@ -1,14 +1,8 @@
 package src;
-
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-/* TODO
- * 
- * charge
- */
 
 public class QuartoModel {
     private QuartoPawn[][] table;
@@ -21,16 +15,8 @@ public class QuartoModel {
         table = new QuartoPawn[4][4];//table filled with null
         player = 1;//starting player is player 1
         pawnAvailable = new QuartoPawn[16];
-        int count = 0;
-        for (int round = 0; round < 2; round++) {
-            for (int white = 0; white < 2; white++) {
-                for (int little = 0; little < 2; little++) {
-                    for (int hollow = 0; hollow < 2; hollow++) {
-                        pawnAvailable[count] = new QuartoPawn(round, white, little, hollow);
-                        count++;
-                    }
-                }
-            }
+        for (int count = 0; count < 16; count++) {
+                pawnAvailable[count] = new QuartoPawn(count);
         }
     }
 
@@ -70,6 +56,8 @@ public class QuartoModel {
         }
     }
 
+
+
     private void removePawn(int pawnRemoved) {
         QuartoPawn[] newList = new QuartoPawn[pawnAvailable.length - 1];
         int j = 0;
@@ -93,8 +81,8 @@ public class QuartoModel {
         if (canRedo()) {
             if (save.next.state == 0) {//choice of pawn
                 selectedPawn = pawnAvailable[save.next.indexPawn];
-                //fonction remove pawn from pawnAvailable
                 removePawn(save.next.indexPawn);
+                //switchplayer
             } else if (save.next.state == 1) { //choice of place
                 table[save.next.line][save.next.column] = selectedPawn;
             }
@@ -129,6 +117,7 @@ public class QuartoModel {
         if (canUndo()) {
             if (save.precedent.state == 0) {//we remove a pawn we placed
                 table[save.line][save.column] = null;
+                //switchplayer
             } else if (save.precedent.state == 1) {//we add the pawn choosen to the list of pawn available.
                 addPawnAvailable(save.indexPawn);
             }
@@ -142,7 +131,7 @@ public class QuartoModel {
 
     public void selectPawn(int pawnRemoved) {
         selectedPawn = pawnAvailable[pawnRemoved];
-        //Add a new history because we choosed what pawn the next player will play.
+        //Add a new history because we chose what pawn the next player will play.
         save.next = new History(pawnRemoved, save);
         save.next.precedent = save;
         save = save.next;

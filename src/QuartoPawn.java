@@ -1,52 +1,46 @@
 package src;
 
 public class QuartoPawn {
-    private int r, w, l, h;
+    private int pawnBinary;
+    private final int hollow = 0b0001;
+    private final int little = 0b0010;
+    private final int white = 0b0100;
+    private final int round = 0b1000;
 
-    public QuartoPawn(int round, int white, int little, int hollow) {
-        r = round;
-        w = white;
-        l = little;
-        h = hollow;
+
+    public QuartoPawn(int pawn) {
+        pawnBinary = pawn;
     }
 
     public boolean isRound() {
-        if (r == 0)
-            return false;
-        return true;
+        return ((pawnBinary & round) == 1);
     }
 
     public boolean isWhite() {
-        if (w == 0)
-            return false;
-        return true;
+        return (((pawnBinary & white) >> 1) == 1);
     }
 
     public boolean isLittle() {
-        if (l == 0)
-            return false;
-        return true;
+        return (((pawnBinary & little) >> 2) == 1);
     }
 
     public boolean isHollow() {
-        if (h == 0)
-            return false;
-        return true;
+        return (((pawnBinary & hollow) >> 3) == 0);
     }
 
     public int getRound() {
-        return r;
+        return ((pawnBinary & round));
     }
 
     public int getWhite() {
-        return w;
+        return ((pawnBinary & white) >> 1);
     }
 
     public int getLittle() {
-        return l;
+        return ((pawnBinary & little) >> 2);
     }
 
     public int getHollow() {
-        return h;
+        return ((pawnBinary & hollow) >> 3);
     }
 }
