@@ -17,15 +17,11 @@ public class QuartoFile {
     }
 
     public boolean canRedo() {
-        if (save.next != null)
-            return true;
-        return false;
+        return save.next != null;
     }
 
     public boolean canUndo() {
-        if (save.precedent != null)
-            return true;
-        return false;
+        return save.precedent != null;
     }
 
     public void saveFile(String fileName) throws IOException {
@@ -34,13 +30,13 @@ public class QuartoFile {
             FileWriter fileWriter = new FileWriter(fileName);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             QuartoHistory head_cp = head;
-            while (head_cp != null) { //while we go through all the history we have
+            while (head_cp != null) { //while we go through all the history
                 if (head_cp.equals(save)) {//If we are on the current move, we'll write a special caractere to know which move we'll return.
-                    if (head_cp.state == 0) {// If we have placed a pawn
-                        //we write all the information of the pawn
+                    if (head_cp.state == 0) {// If we placed a pawn
+                        //we write the information about the pawn
                         printWriter.print(head_cp.indexPawn + " *\n");
-                    } else if (head_cp.state == 1) {//If we choosed a pawn to give to the next player
-                        //we write the position of the pawn we placed.
+                    } else if (head_cp.state == 1) {//If we chose a pawn to give to the next player
+                        //we write the position of the pawn we chose.
                         printWriter.print(head_cp.line + " " + head_cp.column + " *\n");
                     }
                 } else {
@@ -60,21 +56,21 @@ public class QuartoFile {
 
     public void chargeFile(String fileName) {
         InputStream in = null;
-		String[] line;
-		head = new QuartoHistory();
-		QuartoHistory temp = head;
-		try {
-      		in = new FileInputStream(fileName);
-			Scanner s = new Scanner(in);
-			while (s.hasNextLine()) {
-				line = s.nextLine().split(" ");
-				if (line.length == 1) { //state == 0
-					temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
-					temp.next.precedent = temp;
-					temp = temp.next;
-				} else if (line.length == 2) {//(state == 1) or (state == 0 and actual state)
-					if (line[1].equals("*")) {
-					    temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
+        String[] line;
+        head = new QuartoHistory();
+        QuartoHistory temp = head;
+        try {
+            in = new FileInputStream(fileName);
+            Scanner s = new Scanner(in);
+            while (s.hasNextLine()) {
+                line = s.nextLine().split(" ");
+                if (line.length == 1) { //state == 0
+                    temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
+                    temp.next.precedent = temp;
+                    temp = temp.next;
+                } else if (line.length == 2) {//(state == 1) or (state == 0 and actual state)
+                    if (line[1].equals("*")) {
+                        temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
                         temp.next.precedent = temp;
                         temp = temp.next;
                         save = temp;
@@ -88,11 +84,11 @@ public class QuartoFile {
                     temp.next.precedent = temp;
                     temp = temp.next;
                     save = temp;
-				}
-			}
-			s.close();
-		} catch (FileNotFoundException e) {
-			System.err.println("impossible de trouver le fichier " + fileName);
-		}
+                }
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("impossible de trouver le fichier " + fileName);
+        }
     }
 }
