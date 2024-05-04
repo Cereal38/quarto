@@ -42,8 +42,8 @@ public class MainFrame extends JFrame implements ActionListener {
     add(mainPanel);
 
     // TODO: Remove this test dialog
-    // dialog = new DialogPanel(this);
-    // getLayeredPane().add(dialog, JLayeredPane.PALETTE_LAYER);
+    dialog = new DialogPanel(this);
+    getLayeredPane().add(dialog, -1);
 
     setVisible(true);
 

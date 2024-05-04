@@ -2,29 +2,33 @@ package src.views.components;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * A custom JPanel class that represents a dialog panel. This panel is used to
+ * display a dialog with buttons and options.
+ */
 public class DialogPanel extends JPanel {
 
   public DialogPanel(JFrame main) {
 
     // Setup the background component (main component)
+    setLayout(new GridBagLayout());
     setBackground(new Color(0, 0, 0, 0.5f));
     setBounds(0, 0, main.getWidth(), main.getHeight());
-
-    setLayout(new GridLayout(3, 3));
+    setVisible(true); // TODO: Make it visible only when needed
 
     // Setup the dialog
     JPanel dialog = new JPanel();
     dialog.setLayout(new BorderLayout());
-    dialog.setBounds(100, 100, 400, 200);
-    dialog.setVisible(true);
+    dialog.setPreferredSize(new Dimension(main.getWidth() / 2, main.getHeight() / 2));
+    dialog.setBackground(Color.RED);
 
     JButton abandanButton = new JButton("Abandon");
     JButton restartButton = new JButton("Restart");
@@ -38,21 +42,15 @@ public class DialogPanel extends JPanel {
     dialog.add(saveButton, BorderLayout.NORTH);
     dialog.add(rulesButton, BorderLayout.CENTER);
 
-    add(new JLabel(""));
-    add(new JLabel(""));
-    add(new JLabel(""));
-    add(new JLabel(""));
+    // Add the dialog to the container
     add(dialog);
-    add(new JLabel(""));
-    add(new JLabel(""));
-    add(new JLabel(""));
-    add(new JLabel(""));
 
     // Allow to resize the menu when the main frame is resized
     main.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
         setBounds(0, 0, main.getWidth(), main.getHeight());
+        dialog.setPreferredSize(new Dimension(main.getWidth() / 2, main.getHeight() / 2));
       }
     });
 
