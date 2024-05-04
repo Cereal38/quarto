@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -58,24 +57,9 @@ public class MainFrame extends JFrame implements ActionListener {
     String command = e.getActionCommand();
 
     switch (command) {
-    case "Pause Menu":
-      dialog.setContent(new PauseDialogContent());
-      break;
     case "Main Menu":
       dialog.setVisible(false);
       cardLayout.show(mainPanel, "MainMenu");
-      break;
-    case "Music":
-      JPanel musicDialog = new JPanel();
-      JLabel musicLabel = new JLabel("Music");
-      musicDialog.add(musicLabel);
-      dialog.setContent(musicDialog);
-      break;
-    case "Manual":
-      JPanel manualDialog = new JPanel();
-      JLabel manualLabel = new JLabel("Manual");
-      manualDialog.add(manualLabel);
-      dialog.setContent(manualDialog);
       break;
     case "Quit":
       System.exit(0);

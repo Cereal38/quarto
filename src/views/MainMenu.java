@@ -12,9 +12,9 @@ import src.views.components.GridCenterPanel;
 import src.views.components.TranslatedString;
 
 public class MainMenu extends JPanel {
-  private JButton btnPvP;
-  private JButton btnPvC;
-  private JButton btnLoad;
+  private JButton btnPvP = new JButton();
+  private JButton btnPvC = new JButton();
+  private JButton btnLoad = new JButton();
 
   public MainMenu(ActionListener actionListener) {
     setLayout(new BorderLayout());
@@ -23,7 +23,6 @@ public class MainMenu extends JPanel {
     add(navbar, BorderLayout.NORTH);
 
     // Player vs Player button
-    btnPvP = new JButton();
     TranslatedString translatedBtnPlayer = new TranslatedString("pvp", btnPvP);
     btnPvP.setText(translatedBtnPlayer.getText());
     btnPvP.addActionListener(e -> {
@@ -31,7 +30,6 @@ public class MainMenu extends JPanel {
     });
 
     // Player vs Computer button
-    btnPvC = new JButton();
     TranslatedString translatedBtnAi = new TranslatedString("pvc", btnPvC);
     btnPvC.setText(translatedBtnAi.getText());
     btnPvC.addActionListener(e -> {
@@ -39,7 +37,6 @@ public class MainMenu extends JPanel {
     });
 
     // Load button
-    btnLoad = new JButton();
     TranslatedString translatedBtnLoad = new TranslatedString("load", btnLoad);
     btnLoad.setText(translatedBtnLoad.getText());
 

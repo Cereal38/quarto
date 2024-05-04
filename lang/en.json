@@ -2,5 +2,10 @@
   "pvp": "2 players",
   "pvc": "1 player",
   "load": "Load",
-  "pause": "Pause"
+  "pause": "Pause",
+  "abandon": "Give up",
+  "restart": "Restart",
+  "save": "Save",
+  "rules": "Rules",
+  "main-menu": "Main menu"
 }

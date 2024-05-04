@@ -42,4 +42,11 @@ public class EventsHandler {
     dialog.setContent(dialogContent);
     dialog.setVisible(true);
   }
+
+  /**
+   * Hides the dialog.
+   */
+  public static void hideDialog() {
+    dialog.setVisible(false);
+  }
 }

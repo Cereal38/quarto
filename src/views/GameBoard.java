@@ -12,7 +12,7 @@ import src.views.components.TranslatedString;
 public class GameBoard extends JPanel {
   private JButton btnUndo;
   private JButton btnRedo;
-  private JButton btnPause;
+  private JButton btnPause = new JButton();
 
   public GameBoard(ActionListener actionListener) {
     setLayout(new BorderLayout());
@@ -23,7 +23,6 @@ public class GameBoard extends JPanel {
     btnRedo = new JButton("Redo");
 
     // Pause button
-    btnPause = new JButton();
     TranslatedString translatedBtnPause = new TranslatedString("pause", btnPause);
     btnPause.setText(translatedBtnPause.getText());
     btnPause.addActionListener(e -> {
