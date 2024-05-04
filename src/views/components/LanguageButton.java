@@ -5,6 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.utils.ImageUtils;
+import src.views.utils.LangUtils;
 
 public class LanguageButton extends JButton {
 
@@ -31,8 +32,10 @@ public class LanguageButton extends JButton {
       // Change icon
       if (lang == LANG_EN) {
         setIcon(frImg);
+        LangUtils.setLang(LANG_EN);
       } else if (lang == LANG_FR) {
         setIcon(enImg);
+        LangUtils.setLang(LANG_FR);
       }
       lang = (lang + 1) % 2;
       // Call the main action listener

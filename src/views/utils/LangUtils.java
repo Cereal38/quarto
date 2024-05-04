@@ -3,14 +3,39 @@ package src.views.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import src.views.listeners.LanguageChangeListener;
 
 public class LangUtils {
 
   private static final int LANG_EN = 0;
   private static final int LANG_FR = 1;
-  public static int lang = 0;
+  public static int lang = LANG_EN;
+
+  private static final List<LanguageChangeListener> listeners = new ArrayList<>();
+
+  public static void addLanguageChangeListener(LanguageChangeListener listener) {
+    listeners.add(listener);
+  }
+
+  public static void removeLanguageChangeListener(LanguageChangeListener listener) {
+    listeners.remove(listener);
+  }
+
+  /**
+   * Sets the language to the given language.
+   *
+   * @param lang the language to set
+   */
+  public static void setLang(int lang) {
+    LangUtils.lang = lang;
+    for (LanguageChangeListener listener : listeners) {
+      listener.updateText();
+    }
+  }
 
   /**
    * Retrieves the text associated with the given key. If the key is not found in
@@ -38,6 +63,13 @@ public class LangUtils {
     }
 
     return result;
+  }
+
+  /**
+   * Return the language
+   */
+  public static String getLang() {
+    return lang == LANG_EN ? "English" : "French";
   }
 
   /**

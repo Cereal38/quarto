@@ -79,9 +79,10 @@ public class MainFrame extends JFrame implements ActionListener {
       System.exit(0);
       break;
     case "DarkMode":
-      toggleTheme(); // Changer le thème
+      toggleTheme();
       break;
-    // Autres actions
+    case "Language":
+      break;
     default:
       break;
     }

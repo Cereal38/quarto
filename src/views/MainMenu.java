@@ -8,11 +8,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.GridCenterPanel;
+import src.views.components.TextLabel;
+import src.views.utils.LangUtils;
 
 public class MainMenu extends JPanel {
   private JButton btnPlayerVsPlayer;
   private JButton btnPlayerVsAi;
-  private JButton btnLoad;
+  private TextLabel btnLoad;
 
   public MainMenu(ActionListener actionListener) {
     setLayout(new BorderLayout());
@@ -23,7 +25,8 @@ public class MainMenu extends JPanel {
     // Button of the menu
     btnPlayerVsPlayer = new JButton("Player vs Player");
     btnPlayerVsAi = new JButton("Player vs AI");
-    btnLoad = new JButton("Load");
+    btnLoad = new TextLabel("load");
+    LangUtils.addLanguageChangeListener(btnLoad);
 
     // Menu centered on the screen
     // The menu is at the middle of a 3x3 grid
@@ -45,7 +48,7 @@ public class MainMenu extends JPanel {
     // Ajout des action listeners
     btnPlayerVsPlayer.addActionListener(actionListener);
     btnPlayerVsAi.addActionListener(actionListener);
-    btnLoad.addActionListener(actionListener);
+    // btnLoad.addActionListener(actionListener);
 
   }
 
