@@ -30,10 +30,6 @@ public class MainFrame extends JFrame implements ActionListener {
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
 
-    // Setup the EventsHandler
-    EventsHandler.setCardLayout(cardLayout);
-    EventsHandler.setMainPanel(mainPanel);
-
     // Créer les différentes interfaces
     mainMenu = new MainMenu(this);
     gameBoard = new GameBoard(this);
@@ -47,8 +43,12 @@ public class MainFrame extends JFrame implements ActionListener {
     // Init the dialog panel (Multi-purpose dialog panel)
     dialog = new DialogPanel(this);
     dialog.setVisible(false);
-
     getLayeredPane().add(dialog, -1);
+
+    // Setup the EventsHandler
+    EventsHandler.setCardLayout(cardLayout);
+    EventsHandler.setMainPanel(mainPanel);
+    EventsHandler.setDialog(dialog);
 
     setVisible(true);
   }
@@ -58,14 +58,8 @@ public class MainFrame extends JFrame implements ActionListener {
     String command = e.getActionCommand();
 
     switch (command) {
-    case "pvp":
-      cardLayout.show(mainPanel, "GameBoard");
-      break;
-    case "pvc":
-      cardLayout.show(mainPanel, "GameBoard");
-      break;
     case "Pause Menu":
-      dialog.setContent(new PauseDialogContent(this));
+      dialog.setContent(new PauseDialogContent());
       break;
     case "Main Menu":
       dialog.setVisible(false);

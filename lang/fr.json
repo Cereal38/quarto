@@ -1,5 +1,6 @@
 {
   "pvp": "2 joueurs",
   "pvc": "1 joueur",
-  "load": "Charger"
+  "load": "Charger",
+  "pause": "Pause"
 }

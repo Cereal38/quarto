@@ -6,11 +6,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import src.views.components.EventsHandler;
+import src.views.components.TranslatedString;
 
 public class GameBoard extends JPanel {
   private JButton btnUndo;
   private JButton btnRedo;
-  private JButton btnPauseMenu;
+  private JButton btnPause;
 
   public GameBoard(ActionListener actionListener) {
     setLayout(new BorderLayout());
@@ -19,11 +21,18 @@ public class GameBoard extends JPanel {
     JPanel navbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
     btnUndo = new JButton("Undo");
     btnRedo = new JButton("Redo");
-    btnPauseMenu = new JButton("Pause Menu");
+
+    // Pause button
+    btnPause = new JButton();
+    TranslatedString translatedBtnPause = new TranslatedString("pause", btnPause);
+    btnPause.setText(translatedBtnPause.getText());
+    btnPause.addActionListener(e -> {
+      EventsHandler.showDialog(new PauseDialogContent());
+    });
 
     navbar.add(btnUndo);
     navbar.add(btnRedo);
-    navbar.add(btnPauseMenu);
+    navbar.add(btnPause);
 
     add(navbar, BorderLayout.NORTH);
 
@@ -47,6 +56,6 @@ public class GameBoard extends JPanel {
     // Ajout des action listeners
     btnUndo.addActionListener(actionListener);
     btnRedo.addActionListener(actionListener);
-    btnPauseMenu.addActionListener(actionListener);
+    btnPause.addActionListener(actionListener);
   }
 }

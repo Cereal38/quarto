@@ -30,9 +30,15 @@ public class MainMenu extends JPanel {
       EventsHandler.navigate("GameBoard");
     });
 
+    // Player vs Computer button
     btnPvC = new JButton();
     TranslatedString translatedBtnAi = new TranslatedString("pvc", btnPvC);
     btnPvC.setText(translatedBtnAi.getText());
+    btnPvC.addActionListener(e -> {
+      EventsHandler.navigate("GameBoard");
+    });
+
+    // Load button
     btnLoad = new JButton();
     TranslatedString translatedBtnLoad = new TranslatedString("load", btnLoad);
     btnLoad.setText(translatedBtnLoad.getText());
@@ -53,11 +59,6 @@ public class MainMenu extends JPanel {
     menu.add(btnPvP);
     menu.add(btnPvC);
     menu.add(btnLoad);
-
-    // Ajout des action listeners
-    btnPvP.addActionListener(actionListener);
-    btnPvC.addActionListener(actionListener);
-    btnLoad.addActionListener(actionListener);
 
   }
 
