@@ -3,11 +3,9 @@ package src.views;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import src.views.utils.ImageUtils;
 
 public class TopBarMainMenu extends JPanel {

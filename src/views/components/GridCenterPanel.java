@@ -1,7 +1,6 @@
 package src.views.components;
 
 import java.awt.GridLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

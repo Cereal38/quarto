@@ -13,7 +13,7 @@ import src.views.components.GridCenterPanel;
 
 public class MainMenu extends JPanel {
   private JButton btnPlayerVsPlayer;
-  private JButton btnPlayerVsAI;
+  private JButton btnPlayerVsAi;
   private JButton btnLoad;
 
   public MainMenu(ActionListener actionListener) {
@@ -24,7 +24,7 @@ public class MainMenu extends JPanel {
 
     // Button of the menu
     btnPlayerVsPlayer = new JButton("Player vs Player");
-    btnPlayerVsAI = new JButton("Player vs AI");
+    btnPlayerVsAi = new JButton("Player vs AI");
     btnLoad = new JButton("Load");
 
     // Menu centered on the screen
@@ -41,12 +41,12 @@ public class MainMenu extends JPanel {
     titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
     menu.add(titleLabel);
     menu.add(btnPlayerVsPlayer);
-    menu.add(btnPlayerVsAI);
+    menu.add(btnPlayerVsAi);
     menu.add(btnLoad);
 
     // Ajout des action listeners
     btnPlayerVsPlayer.addActionListener(actionListener);
-    btnPlayerVsAI.addActionListener(actionListener);
+    btnPlayerVsAi.addActionListener(actionListener);
     btnLoad.addActionListener(actionListener);
 
   }
