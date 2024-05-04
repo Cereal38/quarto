@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -41,14 +42,9 @@ public class MainFrame extends JFrame implements ActionListener {
 
     add(mainPanel);
 
-    // TODO: Remove this test dialog
-    // dialog = new DialogPanel(this);
-    // JPanel test = new JPanel();
-    // JButton b1 = new JButton("Test");
-    // JButton b2 = new JButton("Test 2");
-    // test.add(b1);
-    // test.add(b2);
-    // dialog.setContent(test);
+    // Init the dialog panel (Multi-purpose dialog panel)
+    dialog = new DialogPanel(this);
+    dialog.setVisible(false);
 
     getLayeredPane().add(dialog, -1);
 
@@ -69,6 +65,22 @@ public class MainFrame extends JFrame implements ActionListener {
       break;
     case "Main Menu":
       cardLayout.show(mainPanel, "MainMenu");
+      break;
+    case "Music":
+      // TODO: Template code - Remove later
+      JPanel musicDialog = new JPanel();
+      JLabel musicLabel = new JLabel("Music");
+      musicDialog.add(musicLabel);
+      dialog.setContent(musicDialog);
+      dialog.setVisible(true);
+      break;
+    case "Manual":
+      // TODO: Template code - Remove later
+      JPanel manualDialog = new JPanel();
+      JLabel manualLabel = new JLabel("Manual");
+      manualDialog.add(manualLabel);
+      dialog.setContent(manualDialog);
+      dialog.setVisible(true);
       break;
     case "Quit":
       System.exit(0);

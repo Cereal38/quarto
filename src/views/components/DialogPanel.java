@@ -25,7 +25,6 @@ public class DialogPanel extends JPanel {
     setLayout(new GridBagLayout());
     setBackground(new Color(0, 0, 0, 0.5f));
     setBounds(0, 0, main.getWidth(), main.getHeight());
-    setVisible(true);
 
     // Setup the dialog
     dialog = new JPanel();
@@ -67,5 +66,16 @@ public class DialogPanel extends JPanel {
     dialog.add(content, BorderLayout.CENTER);
     dialog.revalidate();
     dialog.repaint();
+  }
+
+  /**
+   * Sets the visibility of the dialog panel.
+   * 
+   * @param visible the visibility of the dialog panel
+   */
+  @Override
+  public void setVisible(boolean visible) {
+    super.setVisible(visible);
+    dialog.setVisible(visible);
   }
 }
