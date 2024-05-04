@@ -2,6 +2,7 @@ package src.views;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
@@ -89,6 +90,7 @@ public class MainMenu extends JPanel {
 
     JLabel titleLabel = new JLabel("Quarto");
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
+    titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
     menu.add(titleLabel);
     menu.add(btnPlayerVsPlayer);
     menu.add(btnPlayerVsAI);
