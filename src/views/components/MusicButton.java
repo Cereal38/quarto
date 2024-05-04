@@ -8,7 +8,10 @@ import src.views.utils.ImageUtils;
 
 public class MusicButton extends JButton {
 
+  private boolean isMusicOn;
+
   public MusicButton(ActionListener actionListener) {
+    isMusicOn = true;
 
     // Load icons
     ImageIcon musicOnImg = ImageUtils.loadImage("music-on.png", 30, 30);
@@ -21,8 +24,16 @@ public class MusicButton extends JButton {
 
     // Add action
     setActionCommand("Music");
-    addActionListener(actionListener);
-
+    addActionListener(e -> {
+      // Change icon
+      if (isMusicOn) {
+        setIcon(musicOffImg);
+      } else {
+        setIcon(musicOnImg);
+      }
+      isMusicOn = !isMusicOn;
+      // Call the main action listener
+      actionListener.actionPerformed(e);
+    });
   }
-
 }

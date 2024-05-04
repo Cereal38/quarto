@@ -22,6 +22,7 @@ public class TopBarMainMenu extends JPanel {
     ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
 
     // Create buttons
+    // TODO: Move all buttons to a separate class
     musicButton = new MusicButton(actionListener);
     modeButton = ImageUtils.createButtonFromImage(darkImg);
     langButton = ImageUtils.createButtonFromImage(enImg);
