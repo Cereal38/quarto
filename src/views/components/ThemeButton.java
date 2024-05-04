@@ -1,6 +1,5 @@
 package src.views.components;
 
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,7 +9,7 @@ public class ThemeButton extends JButton {
 
   private boolean isLightTheme;
 
-  public ThemeButton(ActionListener actionListener) {
+  public ThemeButton() {
     isLightTheme = true;
 
     // Load icons

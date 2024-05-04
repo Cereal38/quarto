@@ -1,6 +1,5 @@
 package src.views.components;
 
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,7 +9,7 @@ public class MusicButton extends JButton {
 
   private boolean isMusicOn;
 
-  public MusicButton(ActionListener actionListener) {
+  public MusicButton() {
     isMusicOn = true;
 
     // Load icons
@@ -32,8 +31,6 @@ public class MusicButton extends JButton {
         setIcon(musicOnImg);
       }
       isMusicOn = !isMusicOn;
-      // Call the main action listener
-      actionListener.actionPerformed(e);
     });
   }
 }

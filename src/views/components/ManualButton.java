@@ -1,6 +1,5 @@
 package src.views.components;
 
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -8,7 +7,7 @@ import src.views.utils.ImageUtils;
 
 public class ManualButton extends JButton {
 
-  public ManualButton(ActionListener actionListener) {
+  public ManualButton() {
 
     // Load icon
     ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
@@ -21,6 +20,7 @@ public class ManualButton extends JButton {
     // Add action
     setActionCommand("Manual");
 
-    addActionListener(actionListener);
+    addActionListener(e -> {
+    });
   }
 }

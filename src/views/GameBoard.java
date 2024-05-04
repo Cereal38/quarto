@@ -3,7 +3,6 @@ package src.views;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import src.views.components.EventsHandler;
@@ -14,7 +13,7 @@ public class GameBoard extends JPanel {
   private JButton btnRedo = new JButton();
   private JButton btnPause = new JButton();
 
-  public GameBoard(ActionListener actionListener) {
+  public GameBoard() {
     setLayout(new BorderLayout());
 
     // Navbar with undo, redo and pause buttons
@@ -58,9 +57,5 @@ public class GameBoard extends JPanel {
 
     add(pieces, BorderLayout.SOUTH);
 
-    // Ajout des action listeners
-    btnUndo.addActionListener(actionListener);
-    btnRedo.addActionListener(actionListener);
-    btnPause.addActionListener(actionListener);
   }
 }

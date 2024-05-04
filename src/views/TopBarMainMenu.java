@@ -2,7 +2,6 @@ package src.views;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import src.views.components.ExitButton;
@@ -15,14 +14,14 @@ public class TopBarMainMenu extends JPanel {
 
   private JButton musicButton, langButton, modeButton, exitButton, bookButton;
 
-  public TopBarMainMenu(ActionListener actionListener) {
+  public TopBarMainMenu() {
 
     // Create buttons
-    musicButton = new MusicButton(actionListener);
-    modeButton = new ThemeButton(actionListener);
-    langButton = new LanguageButton(actionListener);
-    exitButton = new ExitButton(actionListener);
-    bookButton = new ManualButton(actionListener);
+    musicButton = new MusicButton();
+    modeButton = new ThemeButton();
+    langButton = new LanguageButton();
+    exitButton = new ExitButton();
+    bookButton = new ManualButton();
 
     // Buttons aligned on the left
     JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 10));

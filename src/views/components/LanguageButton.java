@@ -1,6 +1,5 @@
 package src.views.components;
 
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,7 +12,7 @@ public class LanguageButton extends JButton {
   private static final int LANG_FR = 1;
   private int lang = LANG_EN;
 
-  public LanguageButton(ActionListener actionListener) {
+  public LanguageButton() {
 
     // Load icons
     ImageIcon frImg = ImageUtils.loadImage("fr.png", 30, 30);
@@ -36,8 +35,6 @@ public class LanguageButton extends JButton {
         LangUtils.setLang(LANG_EN);
       }
       lang = (lang + 1) % 2;
-      // Call the main action listener
-      actionListener.actionPerformed(e);
     });
   }
 }

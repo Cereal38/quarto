@@ -1,6 +1,5 @@
 package src.views.components;
 
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -8,7 +7,7 @@ import src.views.utils.ImageUtils;
 
 public class ExitButton extends JButton {
 
-  public ExitButton(ActionListener actionListener) {
+  public ExitButton() {
     // Load
     ImageIcon exitImg = ImageUtils.loadImage("exit.png", 30, 30);
 
@@ -20,6 +19,8 @@ public class ExitButton extends JButton {
     // Add action
     setActionCommand("Quit");
 
-    addActionListener(actionListener);
+    addActionListener(e -> {
+      System.exit(0);
+    });
   }
 }

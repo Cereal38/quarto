@@ -3,7 +3,6 @@ package src.views;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,10 +15,10 @@ public class MainMenu extends JPanel {
   private JButton btnPvC = new JButton();
   private JButton btnLoad = new JButton();
 
-  public MainMenu(ActionListener actionListener) {
+  public MainMenu() {
     setLayout(new BorderLayout());
 
-    JPanel navbar = new TopBarMainMenu(actionListener);
+    JPanel navbar = new TopBarMainMenu();
     add(navbar, BorderLayout.NORTH);
 
     // Player vs Player button
