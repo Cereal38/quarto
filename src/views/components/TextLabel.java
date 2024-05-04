@@ -15,7 +15,6 @@ public class TextLabel extends JLabel implements LanguageChangeListener {
 
   @Override
   public void updateText() {
-    System.out.println(key);
     setText(LangUtils.getText(key));
   }
 }

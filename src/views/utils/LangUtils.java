@@ -9,18 +9,34 @@ import java.util.List;
 import java.util.Map;
 import src.views.listeners.LanguageChangeListener;
 
+/**
+ * The LangUtils class provides utility methods for language-related operations.
+ */
 public class LangUtils {
 
   private static final int LANG_EN = 0;
   private static final int LANG_FR = 1;
   public static int lang = LANG_EN;
 
+  /**
+   * The list of language change listeners.
+   */
   private static final List<LanguageChangeListener> listeners = new ArrayList<>();
 
+  /**
+   * Adds a language change listener to the list of listeners.
+   *
+   * @param listener the language change listener to be added
+   */
   public static void addLanguageChangeListener(LanguageChangeListener listener) {
     listeners.add(listener);
   }
 
+  /**
+   * Removes a language change listener from the list of registered listeners.
+   *
+   * @param listener the language change listener to be removed
+   */
   public static void removeLanguageChangeListener(LanguageChangeListener listener) {
     listeners.remove(listener);
   }
