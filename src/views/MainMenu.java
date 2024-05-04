@@ -22,8 +22,12 @@ public class MainMenu extends JPanel {
     add(navbar, BorderLayout.NORTH);
 
     // Button of the menu
-    btnPlayerVsPlayer = new JButton("Player vs Player");
-    btnPlayerVsAi = new JButton("Player vs AI");
+    btnPlayerVsPlayer = new JButton();
+    TranslatedString translatedBtnPlayer = new TranslatedString("pvp", btnPlayerVsPlayer);
+    btnPlayerVsPlayer.setText(translatedBtnPlayer.getText());
+    btnPlayerVsAi = new JButton();
+    TranslatedString translatedBtnAi = new TranslatedString("pvc", btnPlayerVsAi);
+    btnPlayerVsAi.setText(translatedBtnAi.getText());
     btnLoad = new JButton();
     TranslatedString translatedBtnLoad = new TranslatedString("load", btnLoad);
     btnLoad.setText(translatedBtnLoad.getText());

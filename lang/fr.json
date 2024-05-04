@@ -1,4 +1,5 @@
 {
-  "load": "Charger",
-  "foo": "barre"
+  "pvp": "2 joueurs",
+  "pvc": "1 joueur",
+  "load": "Charger"
 }
