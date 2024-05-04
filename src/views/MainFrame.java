@@ -17,7 +17,6 @@ public class MainFrame extends JFrame implements ActionListener {
   private JPanel mainPanel;
   private MainMenu mainMenu;
   private GameBoard gameBoard;
-  private PauseMenu pauseMenu;
   private boolean isDarkTheme = false;
   private DialogPanel dialog;
 
@@ -58,21 +57,19 @@ public class MainFrame extends JFrame implements ActionListener {
       cardLayout.show(mainPanel, "GameBoard");
       break;
     case "Pause Menu":
-      dialog.setContent(new PauseMenu(this));
+      dialog.setContent(new PauseDialogContent(this));
       break;
     case "Main Menu":
       dialog.setVisible(false);
       cardLayout.show(mainPanel, "MainMenu");
       break;
     case "Music":
-      // TODO: Template code - Remove later
       JPanel musicDialog = new JPanel();
       JLabel musicLabel = new JLabel("Music");
       musicDialog.add(musicLabel);
       dialog.setContent(musicDialog);
       break;
     case "Manual":
-      // TODO: Template code - Remove later
       JPanel manualDialog = new JPanel();
       JLabel manualLabel = new JLabel("Manual");
       manualDialog.add(manualLabel);

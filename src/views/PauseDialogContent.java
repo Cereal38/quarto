@@ -5,14 +5,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class PauseMenu extends JPanel {
+public class PauseDialogContent extends JPanel {
   private JButton btnAbandon;
   private JButton btnRestart;
   private JButton btnSave;
   private JButton btnRules;
   private JButton btnMainMenu;
 
-  public PauseMenu(ActionListener actionListener) {
+  public PauseDialogContent(ActionListener actionListener) {
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     btnAbandon = new JButton("Abandon");
