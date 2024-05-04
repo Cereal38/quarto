@@ -33,8 +33,7 @@ public class ThemeButton extends JButton {
         setIcon(darkImg);
       }
       isLightTheme = !isLightTheme;
-      // Call the main action listener
-      actionListener.actionPerformed(e);
+      EventsHandler.toggleTheme();
     });
   }
 }
