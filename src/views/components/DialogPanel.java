@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,7 +24,7 @@ public class DialogPanel extends JPanel {
     setLayout(new GridBagLayout());
     setBackground(new Color(0, 0, 0, 0.5f));
     setBounds(0, 0, main.getWidth(), main.getHeight());
-    setVisible(true); // TODO: Make it visible only when needed
+    setVisible(true);
 
     // Setup the dialog
     JPanel dialog = new JPanel();
@@ -51,6 +53,16 @@ public class DialogPanel extends JPanel {
       public void componentResized(ComponentEvent e) {
         setBounds(0, 0, main.getWidth(), main.getHeight());
         dialog.setPreferredSize(new Dimension(main.getWidth() / 2, main.getHeight() / 2));
+      }
+    });
+
+    // Disable clicks outside the dialog area
+    addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        if (!dialog.getBounds().contains(e.getPoint())) {
+          setVisible(false);
+        }
       }
     });
 
