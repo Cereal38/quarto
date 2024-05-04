@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import src.views.components.ExitButton;
 import src.views.components.LanguageButton;
 import src.views.components.MusicButton;
 import src.views.components.ThemeButton;
@@ -16,7 +17,6 @@ public class TopBarMainMenu extends JPanel {
   private JButton musicButton, langButton, modeButton, exitButton, bookButton;
 
   public TopBarMainMenu(ActionListener actionListener) {
-    ImageIcon exitImg = ImageUtils.loadImage("exit.png", 30, 30);
 
     ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
 
@@ -25,11 +25,10 @@ public class TopBarMainMenu extends JPanel {
     musicButton = new MusicButton(actionListener);
     modeButton = new ThemeButton(actionListener);
     langButton = new LanguageButton(actionListener);
-    exitButton = ImageUtils.createButtonFromImage(exitImg);
+    exitButton = new ExitButton(actionListener);
     bookButton = ImageUtils.createButtonFromImage(bookImg);
 
     // Add actions to buttons
-    exitButton.setActionCommand("Quit");
     bookButton.setActionCommand("Manual");
     exitButton.addActionListener(actionListener);
     bookButton.addActionListener(actionListener);
