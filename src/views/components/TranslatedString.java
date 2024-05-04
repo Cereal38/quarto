@@ -72,7 +72,6 @@ public class TranslatedString implements LanguageChangeListener {
    */
   @Override
   public void updateText() {
-    System.out.println("Updating text for key: " + LangUtils.getText(key));
     text = LangUtils.getText(key);
     if (button != null) {
       button.setText(text);
