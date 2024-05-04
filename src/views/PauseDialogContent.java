@@ -1,7 +1,7 @@
 package src.views;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -13,7 +13,7 @@ public class PauseDialogContent extends JPanel {
   private JButton btnMainMenu;
 
   public PauseDialogContent(ActionListener actionListener) {
-    setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    setLayout(new GridLayout(0, 1));
 
     btnAbandon = new JButton("Abandon");
     btnRestart = new JButton("Restart");
