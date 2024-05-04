@@ -53,7 +53,10 @@ public class MainFrame extends JFrame implements ActionListener {
     String command = e.getActionCommand();
 
     switch (command) {
-    case "Player vs Player":
+    case "pvp":
+      cardLayout.show(mainPanel, "GameBoard");
+      break;
+    case "pvc":
       cardLayout.show(mainPanel, "GameBoard");
       break;
     case "Pause Menu":

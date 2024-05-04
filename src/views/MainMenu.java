@@ -11,8 +11,8 @@ import src.views.components.GridCenterPanel;
 import src.views.components.TranslatedString;
 
 public class MainMenu extends JPanel {
-  private JButton btnPlayerVsPlayer;
-  private JButton btnPlayerVsAi;
+  private JButton btnPvP;
+  private JButton btnPvC;
   private JButton btnLoad;
 
   public MainMenu(ActionListener actionListener) {
@@ -22,12 +22,12 @@ public class MainMenu extends JPanel {
     add(navbar, BorderLayout.NORTH);
 
     // Button of the menu
-    btnPlayerVsPlayer = new JButton();
-    TranslatedString translatedBtnPlayer = new TranslatedString("pvp", btnPlayerVsPlayer);
-    btnPlayerVsPlayer.setText(translatedBtnPlayer.getText());
-    btnPlayerVsAi = new JButton();
-    TranslatedString translatedBtnAi = new TranslatedString("pvc", btnPlayerVsAi);
-    btnPlayerVsAi.setText(translatedBtnAi.getText());
+    btnPvP = new JButton();
+    TranslatedString translatedBtnPlayer = new TranslatedString("pvp", btnPvP);
+    btnPvP.setText(translatedBtnPlayer.getText());
+    btnPvC = new JButton();
+    TranslatedString translatedBtnAi = new TranslatedString("pvc", btnPvC);
+    btnPvC.setText(translatedBtnAi.getText());
     btnLoad = new JButton();
     TranslatedString translatedBtnLoad = new TranslatedString("load", btnLoad);
     btnLoad.setText(translatedBtnLoad.getText());
@@ -45,14 +45,14 @@ public class MainMenu extends JPanel {
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
     titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
     menu.add(titleLabel);
-    menu.add(btnPlayerVsPlayer);
-    menu.add(btnPlayerVsAi);
+    menu.add(btnPvP);
+    menu.add(btnPvC);
     menu.add(btnLoad);
 
     // Ajout des action listeners
-    btnPlayerVsPlayer.addActionListener(actionListener);
-    btnPlayerVsAi.addActionListener(actionListener);
-    // btnLoad.addActionListener(actionListener);
+    btnPvP.addActionListener(actionListener);
+    btnPvC.addActionListener(actionListener);
+    btnLoad.addActionListener(actionListener);
 
   }
 
