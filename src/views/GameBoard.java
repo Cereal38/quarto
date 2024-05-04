@@ -10,17 +10,23 @@ import src.views.components.EventsHandler;
 import src.views.components.TranslatedString;
 
 public class GameBoard extends JPanel {
-  private JButton btnUndo;
-  private JButton btnRedo;
+  private JButton btnUndo = new JButton();
+  private JButton btnRedo = new JButton();
   private JButton btnPause = new JButton();
 
   public GameBoard(ActionListener actionListener) {
     setLayout(new BorderLayout());
 
-    // Navbar avec les boutons d'undo, redo, et pause
+    // Navbar with undo, redo and pause buttons
     JPanel navbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    btnUndo = new JButton("Undo");
-    btnRedo = new JButton("Redo");
+
+    // Undo button
+    TranslatedString translatedBtnUndo = new TranslatedString("undo", btnUndo);
+    btnUndo.setText(translatedBtnUndo.getText());
+
+    // Redo button
+    TranslatedString translatedBtnRedo = new TranslatedString("redo", btnRedo);
+    btnRedo.setText(translatedBtnRedo.getText());
 
     // Pause button
     TranslatedString translatedBtnPause = new TranslatedString("pause", btnPause);

@@ -2,6 +2,8 @@
   "pvp": "2 joueurs",
   "pvc": "1 joueur",
   "load": "Charger",
+  "undo": "Annuler",
+  "redo": "Refaire",
   "pause": "Pause",
   "abandon": "Abandonner",
   "restart": "Recommencer",
