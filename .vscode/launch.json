@@ -9,7 +9,7 @@
           "type": "java",
           "name": "Main",
           "request": "launch",
-          "mainClass": "src.Main",
+          "mainClass": "",
           "projectName": "quarto"
       }
   ]
