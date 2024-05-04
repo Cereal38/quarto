@@ -18,7 +18,6 @@ public class TopBarMainMenu extends JPanel {
   public TopBarMainMenu(ActionListener actionListener) {
 
     // Create buttons
-    // TODO: Move all buttons to a separate class
     musicButton = new MusicButton(actionListener);
     modeButton = new ThemeButton(actionListener);
     langButton = new LanguageButton(actionListener);

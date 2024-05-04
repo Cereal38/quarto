@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import src.views.components.DialogPanel;
 
 public class MainFrame extends JFrame implements ActionListener {
   private CardLayout cardLayout;
@@ -17,6 +18,7 @@ public class MainFrame extends JFrame implements ActionListener {
   private GameBoard gameBoard;
   private PauseMenu pauseMenu;
   private boolean isDarkTheme = false;
+  private DialogPanel dialog;
 
   public MainFrame() {
     setTitle("Quarto Game");
@@ -39,7 +41,12 @@ public class MainFrame extends JFrame implements ActionListener {
 
     add(mainPanel);
 
+    // TODO: Remove this test dialog
+    // dialog = new DialogPanel(this);
+    // getLayeredPane().add(dialog, JLayeredPane.PALETTE_LAYER);
+
     setVisible(true);
+
   }
 
   @Override
