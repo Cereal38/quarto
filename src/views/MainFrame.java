@@ -22,11 +22,11 @@ public class MainFrame extends JFrame {
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
 
-    // Créer les différentes interfaces
+    // Create app pages
     mainMenu = new MainMenu();
     gameBoard = new GameBoard();
 
-    // Ajouter les interfaces au conteneur principal
+    // Add pages to the main panel
     mainPanel.add(mainMenu, "MainMenu");
     mainPanel.add(gameBoard, "GameBoard");
 
