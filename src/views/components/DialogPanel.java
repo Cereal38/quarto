@@ -8,15 +8,16 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
  * A custom JPanel class that represents a dialog panel. This panel is used to
- * display a dialog with buttons and options.
+ * display a custom dialog on top of the main frame.
  */
 public class DialogPanel extends JPanel {
+
+  private JPanel dialog;
 
   public DialogPanel(JFrame main) {
 
@@ -27,22 +28,10 @@ public class DialogPanel extends JPanel {
     setVisible(true);
 
     // Setup the dialog
-    JPanel dialog = new JPanel();
+    dialog = new JPanel();
     dialog.setLayout(new BorderLayout());
     dialog.setPreferredSize(new Dimension(main.getWidth() / 2, main.getHeight() / 2));
     dialog.setBackground(Color.RED);
-
-    JButton abandanButton = new JButton("Abandon");
-    JButton restartButton = new JButton("Restart");
-    JButton saveButton = new JButton("Save");
-    JButton rulesButton = new JButton("Rules");
-    JButton mainMenuButton = new JButton("Main Menu");
-
-    dialog.add(mainMenuButton, BorderLayout.SOUTH);
-    dialog.add(abandanButton, BorderLayout.LINE_START);
-    dialog.add(restartButton, BorderLayout.LINE_END);
-    dialog.add(saveButton, BorderLayout.NORTH);
-    dialog.add(rulesButton, BorderLayout.CENTER);
 
     // Add the dialog to the container
     add(dialog);
@@ -66,5 +55,17 @@ public class DialogPanel extends JPanel {
       }
     });
 
+  }
+
+  /**
+   * Sets the content of the dialog panel.
+   * 
+   * @param content the panel representing the content of the dialog
+   */
+  public void setContent(JPanel content) {
+    dialog.removeAll();
+    dialog.add(content, BorderLayout.CENTER);
+    dialog.revalidate();
+    dialog.repaint();
   }
 }
