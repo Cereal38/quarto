@@ -4,11 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import src.views.components.GridCenterPanel;
 
 public class MainMenu extends JPanel {
