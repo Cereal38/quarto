@@ -3,14 +3,13 @@ package src.views;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import src.views.components.ExitButton;
 import src.views.components.LanguageButton;
+import src.views.components.ManualButton;
 import src.views.components.MusicButton;
 import src.views.components.ThemeButton;
-import src.views.utils.ImageUtils;
 
 public class TopBarMainMenu extends JPanel {
 
@@ -18,20 +17,13 @@ public class TopBarMainMenu extends JPanel {
 
   public TopBarMainMenu(ActionListener actionListener) {
 
-    ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
-
     // Create buttons
     // TODO: Move all buttons to a separate class
     musicButton = new MusicButton(actionListener);
     modeButton = new ThemeButton(actionListener);
     langButton = new LanguageButton(actionListener);
     exitButton = new ExitButton(actionListener);
-    bookButton = ImageUtils.createButtonFromImage(bookImg);
-
-    // Add actions to buttons
-    bookButton.setActionCommand("Manual");
-    exitButton.addActionListener(actionListener);
-    bookButton.addActionListener(actionListener);
+    bookButton = new ManualButton(actionListener);
 
     // Buttons aligned on the left
     JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 10));
