@@ -28,10 +28,10 @@ public class MainMenu extends JPanel {
     // Menu centered on the screen
     // The menu is at the middle of a 3x3 grid
     JPanel menu = new JPanel();
-    JPanel content = new GridCenterPanel(menu);
-    // Add the content of the menu to the main panel
-    add(content, BorderLayout.CENTER);
+    JPanel gridCenter = new GridCenterPanel(menu);
+    add(gridCenter, BorderLayout.CENTER);
 
+    // Display menu items as a list
     menu.setLayout(new GridLayout(4, 1, 0, 5));
 
     JLabel titleLabel = new JLabel("Quarto");

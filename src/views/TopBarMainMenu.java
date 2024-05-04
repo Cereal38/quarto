@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import src.views.components.MusicButton;
 import src.views.utils.ImageUtils;
 
 public class TopBarMainMenu extends JPanel {
@@ -13,9 +14,6 @@ public class TopBarMainMenu extends JPanel {
   private JButton musicButton, langButton, modeButton, exitButton, bookButton;
 
   public TopBarMainMenu(ActionListener actionListener) {
-    // Load icons
-    ImageIcon musicOnImg = ImageUtils.loadImage("music-on.png", 30, 30);
-    ImageIcon musicOffImg = ImageUtils.loadImage("music-off.png", 30, 30);
     ImageIcon darkImg = ImageUtils.loadImage("dark.png", 30, 30);
     ImageIcon lightImg = ImageUtils.loadImage("light.png", 30, 30);
     ImageIcon exitImg = ImageUtils.loadImage("exit.png", 30, 30);
@@ -24,20 +22,18 @@ public class TopBarMainMenu extends JPanel {
     ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
 
     // Create buttons
-    musicButton = ImageUtils.createButtonFromImage(musicOnImg);
+    musicButton = new MusicButton(actionListener);
     modeButton = ImageUtils.createButtonFromImage(darkImg);
     langButton = ImageUtils.createButtonFromImage(enImg);
     exitButton = ImageUtils.createButtonFromImage(exitImg);
     bookButton = ImageUtils.createButtonFromImage(bookImg);
 
     // Add actions to buttons
-    musicButton.setActionCommand("Music");
     modeButton.setActionCommand("DarkMode");
     langButton.setActionCommand("Language");
     exitButton.setActionCommand("Quit");
     bookButton.setActionCommand("Manual");
     exitButton.addActionListener(actionListener);
-    musicButton.addActionListener(actionListener);
     langButton.addActionListener(actionListener);
     modeButton.addActionListener(actionListener);
     bookButton.addActionListener(actionListener);
