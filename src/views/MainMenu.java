@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import src.views.components.EventsHandler;
 import src.views.components.GridCenterPanel;
 import src.views.components.TranslatedString;
 
@@ -21,10 +22,14 @@ public class MainMenu extends JPanel {
     JPanel navbar = new TopBarMainMenu(actionListener);
     add(navbar, BorderLayout.NORTH);
 
-    // Button of the menu
+    // Player vs Player button
     btnPvP = new JButton();
     TranslatedString translatedBtnPlayer = new TranslatedString("pvp", btnPvP);
     btnPvP.setText(translatedBtnPlayer.getText());
+    btnPvP.addActionListener(e -> {
+      EventsHandler.navigate("GameBoard");
+    });
+
     btnPvC = new JButton();
     TranslatedString translatedBtnAi = new TranslatedString("pvc", btnPvC);
     btnPvC.setText(translatedBtnAi.getText());

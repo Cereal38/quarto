@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import src.views.components.DialogPanel;
+import src.views.components.EventsHandler;
 
 public class MainFrame extends JFrame implements ActionListener {
   private CardLayout cardLayout;
@@ -28,6 +29,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
+
+    // Setup the EventsHandler
+    EventsHandler.setCardLayout(cardLayout);
+    EventsHandler.setMainPanel(mainPanel);
 
     // Créer les différentes interfaces
     mainMenu = new MainMenu(this);
