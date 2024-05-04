@@ -2,6 +2,7 @@ package src.views;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,7 +14,7 @@ public class TopBarMainMenu extends JPanel {
 
   private JButton musicButton, langButton, modeButton, exitButton, bookButton;
 
-  public TopBarMainMenu() {
+  public TopBarMainMenu(ActionListener actionListener) {
     // Load icons
     ImageIcon musicOnImg = ImageUtils.loadImage("music-on.png", 30, 30);
     ImageIcon musicOffImg = ImageUtils.loadImage("music-off.png", 30, 30);
@@ -37,6 +38,11 @@ public class TopBarMainMenu extends JPanel {
     langButton.setActionCommand("Language");
     exitButton.setActionCommand("Quit");
     bookButton.setActionCommand("Manual");
+    exitButton.addActionListener(actionListener);
+    musicButton.addActionListener(actionListener);
+    langButton.addActionListener(actionListener);
+    modeButton.addActionListener(actionListener);
+    bookButton.addActionListener(actionListener);
 
     // Buttons aligned on the left
     JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 10));

@@ -17,7 +17,7 @@ public class MainMenu extends JPanel {
   public MainMenu(ActionListener actionListener) {
     setLayout(new BorderLayout());
 
-    JPanel navbar = new TopBarMainMenu();
+    JPanel navbar = new TopBarMainMenu(actionListener);
     add(navbar, BorderLayout.NORTH);
 
     // Button of the menu
@@ -57,18 +57,7 @@ public class MainMenu extends JPanel {
     btnPlayerVsPlayer.addActionListener(actionListener);
     btnPlayerVsAI.addActionListener(actionListener);
     btnLoad.addActionListener(actionListener);
-    // exitButton.addActionListener(actionListener);
-    // musicButton.addActionListener(actionListener);
-    // langButton.addActionListener(actionListener);
-    // modeButton.addActionListener(actionListener); // Ajout de l'ActionListener
-    // bookButton.addActionListener(actionListener);
+
   }
 
-  // public void addNavbarActionListener(ActionListener actionListener) {
-  // musicButton.addActionListener(actionListener);
-  // modeButton.addActionListener(actionListener);
-  // langButton.addActionListener(actionListener);
-  // bookButton.addActionListener(actionListener);
-  // exitButton.addActionListener(actionListener);
-  // }
 }
