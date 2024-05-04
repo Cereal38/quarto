@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import src.views.components.GridCenterPanel;
+
 public class MainMenu extends JPanel {
   private JButton btnPlayerVsPlayer;
   private JButton btnPlayerVsAI;
@@ -27,20 +29,12 @@ public class MainMenu extends JPanel {
 
     // Menu centered on the screen
     // The menu is at the middle of a 3x3 grid
-    JPanel content = new JPanel();
     JPanel menu = new JPanel();
-    content.setLayout(new GridLayout(3, 3));
-    menu.setLayout(new GridLayout(4, 1, 0, 5));
+    JPanel content = new GridCenterPanel(menu);
+    // Add the content of the menu to the main panel
+    add(content, BorderLayout.CENTER);
 
-    content.add(new JLabel(""));
-    content.add(new JLabel(""));
-    content.add(new JLabel(""));
-    content.add(new JLabel(""));
-    content.add(menu);
-    content.add(new JLabel(""));
-    content.add(new JLabel(""));
-    content.add(new JLabel(""));
-    content.add(new JLabel(""));
+    menu.setLayout(new GridLayout(4, 1, 0, 5));
 
     JLabel titleLabel = new JLabel("Quarto");
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -49,9 +43,6 @@ public class MainMenu extends JPanel {
     menu.add(btnPlayerVsPlayer);
     menu.add(btnPlayerVsAI);
     menu.add(btnLoad);
-
-    // Add the content of the menu to the main panel
-    add(content, BorderLayout.CENTER);
 
     // Ajout des action listeners
     btnPlayerVsPlayer.addActionListener(actionListener);
