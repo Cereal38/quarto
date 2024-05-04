@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import src.views.components.LanguageButton;
 import src.views.components.MusicButton;
 import src.views.components.ThemeButton;
 import src.views.utils.ImageUtils;
@@ -16,24 +17,21 @@ public class TopBarMainMenu extends JPanel {
 
   public TopBarMainMenu(ActionListener actionListener) {
     ImageIcon exitImg = ImageUtils.loadImage("exit.png", 30, 30);
-    ImageIcon frImg = ImageUtils.loadImage("fr.png", 30, 30);
-    ImageIcon enImg = ImageUtils.loadImage("en.png", 30, 30);
+
     ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
 
     // Create buttons
     // TODO: Move all buttons to a separate class
     musicButton = new MusicButton(actionListener);
     modeButton = new ThemeButton(actionListener);
-    langButton = ImageUtils.createButtonFromImage(enImg);
+    langButton = new LanguageButton(actionListener);
     exitButton = ImageUtils.createButtonFromImage(exitImg);
     bookButton = ImageUtils.createButtonFromImage(bookImg);
 
     // Add actions to buttons
-    langButton.setActionCommand("Language");
     exitButton.setActionCommand("Quit");
     bookButton.setActionCommand("Manual");
     exitButton.addActionListener(actionListener);
-    langButton.addActionListener(actionListener);
     bookButton.addActionListener(actionListener);
 
     // Buttons aligned on the left

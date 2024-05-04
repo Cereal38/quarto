@@ -24,6 +24,7 @@ public class ThemeButton extends JButton {
 
     // Add action
     setActionCommand("DarkMode");
+
     addActionListener(e -> {
       // Change icon
       if (isLightTheme) {
