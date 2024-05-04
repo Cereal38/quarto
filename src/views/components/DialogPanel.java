@@ -53,7 +53,6 @@ public class DialogPanel extends JPanel {
         }
       }
     });
-
   }
 
   /**
@@ -65,6 +64,7 @@ public class DialogPanel extends JPanel {
     dialog.removeAll();
     dialog.add(content, BorderLayout.CENTER);
     dialog.revalidate();
+    setVisible(true);
     dialog.repaint();
   }
 
@@ -78,4 +78,5 @@ public class DialogPanel extends JPanel {
     super.setVisible(visible);
     dialog.setVisible(visible);
   }
+
 }

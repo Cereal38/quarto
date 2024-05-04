@@ -33,12 +33,10 @@ public class MainFrame extends JFrame implements ActionListener {
     // Créer les différentes interfaces
     mainMenu = new MainMenu(this);
     gameBoard = new GameBoard(this);
-    pauseMenu = new PauseMenu(this);
 
     // Ajouter les interfaces au conteneur principal
     mainPanel.add(mainMenu, "MainMenu");
     mainPanel.add(gameBoard, "GameBoard");
-    mainPanel.add(pauseMenu, "PauseMenu");
 
     add(mainPanel);
 
@@ -49,7 +47,6 @@ public class MainFrame extends JFrame implements ActionListener {
     getLayeredPane().add(dialog, -1);
 
     setVisible(true);
-
   }
 
   @Override
@@ -61,9 +58,10 @@ public class MainFrame extends JFrame implements ActionListener {
       cardLayout.show(mainPanel, "GameBoard");
       break;
     case "Pause Menu":
-      cardLayout.show(mainPanel, "PauseMenu");
+      dialog.setContent(new PauseMenu(this));
       break;
     case "Main Menu":
+      dialog.setVisible(false);
       cardLayout.show(mainPanel, "MainMenu");
       break;
     case "Music":
@@ -72,7 +70,6 @@ public class MainFrame extends JFrame implements ActionListener {
       JLabel musicLabel = new JLabel("Music");
       musicDialog.add(musicLabel);
       dialog.setContent(musicDialog);
-      dialog.setVisible(true);
       break;
     case "Manual":
       // TODO: Template code - Remove later
@@ -80,7 +77,6 @@ public class MainFrame extends JFrame implements ActionListener {
       JLabel manualLabel = new JLabel("Manual");
       manualDialog.add(manualLabel);
       dialog.setContent(manualDialog);
-      dialog.setVisible(true);
       break;
     case "Quit":
       System.exit(0);
@@ -126,4 +122,5 @@ public class MainFrame extends JFrame implements ActionListener {
     UIManager.put("Button.border", BorderFactory.createLineBorder(Color.LIGHT_GRAY));
     // Ajuster d'autres propriétés pour le thème sombre
   }
+
 }
