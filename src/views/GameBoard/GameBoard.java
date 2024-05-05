@@ -5,13 +5,13 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import src.views.components.TranslatedString;
+import src.views.components.TranslatedButton;
 import src.views.utils.EventsHandler;
 
 public class GameBoard extends JPanel {
-  private JButton btnUndo = new JButton();
-  private JButton btnRedo = new JButton();
-  private JButton btnPause = new JButton();
+  private TranslatedButton btnUndo = new TranslatedButton("undo");
+  private TranslatedButton btnRedo = new TranslatedButton("redo");
+  private TranslatedButton btnPause = new TranslatedButton("pause");
 
   public GameBoard() {
     setLayout(new BorderLayout());
@@ -19,17 +19,7 @@ public class GameBoard extends JPanel {
     // Navbar with undo, redo and pause buttons
     JPanel navbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-    // Undo button
-    TranslatedString translatedBtnUndo = new TranslatedString("undo", btnUndo);
-    btnUndo.setText(translatedBtnUndo.getText());
-
-    // Redo button
-    TranslatedString translatedBtnRedo = new TranslatedString("redo", btnRedo);
-    btnRedo.setText(translatedBtnRedo.getText());
-
-    // Pause button
-    TranslatedString translatedBtnPause = new TranslatedString("pause", btnPause);
-    btnPause.setText(translatedBtnPause.getText());
+    // Add action listeners to the buttons
     btnPause.addActionListener(e -> {
       EventsHandler.showDialog(new PauseDialogContent());
     });
