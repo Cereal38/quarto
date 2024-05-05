@@ -1,12 +1,12 @@
-package src.views;
+package src.views.GameBoard;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import src.views.components.EventsHandler;
 import src.views.components.TranslatedString;
+import src.views.utils.EventsHandler;
 
 public class GameBoard extends JPanel {
   private JButton btnUndo = new JButton();

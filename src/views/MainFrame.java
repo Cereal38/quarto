@@ -3,8 +3,10 @@ package src.views;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import src.views.GameBoard.GameBoard;
+import src.views.MainMenu.MainMenu;
 import src.views.components.DialogPanel;
-import src.views.components.EventsHandler;
+import src.views.utils.EventsHandler;
 
 public class MainFrame extends JFrame {
   private CardLayout cardLayout;

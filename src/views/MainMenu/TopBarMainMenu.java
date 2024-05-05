@@ -1,4 +1,4 @@
-package src.views;
+package src.views.MainMenu;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

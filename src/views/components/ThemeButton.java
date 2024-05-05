@@ -3,6 +3,7 @@ package src.views.components;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.utils.EventsHandler;
 import src.views.utils.ImageUtils;
 
 public class ThemeButton extends JButton {

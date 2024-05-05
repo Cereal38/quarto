@@ -1,10 +1,10 @@
-package src.views;
+package src.views.GameBoard;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import src.views.components.EventsHandler;
 import src.views.components.TranslatedString;
+import src.views.utils.EventsHandler;
 
 public class PauseDialogContent extends JPanel {
   private JButton btnAbandon = new JButton();
