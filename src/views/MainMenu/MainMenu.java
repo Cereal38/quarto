@@ -3,17 +3,16 @@ package src.views.MainMenu;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.GridCenterPanel;
-import src.views.components.TranslatedString;
+import src.views.components.TranslatedButton;
 import src.views.utils.EventsHandler;
 
 public class MainMenu extends JPanel {
-  private JButton btnPvP = new JButton();
-  private JButton btnPvC = new JButton();
-  private JButton btnLoad = new JButton();
+  private TranslatedButton btnPvP = new TranslatedButton("pvp");
+  private TranslatedButton btnPvC = new TranslatedButton("pvc");
+  private TranslatedButton btnLoad = new TranslatedButton("load");
 
   public MainMenu() {
     setLayout(new BorderLayout());
@@ -21,23 +20,13 @@ public class MainMenu extends JPanel {
     JPanel navbar = new TopBarMainMenu();
     add(navbar, BorderLayout.NORTH);
 
-    // Player vs Player button
-    TranslatedString translatedBtnPlayer = new TranslatedString("pvp", btnPvP);
-    btnPvP.setText(translatedBtnPlayer.getText());
+    // Add action listeners to the buttons
     btnPvP.addActionListener(e -> {
       EventsHandler.navigate("GameBoard");
     });
-
-    // Player vs Computer button
-    TranslatedString translatedBtnAi = new TranslatedString("pvc", btnPvC);
-    btnPvC.setText(translatedBtnAi.getText());
     btnPvC.addActionListener(e -> {
       EventsHandler.navigate("GameBoard");
     });
-
-    // Load button
-    TranslatedString translatedBtnLoad = new TranslatedString("load", btnLoad);
-    btnLoad.setText(translatedBtnLoad.getText());
 
     // Menu centered on the screen
     // The menu is at the middle of a 3x3 grid
