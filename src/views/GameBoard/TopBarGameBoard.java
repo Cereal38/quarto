@@ -1,4 +1,4 @@
-package src.views.GameBoard;
+package src.views.gameboard;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

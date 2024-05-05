@@ -14,3 +14,6 @@ Quarto in Java - Group 6
 3. guide
 4. load
 5. rule
+6. check if can undo/redo 
+7. music button in game view
+

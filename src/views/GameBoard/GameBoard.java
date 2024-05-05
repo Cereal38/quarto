@@ -1,17 +1,17 @@
-package src.views.GameBoard;
+package src.views.gameboard;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 public class GameBoard extends JPanel {
 
-  public GameBoard() {
-    setLayout(new BorderLayout());
+    public GameBoard() {
+        setLayout(new BorderLayout());
 
-    // Add components
-    add(new TopBarGameBoard(), BorderLayout.NORTH);
-    add(new Board(), BorderLayout.CENTER);
-    add(new Pawns(), BorderLayout.SOUTH);
+        // Add components
+        add(new TopBarGameBoard(), BorderLayout.NORTH);
+        add(new Board(), BorderLayout.CENTER);
+        add(new Pawns(), BorderLayout.SOUTH);
 
-  }
+    }
 }
