@@ -8,32 +8,33 @@ import src.views.utils.ImageUtils;
 
 public class ThemeButton extends JButton {
 
-  private boolean isLightTheme;
+    private boolean isLightTheme;
 
-  public ThemeButton() {
-    isLightTheme = true;
+    public ThemeButton() {
+        isLightTheme = true;
 
-    // Load icons
-    ImageIcon darkImg = ImageUtils.loadImage("dark.png", 30, 30);
-    ImageIcon lightImg = ImageUtils.loadImage("light.png", 30, 30);
+        // Load icons
+        ImageIcon darkImg = ImageUtils.loadImage("dark.png", 30, 30);
+        ImageIcon lightImg = ImageUtils.loadImage("light.png", 30, 30);
 
-    // Add style
-    setIcon(darkImg);
-    setBorder(BorderFactory.createEmptyBorder());
-    setContentAreaFilled(false);
-
-    // Add action
-    setActionCommand("DarkMode");
-
-    addActionListener(e -> {
-      // Change icon
-      if (isLightTheme) {
-        setIcon(lightImg);
-      } else {
+        // Add style
         setIcon(darkImg);
-      }
-      isLightTheme = !isLightTheme;
-      EventsHandler.toggleTheme();
-    });
-  }
+        setBorder(BorderFactory.createEmptyBorder());
+        setContentAreaFilled(false);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        // Add action
+        setActionCommand("DarkMode");
+
+        addActionListener(e -> {
+            // Change icon
+            if (isLightTheme) {
+                setIcon(lightImg);
+            } else {
+                setIcon(darkImg);
+            }
+            isLightTheme = !isLightTheme;
+            EventsHandler.toggleTheme();
+        });
+    }
 }

@@ -16,12 +16,13 @@ public class LanguageButton extends JButton {
 
         // Load icons
         ImageIcon frImg = ImageUtils.loadImage("fr.png", 40, 30);
-        ImageIcon enImg = ImageUtils.loadImage("en.png", 30, 30);
+        ImageIcon enImg = ImageUtils.loadImage("en.png", 35, 30);
 
         // Add style
         setIcon(frImg);
         setBorder(BorderFactory.createEmptyBorder());
         setContentAreaFilled(false);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         // Add action
         setActionCommand("Language");
