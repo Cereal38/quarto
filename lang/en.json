@@ -9,5 +9,6 @@
   "restart": "Restart",
   "save": "Save",
   "rules": "Rules",
-  "main-menu": "Main menu"
+  "main-menu": "Main menu",
+  "turn-of-player": "It's the turn of"
 }
