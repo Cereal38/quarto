@@ -7,30 +7,31 @@ import src.views.utils.ImageUtils;
 
 public class MusicButton extends JButton {
 
-  private boolean isMusicOn;
+    private boolean isMusicOn;
 
-  public MusicButton() {
-    isMusicOn = true;
+    public MusicButton() {
+        isMusicOn = true;
 
-    // Load icons
-    ImageIcon musicOnImg = ImageUtils.loadImage("music-on.png", 30, 30);
-    ImageIcon musicOffImg = ImageUtils.loadImage("music-off.png", 30, 30);
+        // Load icons
+        ImageIcon musicOnImg = ImageUtils.loadImage("music-on.png", 30, 30);
+        ImageIcon musicOffImg = ImageUtils.loadImage("music-off.png", 30, 30);
 
-    // Add style
-    setIcon(musicOnImg);
-    setBorder(BorderFactory.createEmptyBorder());
-    setContentAreaFilled(false);
-
-    // Add action
-    setActionCommand("Music");
-    addActionListener(e -> {
-      // Change icon
-      if (isMusicOn) {
-        setIcon(musicOffImg);
-      } else {
+        // Add style
         setIcon(musicOnImg);
-      }
-      isMusicOn = !isMusicOn;
-    });
-  }
+        setBorder(BorderFactory.createEmptyBorder());
+        setContentAreaFilled(false);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        // Add action
+        setActionCommand("Music");
+        addActionListener(e -> {
+            // Change icon
+            if (isMusicOn) {
+                setIcon(musicOffImg);
+            } else {
+                setIcon(musicOnImg);
+            }
+            isMusicOn = !isMusicOn;
+        });
+    }
 }

@@ -5,21 +5,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.utils.ImageUtils;
 
-public class ManualButton extends JButton {
+public class UndoButton extends JButton {
 
-    public ManualButton() {
+    public UndoButton() {
 
         // Load icon
-        ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
+        ImageIcon undoImg = ImageUtils.loadImage("undo.png", 30, 25);
 
-        // Add style
-        setIcon(bookImg);
-        setBorder(BorderFactory.createEmptyBorder());
-        setContentAreaFilled(false);
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        // Add action
-        setActionCommand("Manual");
+        // Add style
+        setIcon(undoImg);
+        setBorder(BorderFactory.createEmptyBorder());
+        setContentAreaFilled(false);
 
         addActionListener(e -> {
         });

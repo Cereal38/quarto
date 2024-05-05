@@ -9,5 +9,6 @@
   "restart": "Recommencer",
   "save": "Sauvegarder",
   "rules": "Règles",
-  "main-menu": "Menu principal"
+  "main-menu": "Menu principal",
+  "turn-of-player": "C'est au tour de"
 }

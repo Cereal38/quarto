@@ -4,11 +4,12 @@ import javax.swing.JButton;
 
 public class TranslatedButton extends JButton {
 
-  TranslatedString translatedString;
+    TranslatedString translatedString;
 
-  public TranslatedButton(String key) {
-    super();
-    translatedString = new TranslatedString(key, this);
-    setText(translatedString.getText());
-  }
+    public TranslatedButton(String key) {
+        super();
+        translatedString = new TranslatedString(key, this);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setText(translatedString.getText());
+    }
 }
