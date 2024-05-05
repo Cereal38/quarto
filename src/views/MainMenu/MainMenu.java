@@ -1,4 +1,4 @@
-package src.views;
+package src.views.MainMenu;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -6,9 +6,9 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import src.views.components.EventsHandler;
 import src.views.components.GridCenterPanel;
 import src.views.components.TranslatedString;
+import src.views.utils.EventsHandler;
 
 public class MainMenu extends JPanel {
   private JButton btnPvP = new JButton();

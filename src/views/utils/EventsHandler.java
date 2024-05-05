@@ -1,4 +1,4 @@
-package src.views.components;
+package src.views.utils;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
+import src.views.components.DialogPanel;
 
 /**
  * A custom class that handles events for the main frame.
