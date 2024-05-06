@@ -5,27 +5,25 @@ public class QuartoWin {
     private boolean checkWin(QuartoPawn[] lineOrColumn) {
         if (lineOrColumn[0] == null)
             return false;
+
         boolean round = lineOrColumn[0].isRound();
-        boolean rTrue = true;
         boolean white = lineOrColumn[0].isWhite();
-        boolean wTrue = true;
         boolean little = lineOrColumn[0].isLittle();
-        boolean lTrue = true;
         boolean hollow = lineOrColumn[0].isHollow();
-        boolean hTrue = true;
+
         for (int i = 1; i < 4; i++) {
             if (lineOrColumn[i] == null)
                 return false;
-            if (rTrue && lineOrColumn[i].isRound() != round)
-                rTrue = false;
-            if (wTrue && lineOrColumn[i].isWhite() != white)
-                wTrue = false;
-            if (lTrue && lineOrColumn[i].isLittle() != little)
-                lTrue = false;
-            if (hTrue && lineOrColumn[i].isHollow() != hollow)
-                hTrue = false;
+
+            if (!lineOrColumn[i].isRound() == round &&
+                    !lineOrColumn[i].isWhite() == white &&
+                    !lineOrColumn[i].isLittle() == little &&
+                    !lineOrColumn[i].isHollow() == hollow) {
+                return false;
+            }
         }
-        return rTrue || wTrue || lTrue || hTrue;
+
+        return true; // If all are the same or at least one attribute matches
     }
 
     public boolean winSituationLine(QuartoPawn[][] table, int line) {
@@ -41,18 +39,14 @@ public class QuartoWin {
     }
 
     public boolean winSituationDiagonal(QuartoPawn[][] table, int line, int column) {
-        QuartoPawn[] diagonalArray = new QuartoPawn[4];
-        if (line == column) {
+        if (line == column || (line + column) == 3) {
+            QuartoPawn[] diagonalArray = new QuartoPawn[4];
             for (int i = 0; i < 4; i++) {
-                diagonalArray[i] = table[i][i];
+                diagonalArray[i] = (line == column) ? table[i][i] : table[i][3 - i];
             }
-        } else if ((line + column) == 3) {
-            for (int i = 0; i < 4; i++) {
-                diagonalArray[i] = table[i][3 - i];
-            }
-        } else {
-            return false;
+            return checkWin(diagonalArray);
         }
-        return checkWin(diagonalArray);
+        return false;
     }
+
 }
