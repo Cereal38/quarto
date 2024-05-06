@@ -20,8 +20,7 @@ public class MainFrame extends JFrame {
   public MainFrame() {
     setTitle("Quarto Game");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    // set min size 1000x500
-    setMinimumSize(new Dimension(1000, 500));
+    setMinimumSize(new Dimension(1000, 800));
     setLocationRelativeTo(null);
 
     cardLayout = new CardLayout();

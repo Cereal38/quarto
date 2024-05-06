@@ -4,13 +4,16 @@ import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.gameboard.PawnsBar;
 import src.views.utils.ImageUtils;
 
 public class Pawn extends JButton {
 
   private boolean cursorSet = true;
 
-  public Pawn(String code, int width, int height) {
+  private boolean played = false;
+
+  public Pawn(String code, int width, int height, PawnsBar parentBar) {
     // Load image
     ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
 
@@ -26,8 +29,20 @@ public class Pawn extends JButton {
         if (cursorSet) {
           setCursor(null);
           cursorSet = false; // Cursor set permanently to HAND_CURSOR
+          setPlayed(true);
+          System.err.println("Pawn clicked");
+          parentBar.refresh();
         }
       }
     });
+  }
+
+  // getter and setter for played
+  public boolean isPlayed() {
+    return played;
+  }
+
+  public void setPlayed(boolean played) {
+    this.played = played;
   }
 }
