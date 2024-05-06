@@ -1,6 +1,7 @@
 package src.views.components;
 
 import java.awt.Cursor;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.utils.ImageUtils;
@@ -16,6 +17,7 @@ public class Pawn extends JButton {
     // Set image
     setIcon(image);
     setContentAreaFilled(false);
+    setBorder(BorderFactory.createEmptyBorder());
     setCursor(new Cursor(Cursor.HAND_CURSOR));
 
     // Set cursor to HAND_CURSOR on the first click

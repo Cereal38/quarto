@@ -1,6 +1,7 @@
 package src.views;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import src.views.components.DialogPanel;
@@ -19,7 +20,8 @@ public class MainFrame extends JFrame {
   public MainFrame() {
     setTitle("Quarto Game");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(600, 400);
+    // set min size 1000x500
+    setMinimumSize(new Dimension(1000, 500));
     setLocationRelativeTo(null);
 
     cardLayout = new CardLayout();
