@@ -14,6 +14,7 @@ public class MainFrame extends JFrame {
     private MainMenu mainMenu;
     private GameBoard gameBoard;
     private DialogPanel dialog;
+    private ChoosePlayers choosePlayers;
 
     public MainFrame() {
         setTitle("Quarto Game");
@@ -27,10 +28,15 @@ public class MainFrame extends JFrame {
         // Create app pages
         mainMenu = new MainMenu();
         gameBoard = new GameBoard();
+        choosePlayers = new ChoosePlayers();
+
 
         // Add pages to the main panel
         mainPanel.add(mainMenu, "MainMenu");
+        //mainPanel.add()
         mainPanel.add(gameBoard, "GameBoard");
+
+        mainPanel.add(choosePlayers, "ChoosePlayers");
 
         add(mainPanel);
 

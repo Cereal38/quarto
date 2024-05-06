@@ -22,10 +22,10 @@ public class MainMenu extends JPanel {
 
         // Add action listeners to the buttons
         btnPvP.addActionListener(e -> {
-            EventsHandler.navigate("GameBoard");
+            EventsHandler.navigate("ChoosePlayers");
         });
         btnPvC.addActionListener(e -> {
-            EventsHandler.navigate("GameBoard");
+            EventsHandler.navigate("ChoosePlayers");
         });
 
         // Menu centered on the screen
