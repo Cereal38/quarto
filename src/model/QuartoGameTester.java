@@ -1,5 +1,6 @@
 package src.model;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class QuartoGameTester {
@@ -11,7 +12,7 @@ public class QuartoGameTester {
         scanner = new Scanner(System.in);
     }
 
-    public void startGame() {
+    public void startGame() throws IOException {
         System.out.println("Quarto Game Tester");
         System.out.println("Type 'help' for commands.");
 
@@ -66,6 +67,14 @@ public class QuartoGameTester {
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     System.out.println("Invalid coordinates.");
                 }
+            } else if (input.toLowerCase().startsWith("charge ")) {
+                String fileName = input.substring(7).trim();
+                quartoModel.chargeGame(fileName);
+                System.out.println("Game loaded from file: " + fileName);
+            } else if (input.toLowerCase().startsWith("save ")) {
+                String fileName = input.substring(5).trim();
+                quartoModel.getHisto().saveFile(fileName);
+                System.out.println("Game saved to file: " + fileName);
             } else if (input.equalsIgnoreCase("quit")) {
                 System.out.println("Quitting game.");
                 break;
@@ -113,13 +122,14 @@ public class QuartoGameTester {
         System.out.println("undo - Undo last action.");
         System.out.println("redo - Redo last undone action.");
         System.out.println("gagne i j - Check win situation at coordinates i j.");
+        System.out.println("charge filename - Load game from file.");
+        System.out.println("save filename - Save game to file.");
         System.out.println("quit - Quit the game.");
         System.out.println("help - Display available commands.");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         QuartoGameTester gameTester = new QuartoGameTester(0, 0); // Change player types as needed
         gameTester.startGame();
     }
 }
-
