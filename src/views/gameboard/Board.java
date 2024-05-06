@@ -26,8 +26,9 @@ public class Board extends JPanel {
     // Draw the board. A 4x4 grid of outlined circles
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
-        g.drawOval((int) (startX + i * (cellSize + gap)), (int) (startY + j * (cellSize + gap)), (int) cellSize,
-            (int) cellSize);
+        int x = (int) (startX + i * (cellSize + gap));
+        int y = (int) (startY + j * (cellSize + gap));
+        g.drawOval(x, y, (int) cellSize, (int) cellSize);
       }
     }
 
