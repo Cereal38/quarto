@@ -1,4 +1,4 @@
-package src.views.gameboard;
+package src.views.game.board;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.PauseMenuButton;
 import src.views.components.RedoButton;
-import src.views.components.TranslatedButton;
 import src.views.components.TranslatedLabel;
 import src.views.components.UndoButton;
 import src.views.utils.EventsHandler;

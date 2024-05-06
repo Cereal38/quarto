@@ -2,7 +2,7 @@ package src.views.listeners;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import src.views.ChoosePlayers; // Import ChoosePlayers class (assuming it's in the same package)
+import src.views.players.names.ChoosePlayers; // Import ChoosePlayers class (assuming it's in the same package)
 
 // TextFieldChangeListener now implements DocumentListener
 public class TextFieldChangeListener implements DocumentListener {

@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="116c34a3-2786-49b8-985e-c3eeae576383" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/views/ChoosePlayers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/components/CustomTextField.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/listeners/TextFieldChangeListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/fr.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoModelTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/mainmenu/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/mainmenu/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ChoosePlayers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ChoosePlayers.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -4,8 +4,9 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import src.views.components.DialogPanel;
-import src.views.gameboard.GameBoard;
-import src.views.mainmenu.MainMenu;
+import src.views.game.board.GameBoard;
+import src.views.main.menu.MainMenu;
+import src.views.players.names.ChoosePlayers;
 import src.views.utils.EventsHandler;
 
 public class MainFrame extends JFrame {

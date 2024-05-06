@@ -1,4 +1,4 @@
-package src.views;
+package src.views.players.names;
 
 import src.views.components.*;
 import src.views.listeners.TextFieldChangeListener;

@@ -1,4 +1,4 @@
-package src.views.gameboard;
+package src.views.game.board;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
