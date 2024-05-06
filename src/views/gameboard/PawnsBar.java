@@ -12,9 +12,12 @@ public class PawnsBar extends JPanel {
   public PawnsBar() {
     setLayout(new GridLayout(1, 16));
 
+    int widthPawn = DimensionUtils.getMainFrameWidth() / 16;
+    int heightPawn = widthPawn * 2;
+
     // Load all pawns
     for (int i = 0; i < 16; i++) {
-      add(new Pawn(ImageUtils.getPawn(i), DimensionUtils.getMainFrameWidth() / 16, 50), BorderLayout.CENTER);
+      add(new Pawn(ImageUtils.getPawn(i), widthPawn, heightPawn), BorderLayout.CENTER);
     }
   }
 
