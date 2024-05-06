@@ -2,10 +2,6 @@ package src.model;
 
 public class QuartoWin {
 
-    public boolean isTableEmpty(QuartoPawn[][] table, int line, int column) {
-        return table[line][column] == null;
-    }
-
     private boolean checkWin(QuartoPawn[] lineOrColumn) {
         if (lineOrColumn[0] == null)
             return false;

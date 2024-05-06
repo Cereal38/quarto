@@ -21,7 +21,7 @@ public class QuartoFile {
     }
 
     public boolean canUndo() {
-        return save.precedent != null;
+        return save.previous != null;
     }
 
     public void saveFile(String fileName) throws IOException {
@@ -66,22 +66,22 @@ public class QuartoFile {
                 line = s.nextLine().split(" ");
                 if (line.length == 1) { //state == 0
                     temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
-                    temp.next.precedent = temp;
+                    temp.next.previous = temp;
                     temp = temp.next;
                 } else if (line.length == 2) {//(state == 1) or (state == 0 and actual state)
                     if (line[1].equals("*")) {
                         temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
-                        temp.next.precedent = temp;
+                        temp.next.previous = temp;
                         temp = temp.next;
                         save = temp;
                     } else {
                         temp.next = new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp);
-                        temp.next.precedent = temp;
+                        temp.next.previous = temp;
                         temp = temp.next;
                     }
                 } else { //state == 1 and actual state
                     temp.next = new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp);
-                    temp.next.precedent = temp;
+                    temp.next.previous = temp;
                     temp = temp.next;
                     save = temp;
                 }
@@ -91,4 +91,61 @@ public class QuartoFile {
             System.err.println("impossible de trouver le fichier " + fileName);
         }
     }
+    
+    public QuartoHistory getSave() {
+        return save;
+    }
+
+    public void setSave(QuartoHistory s) {
+        save = s;
+    }
+
+    public int getNextIndexPawn() {
+        return save.next.getIndexPawn();
+    }
+
+    public int getNextLine() {
+        return save.next.getLine();
+    }
+
+    public int getNextColumn() {
+        return save.next.getColumn();
+    }
+
+    public int getNextState() {
+        return save.next.getState();
+    }
+
+    public int getIndexPawn() {
+        return save.getIndexPawn();
+    }
+
+    public int getLine() {
+        return save.getLine();
+    }
+
+    public int getColumn() {
+        return save.getColumn();
+    }
+
+    public int getState() {
+        return save.getState();
+    }
+
+    public int getPreviousIndexPawn() {
+        return save.previous.getIndexPawn();
+    }
+    
+    public int getPreviousLine() {
+        return save.previous.getLine();
+    }
+
+    public int getPreviousColumn(){
+        return save.previous.getColumn();
+    }
+
+    public int getPreviousState() {
+        return save.previous.getState();
+    }
+
 }

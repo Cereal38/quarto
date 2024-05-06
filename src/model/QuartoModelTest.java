@@ -9,7 +9,7 @@ public class QuartoModelTest {
         QuartoModel quartoModel = new QuartoModel();
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                Assertions.assertTrue(quartoModel.win.isTableEmpty(quartoModel.getTable(), i, j));
+                Assertions.assertTrue(quartoModel.isTableEmpty(i, j));
             }
         }
     }
@@ -27,7 +27,7 @@ public class QuartoModelTest {
         //Check if all the table is not empty
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                Assertions.assertFalse(quartoModel.win.isTableEmpty(quartoModel.getTable(), i, j));
+                Assertions.assertFalse(quartoModel.isTableEmpty(i, j));
             }
         }
     }
@@ -78,7 +78,7 @@ public class QuartoModelTest {
         QuartoModel quartoModel = new QuartoModel();
         quartoModel.setSelectedPawn(new QuartoPawn(10));
         quartoModel.playShot(1, 1);
-        Assertions.assertFalse(quartoModel.win.isTableEmpty(quartoModel.getTable(), 1, 1));
+        Assertions.assertFalse(quartoModel.isTableEmpty(1, 1));
     }
 
     @Test
