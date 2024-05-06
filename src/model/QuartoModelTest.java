@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class QuartoModelTest {
     @Test
     public void testIsTableEmpty(){
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
                 Assertions.assertTrue(quartoModel.isTableEmpty(i, j));
@@ -16,7 +16,7 @@ public class QuartoModelTest {
 
     @Test
     public void testTableFull(){
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         //Completely filling the table with pawns
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -34,14 +34,14 @@ public class QuartoModelTest {
 
     @Test
     public void testSelectPawn() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         quartoModel.selectPawn(0);
         Assertions.assertNotNull(quartoModel.getSelectedPawn());
     }
 
     @Test
     public void testAllPawnsSelected() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         // Select all pawns available
         for (int i = 0; i < 16; i++) {
             // Check if isPawnListEmpty returns false
@@ -55,13 +55,13 @@ public class QuartoModelTest {
 
     @Test
     public void testIsPawnListEmpty() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         Assertions.assertFalse(quartoModel.isPawnListEmpty());
     }
 
     @Test
     public void testSwitchPlayer() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         Assertions.assertEquals(1, quartoModel.getCurrentPlayer());
         quartoModel.switchPlayer();
         Assertions.assertEquals(2, quartoModel.getCurrentPlayer());
@@ -75,7 +75,7 @@ public class QuartoModelTest {
 
     @Test
     public void testPlayShot() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(10));
         quartoModel.playShot(1, 1);
         Assertions.assertFalse(quartoModel.isTableEmpty(1, 1));
@@ -83,7 +83,7 @@ public class QuartoModelTest {
 
     @Test
     public void testPlayShotOnOccupiedCell() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
 
         // Creating pawns
         QuartoPawn pawn1 = new QuartoPawn(10);
@@ -103,7 +103,7 @@ public class QuartoModelTest {
 
     @Test
     public void testObviousWinSituationColumn() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         for(int i = 0; i < 4; i++){
             quartoModel.setSelectedPawn(new QuartoPawn(10));
             quartoModel.playShot(i, 1);
@@ -115,7 +115,7 @@ public class QuartoModelTest {
 
     @Test
     public void testObviousWinSituationLine() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         for(int i = 0; i < 4; i++){
             quartoModel.setSelectedPawn(new QuartoPawn(10));
             quartoModel.playShot(1, i);
@@ -127,7 +127,7 @@ public class QuartoModelTest {
 
     @Test
     public void testObviousWinSituationDiagonalRight() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(10));
         quartoModel.playShot(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(10));
@@ -150,7 +150,7 @@ public class QuartoModelTest {
 
     @Test
     public void testObviousWinSituationDiagonalLeft() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(10));
         quartoModel.playShot(0, 3);
         quartoModel.setSelectedPawn(new QuartoPawn(10));
@@ -173,7 +173,7 @@ public class QuartoModelTest {
 
     @Test
     public void testNotSoObviousWinSituationColumn() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(10));
         quartoModel.playShot(0, 1);
         quartoModel.setSelectedPawn(new QuartoPawn(8));
@@ -190,7 +190,7 @@ public class QuartoModelTest {
 
     @Test
     public void testNotSoObviousWinSituationLine() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(15));
         quartoModel.playShot(1, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(13));
@@ -207,7 +207,7 @@ public class QuartoModelTest {
 
     @Test
     public void testNotSoObviousWinSituationDiagonalRight() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(10));
         quartoModel.playShot(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(12));
@@ -230,7 +230,7 @@ public class QuartoModelTest {
 
     @Test
     public void testNotSoObviousWinSituationDiagonalLeft() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(9));
         quartoModel.playShot(0, 3);
         quartoModel.setSelectedPawn(new QuartoPawn(0));
@@ -253,7 +253,7 @@ public class QuartoModelTest {
 
     @Test
     public void testRealisticMultipleWinSituation() {
-        QuartoModel quartoModel = new QuartoModel();
+        QuartoModel quartoModel = new QuartoModel(0, 0);
         quartoModel.setSelectedPawn(new QuartoPawn(1));
         quartoModel.playShot(0, 1);
         quartoModel.setSelectedPawn(new QuartoPawn(8));

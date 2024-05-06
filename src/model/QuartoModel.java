@@ -3,7 +3,6 @@ package src.model;
 /*
  * TODO
  * tester l'historique
- * get et set pour les variables.
  */
 
 public class QuartoModel {
@@ -148,5 +147,9 @@ public class QuartoModel {
 
     public boolean isTableEmpty(int line, int column) {
         return getPawnAtPosition(line, column) == null;
+    }
+
+    public QuartoPawn[] getPawnAvailable() {
+        return pawnAvailable;
     }
 }
