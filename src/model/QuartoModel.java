@@ -6,6 +6,7 @@ package src.model;
  * faire une méthode pour renvoyer la liste des booléens de la méthode winsituations.
  * get et set pour les variables.
  * crée class QuartoWin
+ * voir ligne 48
  */
 
 public class QuartoModel {
@@ -15,13 +16,13 @@ public class QuartoModel {
     private QuartoPawn selectedPawn;
     QuartoFile histo;
     QuartoWin win;
-    
+
     private void newTable() {
         table = new QuartoPawn[4][4];//table filled with null
         player = 1;//starting player is player 1
         pawnAvailable = new QuartoPawn[16];
         for (int count = 0; count < 16; count++) {
-                pawnAvailable[count] = new QuartoPawn(count);
+            pawnAvailable[count] = new QuartoPawn(count);
         }
     }
 
@@ -39,6 +40,7 @@ public class QuartoModel {
                 //switchplayer
             } else if (histo.save.next.state == 1) { //choice of place
                 table[histo.save.next.line][histo.save.next.column] = selectedPawn;
+                setSelectedPawn(null);
             }
             histo.save = histo.save.next;
         }
@@ -47,7 +49,7 @@ public class QuartoModel {
     public void undo() {
         if (histo.canUndo()) {
             if (histo.save.precedent.state == 0) {//we remove a pawn we placed
-                //get last pawn
+                setSelectedPawn(table[histo.save.line][histo.save.column]);//ceci foire
                 table[histo.save.line][histo.save.column] = null;
                 //switchplayer
             } else if (histo.save.precedent.state == 1) {//we add the pawn choosen to the list of pawn available.
@@ -75,7 +77,7 @@ public class QuartoModel {
         }
         return true;
     }
-    
+
     public void switchPlayer() {
         player = (player == 1) ? 2 : 1;
     }
@@ -84,6 +86,7 @@ public class QuartoModel {
         if (win.isTableEmpty(table, line, column)) {
             table[line][column] = selectedPawn;
             winSituation(line, column);
+            setSelectedPawn(null);
             histo.save.next = new QuartoHistory(line, column, histo.save);
             histo.save.next.precedent = histo.save;
             histo.save = histo.save.next;
@@ -95,7 +98,7 @@ public class QuartoModel {
         return (win.winSituationLine(table, line) || win.winSituationColumn(table, column)
                 || win.winSituationDiagonal(table, line, column));
     }
-    
+
     public void chargeGame(String fileName) {
         histo.chargeFile(fileName);
         QuartoHistory copy = histo.head;
