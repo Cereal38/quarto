@@ -5,8 +5,9 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import src.views.components.DialogPanel;
-import src.views.gameboard.GameBoard;
-import src.views.mainmenu.MainMenu;
+import src.views.game.board.GameBoard;
+import src.views.main.menu.MainMenu;
+import src.views.players.names.ChoosePlayers;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 
@@ -15,6 +16,7 @@ public class MainFrame extends JFrame {
   private JPanel mainPanel;
   private MainMenu mainMenu;
   private GameBoard gameBoard;
+  private ChoosePlayers choosePlayers;
   private DialogPanel dialog;
 
   public MainFrame() {
@@ -25,6 +27,7 @@ public class MainFrame extends JFrame {
 
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
+    choosePlayers = new ChoosePlayers();
 
     // Create app pages
     mainMenu = new MainMenu();
@@ -37,6 +40,7 @@ public class MainFrame extends JFrame {
     // Add pages to the main panel
     mainPanel.add(mainMenu, "MainMenu");
     mainPanel.add(gameBoard, "GameBoard");
+    mainPanel.add(choosePlayers, "ChoosePlayers");
 
     add(mainPanel);
 

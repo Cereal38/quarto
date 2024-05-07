@@ -1,0 +1,14 @@
+{
+  "pvp": "2 joueurs",
+  "pvc": "1 joueur",
+  "load": "Charger",
+  "undo": "Annuler",
+  "redo": "Refaire",
+  "pause": "Pause",
+  "abandon": "Abandonner",
+  "restart": "Recommencer",
+  "save": "Sauvegarder",
+  "rules": "Règles",
+  "main-menu": "Menu principal",
+  "turn-of-player": "C'est au tour de"
+}

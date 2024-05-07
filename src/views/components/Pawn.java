@@ -4,7 +4,7 @@ import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import src.views.gameboard.PawnsBar;
+import src.views.game.board.PawnsBar;
 import src.views.utils.ImageUtils;
 
 public class Pawn extends JButton {

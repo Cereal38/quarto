@@ -1,0 +1,14 @@
+{
+  "pvp": "2 players",
+  "pvc": "1 player",
+  "load": "Load",
+  "undo": "Undo",
+  "redo": "Redo",
+  "pause": "Pause",
+  "abandon": "Give up",
+  "restart": "Restart",
+  "save": "Save",
+  "rules": "Rules",
+  "main-menu": "Main menu",
+  "turn-of-player": "It's the turn of"
+}
