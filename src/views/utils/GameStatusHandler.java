@@ -21,4 +21,39 @@ public class GameStatusHandler {
     return gamePhase;
   }
 
+  public static boolean isPlayerOneTurn() {
+    return gamePhase == PLAYER_ONE_PLAY_PAWN || gamePhase == PLAYER_ONE_SELECT_PAWN;
+  }
+
+  public static boolean isPlayerTwoTurn() {
+    return gamePhase == PLAYER_TWO_PLAY_PAWN || gamePhase == PLAYER_TWO_SELECT_PAWN;
+  }
+
+  public static boolean isSelectionPhase() {
+    return gamePhase == PLAYER_ONE_SELECT_PAWN || gamePhase == PLAYER_TWO_SELECT_PAWN;
+  }
+
+  public static boolean isPlayPhase() {
+    return gamePhase == PLAYER_ONE_PLAY_PAWN || gamePhase == PLAYER_TWO_PLAY_PAWN;
+  }
+
+  public static void nextPhase() {
+    switch (gamePhase) {
+    case PLAYER_ONE_PLAY_PAWN:
+      gamePhase = PLAYER_ONE_SELECT_PAWN;
+      break;
+    case PLAYER_ONE_SELECT_PAWN:
+      gamePhase = PLAYER_TWO_PLAY_PAWN;
+      break;
+    case PLAYER_TWO_PLAY_PAWN:
+      gamePhase = PLAYER_TWO_SELECT_PAWN;
+      break;
+    case PLAYER_TWO_SELECT_PAWN:
+      gamePhase = PLAYER_ONE_PLAY_PAWN;
+      break;
+    default:
+      break;
+    }
+  }
+
 }

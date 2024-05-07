@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.game.board.Board;
 import src.views.game.board.PawnsBar;
+import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 
 public class Pawn extends JButton {
@@ -63,7 +64,11 @@ public class Pawn extends JButton {
   }
 
   public void select() {
+    isSelected = true;
     setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+
+    // Change the game phase to let the other player play the pawn
+    GameStatusHandler.nextPhase();
   }
 
   public boolean isSelected() {
