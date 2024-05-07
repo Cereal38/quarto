@@ -1,6 +1,9 @@
 package src.views.components;
 
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,7 +17,7 @@ public class Pawn extends JButton {
 
   private boolean played = false;
 
-  public Pawn(String code, int width, int height, PawnsBar parent) {
+  public Pawn(String code, int width, int height, PawnsBar parent, int index) {
     // Load image
     ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
 
@@ -32,6 +35,7 @@ public class Pawn extends JButton {
           cursorSet = false; // Cursor set permanently to HAND_CURSOR
           setPlayed(true);
           System.err.println("Pawn clicked");
+          parent.selectPawn(index);
           parent.refresh();
         }
       }
@@ -49,8 +53,8 @@ public class Pawn extends JButton {
     setCursor(new Cursor(Cursor.HAND_CURSOR));
 
     // Set cursor to HAND_CURSOR on the first click
-    addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
+    addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent evt) {
         if (cursorSet) {
           setCursor(null);
           cursorSet = false; // Cursor set permanently to HAND_CURSOR
@@ -69,5 +73,9 @@ public class Pawn extends JButton {
 
   public void setPlayed(boolean played) {
     this.played = played;
+  }
+
+  public void select() {
+    setBorder(BorderFactory.createLineBorder(Color.RED, 3));
   }
 }
