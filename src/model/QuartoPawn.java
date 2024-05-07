@@ -43,4 +43,8 @@ public class QuartoPawn {
     public int getHollow() {
         return ((pawnBinary & hollow) >> 3);
     }
+
+    public int getPawn() {
+        return pawnBinary;
+    }
 }

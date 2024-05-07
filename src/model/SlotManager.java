@@ -12,6 +12,16 @@ public class SlotManager {
         this.slotFileDates = new HashMap<>();
     }
 
+    public boolean isSlotFileEmpty(int index){
+        if(index < 0 || index >= getSlotFileDates().size()){
+            throw new IllegalArgumentException("Invalid index " + index);
+        }
+        String fileName = getSlotFileDates().keySet().toArray(new String[0])[index];
+        String filePath = SLOTS_DIRECTORY + File.separator + fileName;
+        File file = new File(filePath);
+        return file.length() == 0;
+    }
+
     // Method to load slot data from all text files within the directory
     public void loadFromDirectory() {
         File directory = new File(SLOTS_DIRECTORY);
@@ -48,7 +58,7 @@ public class SlotManager {
                 slotFileDates.put(fileName, lastModified);
 
                 // Debug print statement
-                System.out.println("Added file: " + fileName + ", Last modified: " + lastModified);
+                //System.out.println("Added file: " + fileName + ", Last modified: " + lastModified);
             }
         }
     }
@@ -72,6 +82,13 @@ public class SlotManager {
         System.out.println("Slot files and their last modified dates:");
         for (Map.Entry<String, Long> entry : slotFileDates.entrySet()) {
             System.out.println("File: " + entry.getKey() + ", Last Modified: " + entry.getValue());
+        }
+
+        //Check if the slots are empty or not
+        System.out.println("\nSlot file emptiness:");
+        for(int i = 0; i < slotFileDates.size(); i++){
+            boolean isEmpty = slotManager.isSlotFileEmpty(i);
+            System.out.println("File " + i + " is empty: " + isEmpty);
         }
     }
 }

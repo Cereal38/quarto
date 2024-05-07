@@ -24,7 +24,7 @@ public class LoadSaveController implements LoadSaveControl {
     public LoadSaveController() {
         this.slotManager = new SlotManager();
         this.slotManager.loadFromDirectory();
-        quartoModel = new QuartoModel();
+        quartoModel = new QuartoModel(0,0);
     }
 
     // Method to retrieve slot names from the model

@@ -2,98 +2,51 @@ package src.model;
 
 public class QuartoWin {
 
-    public boolean isTableEmpty(QuartoPawn[][] table,int line, int column) {
-        return table[line][column] == null;
+    private boolean checkWin(QuartoPawn[] lineOrColumn) {
+        if (lineOrColumn[0] == null)
+            return false;
+
+        boolean round = lineOrColumn[0].isRound();
+        boolean white = lineOrColumn[0].isWhite();
+        boolean little = lineOrColumn[0].isLittle();
+        boolean hollow = lineOrColumn[0].isHollow();
+
+        for (int i = 1; i < 4; i++) {
+            if (lineOrColumn[i] == null)
+                return false;
+
+            if (!lineOrColumn[i].isRound() == round &&
+                    !lineOrColumn[i].isWhite() == white &&
+                    !lineOrColumn[i].isLittle() == little &&
+                    !lineOrColumn[i].isHollow() == hollow) {
+                return false;
+            }
+        }
+
+        return true; // If all are the same or at least one attribute matches
     }
 
     public boolean winSituationLine(QuartoPawn[][] table, int line) {
-        if (isTableEmpty(table, line, 0))
-                return false;
-        boolean round = table[line][0].isRound();
-        boolean rTrue = true;
-        boolean white = table[line][0].isWhite();
-        boolean wTrue = true;
-        boolean little = table[line][0].isLittle();
-        boolean lTrue = true;
-        boolean hollow = table[line][0].isWhite();
-        boolean hTrue = true;
-        for (int i = 1; i < 4; i++) {
-            if (isTableEmpty(table, line, i))
-                return false;
-            if (rTrue && table[line][i].isRound() != round)
-                rTrue = false;
-            if (wTrue && table[line][i].isWhite() != white)
-                wTrue = false;
-            if (lTrue && table[line][i].isLittle() != little)
-                lTrue = false;
-            if (hTrue && table[line][i].isHollow() != hollow)
-                hTrue = false;
-        }
-        return rTrue || wTrue || lTrue || hTrue;
+        return checkWin(table[line]);
     }
-    
-    public boolean winSituationColumn(QuartoPawn[][] table, int column) {
-        if (isTableEmpty(table, 0, column))
-            return false;
-        boolean round = table[0][column].isRound();
-        boolean rTrue = true;
-        boolean white = table[0][column].isWhite();
-        boolean wTrue = true;
-        boolean little = table[0][column].isLittle();
-        boolean lTrue = true;
-        boolean hollow = table[0][column].isHollow();
-        boolean hTrue = true;
-        for (int i = 1; i < 4; i++) {
-            if (isTableEmpty(table, i, column))
-                return false;
-            if (rTrue && table[i][column].isRound() != round)
-                rTrue = false;
-            if (wTrue && table[i][column].isWhite() != white)
-                wTrue = false;
-            if (lTrue && table[i][column].isLittle() != little)
-                lTrue = false;
-            if (hTrue && table[i][column].isHollow() != hollow)
-                hTrue = false;
-        }
-        return rTrue || wTrue || lTrue || hTrue;
-    }
-    
-    public boolean winSituationDiagonal(QuartoPawn[][] table, int line, int column) {
-        int addColumn;
-        if (line == column) {
-            addColumn = 1;
-            column = 0;
-        } else if ((line + column) == 3) {
-            addColumn = -1;
-            column = 3;
-        } else {
-            return false;
-        }
-        if (isTableEmpty(table, 0, column))
-            return false;
-        boolean round = table[0][column].isRound();
-        boolean rTrue = true;
-        boolean white = table[0][column].isWhite();
-        boolean wTrue = true;
-        boolean little = table[0][column].isLittle();
-        boolean lTrue = true;
-        boolean hollow = table[0][column].isHollow();
-        boolean hTrue = true;
 
+    public boolean winSituationColumn(QuartoPawn[][] table, int column) {
+        QuartoPawn[] columnArray = new QuartoPawn[4];
         for (int i = 0; i < 4; i++) {
-            if (isTableEmpty(table, i, column))
-                return false;
-            if (rTrue && table[i][column].isRound() != round)
-                rTrue = false;
-            if (wTrue && table[i][column].isWhite() != white)
-                wTrue = false;
-            if (lTrue && table[i][column].isLittle() != little)
-                lTrue = false;
-            if (hTrue && table[i][column].isHollow() != hollow)
-                hTrue = false;
-            column = column + addColumn;
+            columnArray[i] = table[i][column];
         }
-        return rTrue || wTrue || lTrue || hTrue;
+        return checkWin(columnArray);
+    }
+
+    public boolean winSituationDiagonal(QuartoPawn[][] table, int line, int column) {
+        if (line == column || (line + column) == 3) {
+            QuartoPawn[] diagonalArray = new QuartoPawn[4];
+            for (int i = 0; i < 4; i++) {
+                diagonalArray[i] = (line == column) ? table[i][i] : table[i][3 - i];
+            }
+            return checkWin(diagonalArray);
+        }
+        return false;
     }
 
 }
