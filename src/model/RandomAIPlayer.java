@@ -1,5 +1,7 @@
 package src.model
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class RandomAIPlayer implements Player {
@@ -33,11 +35,29 @@ public class RandomAIPlayer implements Player {
 
     @Override
     public void playShot(QuartoModel quartoModel) {
-        int line, column;
-        do {
-            line = random.nextInt(4);
-            column = random.nextInt(4);
-        } while (!quartoModel.isTableEmpty(line, column));//not efficient !
-        quartoModel.playShotHuman(line, column);
+        List<int[]> emptyCells = new ArrayList<>();
+
+        // Find all the empty cells
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (quartoModel.isTableEmpty(i, j)) {
+                    emptyCells.add(new int[]{i, j});
+                }
+            }
+        }
+
+        if (!emptyCells.isEmpty()) {
+            // Select one random cell in all the available cells
+            int[] randomCell = emptyCells.get(random.nextInt(emptyCells.size()));
+            int line = randomCell[0];
+            int column = randomCell[1];
+
+            // play shot on the random cell
+            quartoModel.playShotHuman(line, column);
+        } else {
+            // All cells are used
+            System.out.println("All cells are occupied. Impossible to play.");
+        }
     }
+
 }
