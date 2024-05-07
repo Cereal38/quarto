@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class QuartoFile {
-    QuartoHistory save, head;
+    private QuartoHistory save, head;
 
     public QuartoFile() {
         head = new QuartoHistory();
@@ -91,9 +91,13 @@ public class QuartoFile {
             System.err.println("impossible de trouver le fichier " + fileName);
         }
     }
-    
+
     public QuartoHistory getSave() {
         return save;
+    }
+
+    public QuartoHistory getHead(){
+        return head;
     }
 
     public void setSave(QuartoHistory s) {
@@ -135,7 +139,7 @@ public class QuartoFile {
     public int getPreviousIndexPawn() {
         return save.previous.getIndexPawn();
     }
-    
+
     public int getPreviousLine() {
         return save.previous.getLine();
     }
