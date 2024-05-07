@@ -8,6 +8,8 @@ package src.model;
  * crée class QuartoWin
  */
 
+import java.io.IOException;
+
 public class QuartoModel {
     private QuartoPawn[][] table;
     private int player;//1 for Player 1 and 2 for Player 2
@@ -108,6 +110,10 @@ public class QuartoModel {
             }
             copy = copy.next;
         }
+    }
+
+    public void saveFile(String filename) throws IOException {
+        histo.saveFile(filename);
     }
 
     public QuartoPawn getSelectedPawn() {

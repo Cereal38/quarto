@@ -1,20 +1,30 @@
 package src.views;
 
+import src.views.components.BorderCenterPanel;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.Map;
 
-public class SlotPanelCreator {
+public class LoadSaveHelper {
+    LoadSaveControl control ;
+    boolean isSaveMode;
+    JPanel slotsPanel;
 
-    private JPanel createSlotPanel(String slotTitle, Date savedDate) {
+    LoadSaveHelper (LoadSaveControl c, boolean isSaveMode){
+        this.control = c;
+        this.isSaveMode = isSaveMode;
+    }
+
+    public JPanel createSlotPanel(String slotTitle, Date savedDate) {
         JPanel slotPanel = new JPanel(new BorderLayout());
 
         // Set border for the main content panel
-        Border slotBorder = BorderFactory.createLineBorder(Color.BLACK, 1); // Black line border with thickness 1
-        slotPanel.setBorder(slotBorder);
+        Border slotBorder  = BorderFactory.createLineBorder(Color.BLACK, 1); // Black line border with thickness 1
 
         // Panel for the left side (slot name and date)
         JPanel contentPanel = new JPanel(new BorderLayout());
@@ -26,50 +36,36 @@ public class SlotPanelCreator {
         leftPanel.add(titleLabel);
         JLabel dateLabel = new JLabel("Saved Date: " + savedDate.toString());
         leftPanel.add(dateLabel);
-        contentPanel.setBorder(slotBorder); // Use the same border as slotPanel
+        slotPanel.setBorder(slotBorder );
         contentPanel.add(leftPanel, BorderLayout.WEST);
 
         // Add the contentPanel to slotPanel in CENTER (inside the border)
         slotPanel.add(contentPanel, BorderLayout.CENTER);
 
         // Create a panel for buttons (Load Game and Clear Slot)
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Right-aligned layout
-
-        // Load Game button (colored green)
-        JButton loadGameButton = new JButton("Load Game");
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5)); // Right-aligned layout with spacing
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        JButton loadGameButton = new JButton(!isSaveMode ? "Load Game" : "Save Game");
         loadGameButton.setBackground(Color.GREEN); // Set background color to green
+
         loadGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Action to be performed when Load Game button is clicked (currently empty)
             }
         });
-
-        // Set border for Load Game button matching the slotPanel's border
-        Border buttonBorder = BorderFactory.createEmptyBorder(
-                slotBorder.getBorderInsets(slotPanel).top, // top
-                slotBorder.getBorderInsets(slotPanel).left, // left
-                slotBorder.getBorderInsets(slotPanel).bottom, // bottom
-                slotBorder.getBorderInsets(slotPanel).right // right
-        );
-        loadGameButton.setBorder(buttonBorder);
-
         buttonPanel.add(loadGameButton);
 
         // Clear Slot button (colored red)
         JButton clearSlotButton = new JButton("Clear Slot");
         clearSlotButton.setBackground(Color.RED); // Set background color to red
-        clearSlotButton.setForeground(Color.WHITE); // Set text color to white
+        clearSlotButton.setForeground(Color.WHITE);
         clearSlotButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Action to be performed when Clear Slot button is clicked (currently empty)
             }
         });
-
-        // Set border for Clear Slot button matching the slotPanel's border
-        clearSlotButton.setBorder(buttonBorder);
-
         buttonPanel.add(clearSlotButton);
 
         // Add the buttonPanel to a new JPanel that uses BorderLayout (to handle border layout separately)
@@ -77,24 +73,23 @@ public class SlotPanelCreator {
         buttonWrapperPanel.add(buttonPanel, BorderLayout.NORTH); // Add buttonPanel to the top (NORTH) of the wrapper
 
         // Add the buttonWrapperPanel to slotPanel on the right side (EAST) but outside the main content panel
-        slotPanel.add(buttonWrapperPanel, BorderLayout.EAST);
+        BorderCenterPanel center = new BorderCenterPanel(buttonWrapperPanel, 10,10,10,50);
+        slotPanel.add(center, BorderLayout.EAST);
 
         return slotPanel;
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Slot Panels Example");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new FlowLayout());
+    public void renderSlots(JPanel panel) {
+        this.slotsPanel = panel;
+        Map<String, Long> slotFileDates = control.getSlotFileDates();
 
-        // Create slot panels and add them to the frame
-        SlotPanelCreator creator = new SlotPanelCreator();
-        for (int i = 1; i <= 10; i++) {
-            JPanel slotPanel = creator.createSlotPanel("Slot " + i, new Date());
-            frame.add(slotPanel);
+        // Iterate over the entries of slotFileDates map to create and render slot panels
+        for (Map.Entry<String, Long> entry : slotFileDates.entrySet()) {
+            String slotName = entry.getKey();
+            Long lastModified = entry.getValue();
+
+            JPanel slotPanel = createSlotPanel(slotName, new Date(lastModified)); // Create a slot panel
+            slotsPanel.add(slotPanel); // Add slot panel to the slotsPanel
         }
-
-        frame.pack();
-        frame.setVisible(true);
     }
 }
