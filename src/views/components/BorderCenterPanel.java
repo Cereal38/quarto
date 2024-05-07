@@ -68,10 +68,10 @@ public class BorderCenterPanel extends JPanel {
     });
   }
 
-  public void setMargins(int top, int left, int bottom, int right) {
-    this.top = top;
-    this.left = left;
-    this.bottom = bottom;
-    this.right = right;
+  public void setMargins(int marginTop, int marginLeft, int marginBottom, int marginRight) {
+    this.top = marginTop;
+    this.left = marginLeft;
+    this.bottom = marginBottom;
+    this.right = marginRight;
   }
 }
