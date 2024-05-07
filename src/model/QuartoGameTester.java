@@ -79,9 +79,9 @@ public class QuartoGameTester {
                     System.out.println("Invalid coordinates.");
                 }
             } else if (input.toLowerCase().startsWith("charge ")) {
-                String fileName = input.substring(7).trim();
-                quartoModel.chargeGame(fileName);
-                System.out.println("Game loaded from file: " + fileName);
+                int index = Integer.parseInt(input.substring(7).trim());
+                quartoModel.chargeGame(index);
+                System.out.println("Game loaded from file of index: " + index);
             } else if (input.toLowerCase().startsWith("save ")) {
                 String fileName = input.substring(5).trim();
                 quartoModel.getFile().saveFile(fileName);

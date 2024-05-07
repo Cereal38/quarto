@@ -11,6 +11,7 @@ public class QuartoModel {
     private QuartoPawn selectedPawn;
     private QuartoFile file;
     private QuartoWin win;
+    private SlotManager manager;
     private String firstPlayerName, secondPlayerName;
 
     private Player randomAIPlayer;
@@ -123,8 +124,8 @@ public class QuartoModel {
                 || win.winSituationDiagonal(getTable(), line, column));
     }
 
-    public void chargeGame(String fileName) {
-        file.chargeFile(fileName);
+    public void chargeGame(int index) {
+        file.chargeFile(manager.getSlotFileDates().keySet().toArray(new String[0])[index]);
         QuartoHistory copy = file.getHead();
         while(!copy.equals(file.getSave())) {
             if (copy.state == 0) {
