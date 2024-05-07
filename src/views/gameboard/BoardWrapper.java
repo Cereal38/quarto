@@ -3,10 +3,8 @@ package src.views.gameboard;
 import java.awt.BorderLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import src.views.components.BorderCenterPanel;
 import src.views.utils.DimensionUtils;
 
 /**
@@ -37,36 +35,10 @@ public class BoardWrapper extends JPanel {
     float horizontalMargin = (float) (width / 2 - cellSize * 2 - gap * 1.5);
     float verticalMargin = gap;
 
-    // South
-    JPanel southPanel = new JPanel();
-    JButton southMargin = new JButton("");
-    southMargin.setBorder(BorderFactory.createEmptyBorder(0, 0, (int) verticalMargin, 0));
-    southPanel.add(southMargin);
-    add(southPanel, BorderLayout.SOUTH);
+    BorderCenterPanel centerPanel = new BorderCenterPanel(new Board((int) cellSize), (int) verticalMargin,
+        (int) horizontalMargin, (int) verticalMargin, (int) horizontalMargin);
 
-    // North
-    JPanel northPanel = new JPanel();
-    JLabel northMargin = new JLabel("");
-    northMargin.setBorder(BorderFactory.createEmptyBorder((int) verticalMargin, 0, 0, 0));
-    northPanel.add(northMargin);
-    add(northPanel, BorderLayout.NORTH);
-
-    // West
-    JPanel westPanel = new JPanel();
-    JLabel westMargin = new JLabel("");
-    westMargin.setBorder(BorderFactory.createEmptyBorder(0, (int) horizontalMargin, 0, 0));
-    westPanel.add(westMargin);
-    add(westPanel, BorderLayout.WEST);
-
-    // East
-    JPanel eastPanel = new JPanel();
-    JLabel eastMargin = new JLabel("");
-    eastMargin.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, (int) horizontalMargin));
-    eastPanel.add(eastMargin);
-    add(eastPanel, BorderLayout.EAST);
-
-    // Board
-    add(new Board((int) cellSize), BorderLayout.CENTER);
+    add(centerPanel, BorderLayout.CENTER);
 
     // Resize listener
     this.addComponentListener(new ComponentAdapter() {
@@ -85,10 +57,8 @@ public class BoardWrapper extends JPanel {
         float horizontalMargin = (float) (width / 2 - cellSize * 2 - gap * 1.5);
         float verticalMargin = gap;
 
-        southMargin.setBorder(BorderFactory.createEmptyBorder(0, 0, (int) verticalMargin, 0));
-        northMargin.setBorder(BorderFactory.createEmptyBorder((int) verticalMargin, 0, 0, 0));
-        westMargin.setBorder(BorderFactory.createEmptyBorder(0, (int) horizontalMargin, 0, 0));
-        eastMargin.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, (int) horizontalMargin));
+        centerPanel.setMargins((int) verticalMargin, (int) horizontalMargin, (int) verticalMargin,
+            (int) horizontalMargin);
       }
     });
 
