@@ -1,9 +1,9 @@
-package src.model;
+package src.model
 
 public class QuartoModel {
     private QuartoPawn[][] table;
     private int player;//1 for Player 1 and 2 for Player 2
-    private int playerType[] = new int [2] ; // 0 for Human and 1 for AI
+    private int playerType[] = new int [2] ; // 0 for Human and 1 for Random AI
     //with playerType[0] type of the player 1 and playerType[1] type of the player 2
     private QuartoPawn[] pawnAvailable;
     private QuartoPawn selectedPawn;
