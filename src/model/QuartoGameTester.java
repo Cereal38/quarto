@@ -23,7 +23,7 @@ public class QuartoGameTester {
 
         scanner.nextLine();//skip the \n
 
-        quartoModel = new QuartoModel(firstPlayerType, secondPlayerType);
+        quartoModel = new QuartoModel(firstPlayerType, secondPlayerType, "", "");
 
         System.out.println("Type 'help' for commands.");
 
@@ -84,7 +84,7 @@ public class QuartoGameTester {
                 System.out.println("Game loaded from file: " + fileName);
             } else if (input.toLowerCase().startsWith("save ")) {
                 String fileName = input.substring(5).trim();
-                quartoModel.getHisto().saveFile(fileName);
+                quartoModel.getFile().saveFile(fileName);
                 System.out.println("Game saved to file: " + fileName);
             } else if (input.equalsIgnoreCase("quit")) {
                 System.out.println("Quitting game.");

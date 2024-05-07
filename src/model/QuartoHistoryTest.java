@@ -7,7 +7,7 @@ public class QuartoHistoryTest {
     //Before executing these tests, make sure the tests of the model all pass
     @Test
     public void testCanRedo() {
-        QuartoModel game = new QuartoModel(0,0);
+        QuartoModel game = new QuartoModel(0,0, "", "");
         Assertions.assertFalse(game.getFile().canRedo()); // redo cant be possible at start
 
         // playing a shot
@@ -26,7 +26,7 @@ public class QuartoHistoryTest {
 
     @Test
     public void testRedo() {
-        QuartoModel game = new QuartoModel(0, 0);
+        QuartoModel game = new QuartoModel(0, 0, "", "");
 
         // play a shot
         game.playShot(0, 0);
@@ -46,7 +46,7 @@ public class QuartoHistoryTest {
 
     @Test
     public void testCanUndo() {
-        QuartoModel game = new QuartoModel(0, 0);
+        QuartoModel game = new QuartoModel(0, 0, "", "");
         Assertions.assertFalse(game.getFile().canUndo()); // undo should not be possible at start
 
         // playing a shot
@@ -56,7 +56,7 @@ public class QuartoHistoryTest {
 
     @Test
     public void testUndo() {
-        QuartoModel game = new QuartoModel(0, 0);
+        QuartoModel game = new QuartoModel(0, 0, "", "");
 
         // saving actual state
         QuartoHistory save = game.getFile().getSave();
@@ -73,7 +73,7 @@ public class QuartoHistoryTest {
 
     @Test
     public void testRealisticUndoRedo(){
-        QuartoModel game = new QuartoModel(0, 0);
+        QuartoModel game = new QuartoModel(0, 0, "", "");
 
         //current player must be 1
         Assertions.assertEquals(game.getCurrentPlayer(), 1);
