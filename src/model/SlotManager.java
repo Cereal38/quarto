@@ -1,4 +1,4 @@
-package src.model
+package src.model;
 
 import java.io.File;
 import java.util.HashMap;
