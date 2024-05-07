@@ -26,11 +26,11 @@ public class GameBoard extends JPanel {
     pawnsBar.setPreferredSize(new Dimension(widthPawnsBar, heightPawnsBar));
     DimensionUtils.setBoardPawnsBar(widthPawnsBar, heightPawnsBar);
 
-    CenterBoard centerBoard = new CenterBoard();
+    BoardWrapper boardWrapper = new BoardWrapper();
 
     // Add components
     add(topBarGameBoard, BorderLayout.NORTH);
-    add(centerBoard, BorderLayout.CENTER);
+    add(boardWrapper, BorderLayout.CENTER);
     add(pawnsBar, BorderLayout.SOUTH);
 
   }

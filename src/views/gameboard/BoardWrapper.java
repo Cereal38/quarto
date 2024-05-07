@@ -12,11 +12,11 @@ import src.views.utils.DimensionUtils;
  * screen.
  * 
  */
-public class CenterBoard extends JPanel {
+public class BoardWrapper extends JPanel {
 
   private static final float GAP_FACTOR = (float) 0.3;
 
-  public CenterBoard() {
+  public BoardWrapper() {
     setLayout(new BorderLayout());
 
     // Compute the size of the panel
@@ -63,9 +63,8 @@ public class CenterBoard extends JPanel {
     eastPanel.add(eastMargin);
     add(eastPanel, BorderLayout.EAST);
 
-    // Center
-    JButton btn = new JButton("Center");
-    add(btn, BorderLayout.CENTER);
+    // Board
+    add(new Board((int) cellSize, (int) gap), BorderLayout.CENTER);
 
   }
 }
