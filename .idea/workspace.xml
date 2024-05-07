@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/MainTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/LoadSaveController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/SlotManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/LoadSaveControl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/components/RoundBorder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/quartov5/quartov5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/quartov5.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quartov5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/quartov5.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/LoadSavePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoadSavePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/SlotPanelCreator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +46,7 @@
     "Application.LoadSavePage.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.MainTest.executor": "Run",
+    "Application.RoundedBorderExample.executor": "Run",
     "Application.SlotManager.executor": "Run",
     "Application.SlotManagerTest.executor": "Run",
     "Application.SlotPanelCreator.executor": "Run",
@@ -77,7 +70,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.LoadSavePage">
+  <component name="RunManager">
     <configuration name="LoadSavePage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="src.views.LoadSavePage" />
       <module name="quartov5" />
@@ -145,7 +138,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715075249136</updated>
-      <workItem from="1715075250163" duration="14031000" />
+      <workItem from="1715075250163" duration="15976000" />
     </task>
     <servers />
   </component>

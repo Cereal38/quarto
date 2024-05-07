@@ -1,6 +1,6 @@
 package src.views;
 
-import src.views.components.BorderCenterPanel;
+import src.views.components.RoundBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -23,8 +23,8 @@ public class LoadSaveHelper {
     public JPanel createSlotPanel(String slotTitle, Date savedDate) {
         JPanel slotPanel = new JPanel(new BorderLayout());
 
-        // Set border for the main content panel
-        Border slotBorder  = BorderFactory.createLineBorder(Color.BLACK, 1); // Black line border with thickness 1
+        // Set rounded border for the main content panel
+        Border slotBorder = new RoundBorder(Color.BLACK, 5, 15); // Black rounded border with thickness 5 and radius 15
 
         // Panel for the left side (slot name and date)
         JPanel contentPanel = new JPanel(new BorderLayout());
@@ -36,16 +36,17 @@ public class LoadSaveHelper {
         leftPanel.add(titleLabel);
         JLabel dateLabel = new JLabel("Saved Date: " + savedDate.toString());
         leftPanel.add(dateLabel);
-        slotPanel.setBorder(slotBorder );
         contentPanel.add(leftPanel, BorderLayout.WEST);
 
-        // Add the contentPanel to slotPanel in CENTER (inside the border)
         slotPanel.add(contentPanel, BorderLayout.CENTER);
+
+        slotPanel.setBorder(slotBorder);
+
 
         // Create a panel for buttons (Load Game and Clear Slot)
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5)); // Right-aligned layout with spacing
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        JButton loadGameButton = new JButton(!isSaveMode ? "Load Game" : "Save Game");
+        JButton loadGameButton = new JButton("Load Game");
         loadGameButton.setBackground(Color.GREEN); // Set background color to green
 
         loadGameButton.addActionListener(new ActionListener() {
@@ -73,8 +74,7 @@ public class LoadSaveHelper {
         buttonWrapperPanel.add(buttonPanel, BorderLayout.NORTH); // Add buttonPanel to the top (NORTH) of the wrapper
 
         // Add the buttonWrapperPanel to slotPanel on the right side (EAST) but outside the main content panel
-        BorderCenterPanel center = new BorderCenterPanel(buttonWrapperPanel, 10,10,10,50);
-        slotPanel.add(center, BorderLayout.EAST);
+        slotPanel.add(buttonWrapperPanel, BorderLayout.EAST);
 
         return slotPanel;
     }
