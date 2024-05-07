@@ -22,7 +22,7 @@ public class GameBoard extends JPanel {
     // Setup pawns bar
     PawnsBar pawnsBar = new PawnsBar();
     int widthPawnsBar = widthFrame;
-    int heightPawnsBar = 100;
+    int heightPawnsBar = 130;
     pawnsBar.setPreferredSize(new Dimension(widthPawnsBar, heightPawnsBar));
     DimensionUtils.setBoardPawnsBar(widthPawnsBar, heightPawnsBar);
 
