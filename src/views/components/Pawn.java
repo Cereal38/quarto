@@ -37,6 +37,7 @@ public class Pawn extends JButton {
             setCursor(null);
             cursorSet = false; // Cursor set permanently to HAND_CURSOR
             select();
+            GameStatusHandler.setSelectedPawn(code);
             System.err.println("Pawn clicked");
             parent.refresh();
           } else {

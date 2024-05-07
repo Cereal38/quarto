@@ -24,7 +24,7 @@ public class Cell extends JPanel {
         // Only allow the player to place a pawn during the play phase and if the cell
         // is empty
         if (GameStatusHandler.isPlayPhase() && !hasPawn()) {
-          setPawn(new Pawn("1111", 50, 50, board));
+          setPawn(new Pawn(GameStatusHandler.getSelectedPawn(), 50, 50, board));
           GameStatusHandler.nextPhase();
           repaint();
         } else {

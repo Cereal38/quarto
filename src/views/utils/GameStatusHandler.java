@@ -12,6 +12,7 @@ public class GameStatusHandler {
   public static final int PLAYER_TWO_WIN = 6;
 
   private static int gamePhase = GAME_NOT_STARTED;
+  private static String selectedPawn = "";
 
   public static void setGamePhase(int phase) {
     gamePhase = phase;
@@ -77,6 +78,14 @@ public class GameStatusHandler {
     default:
       return "Game Not Started";
     }
+  }
+
+  public static void setSelectedPawn(String pawn) {
+    selectedPawn = pawn;
+  }
+
+  public static String getSelectedPawn() {
+    return selectedPawn;
   }
 
 }
