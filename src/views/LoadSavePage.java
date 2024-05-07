@@ -1,19 +1,20 @@
 package src.views;
 
-import src.controller.LoadSaveController;
+import src.controller.PlayersInformations;
 import src.views.components.BorderCenterPanel;
+import src.views.players.names.PlayersInformationsControl;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class LoadSavePage extends JPanel {
     private boolean isSaveMode;
-    LoadSaveControl control;
+    PlayersInformationsControl control;
     private JPanel slotsPanel;
 
     public LoadSavePage(boolean isSaveMode) {
         this.isSaveMode = isSaveMode;
-        this.control = new LoadSaveController();
+        this.control = new PlayersInformations();
         LoadSaveHelper help = new LoadSaveHelper(control, isSaveMode);
         // Set the layout for the LoadPage panel
         setLayout(new BorderLayout()); // Use BorderLayout to organize components
@@ -40,7 +41,7 @@ public class LoadSavePage extends JPanel {
             JFrame frame = new JFrame("Load Page");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            LoadSavePage loadSavePage = new LoadSavePage(false);
+            LoadSavePage loadSavePage = new LoadSavePage(true);
             frame.getContentPane().add(loadSavePage);
 
             frame.pack();

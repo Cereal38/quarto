@@ -11,13 +11,17 @@ public class QuartoModel {
     private QuartoPawn selectedPawn;
     private QuartoFile file;
     private QuartoWin win;
+    private String name1, name2;
 
     private Player randomAIPlayer;
 
-    public QuartoModel(int firstPlayerType, int secondPlayerType) {
+    public QuartoModel(int firstPlayerType, int secondPlayerType, String name1, String name2) {
         newTable(firstPlayerType, secondPlayerType);
         file = new QuartoFile();
         win = new QuartoWin();
+        this.name1 = name1;
+        this.name2 = name2;
+        System.out.println("name 1 : " + name1 + "name 2 :" + name2);
         if(firstPlayerType == 1){
             randomAIPlayer = new RandomAIPlayer();
         }else if (secondPlayerType == 1){

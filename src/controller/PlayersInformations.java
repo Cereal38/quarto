@@ -2,32 +2,29 @@ package src.controller;
 
 import src.model.QuartoModel;
 import src.model.SlotManager;
-import src.views.LoadSaveControl;
+import src.views.players.names.PlayersInformationsControl;
 
 import java.io.IOException;
 import java.util.Map;
 
-/*
-* TODO :
-*   1. Function that tells us if the file is empty
-*   2. Function that changes the file name takes in arguments player name 1 and player name 2
-*   3.
-
-* */
-
-
-public class LoadSaveController implements LoadSaveControl {
-
+public class PlayersInformations implements PlayersInformationsControl {
+    QuartoModel quartoModel;
     private SlotManager slotManager;
-    private QuartoModel quartoModel;
 
-    public LoadSaveController() {
+    public PlayersInformations(){
         this.slotManager = new SlotManager();
         this.slotManager.loadFromDirectory();
-        quartoModel = new QuartoModel(0,0);
     }
 
-    // Method to retrieve slot names from the model
+    @Override
+    public void createModel(int type1, int type2, String name1, String name2) {
+        this.quartoModel = new QuartoModel(type1, type2, name1, name2);
+    }
+
+    public QuartoModel getModel(){
+        return this.quartoModel;
+    }
+
     public Map<String, Long> getSlotFileDates() {
         return slotManager.getSlotFileDates();
     }
@@ -39,4 +36,5 @@ public class LoadSaveController implements LoadSaveControl {
     public void loadGame(String filename){
         quartoModel.chargeGame(filename);
     }
+
 }

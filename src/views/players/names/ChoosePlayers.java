@@ -1,5 +1,6 @@
 package src.views.players.names;
 
+import src.controller.PlayersInformations;
 import src.views.components.*;
 import src.views.listeners.TextFieldChangeListener;
 import src.views.utils.EventsHandler;
@@ -17,6 +18,7 @@ TODO :
 
 public class ChoosePlayers extends JPanel {
 
+
     private CustomTextField player1TextField;
     private CustomTextField player2TextField;
     private JComboBox<String> difficultyComboBox1;
@@ -24,10 +26,13 @@ public class ChoosePlayers extends JPanel {
     private TranslatedButton startButton;
     private boolean player1IsAI = false;
     private boolean player2IsAI = false;
+    PlayersInformationsControl control;
+
 
     public ChoosePlayers() {
         // Set BorderLayout for the ChoosePlayers panel
         setLayout(new BorderLayout());
+        this.control = new PlayersInformations();
 
         // Create a title label
         TranslatedLabel titleLabel = new TranslatedLabel("enter-players-names");
@@ -63,6 +68,7 @@ public class ChoosePlayers extends JPanel {
         // Create Start button (initially hidden)
         startButton = new TranslatedButton("start");
         startButton.addActionListener(e -> {
+            control.createModel(0,0,"a", "b");
             EventsHandler.navigate("GameBoard");
         });
         startButton.setVisible(false);

@@ -5,16 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/model/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/RandomAIPlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/PlayersInformations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/players/names/PlayersInformationsControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/LoadSaveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoadSaveController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoHistory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/QuartoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoPawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoPawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoWin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoWin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/SlotManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SlotManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/LoadSavePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoadSavePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/players/names/ChoosePlayers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/players/names/ChoosePlayers.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -146,7 +144,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715075249136</updated>
-      <workItem from="1715075250163" duration="17080000" />
+      <workItem from="1715075250163" duration="20094000" />
     </task>
     <servers />
   </component>
