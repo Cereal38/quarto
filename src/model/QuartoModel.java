@@ -62,21 +62,21 @@ public class QuartoModel {
         }
     }
 
-    public void selectPawn(int pawnRemoved) {
+    public void selectPawn(int indexPawn) {
         if(getCurrentPlayerType() == 1){
             aiPlayer.selectPawn(this);
         } else {
-            selectPawnHuman(pawnRemoved);
+            selectPawnHuman(indexPawn);
         }
     }
 
-    public void selectPawnHuman(int pawnRemoved){
-        setSelectedPawn(pawnAvailable[pawnRemoved]);
+    public void selectPawnHuman(int indexPawn){
+        setSelectedPawn(pawnAvailable[indexPawn]);
         //Add a new history because we chose what pawn the next player will play.
-        histo.getSave().setNext(new QuartoHistory(pawnRemoved, histo.getSave()));
+        histo.getSave().setNext(new QuartoHistory(indexPawn, histo.getSave()));
         histo.getSave().getNext().setPrevious(histo.getSave());
         histo.setSave(histo.getSave().getNext());
-        pawnAvailable[pawnRemoved] = null;
+        pawnAvailable[indexPawn] = null;
         switchPlayer();//next player
     }
 
