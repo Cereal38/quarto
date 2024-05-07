@@ -127,16 +127,16 @@ public class ChoosePlayers extends JPanel {
         startButton.setVisible(bothPlayersFilled);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Choose Players");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // public static void main(String[] args) {
+    //     SwingUtilities.invokeLater(() -> {
+    //         JFrame frame = new JFrame("Choose Players");
+    //         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            ChoosePlayers choosePlayersPanel = new ChoosePlayers();
-            frame.getContentPane().add(choosePlayersPanel);
+    //         ChoosePlayers choosePlayersPanel = new ChoosePlayers();
+    //         frame.getContentPane().add(choosePlayersPanel);
 
-            frame.pack();
-            frame.setVisible(true);
-        });
-    }
+    //         frame.pack();
+    //         frame.setVisible(true);
+    //     });
+    // }
 }
