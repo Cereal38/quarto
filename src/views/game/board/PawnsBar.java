@@ -10,8 +10,6 @@ public class PawnsBar extends JPanel {
 
   // All pawns in the game. null means the pawn is already placed on the board
   private Pawn[] pawns = new Pawn[16];
-  // Index in the pawns array of the selected pawn (-1 if no pawn is selected)
-  private int selectedPawn = -1;
 
   public PawnsBar() {
     setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -31,9 +29,6 @@ public class PawnsBar extends JPanel {
     removeAll();
     for (int i = 0; i < 16; i++) {
       // if (!pawns[i].isPlayed()) {
-      if (i == selectedPawn) {
-        pawns[i].select();
-      }
       add(pawns[i]);
       // }
     }
@@ -41,12 +36,4 @@ public class PawnsBar extends JPanel {
     repaint();
   }
 
-  /**
-   * Select a pawn in the pawns bar
-   * 
-   * @param index Index of the pawn to select
-   */
-  public void selectPawn(int index) {
-    this.selectedPawn = index;
-  }
 }

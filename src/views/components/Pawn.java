@@ -15,34 +15,10 @@ public class Pawn extends JButton {
 
   private boolean cursorSet = true;
 
-  private boolean played = false;
+  private boolean isPlayed = false;
+  private boolean isSelected = false;
 
   public Pawn(String code, int width, int height, PawnsBar parent, int index) {
-    // Load image
-    ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
-
-    // Set image
-    setIcon(image);
-    setContentAreaFilled(false);
-    setBorder(BorderFactory.createEmptyBorder());
-    setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-    // Set cursor to HAND_CURSOR on the first click
-    addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        if (cursorSet) {
-          setCursor(null);
-          cursorSet = false; // Cursor set permanently to HAND_CURSOR
-          setPlayed(true);
-          System.err.println("Pawn clicked");
-          parent.selectPawn(index);
-          parent.refresh();
-        }
-      }
-    });
-  }
-
-  public Pawn(String code, int width, int height, Board parent) {
     // Load image
     ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
 
@@ -58,7 +34,7 @@ public class Pawn extends JButton {
         if (cursorSet) {
           setCursor(null);
           cursorSet = false; // Cursor set permanently to HAND_CURSOR
-          setPlayed(true);
+          select();
           System.err.println("Pawn clicked");
           parent.refresh();
         }
@@ -66,16 +42,31 @@ public class Pawn extends JButton {
     });
   }
 
+  public Pawn(String code, int width, int height, Board parent) {
+    // Load image
+    ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
+
+    // Set image
+    setIcon(image);
+    setContentAreaFilled(false);
+    setBorder(BorderFactory.createEmptyBorder());
+
+  }
+
   // getter and setter for played
   public boolean isPlayed() {
-    return played;
+    return isPlayed;
   }
 
   public void setPlayed(boolean played) {
-    this.played = played;
+    this.isPlayed = played;
   }
 
   public void select() {
     setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+  }
+
+  public boolean isSelected() {
+    return isSelected;
   }
 }
