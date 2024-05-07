@@ -40,7 +40,7 @@ public class Pawn extends JButton {
             System.err.println("Pawn clicked");
             parent.refresh();
           } else {
-            System.err.println("Not selection phase - " + GameStatusHandler.getGamePhaseAsText());
+            System.err.println("Not a selection phase - " + GameStatusHandler.getGamePhaseAsText());
           }
         }
       }
