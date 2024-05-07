@@ -129,7 +129,7 @@ public class QuartoModel {
             } else if (copy.state == 1) {
                 setTable(copy.getLine(), copy.getColumn(), getSelectedPawn());
             }
-            copy = copy.next;
+            copy = copy.getNext();
         }
     }
 
@@ -179,5 +179,12 @@ public class QuartoModel {
 
     public int getCurrentPlayerType(){
         return playerType[getCurrentPlayer() - 1];
+    }
+
+    public void setPlayerType(int[] playerType) {
+        if (playerType.length != 2) {
+            throw new IllegalArgumentException("playerType array must have length 2");
+        }
+        this.playerType = playerType;
     }
 }

@@ -3,27 +3,25 @@ package src.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
-
 public class QuartoHistoryTest {
     //Before executing these tests, make sure the tests of the model all pass
     @Test
     public void testCanRedo() {
         QuartoModel game = new QuartoModel(0,0);
-        Assertions.assertFalse(game.getHisto().canRedo()); // redo cant be possible at start
+        Assertions.assertFalse(game.getFile().canRedo()); // redo cant be possible at start
 
         // playing a shot
         game.playShot(0, 0);
-        Assertions.assertFalse(game.getHisto().canRedo()); // After a shot played, redo still cannot be possible
+        Assertions.assertFalse(game.getFile().canRedo()); // After a shot played, redo still cannot be possible
 
         //undoing last played shot
         game.undo();
 
-        Assertions.assertTrue(game.getHisto().canRedo()); // After a shot is undone, redo is possible
+        Assertions.assertTrue(game.getFile().canRedo()); // After a shot is undone, redo is possible
 
         game.redo();
 
-        Assertions.assertFalse(game.getHisto().canRedo()); // After a shot is redone, redo is not possible
+        Assertions.assertFalse(game.getFile().canRedo()); // After a shot is redone, redo is not possible
     }
 
     @Test
@@ -34,7 +32,7 @@ public class QuartoHistoryTest {
         game.playShot(0, 0);
 
         // saving in the history
-        QuartoHistory save = game.getHisto().getSave();
+        QuartoHistory save = game.getFile().getSave();
 
         // Undo the movement
         game.undo();
@@ -43,17 +41,17 @@ public class QuartoHistoryTest {
         game.redo();
 
         // next saved element must be equal to the previous saved state
-        Assertions.assertEquals(save, game.getHisto().getSave());
+        Assertions.assertEquals(save, game.getFile().getSave());
     }
 
     @Test
     public void testCanUndo() {
         QuartoModel game = new QuartoModel(0, 0);
-        Assertions.assertFalse(game.getHisto().canUndo()); // undo should not be possible at start
+        Assertions.assertFalse(game.getFile().canUndo()); // undo should not be possible at start
 
         // playing a shot
         game.playShot(0, 0);
-        Assertions.assertTrue(game.getHisto().canUndo()); // After a shot played, undo should be possible
+        Assertions.assertTrue(game.getFile().canUndo()); // After a shot played, undo should be possible
     }
 
     @Test
@@ -61,7 +59,7 @@ public class QuartoHistoryTest {
         QuartoModel game = new QuartoModel(0, 0);
 
         // saving actual state
-        QuartoHistory save = game.getHisto().getSave();
+        QuartoHistory save = game.getFile().getSave();
 
         // playing a shot
         game.playShot(0, 0);
@@ -70,7 +68,7 @@ public class QuartoHistoryTest {
         game.undo();
 
         // next saved element must be equal to the previous saved state
-        Assertions.assertEquals(save, game.getHisto().getSave());
+        Assertions.assertEquals(save, game.getFile().getSave());
     }
 
     @Test
