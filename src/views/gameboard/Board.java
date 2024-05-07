@@ -5,12 +5,7 @@ import javax.swing.JPanel;
 
 public class Board extends JPanel {
 
-  private int cellSize;
-  private int gap;
-
-  public Board(int cellSize, int gap) {
-    this.cellSize = cellSize;
-    this.gap = gap;
+  public Board(int cellSize) {
 
     setLayout(new GridLayout(4, 4));
 

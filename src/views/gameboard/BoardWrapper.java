@@ -1,6 +1,8 @@
 package src.views.gameboard;
 
 import java.awt.BorderLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -64,7 +66,31 @@ public class BoardWrapper extends JPanel {
     add(eastPanel, BorderLayout.EAST);
 
     // Board
-    add(new Board((int) cellSize, (int) gap), BorderLayout.CENTER);
+    add(new Board((int) cellSize), BorderLayout.CENTER);
+
+    // Resize listener
+    this.addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentResized(ComponentEvent e) {
+        int hFrame = DimensionUtils.getMainFrameHeight();
+        int wFrame = DimensionUtils.getMainFrameWidth();
+        int hTopBar = DimensionUtils.getBoardTopBarHeight();
+        int hPawnsBar = DimensionUtils.getBoardPawnsBarHeight();
+        int height = hFrame - hTopBar - hPawnsBar;
+        int width = wFrame;
+
+        float cellSize = (height - height * GAP_FACTOR) / 4;
+        float gap = (height - cellSize * 4) / 5;
+
+        float horizontalMargin = (float) (width / 2 - cellSize * 2 - gap * 1.5);
+        float verticalMargin = gap;
+
+        southMargin.setBorder(BorderFactory.createEmptyBorder(0, 0, (int) verticalMargin, 0));
+        northMargin.setBorder(BorderFactory.createEmptyBorder((int) verticalMargin, 0, 0, 0));
+        westMargin.setBorder(BorderFactory.createEmptyBorder(0, (int) horizontalMargin, 0, 0));
+        eastMargin.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, (int) horizontalMargin));
+      }
+    });
 
   }
 }
