@@ -10,16 +10,16 @@ public class QuartoModel {
     QuartoFile histo;
     QuartoWin win;
 
-    private Player aiPlayer;
+    private Player randomAIPlayer;
 
     public QuartoModel(int firstPlayerType, int secondPlayerType) {
         newTable(firstPlayerType, secondPlayerType);
         histo = new QuartoFile();
         win = new QuartoWin();
         if(firstPlayerType == 1){
-            aiPlayer = new RandomAIPlayer();
+            randomAIPlayer = new RandomAIPlayer();
         }else if (secondPlayerType == 1){
-            aiPlayer = new RandomAIPlayer();
+            randomAIPlayer = new RandomAIPlayer();
         }
     }
 
@@ -64,7 +64,7 @@ public class QuartoModel {
 
     public void selectPawn(int indexPawn) {
         if(getCurrentPlayerType() == 1){
-            aiPlayer.selectPawn(this);
+            randomAIPlayer.selectPawn(this);
         } else {
             selectPawnHuman(indexPawn);
         }
@@ -94,7 +94,7 @@ public class QuartoModel {
 
     public void playShot(int line, int column) {
         if (getCurrentPlayerType() == 1){
-            aiPlayer.playShot(this);
+            randomAIPlayer.playShot(this);
         } else {
             playShotHuman(line, column);
         }
