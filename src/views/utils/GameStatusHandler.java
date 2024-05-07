@@ -17,6 +17,10 @@ public class GameStatusHandler {
     gamePhase = phase;
   }
 
+  public static void startGame() {
+    gamePhase = PLAYER_ONE_SELECT_PAWN;
+  }
+
   public static int getGamePhase() {
     return gamePhase;
   }
@@ -53,6 +57,25 @@ public class GameStatusHandler {
       break;
     default:
       break;
+    }
+  }
+
+  public static String getGamePhaseAsText() {
+    switch (gamePhase) {
+    case PLAYER_ONE_PLAY_PAWN:
+      return "Player One Play Pawn";
+    case PLAYER_ONE_SELECT_PAWN:
+      return "Player One Select Pawn";
+    case PLAYER_TWO_PLAY_PAWN:
+      return "Player Two Play Pawn";
+    case PLAYER_TWO_SELECT_PAWN:
+      return "Player Two Select Pawn";
+    case PLAYER_ONE_WIN:
+      return "Player One Win";
+    case PLAYER_TWO_WIN:
+      return "Player Two Win";
+    default:
+      return "Game Not Started";
     }
   }
 

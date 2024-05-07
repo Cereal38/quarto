@@ -33,11 +33,15 @@ public class Pawn extends JButton {
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
         if (cursorSet) {
-          setCursor(null);
-          cursorSet = false; // Cursor set permanently to HAND_CURSOR
-          select();
-          System.err.println("Pawn clicked");
-          parent.refresh();
+          if (GameStatusHandler.isSelectionPhase()) {
+            setCursor(null);
+            cursorSet = false; // Cursor set permanently to HAND_CURSOR
+            select();
+            System.err.println("Pawn clicked");
+            parent.refresh();
+          } else {
+            System.err.println("Not selection phase - " + GameStatusHandler.getGamePhaseAsText());
+          }
         }
       }
     });

@@ -38,9 +38,9 @@ public class MainFrame extends JFrame {
     gameBoard = new GameBoard();
 
     // Add pages to the main panel
-    // mainPanel.add(mainMenu, "MainMenu");
+    mainPanel.add(mainMenu, "MainMenu");
+    mainPanel.add(choosePlayers, "ChoosePlayers");
     mainPanel.add(gameBoard, "GameBoard");
-    // mainPanel.add(choosePlayers, "ChoosePlayers");
 
     add(mainPanel);
 
