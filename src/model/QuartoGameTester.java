@@ -7,20 +7,31 @@ public class QuartoGameTester {
     private QuartoModel quartoModel;
     private Scanner scanner;
 
-    public QuartoGameTester(int firstPlayerType, int secondPlayerType) {
-        quartoModel = new QuartoModel(firstPlayerType, secondPlayerType);
+    public QuartoGameTester() {
         scanner = new Scanner(System.in);
     }
 
     public void startGame() throws IOException {
         System.out.println("Quarto Game Tester");
+        System.out.println("Choose player types:");
+        System.out.println("0 - Human, 1 - Random AI");
+
+        System.out.print("Player 1 type: ");
+        int firstPlayerType = scanner.nextInt();
+        System.out.print("Player 2 type: ");
+        int secondPlayerType = scanner.nextInt();
+
+        scanner.nextLine();//skip the \n
+
+        quartoModel = new QuartoModel(firstPlayerType, secondPlayerType);
+
         System.out.println("Type 'help' for commands.");
 
         while (true) {
             System.out.print("> ");
             String input = scanner.nextLine().trim();
 
-            if (input.equalsIgnoreCase("joueur")) {
+            if (input.equalsIgnoreCase("player")) {
                 System.out.println("Current player: " + quartoModel.getCurrentPlayer());
             } else if (input.equalsIgnoreCase("printT")) {
                 printTable();
@@ -30,11 +41,11 @@ public class QuartoGameTester {
                 try {
                     int pawnIndex = Integer.parseInt(input.substring(7).trim());
                     quartoModel.selectPawn(pawnIndex);
-                    System.out.println("Pawn " + pawnIndex + " selected.");
+                    System.out.println("Pawn " + quartoModel.getSelectedPawn().getPawn() + " selected.");
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     System.out.println("Invalid pawn index.");
                 }
-            } else if (input.toLowerCase().startsWith("joue ")) {
+            } else if (input.toLowerCase().startsWith("play ")) {
                 try {
                     String[] coordinates = input.substring(5).trim().split("\\s+");
                     if (coordinates.length == 2) {
@@ -54,9 +65,9 @@ public class QuartoGameTester {
             } else if (input.equalsIgnoreCase("redo")) {
                 quartoModel.redo();
                 System.out.println("Redo performed.");
-            } else if (input.toLowerCase().startsWith("gagne ")) {
+            } else if (input.toLowerCase().startsWith("win ")) {
                 try {
-                    String[] coordinates = input.substring(6).trim().split("\\s+");
+                    String[] coordinates = input.substring(4).trim().split("\\s+");
                     if (coordinates.length == 2) {
                         int row = Integer.parseInt(coordinates[0]);
                         int column = Integer.parseInt(coordinates[1]);
@@ -114,14 +125,14 @@ public class QuartoGameTester {
 
     private void printHelp() {
         System.out.println("Commands:");
-        System.out.println("joueur - Display current player.");
+        System.out.println("player - Display current player.");
         System.out.println("printT - Display the table.");
         System.out.println("printP - Display the available pawns.");
         System.out.println("select i - Select pawn i to play.");
-        System.out.println("joue i j - Play at coordinates i j.");
+        System.out.println("play i j - Play at coordinates i j.");
         System.out.println("undo - Undo last action.");
         System.out.println("redo - Redo last undone action.");
-        System.out.println("gagne i j - Check win situation at coordinates i j.");
+        System.out.println("win i j - Check win situation at coordinates i j.");
         System.out.println("charge filename - Load game from file.");
         System.out.println("save filename - Save game to file.");
         System.out.println("quit - Quit the game.");
@@ -129,7 +140,7 @@ public class QuartoGameTester {
     }
 
     public static void main(String[] args) throws IOException {
-        QuartoGameTester gameTester = new QuartoGameTester(0, 0); // Change player types as needed
+        QuartoGameTester gameTester = new QuartoGameTester();
         gameTester.startGame();
     }
 }

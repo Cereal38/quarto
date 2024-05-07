@@ -1,19 +1,27 @@
 package src.model;
 
-/*
- * TODO
- * tester l'historique
- */
-
 public class QuartoModel {
     private QuartoPawn[][] table;
     private int player;//1 for Player 1 and 2 for Player 2
-    private int playerType[] = new int [2] ; // 0 for Human and 1 for AI 
-                             //with playerType[0] type of the player 1 and playerType[1] type of the player 2
+    private int playerType[] = new int [2] ; // 0 for Human and 1 for AI
+    //with playerType[0] type of the player 1 and playerType[1] type of the player 2
     private QuartoPawn[] pawnAvailable;
     private QuartoPawn selectedPawn;
     QuartoFile histo;
     QuartoWin win;
+
+    private Player aiPlayer;
+
+    public QuartoModel(int firstPlayerType, int secondPlayerType) {
+        newTable(firstPlayerType, secondPlayerType);
+        histo = new QuartoFile();
+        win = new QuartoWin();
+        if(firstPlayerType == 1){
+            aiPlayer = new RandomAIPlayer();
+        }else if (secondPlayerType == 1){
+            aiPlayer = new RandomAIPlayer();
+        }
+    }
 
     private void newTable(int firstPlayerType, int secondPlayerType) {
         table = new QuartoPawn[4][4];//table filled with null
@@ -24,12 +32,6 @@ public class QuartoModel {
         for (int count = 0; count < 16; count++) {
             pawnAvailable[count] = new QuartoPawn(count);
         }
-    }
-
-    public QuartoModel(int firstPlayerType, int secondPlayerType) {
-        newTable(firstPlayerType, secondPlayerType);
-        histo = new QuartoFile();
-        win = new QuartoWin();
     }
 
     public void redo() {
@@ -61,6 +63,14 @@ public class QuartoModel {
     }
 
     public void selectPawn(int pawnRemoved) {
+        if(getCurrentPlayerType() == 1){
+            aiPlayer.selectPawn(this);
+        } else {
+            selectPawnHuman(pawnRemoved);
+        }
+    }
+
+    public void selectPawnHuman(int pawnRemoved){
         setSelectedPawn(pawnAvailable[pawnRemoved]);
         //Add a new history because we chose what pawn the next player will play.
         histo.getSave().setNext(new QuartoHistory(pawnRemoved, histo.getSave()));
@@ -83,6 +93,14 @@ public class QuartoModel {
     }
 
     public void playShot(int line, int column) {
+        if (getCurrentPlayerType() == 1){
+            aiPlayer.playShot(this);
+        } else {
+            playShotHuman(line, column);
+        }
+    }
+
+    public void playShotHuman(int line, int column){
         if (isTableEmpty(line, column)) {
             setTable(line, column, selectedPawn);
             winSituation(line, column);
@@ -149,7 +167,11 @@ public class QuartoModel {
         return getPawnAtPosition(line, column) == null;
     }
 
-    public QuartoPawn[] getPawnAvailable() {
+    public QuartoPawn[] getPawnAvailable(){
         return pawnAvailable;
+    }
+
+    public int getCurrentPlayerType(){
+        return playerType[getCurrentPlayer() - 1];
     }
 }
