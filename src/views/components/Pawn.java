@@ -20,9 +20,14 @@ public class Pawn extends JButton {
   public static final int PLAYED = 2;
 
   private boolean cursorSet = true;
+  private String code;
   private int state;
 
   public Pawn(String code, int width, int height) {
+
+    this.state = NOT_PLAYED;
+    this.code = code;
+
     // Load image
     ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
 
@@ -31,8 +36,6 @@ public class Pawn extends JButton {
     setContentAreaFilled(false);
     setBorder(BorderFactory.createEmptyBorder());
     setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-    this.state = NOT_PLAYED;
 
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
@@ -115,5 +118,9 @@ public class Pawn extends JButton {
 
     // Change the game phase to let the other player play the pawn
     GameStatusHandler.nextPhase();
+  }
+
+  public String getCode() {
+    return code;
   }
 }

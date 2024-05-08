@@ -172,4 +172,13 @@ public class GameStatusHandler {
   public static String getSelectedPawn() {
     return selectedPawn;
   }
+
+  public static void playPawn() {
+    for (Pawn pawn : pawns) {
+      if (pawn.getCode().equals(selectedPawn)) {
+        pawn.play();
+        break;
+      }
+    }
+  }
 }
