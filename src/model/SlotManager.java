@@ -15,6 +15,31 @@ public class SlotManager {
         this.slotFileDates = new HashMap<>();
     }
 
+    public void renameSlotFile(int index, String newFileName) {
+        if(index < 0 || index >= getSlotFileDates().size()){
+            throw new IllegalArgumentException("Invalid index " + index);
+        }
+
+        String oldFileName = getSlotFileDates().keySet().toArray(new String[0])[index];
+
+        // Build full paths to old and new files
+        String oldFilePath = SLOTS_DIRECTORY + File.separator + oldFileName;
+        String newFilePath = SLOTS_DIRECTORY + File.separator + newFileName;
+
+        // Create File objects for old and new files
+        File oldFile = new File(oldFilePath);
+        File newFile = new File(newFilePath);
+
+        // Rename the file in the file system
+        if (oldFile.renameTo(newFile)) {
+            // Update the filename in the dictionary
+            getSlotFileDates().put(newFileName, getSlotFileDates().remove(oldFileName));
+            System.out.println("File renamed successfully.");
+        } else {
+            System.err.println("Failed to rename file.");
+        }
+    }
+
     public boolean isSlotFileEmpty(int index){
         if(index < 0 || index >= getSlotFileDates().size()){
             throw new IllegalArgumentException("Invalid index " + index);
@@ -42,15 +67,8 @@ public class SlotManager {
             writer.close();
 
             // Renaming the file
-            File oldFile = new File(filePath);
-            File newFile = new File(newFilePath);
-            if (oldFile.renameTo(newFile)) {
-                // Update file name in map
-                getSlotFileDates().put(newFileName, getSlotFileDates().remove(fileName));
-                System.out.println("File at index " + index + " cleared and renamed to " + newFileName + " successfully.");
-            } else {
-                System.err.println("Failed to rename file at index " + index);
-            }
+            renameSlotFile(index, newFileName);
+
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("An error occurred while clearing and renaming the file at index " + index);
@@ -103,27 +121,10 @@ public class SlotManager {
             throw new IllegalArgumentException("Invalid index " + index);
         }
 
-        String oldFileName = getSlotFileDates().keySet().toArray(new String[0])[index];
-
         // Creating new name of file with .txt
         String newFileName = playerName1 + "_vs_" + playerName2 + ".txt";
 
-        // Build full paths to old and new files
-        String oldFilePath = SLOTS_DIRECTORY + File.separator + oldFileName;
-        String newFilePath = SLOTS_DIRECTORY + File.separator + newFileName;
-
-        // Create File objects for old and new files
-        File oldFile = new File(oldFilePath);
-        File newFile = new File(newFilePath);
-
-        // Rename the file in the file system
-        if (oldFile.renameTo(newFile)) {
-            //Update the filename in the dictionary
-            getSlotFileDates().put(newFileName, getSlotFileDates().remove(oldFileName));
-            System.out.println("File renamed successfully.");
-        } else {
-            System.err.println("Failed to rename file.");
-        }
+        renameSlotFile(index, newFileName);
     }
 
 
