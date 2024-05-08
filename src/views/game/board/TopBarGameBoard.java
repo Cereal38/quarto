@@ -17,7 +17,7 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
   private UndoButton btnUndo = new UndoButton();
   private RedoButton btnRedo = new RedoButton();
   private PauseMenuButton btnPause = new PauseMenuButton();
-  private TranslatedLabel stateLbl = new TranslatedLabel("play-pawn");
+  private TranslatedLabel stateLbl = new TranslatedLabel("");
   private JLabel playerLbl = new JLabel();
 
   public TopBarGameBoard() {
@@ -65,16 +65,20 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
     } else if (GameStatusHandler.isPlayerTwoTurn()) {
       playerLbl.setText("Player 2");
     } else {
-      playerLbl.setText("null");
+      playerLbl.setText("");
     }
   }
 
   @Override
   public void update() {
-    System.out.println("DEBUG - TopBarGameBoard.update()");
     upatePlayerLbl();
-    // stateLbl.setText(GameStatusHandler.getGamePhaseAsText());
-    stateLbl.setText("Blablabal");
+    if (GameStatusHandler.isSelectionPhase()) {
+      stateLbl.setKey("select-pawn");
+    } else if (GameStatusHandler.isPlayPhase()) {
+      stateLbl.setKey("play-pawn");
+    } else {
+      stateLbl.setKey("");
+    }
   }
 
 }

@@ -11,4 +11,9 @@ public class TranslatedLabel extends JLabel {
     translatedString = new TranslatedString(key, this);
     setText(translatedString.getText());
   }
+
+  public void setKey(String key) {
+    translatedString.setKey(key);
+    setText(translatedString.getText());
+  }
 }
