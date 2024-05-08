@@ -20,12 +20,11 @@ public class Cell extends JPanel {
     }
 
     addMouseListener(new MouseAdapter() {
-      public void mouseClicked(MouseEvent evt) {
+      public void mouseClicked(MouseEvent e) {
         // Only allow the player to place a pawn during the play phase and if the cell
         // is empty
         if (GameStatusHandler.isPlayPhase() && !hasPawn()) {
-          // setPawn(new Pawn(GameStatusHandler.getSelectedPawn(), 50, 50, board));
-          // GameStatusHandler.nextPhase();
+          setPawn(GameStatusHandler.getSelectedPawn());
           GameStatusHandler.playPawn();
           repaint();
         } else {

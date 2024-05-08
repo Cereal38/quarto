@@ -169,8 +169,17 @@ public class GameStatusHandler {
     selectedPawn = pawn;
   }
 
-  public static String getSelectedPawn() {
+  public static String getSelectedPawnCode() {
     return selectedPawn;
+  }
+
+  public static Pawn getSelectedPawn() {
+    for (Pawn pawn : pawns) {
+      if (pawn.getCode().equals(selectedPawn)) {
+        return pawn;
+      }
+    }
+    return null;
   }
 
   public static void playPawn() {
