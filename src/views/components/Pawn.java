@@ -14,10 +14,13 @@ import src.views.utils.ImageUtils;
 
 public class Pawn extends JButton {
 
-  private boolean cursorSet = true;
+  // Constants
+  public static final int NOT_PLAYED = 0;
+  public static final int SELECTED = 1;
+  public static final int PLAYED = 2;
 
-  private boolean isPlayed = false;
-  private boolean isSelected = false;
+  private boolean cursorSet = true;
+  private int state = NOT_PLAYED;
 
   public Pawn(String code, int width, int height, PawnsBar parent, int index) {
     // Load image
@@ -59,24 +62,33 @@ public class Pawn extends JButton {
 
   }
 
-  // getter and setter for played
-  public boolean isPlayed() {
-    return isPlayed;
+  public boolean isNotPlayed() {
+    return state == NOT_PLAYED;
   }
 
-  public void setPlayed(boolean played) {
-    this.isPlayed = played;
+  public boolean isPlayed() {
+    return state == PLAYED;
+  }
+
+  public boolean isSelected() {
+    return state == SELECTED;
+  }
+
+  public void reset() {
+    state = NOT_PLAYED;
+    setBorder(BorderFactory.createEmptyBorder());
+  }
+
+  public void play() {
+    state = PLAYED;
+    GameStatusHandler.nextPhase();
   }
 
   public void select() {
-    isSelected = true;
+    state = SELECTED;
     setBorder(BorderFactory.createLineBorder(Color.RED, 3));
 
     // Change the game phase to let the other player play the pawn
     GameStatusHandler.nextPhase();
-  }
-
-  public boolean isSelected() {
-    return isSelected;
   }
 }

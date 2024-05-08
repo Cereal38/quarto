@@ -2,6 +2,7 @@ package src.views.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import src.views.components.Pawn;
 import src.views.listeners.GameStatusListener;
 
 public class GameStatusHandler {
@@ -20,6 +21,8 @@ public class GameStatusHandler {
 
   private static String player1Name;
   private static String player2Name;
+
+  private static Pawn[] pawns = new Pawn[16];
 
   // The list of game status listeners
   private static final List<GameStatusListener> listeners = new ArrayList<>();
