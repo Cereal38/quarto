@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/load/save/LoadSaveHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/LoadSavePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/load/save/LoadSavePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/main/menu/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/main/menu/MainMenu.java" afterDir="false" />
-    </list>
+    <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +40,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.LoadPage.executor": "Run",
+    "Application.LoadSavePage (1).executor": "Run",
     "Application.LoadSavePage.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.MainTest.executor": "Run",
@@ -163,7 +158,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715075249136</updated>
-      <workItem from="1715075250163" duration="25706000" />
+      <workItem from="1715075250163" duration="26030000" />
     </task>
     <servers />
   </component>
