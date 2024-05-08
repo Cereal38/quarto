@@ -68,7 +68,7 @@ public class ChoosePlayers extends JPanel {
         // Create Start button (initially hidden)
         startButton = new TranslatedButton("start");
         startButton.addActionListener(e -> {
-            control.createModel(0,0,"a", "b");
+            control.createModel(player1IsAI ? 1 : 0, player2IsAI ? 1 : 0, player1TextField.getInputText(), player2TextField.getInputText());
             EventsHandler.navigate("GameBoard");
         });
         startButton.setVisible(false);
@@ -93,11 +93,16 @@ public class ChoosePlayers extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (!isAI) {
                     // Convert the associated text field to AI
-                    textField.setText(new TranslatedString("ai"+numPlayer));
+                    textField.setText(new TranslatedString("ai-"+numPlayer));
                     textField.setEditable(false); // Disable editing
                     toggleButton.setText("Make Player"); // Change button text
                     textField.add(difficultyComboBox);
                     difficultyComboBox.setVisible(true); // Show difficulty combo box
+                    if (numPlayer == 1) {
+                        player1IsAI = !player1IsAI; // Toggle player1IsAI
+                    } else {
+                        player2IsAI = !player2IsAI; // Toggle player2IsAI
+                    }
                     isAI = true; // Update state to AI
                 } else {
                     // Convert the associated text field back to Player
@@ -106,7 +111,11 @@ public class ChoosePlayers extends JPanel {
                     toggleButton.setText("Make AI"); // Change button text
                     textField.remove(difficultyComboBox);
                     difficultyComboBox.setVisible(false); // Hide difficulty combo box
-
+                    if (numPlayer == 1) {
+                        player1IsAI = !player1IsAI; // Toggle player1IsAI
+                    } else {
+                        player2IsAI = !player2IsAI; // Toggle player2IsAI
+                    }
                     isAI = false; // Update state to Player
                 }
                 Container parent = textField.getParent();
