@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
+import src.controller.ViewModelController;
 import src.views.components.DialogPanel;
 
 /**
@@ -14,6 +15,7 @@ import src.views.components.DialogPanel;
  */
 public class EventsHandler {
 
+  private static ViewModelController controller = new ViewModelController();
   private static CardLayout cardLayout;
   private static JPanel mainPanel;
   private static DialogPanel dialog;
@@ -29,6 +31,10 @@ public class EventsHandler {
 
   public static void setDialog(DialogPanel dialog) {
     EventsHandler.dialog = dialog;
+  }
+
+  public static ViewModelController getController() {
+    return controller;
   }
 
   /**

@@ -182,7 +182,8 @@ public class GameStatusHandler {
     return null;
   }
 
-  public static void playPawn() {
+  public static void playPawn(int line, int column) {
+    EventsHandler.getController().playShot(line, column);
     for (Pawn pawn : pawns) {
       if (pawn.getCode().equals(selectedPawn)) {
         pawn.play();

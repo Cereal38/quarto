@@ -10,14 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import src.controller.ViewModelController;
 import src.views.components.CustomTextField;
 import src.views.components.GridCenterPanel;
 import src.views.components.TranslatedButton;
 import src.views.components.TranslatedLabel;
 import src.views.components.TranslatedString;
 import src.views.listeners.TextFieldChangeListener;
-import src.views.listeners.ViewModelListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
@@ -36,12 +34,10 @@ public class ChoosePlayers extends JPanel {
   private TranslatedButton startButton;
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;
-  ViewModelListener control;
 
   public ChoosePlayers() {
     // Set BorderLayout for the ChoosePlayers panel
     setLayout(new BorderLayout());
-    this.control = new ViewModelController();
 
     // Create a title label
     TranslatedLabel titleLabel = new TranslatedLabel("enter-players-names");
@@ -83,8 +79,8 @@ public class ChoosePlayers extends JPanel {
       // Start the game
       GameStatusHandler.startGame();
 
-      control.createModel(player1IsAI ? 1 : 0, player2IsAI ? 1 : 0, player1TextField.getInputText(),
-          player2TextField.getInputText());
+      EventsHandler.getController().createModel(player1IsAI ? 1 : 0, player2IsAI ? 1 : 0,
+          player1TextField.getInputText(), player2TextField.getInputText());
       EventsHandler.navigate("GameBoard");
     });
 

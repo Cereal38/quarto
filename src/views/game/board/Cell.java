@@ -11,8 +11,12 @@ import src.views.utils.GameStatusHandler;
 public class Cell extends JPanel {
   private int size;
   private Pawn pawn;
+  private int line;
+  private int column;
 
-  public Cell(int size, Board board) {
+  public Cell(int line, int column, int size, Board board) {
+    this.line = line;
+    this.column = column;
     this.size = size;
 
     if (!hasPawn()) {
@@ -25,7 +29,7 @@ public class Cell extends JPanel {
         // is empty
         if (GameStatusHandler.isPlayPhase() && !hasPawn()) {
           setPawn(GameStatusHandler.getSelectedPawn());
-          GameStatusHandler.playPawn();
+          GameStatusHandler.playPawn(line, column);
           repaint();
         } else {
           System.err.println("Not a play phase - " + GameStatusHandler.getGamePhaseAsText());
