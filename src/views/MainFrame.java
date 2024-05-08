@@ -34,7 +34,6 @@ public class MainFrame extends JFrame {
     loadPage = new LoadSavePage(false);
     savePage = new LoadSavePage(true);
 
-
     // Create app pages
     mainMenu = new MainMenu();
 
@@ -45,8 +44,8 @@ public class MainFrame extends JFrame {
 
     // Add pages to the main panel
     mainPanel.add(mainMenu, "MainMenu");
-    mainPanel.add(gameBoard, "GameBoard");
     mainPanel.add(choosePlayers, "ChoosePlayers");
+    mainPanel.add(gameBoard, "GameBoard");
     mainPanel.add(loadPage, "LoadPage");
     mainPanel.add(savePage, "SavePage");
 

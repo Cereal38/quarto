@@ -81,4 +81,14 @@ public class TranslatedString implements LanguageChangeListener {
     }
   }
 
+  /**
+   * Sets the key used to retrieve the translated text.
+   * 
+   * @param key the key used to retrieve the translated text
+   */
+  public void setKey(String key) {
+    this.key = key;
+    updateText();
+  }
+
 }

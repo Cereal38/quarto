@@ -1,19 +1,30 @@
 package src.views.components;
 
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import src.views.game.board.PawnsBar;
+import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 
 public class Pawn extends JButton {
 
-  private boolean cursorSet = true;
+  // Constants
+  public static final int NOT_PLAYED = 0;
+  public static final int SELECTED = 1;
+  public static final int PLAYED = 2;
 
-  private boolean played = false;
+  private String code;
+  private int state;
 
-  public Pawn(String code, int width, int height, PawnsBar parentBar) {
+  public Pawn(String code, int width, int height) {
+
+    this.state = NOT_PLAYED;
+    this.code = code;
+
     // Load image
     ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
 
@@ -23,26 +34,60 @@ public class Pawn extends JButton {
     setBorder(BorderFactory.createEmptyBorder());
     setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-    // Set cursor to HAND_CURSOR on the first click
-    addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseClicked(java.awt.event.MouseEvent evt) {
-        if (cursorSet) {
-          setCursor(null);
-          cursorSet = false; // Cursor set permanently to HAND_CURSOR
-          setPlayed(true);
-          System.err.println("Pawn clicked");
-          parentBar.refresh();
+    addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent evt) {
+        // If not played, select the pawn
+        if (isNotPlayed()) {
+          select();
+          GameStatusHandler.setSelectedPawn(code);
         }
       }
+
     });
+
   }
 
-  // getter and setter for played
+  public boolean isNotPlayed() {
+    return state == NOT_PLAYED;
+  }
+
   public boolean isPlayed() {
-    return played;
+    return state == PLAYED;
   }
 
-  public void setPlayed(boolean played) {
-    this.played = played;
+  public boolean isSelected() {
+    return state == SELECTED;
+  }
+
+  /**
+   * Resets the state of the pawn to its initial state.
+   */
+  public void reset() {
+    state = NOT_PLAYED;
+    setCursor(new Cursor(Cursor.HAND_CURSOR));
+    setBorder(BorderFactory.createEmptyBorder());
+  }
+
+  /**
+   * Update the state of the pawn to PLAYED and change the game phase.
+   */
+  public void play() {
+    state = PLAYED;
+    setBorder(BorderFactory.createEmptyBorder());
+    GameStatusHandler.nextPhase();
+  }
+
+  /**
+   * Update the state of the pawn to SELECTED and change the game phase.
+   */
+  public void select() {
+    state = SELECTED;
+    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+    GameStatusHandler.nextPhase();
+  }
+
+  public String getCode() {
+    return code;
   }
 }
