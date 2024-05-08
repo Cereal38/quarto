@@ -17,7 +17,6 @@ public class Pawn extends JButton {
   public static final int SELECTED = 1;
   public static final int PLAYED = 2;
 
-  private boolean cursorSet = true;
   private String code;
   private int state;
 
@@ -60,21 +59,31 @@ public class Pawn extends JButton {
     return state == SELECTED;
   }
 
+  /**
+   * Resets the state of the pawn to its initial state.
+   */
   public void reset() {
     state = NOT_PLAYED;
+    setCursor(new Cursor(Cursor.HAND_CURSOR));
     setBorder(BorderFactory.createEmptyBorder());
   }
 
+  /**
+   * Update the state of the pawn to PLAYED and change the game phase.
+   */
   public void play() {
     state = PLAYED;
+    setBorder(BorderFactory.createEmptyBorder());
     GameStatusHandler.nextPhase();
   }
 
+  /**
+   * Update the state of the pawn to SELECTED and change the game phase.
+   */
   public void select() {
     state = SELECTED;
+    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     setBorder(BorderFactory.createLineBorder(Color.RED, 3));
-
-    // Change the game phase to let the other player play the pawn
     GameStatusHandler.nextPhase();
   }
 
