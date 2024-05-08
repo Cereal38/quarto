@@ -1,14 +1,14 @@
 package src.model;
 
 public class QuartoPawn {
-    private int pawnBinary;
-    private final int hollow = 0b0001;
-    private final int little = 0b0010;
-    private final int white = 0b0100;
-    private final int round = 0b1000;
+    private byte pawnBinary;
+    private final byte hollow = 0b0001;
+    private final byte little = 0b0010;
+    private final byte white = 0b0100;
+    private final byte round = 0b1000;
 
 
-    public QuartoPawn(int pawn) {
+    public QuartoPawn(byte pawn) {
         pawnBinary = pawn;
     }
 

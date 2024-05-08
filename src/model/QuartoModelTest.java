@@ -20,7 +20,7 @@ public class QuartoModelTest {
         //Completely filling the table with pawns
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                quartoModel.setSelectedPawn(new QuartoPawn(15));
+                quartoModel.setSelectedPawn(new QuartoPawn((byte) 15));
                 quartoModel.playShot(i, j);
             }
         }
@@ -76,7 +76,7 @@ public class QuartoModelTest {
     @Test
     public void testPlayShot() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(1, 1);
         Assertions.assertFalse(quartoModel.isTableEmpty(1, 1));
     }
@@ -86,8 +86,8 @@ public class QuartoModelTest {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
 
         // Creating pawns
-        QuartoPawn pawn1 = new QuartoPawn(10);
-        QuartoPawn pawn2 = new QuartoPawn(5);
+        QuartoPawn pawn1 = new QuartoPawn((byte) 10);
+        QuartoPawn pawn2 = new QuartoPawn((byte) 5);
         int line = 1;
         int column = 1;
         // Playing a pawn on (1, 1)
@@ -105,7 +105,7 @@ public class QuartoModelTest {
     public void testObviousWinSituationColumn() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
         for(int i = 0; i < 4; i++){
-            quartoModel.setSelectedPawn(new QuartoPawn(10));
+            quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
             quartoModel.playShot(i, 1);
         }
         for(int i = 0; i < 4; i++) {
@@ -117,7 +117,7 @@ public class QuartoModelTest {
     public void testObviousWinSituationLine() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
         for(int i = 0; i < 4; i++){
-            quartoModel.setSelectedPawn(new QuartoPawn(10));
+            quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
             quartoModel.playShot(1, i);
         }
         for(int i = 0; i < 4; i++) {
@@ -128,13 +128,13 @@ public class QuartoModelTest {
     @Test
     public void testObviousWinSituationDiagonalRight() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(0, 0);
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(1, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(2, 2);
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(3, 3);
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
@@ -151,13 +151,13 @@ public class QuartoModelTest {
     @Test
     public void testObviousWinSituationDiagonalLeft() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(0, 3);
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(1, 2);
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(2, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(3, 0);
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
@@ -174,13 +174,13 @@ public class QuartoModelTest {
     @Test
     public void testNotSoObviousWinSituationColumn() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(0, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(8));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 8));
         quartoModel.playShot(2, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(2));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 2));
         quartoModel.playShot(1, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(1));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 1));
         quartoModel.playShot(3, 1);
 
         for(int i = 0; i < 4; i++) {
@@ -191,13 +191,13 @@ public class QuartoModelTest {
     @Test
     public void testNotSoObviousWinSituationLine() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
-        quartoModel.setSelectedPawn(new QuartoPawn(15));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 15));
         quartoModel.playShot(1, 0);
-        quartoModel.setSelectedPawn(new QuartoPawn(13));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 13));
         quartoModel.playShot(1, 2);
-        quartoModel.setSelectedPawn(new QuartoPawn(3));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 3));
         quartoModel.playShot(1, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(5));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 5));
         quartoModel.playShot(1, 3);
 
         for(int i = 0; i < 4; i++) {
@@ -208,13 +208,13 @@ public class QuartoModelTest {
     @Test
     public void testNotSoObviousWinSituationDiagonalRight() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(0, 0);
-        quartoModel.setSelectedPawn(new QuartoPawn(12));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 12));
         quartoModel.playShot(1, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(11));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 11));
         quartoModel.playShot(2, 2);
-        quartoModel.setSelectedPawn(new QuartoPawn(15));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 15));
         quartoModel.playShot(3, 3);
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
@@ -231,13 +231,13 @@ public class QuartoModelTest {
     @Test
     public void testNotSoObviousWinSituationDiagonalLeft() {
         QuartoModel quartoModel = new QuartoModel(0, 0,"", "");
-        quartoModel.setSelectedPawn(new QuartoPawn(9));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 9));
         quartoModel.playShot(0, 3);
-        quartoModel.setSelectedPawn(new QuartoPawn(0));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 0));
         quartoModel.playShot(1, 2);
-        quartoModel.setSelectedPawn(new QuartoPawn(8));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 8));
         quartoModel.playShot(2, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(5));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 5));
         quartoModel.playShot(3, 0);
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
@@ -254,31 +254,31 @@ public class QuartoModelTest {
     @Test
     public void testRealisticMultipleWinSituation() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
-        quartoModel.setSelectedPawn(new QuartoPawn(1));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 1));
         quartoModel.playShot(0, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(8));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 8));
         quartoModel.playShot(2, 1);//diagonal win and line win
-        quartoModel.setSelectedPawn(new QuartoPawn(2));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 2));
         quartoModel.playShot(0, 2);//column win
-        quartoModel.setSelectedPawn(new QuartoPawn(5));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 5));
         quartoModel.playShot(3, 0);//diagonal win
-        quartoModel.setSelectedPawn(new QuartoPawn(4));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 4));
         quartoModel.playShot(1, 0);
-        quartoModel.setSelectedPawn(new QuartoPawn(0));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 0));
         quartoModel.playShot(2, 0);//line win
-        quartoModel.setSelectedPawn(new QuartoPawn(10));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
         quartoModel.playShot(2, 2);//line win and column win
-        quartoModel.setSelectedPawn(new QuartoPawn(13));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 13));
         quartoModel.playShot(3, 1);
-        quartoModel.setSelectedPawn(new QuartoPawn(14));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 14));
         quartoModel.playShot(3, 2);//column win
-        quartoModel.setSelectedPawn(new QuartoPawn(7));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 7));
         quartoModel.playShot(1, 3);
-        quartoModel.setSelectedPawn(new QuartoPawn(9));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 9));
         quartoModel.playShot(0, 3);//diagonal win
-        quartoModel.setSelectedPawn(new QuartoPawn(0));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 0));
         quartoModel.playShot(1, 2);//diagonal win and column win
-        quartoModel.setSelectedPawn(new QuartoPawn(11));
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 11));
         quartoModel.playShot(2, 3);//line win
 
         Assertions.assertFalse(quartoModel.winSituation(0, 0));
