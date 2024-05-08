@@ -1,4 +1,4 @@
-package src.views;
+package src.views.load.save;
 
 import src.controller.PlayersInformations;
 import src.views.components.BorderCenterPanel;
@@ -38,22 +38,23 @@ public class LoadSavePage extends JPanel {
         help.renderSlots(slotsPanel);
         BorderCenterPanel center = new BorderCenterPanel(slotsPanel,10,320,10,320);
         // Add the slotsPanel to a JScrollPane for scrolling if needed
+
         JScrollPane scrollPane = new JScrollPane(center);
         add(scrollPane, BorderLayout.CENTER);
     }
 
 
-    public static void main(String[] args) {
-        // Create and display the LoadPage panel in a JFrame for testing
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Load Page");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            LoadSavePage loadSavePage = new LoadSavePage(false);
-            frame.getContentPane().add(loadSavePage);
-
-            frame.pack();
-            frame.setVisible(true);
-        });
-    }
+//    public static void main(String[] args) {
+//        // Create and display the LoadPage panel in a JFrame for testing
+//        SwingUtilities.invokeLater(() -> {
+//            JFrame frame = new JFrame("Load Page");
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//            LoadSavePage loadSavePage = new LoadSavePage(false);
+//            frame.getContentPane().add(loadSavePage);
+//
+//            frame.pack();
+//            frame.setVisible(true);
+//        });
+//    }
 }

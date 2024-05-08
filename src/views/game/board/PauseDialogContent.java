@@ -22,6 +22,11 @@ public class PauseDialogContent extends JPanel {
             EventsHandler.hideDialog();
         });
 
+        btnSave.addActionListener(e -> {
+            EventsHandler.navigate("SavePage");
+            EventsHandler.hideDialog();
+        });
+
         add(btnAbandon);
         add(btnRestart);
         add(btnSave);

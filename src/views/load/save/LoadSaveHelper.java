@@ -1,4 +1,4 @@
-package src.views;
+package src.views.load.save;
 
 import src.views.components.RoundBorder;
 import src.views.components.TranslatedString;

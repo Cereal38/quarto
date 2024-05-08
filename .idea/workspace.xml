@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/fr.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/quartov5/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/quartov5/lang/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/lang/fr.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/LoadSavePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoadSavePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/load/save/LoadSaveHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/LoadSavePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/load/save/LoadSavePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/main/menu/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/main/menu/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,16 +73,30 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.LoadSavePage">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="LoadSavePage (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="LoadSavePage" />
+      <module name="quartov5" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="LoadSavePage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.views.LoadSavePage" />
+      <option name="MAIN_CLASS_NAME" value="src.views.load.save.LoadSavePage" />
       <module name="quartov5" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="src.views.*" />
+          <option name="PATTERN" value="src.views.load.save.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="src.Main" />
+      <module name="quartov5" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -120,9 +132,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.LoadSavePage (1)" />
+      <item itemvalue="Application.LoadSavePage" />
+      <item itemvalue="Application.SlotManager" />
+      <item itemvalue="Application.SlotManagerTest" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.LoadSavePage" />
+        <item itemvalue="Application.LoadSavePage (1)" />
         <item itemvalue="Application.SlotManager" />
         <item itemvalue="Application.SlotManagerTest" />
       </list>
@@ -143,7 +163,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715075249136</updated>
-      <workItem from="1715075250163" duration="25002000" />
+      <workItem from="1715075250163" duration="25706000" />
     </task>
     <servers />
   </component>
