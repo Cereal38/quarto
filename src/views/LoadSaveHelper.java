@@ -49,6 +49,15 @@ public class LoadSaveHelper {
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         JButton loadGameButton = new JButton(!isSaveMode ? "Load Game" : "Save Game");
+        if (isSaveMode && !control.isSlotFileEmpty(index)){
+            loadGameButton.setVisible(false);
+        } else if (isSaveMode && control.isSlotFileEmpty(index)){
+            loadGameButton.setVisible(true);
+        } else if (!isSaveMode && control.isSlotFileEmpty(index)){
+            loadGameButton.setVisible(false);
+        } else if (!isSaveMode && !control.isSlotFileEmpty(index)){
+            loadGameButton.setVisible(true);
+        }
         loadGameButton.setBackground(Color.GREEN); // Set background color to green
         loadGameButton.addActionListener(new ActionListener() {
             @Override
@@ -66,19 +75,15 @@ public class LoadSaveHelper {
         JButton clearSlotButton = new JButton("Clear Slot");
         clearSlotButton.setBackground(Color.RED); // Set background color to red
         clearSlotButton.setForeground(Color.WHITE);
+        if (control.isSlotFileEmpty(index)) {
+            clearSlotButton.setVisible(false);
+        } else {
+            clearSlotButton.setVisible(true);
+        }
         clearSlotButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Access information from slotTitle and savedDate
-                String savedDateString = savedDate != null ? savedDate.toString() : "Unknown"; // Check if savedDate is not null
-
-                // Print information to console
-                System.out.println("Slot Title: " + slotTitle);
-                System.out.println("Saved Date: " + savedDateString);
-
-                // Perform actions based on isSaveMode using handlers
-                System.out.println("Clearing slot...");
-                System.out.println("Slot Index: " + index);
+                //TODO : methode to delete
             }
         });
 
