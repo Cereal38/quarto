@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import src.views.components.DialogPanel;
 import src.views.game.board.GameBoard;
+import src.views.load.save.LoadSavePage;
 import src.views.main.menu.MainMenu;
 import src.views.players.names.ChoosePlayers;
 import src.views.utils.DimensionUtils;
@@ -18,6 +19,8 @@ public class MainFrame extends JFrame {
   private GameBoard gameBoard;
   private ChoosePlayers choosePlayers;
   private DialogPanel dialog;
+  private LoadSavePage loadPage;
+  private LoadSavePage savePage;
 
   public MainFrame() {
     setTitle("Quarto Game");
@@ -28,6 +31,9 @@ public class MainFrame extends JFrame {
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
     choosePlayers = new ChoosePlayers();
+    loadPage = new LoadSavePage(false);
+    savePage = new LoadSavePage(true);
+
 
     // Create app pages
     mainMenu = new MainMenu();
@@ -41,6 +47,8 @@ public class MainFrame extends JFrame {
     mainPanel.add(mainMenu, "MainMenu");
     mainPanel.add(gameBoard, "GameBoard");
     mainPanel.add(choosePlayers, "ChoosePlayers");
+    mainPanel.add(loadPage, "LoadPage");
+    mainPanel.add(savePage, "SavePage");
 
     add(mainPanel);
 

@@ -27,6 +27,9 @@ public class MainMenu extends JPanel {
         btnPvC.addActionListener(e -> {
             EventsHandler.navigate("ChoosePlayers");
         });
+        btnLoad.addActionListener(e -> {
+            EventsHandler.navigate("LoadPage");
+        });
 
         // Menu centered on the screen
         // The menu is at the middle of a 3x3 grid

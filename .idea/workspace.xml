@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="116c34a3-2786-49b8-985e-c3eeae576383" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/views/players/names/ChoosePlayersOld.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/quartov3/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov3/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/players/names/ChoosePlayers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/players/names/ChoosePlayers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/QuartoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/QuartoPawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoPawn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -35,57 +33,59 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 4
-}</component>
-  <component name="ProjectId" id="2fuLIg1UInT5xh325AsetIFEEoi" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2g8NT9aJMhDbxyYUtTvW2K0zR3z" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.ChoosePlayers.executor": "Run",
-    "Application.ChoosePlayersBis.executor": "Run",
+    "Application.LoadPage.executor": "Run",
+    "Application.LoadSavePage (1).executor": "Run",
+    "Application.LoadSavePage.executor": "Run",
     "Application.Main.executor": "Run",
-    "Application.src.views.players.names.ChoosePlayers.executor": "Run",
-    "Application.src.views.players.names.ChoosePlayersBis.executor": "Run",
+    "Application.MainTest.executor": "Run",
+    "Application.RoundedBorderExample.executor": "Run",
+    "Application.SlotManager.executor": "Run",
+    "Application.SlotManagerTest.executor": "Run",
+    "Application.SlotPanelCreator.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "true",
+    "JUnit.SlotManagerTest.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "choosePlayers",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "loadPage",
+    "jdk.selected.JAVA_MODULE": "corretto-17",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/adam/Uni/L3S2/PROG6/quartov5",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="src.views.components" />
-    </key>
-  </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration name="ChoosePlayers" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.views.ChoosePlayers" />
-      <module name="quartov3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="src.views.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+    <configuration name="LoadSavePage (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="LoadSavePage" />
+      <module name="quartov5" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ChoosePlayersBis" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.views.ChoosePlayersBis" />
-      <module name="quartov3" />
+    <configuration name="LoadSavePage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="src.views.load.save.LoadSavePage" />
+      <module name="quartov5" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="src.views.*" />
+          <option name="PATTERN" value="src.views.load.save.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -95,7 +95,33 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="src.Main" />
-      <module name="quartov3" />
+      <module name="quartov5" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SlotManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="src.model.SlotManager" />
+      <module name="quartov5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="src.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SlotManagerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="src.model.SlotManagerTest" />
+      <module name="quartov5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="src.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -105,92 +131,42 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="src.views.players.names.ChoosePlayers" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.views.players.names.ChoosePlayers" />
-      <module name="quartov3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="src.views.players.names.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="src.views.players.names.ChoosePlayersBis" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.views.players.names.ChoosePlayersBis" />
-      <module name="quartov3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="src.views.players.names.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="quarto" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="quarto" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.src.views.players.names.ChoosePlayers" />
-      <item itemvalue="Application.src.views.players.names.ChoosePlayersBis" />
-      <item itemvalue="Application.ChoosePlayers" />
-      <item itemvalue="Application.ChoosePlayersBis" />
+      <item itemvalue="Application.LoadSavePage (1)" />
+      <item itemvalue="Application.LoadSavePage" />
+      <item itemvalue="Application.SlotManager" />
+      <item itemvalue="Application.SlotManagerTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.src.views.players.names.ChoosePlayers" />
-        <item itemvalue="Application.src.views.players.names.ChoosePlayersBis" />
-        <item itemvalue="Application.ChoosePlayers" />
-        <item itemvalue="Application.ChoosePlayersBis" />
+        <item itemvalue="Application.LoadSavePage" />
+        <item itemvalue="Application.LoadSavePage (1)" />
+        <item itemvalue="Application.SlotManager" />
+        <item itemvalue="Application.SlotManagerTest" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-f644763e9732-24fca987" />
-        <option value="jdk-21.0.2-openjdk-21.0.2-f644763e9732-c0c073db" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="116c34a3-2786-49b8-985e-c3eeae576383" name="Changes" comment="" />
-      <created>1714645940423</created>
+      <changelist id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="" />
+      <created>1715075249136</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1714645940423</updated>
-      <workItem from="1714645944170" duration="61000" />
+      <updated>1715075249136</updated>
+      <workItem from="1715075250163" duration="27740000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
