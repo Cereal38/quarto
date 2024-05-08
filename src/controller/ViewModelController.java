@@ -41,4 +41,8 @@ public class ViewModelController implements ViewModelListener {
         return slotManager.isSlotFileEmpty(index);
     }
 
+    public void playShot(int line, int column){
+        quartoModel.playShot(line,column);
+    }
+
 }

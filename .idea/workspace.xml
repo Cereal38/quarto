@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoPawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoPawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/quartov5/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/quartov5/lang/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/lang/fr.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ViewModelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ViewModelController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="loadPage" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -33,10 +34,11 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2g8NT9aJMhDbxyYUtTvW2K0zR3z" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -60,7 +62,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "loadPage",
+    "git-widget-placeholder": "dev",
     "jdk.selected.JAVA_MODULE": "corretto-17",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/adam/Uni/L3S2/PROG6/quartov5",
