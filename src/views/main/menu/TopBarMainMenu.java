@@ -9,6 +9,7 @@ import src.views.components.LanguageButton;
 import src.views.components.ManualButton;
 import src.views.components.MusicButton;
 import src.views.components.ThemeButton;
+import src.views.utils.EventsHandler;
 
 public class TopBarMainMenu extends JPanel {
 
@@ -22,6 +23,12 @@ public class TopBarMainMenu extends JPanel {
         langButton = new LanguageButton();
         exitButton = new ExitButton();
         bookButton = new ManualButton();
+
+        // set a listener to the buttons
+        EventsHandler.setMusicButton((MusicButton) musicButton);
+        EventsHandler.setLanguageButton((LanguageButton) langButton);
+        EventsHandler.setManualButton((ManualButton) bookButton);
+        EventsHandler.setExitButton((ExitButton) exitButton);
 
         // Buttons aligned on the left
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 10));
