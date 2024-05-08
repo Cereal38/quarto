@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controller/PlayersInformations.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/players/names/PlayersInformationsControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/LoadSaveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoadSaveController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoadSaveHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/LoadSavePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoadSavePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/players/names/ChoosePlayers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/players/names/ChoosePlayers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/quartov5/slots/test2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/slots/test2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slots/test2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/slots/test2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +71,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.LoadSavePage">
     <configuration name="LoadSavePage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="src.views.LoadSavePage" />
       <module name="quartov5" />
@@ -144,7 +139,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715075249136</updated>
-      <workItem from="1715075250163" duration="20094000" />
+      <workItem from="1715075250163" duration="23240000" />
     </task>
     <servers />
   </component>

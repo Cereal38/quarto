@@ -65,7 +65,7 @@ public class LoadSaveHelper {
                if (isSaveMode){
 //                   control.saveGame();
                } else {
-//                   control.loadGame();
+                   control.loadGame(index);
                }
             }
         });
@@ -84,6 +84,7 @@ public class LoadSaveHelper {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO : methode to delete
+                // control.clearSlot(index)
             }
         });
 
