@@ -49,7 +49,7 @@ public class LoadSavePage extends JPanel {
             JFrame frame = new JFrame("Load Page");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            LoadSavePage loadSavePage = new LoadSavePage(true);
+            LoadSavePage loadSavePage = new LoadSavePage(false);
             frame.getContentPane().add(loadSavePage);
 
             frame.pack();

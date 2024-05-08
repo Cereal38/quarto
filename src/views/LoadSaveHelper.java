@@ -51,7 +51,7 @@ public class LoadSaveHelper {
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         TranslatedString loadTranslate = new TranslatedString("load-game");
-        TranslatedString saveTranslate = new TranslatedString("load-game");
+        TranslatedString saveTranslate = new TranslatedString("save-game");
 
         JButton loadGameButton = new JButton(!isSaveMode ? loadTranslate.getText() : saveTranslate.getText());
         if (isSaveMode && !control.isSlotFileEmpty(index)){
