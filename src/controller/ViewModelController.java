@@ -2,16 +2,16 @@ package src.controller;
 
 import src.model.QuartoModel;
 import src.model.SlotManager;
-import src.views.players.names.PlayersInformationsControl;
+import src.views.listeners.ViewModelListener;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class PlayersInformations implements PlayersInformationsControl {
+public class ViewModelController implements ViewModelListener {
     QuartoModel quartoModel;
     private SlotManager slotManager;
 
-    public PlayersInformations(){
+    public ViewModelController(){
         this.slotManager = new SlotManager();
         this.slotManager.loadFromDirectory();
     }

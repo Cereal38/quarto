@@ -1,21 +1,21 @@
 package src.views.load.save;
 
-import src.controller.PlayersInformations;
+import src.controller.ViewModelController;
 import src.views.components.BorderCenterPanel;
 import src.views.components.TranslatedLabel;
-import src.views.players.names.PlayersInformationsControl;
+import src.views.listeners.ViewModelListener;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class LoadSavePage extends JPanel {
     private boolean isSaveMode;
-    PlayersInformationsControl control;
+    ViewModelListener control;
     private JPanel slotsPanel;
 
     public LoadSavePage(boolean isSaveMode) {
         this.isSaveMode = isSaveMode;
-        this.control = new PlayersInformations();
+        this.control = new ViewModelController();
         LoadSaveHelper help = new LoadSaveHelper(control, isSaveMode);
         // Set the layout for the LoadPage panel
         setLayout(new BorderLayout());

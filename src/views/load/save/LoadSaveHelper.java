@@ -2,7 +2,7 @@ package src.views.load.save;
 
 import src.views.components.RoundBorder;
 import src.views.components.TranslatedString;
-import src.views.players.names.PlayersInformationsControl;
+import src.views.listeners.ViewModelListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -13,12 +13,12 @@ import java.util.Date;
 import java.util.Map;
 
 public class LoadSaveHelper {
-    PlayersInformationsControl control;
+    ViewModelListener control;
     boolean isSaveMode;
     JPanel slotsPanel;
     Map<String, Long> slotFileDates;
 
-    LoadSaveHelper(PlayersInformationsControl c, boolean isSaveMode) {
+    LoadSaveHelper(ViewModelListener c, boolean isSaveMode) {
         this.control = c;
         this.isSaveMode = isSaveMode;
     }

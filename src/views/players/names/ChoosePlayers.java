@@ -1,6 +1,7 @@
 package src.views.players.names;
 
-import src.controller.PlayersInformations;
+import src.controller.ViewModelController;
+import src.views.listeners.ViewModelListener;
 import src.views.components.*;
 import src.views.listeners.TextFieldChangeListener;
 import src.views.utils.EventsHandler;
@@ -26,13 +27,13 @@ public class ChoosePlayers extends JPanel {
     private TranslatedButton startButton;
     private boolean player1IsAI = false;
     private boolean player2IsAI = false;
-    PlayersInformationsControl control;
+    ViewModelListener control;
 
 
     public ChoosePlayers() {
         // Set BorderLayout for the ChoosePlayers panel
         setLayout(new BorderLayout());
-        this.control = new PlayersInformations();
+        this.control = new ViewModelController();
 
         // Create a title label
         TranslatedLabel titleLabel = new TranslatedLabel("enter-players-names");
