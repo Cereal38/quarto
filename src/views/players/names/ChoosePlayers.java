@@ -10,12 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import src.controller.ViewModelController;
 import src.views.components.CustomTextField;
 import src.views.components.GridCenterPanel;
 import src.views.components.TranslatedButton;
 import src.views.components.TranslatedLabel;
 import src.views.components.TranslatedString;
 import src.views.listeners.TextFieldChangeListener;
+import src.views.listeners.ViewModelListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
@@ -34,10 +36,12 @@ public class ChoosePlayers extends JPanel {
   private TranslatedButton startButton;
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;
+  ViewModelListener control;
 
   public ChoosePlayers() {
     // Set BorderLayout for the ChoosePlayers panel
     setLayout(new BorderLayout());
+    this.control = new ViewModelController();
 
     // Create a title label
     TranslatedLabel titleLabel = new TranslatedLabel("enter-players-names");
@@ -78,9 +82,11 @@ public class ChoosePlayers extends JPanel {
       GameStatusHandler.setPlayer2Name(player2TextField.getInputText());
       // Start the game
       GameStatusHandler.startGame();
+
+      control.createModel(player1IsAI ? 1 : 0, player2IsAI ? 1 : 0, player1TextField.getInputText(),
+          player2TextField.getInputText());
       EventsHandler.navigate("GameBoard");
     });
-    startButton.setVisible(false);
 
     // Add panels to the ChoosePlayers panel
     add(topPanel, BorderLayout.NORTH);
@@ -102,11 +108,16 @@ public class ChoosePlayers extends JPanel {
       public void actionPerformed(ActionEvent e) {
         if (!isAI) {
           // Convert the associated text field to AI
-          textField.setText(new TranslatedString("ai" + numPlayer));
+          textField.setText(new TranslatedString("ai-" + numPlayer));
           textField.setEditable(false); // Disable editing
           toggleButton.setText("Make Player"); // Change button text
           textField.add(difficultyComboBox);
           difficultyComboBox.setVisible(true); // Show difficulty combo box
+          if (numPlayer == 1) {
+            player1IsAI = !player1IsAI; // Toggle player1IsAI
+          } else {
+            player2IsAI = !player2IsAI; // Toggle player2IsAI
+          }
           isAI = true; // Update state to AI
         } else {
           // Convert the associated text field back to Player
@@ -115,7 +126,11 @@ public class ChoosePlayers extends JPanel {
           toggleButton.setText("Make AI"); // Change button text
           textField.remove(difficultyComboBox);
           difficultyComboBox.setVisible(false); // Hide difficulty combo box
-
+          if (numPlayer == 1) {
+            player1IsAI = !player1IsAI; // Toggle player1IsAI
+          } else {
+            player2IsAI = !player2IsAI; // Toggle player2IsAI
+          }
           isAI = false; // Update state to Player
         }
         Container parent = textField.getParent();
