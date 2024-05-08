@@ -33,8 +33,12 @@ public class PlayersInformations implements PlayersInformationsControl {
         quartoModel.saveFile(fileName);
     }
 
-    public void loadGame(String filename){
-        quartoModel.chargeGame(filename);
+    public void loadGame(int index){
+        quartoModel.chargeGame(index);
+    }
+
+    public boolean isSlotFileEmpty(int index){
+        return slotManager.isSlotFileEmpty(index);
     }
 
 }

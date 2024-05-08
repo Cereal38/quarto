@@ -14,5 +14,6 @@ public interface PlayersInformationsControl {
 
     public void saveGame(String fileName) throws IOException ;
 
-    public void loadGame(String filename);
+    public void loadGame(int index);
+    public boolean isSlotFileEmpty(int index);
 }
