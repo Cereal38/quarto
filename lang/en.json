@@ -10,15 +10,16 @@
   "save": "Save",
   "rules": "Rules",
   "main-menu": "Main menu",
-  "turn-of-player": "It's the turn of",
+  "select-pawn": "Is choosing a pawn",
+  "play-pawn": "Is playing the pawn",
   "enter-players-names": "Enter players names",
-  "start" : "Start",
-  "player1" : "Player 1",
-  "player2" : "Player 2",
-  "add-player" : "Add Player",
-  "add-ai" : "Add AI",
+  "start": "Start",
+  "player1": "Player 1",
+  "player2": "Player 2",
+  "add-player": "Add Player",
+  "add-ai": "Add AI",
   "ai-1": "AI 1",
   "ai-2": "AI 2",
   "make-player": "Make Player",
-  "make-ai" : "Make AI"
+  "make-ai": "Make AI"
 }

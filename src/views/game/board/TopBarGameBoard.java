@@ -15,8 +15,8 @@ public class TopBarGameBoard extends JPanel {
   private UndoButton btnUndo = new UndoButton();
   private RedoButton btnRedo = new RedoButton();
   private PauseMenuButton btnPause = new PauseMenuButton();
-  private TranslatedLabel lblTurnOf = new TranslatedLabel("turn-of-player");
-  private JLabel lblPlayer = new JLabel("Player 1");
+  private TranslatedLabel stateLbl;
+  private JLabel playerLbl = new JLabel("Player 1");
 
   public TopBarGameBoard() {
     setLayout(new BorderLayout());
@@ -43,9 +43,13 @@ public class TopBarGameBoard extends JPanel {
     JPanel centerPanel = new JPanel();
     add(centerPanel, BorderLayout.CENTER);
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 15));
-    lblPlayer.setForeground(Color.BLUE);
-    centerPanel.add(lblTurnOf);
-    centerPanel.add(lblPlayer);
+    playerLbl.setForeground(Color.BLUE);
+    centerPanel.add(stateLbl);
+    centerPanel.add(playerLbl);
+  }
+
+  private TranslatedLabel getLabelText() {
+    return stateLbl;
   }
 
 }

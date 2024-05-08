@@ -10,15 +10,16 @@
   "save": "Sauvegarder",
   "rules": "Règles",
   "main-menu": "Menu principal",
-  "turn-of-player": "C'est au tour de",
+  "select-pawn": "Choisit un pion",
+  "play-pawn": "Joue un pion",
   "enter-players-names": "Entrer les noms des joueurs",
-  "start" : "Commencer",
-  "player1" : "Joueur 1",
-  "player2" : "Joueur 2",
-  "add-player" : "Ajouter Joueur",
-  "add-ai" : "Ajouter IA",
+  "start": "Commencer",
+  "player1": "Joueur 1",
+  "player2": "Joueur 2",
+  "add-player": "Ajouter Joueur",
+  "add-ai": "Ajouter IA",
   "ai-1": "IA 1",
   "ai-2": "IA 2",
   "make-player": "Rendre Joueur",
-  "make-ai" : "Rendre Joueur"
+  "make-ai": "Rendre Joueur"
 }
