@@ -61,14 +61,19 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
     System.out.println(GameStatusHandler.getGamePhaseAsText());
 
     if (GameStatusHandler.isPlayerOneTurn()) {
-      playerLbl.setText("Player 1");
+      playerLbl.setText(GameStatusHandler.getPlayer1Name());
     } else if (GameStatusHandler.isPlayerTwoTurn()) {
-      playerLbl.setText("Player 2");
+      playerLbl.setText(GameStatusHandler.getPlayer2Name());
     } else {
       playerLbl.setText("");
     }
   }
 
+  /**
+   * Updates the state of the game board. This method is called to update the UI
+   * components of the game board based on the current game status. It's called
+   * when the game status is updated.
+   */
   @Override
   public void update() {
     upatePlayerLbl();

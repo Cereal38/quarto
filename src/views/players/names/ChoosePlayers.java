@@ -73,6 +73,9 @@ public class ChoosePlayers extends JPanel {
     // Create Start button (initially hidden)
     startButton = new TranslatedButton("start");
     startButton.addActionListener(e -> {
+      // Setup player names
+      GameStatusHandler.setPlayer1Name(player1TextField.getInputText());
+      GameStatusHandler.setPlayer2Name(player2TextField.getInputText());
       // Start the game
       GameStatusHandler.startGame();
       EventsHandler.navigate("GameBoard");
@@ -140,16 +143,4 @@ public class ChoosePlayers extends JPanel {
     startButton.setVisible(bothPlayersFilled);
   }
 
-  // public static void main(String[] args) {
-  // SwingUtilities.invokeLater(() -> {
-  // JFrame frame = new JFrame("Choose Players");
-  // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-  // ChoosePlayers choosePlayersPanel = new ChoosePlayers();
-  // frame.getContentPane().add(choosePlayersPanel);
-
-  // frame.pack();
-  // frame.setVisible(true);
-  // });
-  // }
 }

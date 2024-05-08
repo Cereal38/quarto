@@ -18,8 +18,13 @@ public class GameStatusHandler {
   private static int gamePhase = GAME_NOT_STARTED;
   private static String selectedPawn = "";
 
+  private static String player1Name;
+  private static String player2Name;
+
   // The list of game status listeners
   private static final List<GameStatusListener> listeners = new ArrayList<>();
+
+  // ================== Game Status Listeners ==================
 
   /**
    * Adds a game status listener to the list of listeners.
@@ -38,6 +43,14 @@ public class GameStatusHandler {
   public static void removeGameStatusListener(GameStatusListener listener) {
     listeners.remove(listener);
   }
+
+  public static void informListeners() {
+    for (GameStatusListener listener : listeners) {
+      listener.update();
+    }
+  }
+
+  // =============== Game Phase Management ===============
 
   public static void setGamePhase(int phase) {
     gamePhase = phase;
@@ -116,11 +129,21 @@ public class GameStatusHandler {
     return selectedPawn;
   }
 
-  public static void informListeners() {
-    System.out.println("DEBUG - GameStatusHandler.informListeners()");
-    for (GameStatusListener listener : listeners) {
-      listener.update();
-    }
+  // =============== Player Names ===============
+  public static void setPlayer1Name(String name) {
+    player1Name = name;
+  }
+
+  public static String getPlayer1Name() {
+    return player1Name;
+  }
+
+  public static void setPlayer2Name(String name) {
+    player2Name = name;
+  }
+
+  public static String getPlayer2Name() {
+    return player2Name;
   }
 
 }
