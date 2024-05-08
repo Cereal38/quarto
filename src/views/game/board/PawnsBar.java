@@ -1,39 +1,50 @@
 package src.views.game.board;
 
 import java.awt.FlowLayout;
+import java.util.List;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
-import src.views.utils.DimensionUtils;
-import src.views.utils.ImageUtils;
+import src.views.listeners.GameStatusListener;
+import src.views.utils.GameStatusHandler;
 
-public class PawnsBar extends JPanel {
+public class PawnsBar extends JPanel implements GameStatusListener {
 
-  // All pawns in the game. null means the pawn is already placed on the board
-  private Pawn[] pawns = new Pawn[16];
+  private List<Pawn> pawns;
 
   public PawnsBar() {
     setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
-    int widthPawn = DimensionUtils.getMainFrameWidth() / 16;
-    int heightPawn = widthPawn * 2;
+    // Register this class as a game status listener
+    GameStatusHandler.addGameStatusListener(this);
 
-    for (int i = 0; i < 16; i++) {
-      pawns[i] = new Pawn(ImageUtils.getPawn(i), widthPawn, heightPawn, this, i);
-      if (pawns[i] != null) {
-        add(pawns[i]);
-      }
+    updatePawns();
+
+    // TODO: Reimplement this
+    // int widthPawn = DimensionUtils.getMainFrameWidth() / 16;
+    // int heightPawn = widthPawn * 2;
+
+    for (Pawn pawn : pawns) {
+      add(pawn);
     }
   }
 
   public void refresh() {
     removeAll();
-    for (int i = 0; i < 16; i++) {
-      // if (!pawns[i].isPlayed()) {
-      add(pawns[i]);
-      // }
+    for (Pawn pawn : pawns) {
+      add(pawn);
     }
     revalidate();
     repaint();
+  }
+
+  public void updatePawns() {
+    pawns = GameStatusHandler.getNotPlayedPawns();
+  }
+
+  @Override
+  public void update() {
+    updatePawns();
+    refresh();
   }
 
 }

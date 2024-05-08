@@ -20,7 +20,32 @@ public class Pawn extends JButton {
   public static final int PLAYED = 2;
 
   private boolean cursorSet = true;
-  private int state = NOT_PLAYED;
+  private int state;
+
+  public Pawn(String code, int width, int height) {
+    // Load image
+    ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
+
+    // Set image
+    setIcon(image);
+    setContentAreaFilled(false);
+    setBorder(BorderFactory.createEmptyBorder());
+    setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+    this.state = NOT_PLAYED;
+
+    addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent evt) {
+        // If not played, select the pawn
+        if (isNotPlayed()) {
+          select();
+          GameStatusHandler.setSelectedPawn(code);
+        }
+      }
+
+    });
+
+  }
 
   public Pawn(String code, int width, int height, PawnsBar parent, int index) {
     // Load image

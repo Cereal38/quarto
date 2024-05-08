@@ -17,15 +17,21 @@ public class GameStatusHandler {
   public static final int PLAYER_TWO_WIN = 6;
 
   private static int gamePhase = GAME_NOT_STARTED;
-  private static String selectedPawn = "";
 
   private static String player1Name;
   private static String player2Name;
 
-  private static Pawn[] pawns = new Pawn[16];
+  private static List<Pawn> pawns = new ArrayList<>();
+  private static String selectedPawn = "";
 
   // The list of game status listeners
   private static final List<GameStatusListener> listeners = new ArrayList<>();
+
+  public static void startGame() {
+    gamePhase = PLAYER_ONE_SELECT_PAWN;
+    initPawns();
+    informListeners();
+  }
 
   // ================== Game Status Listeners ==================
 
@@ -57,11 +63,6 @@ public class GameStatusHandler {
 
   public static void setGamePhase(int phase) {
     gamePhase = phase;
-    informListeners();
-  }
-
-  public static void startGame() {
-    gamePhase = PLAYER_ONE_SELECT_PAWN;
     informListeners();
   }
 
@@ -124,14 +125,6 @@ public class GameStatusHandler {
     }
   }
 
-  public static void setSelectedPawn(String pawn) {
-    selectedPawn = pawn;
-  }
-
-  public static String getSelectedPawn() {
-    return selectedPawn;
-  }
-
   // =============== Player Names ===============
   public static void setPlayer1Name(String name) {
     player1Name = name;
@@ -149,4 +142,34 @@ public class GameStatusHandler {
     return player2Name;
   }
 
+  // =============== Pawns ===============
+  public static void initPawns() {
+    for (int i = 0; i < 16; i++) {
+      pawns.add(new Pawn(ImageUtils.getPawn(i), 50, 50));
+    }
+  }
+
+  public static void resetPawns() {
+    for (Pawn pawn : pawns) {
+      pawn.reset();
+    }
+  }
+
+  public static List<Pawn> getNotPlayedPawns() {
+    List<Pawn> notPlayedPawns = new ArrayList<>();
+    for (Pawn pawn : pawns) {
+      if (pawn.isNotPlayed() || pawn.isSelected()) {
+        notPlayedPawns.add(pawn);
+      }
+    }
+    return notPlayedPawns;
+  }
+
+  public static void setSelectedPawn(String pawn) {
+    selectedPawn = pawn;
+  }
+
+  public static String getSelectedPawn() {
+    return selectedPawn;
+  }
 }
