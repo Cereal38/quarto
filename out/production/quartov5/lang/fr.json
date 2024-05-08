@@ -20,5 +20,11 @@
   "ai-1": "IA 1",
   "ai-2": "IA 2",
   "make-player": "Rendre Joueur",
-  "make-ai" : "Rendre Joueur"
+  "make-ai" : "Rendre Joueur",
+  "load-page" : "Page de chargement",
+  "save-page" : "Page de sauvegarde",
+  "saved-date": "Date de sauvegarde",
+  "load-game" : "Charger le jeu",
+  "save-game" : "Sauvegarder le jeu",
+  "clear-slot" : "Vider l'emplacement"
 }

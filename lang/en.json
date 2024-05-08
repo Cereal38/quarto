@@ -20,5 +20,11 @@
   "ai-1": "AI 1",
   "ai-2": "AI 2",
   "make-player": "Make Player",
-  "make-ai" : "Make AI"
+  "make-ai" : "Make AI",
+  "load-page" : "Load Page",
+  "save-page" : "Save Page",
+  "saved-date": "Saved date",
+  "load-game" : "Load Game",
+  "save-game" : "Save Game",
+  "clear-slot" : "Clear Slot"
 }

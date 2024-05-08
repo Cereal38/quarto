@@ -1,6 +1,7 @@
 package src.views;
 
 import src.views.components.RoundBorder;
+import src.views.components.TranslatedString;
 import src.views.players.names.PlayersInformationsControl;
 
 import javax.swing.*;
@@ -36,7 +37,8 @@ public class LoadSaveHelper {
         JLabel titleLabel = new JLabel(slotTitle);
         titleLabel.setFont(titleLabel.getFont().deriveFont(20f));
         leftPanel.add(titleLabel);
-        JLabel dateLabel = new JLabel("Saved Date: " + savedDate.toString());
+        TranslatedString date = new TranslatedString("saved-date");
+        JLabel dateLabel = new JLabel(date.getText() + savedDate.toString());
         leftPanel.add(dateLabel);
         contentPanel.add(leftPanel, BorderLayout.WEST);
 
@@ -48,7 +50,10 @@ public class LoadSaveHelper {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5)); // Right-aligned layout with spacing
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        JButton loadGameButton = new JButton(!isSaveMode ? "Load Game" : "Save Game");
+        TranslatedString loadTranslate = new TranslatedString("load-game");
+        TranslatedString saveTranslate = new TranslatedString("load-game");
+
+        JButton loadGameButton = new JButton(!isSaveMode ? loadTranslate.getText() : saveTranslate.getText());
         if (isSaveMode && !control.isSlotFileEmpty(index)){
             loadGameButton.setVisible(false);
         } else if (isSaveMode && control.isSlotFileEmpty(index)){
@@ -72,7 +77,8 @@ public class LoadSaveHelper {
         buttonPanel.add(loadGameButton);
 
         // Clear Slot button (colored red)
-        JButton clearSlotButton = new JButton("Clear Slot");
+        TranslatedString clearTranslate = new TranslatedString("clear-slot");
+        JButton clearSlotButton = new JButton(clearTranslate.getText());
         clearSlotButton.setBackground(Color.RED); // Set background color to red
         clearSlotButton.setForeground(Color.WHITE);
         if (control.isSlotFileEmpty(index)) {
