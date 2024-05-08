@@ -11,6 +11,7 @@ public class LanguageButton extends JButton {
     private static final int LANG_EN = 0;
     private static final int LANG_FR = 1;
     private int lang = LANG_EN;
+    private TranslatedString tooltip;
 
     public LanguageButton() {
 
@@ -37,5 +38,8 @@ public class LanguageButton extends JButton {
             }
             lang = (lang + 1) % 2;
         });
+
+        // Add tooltip
+        tooltip = new TranslatedString("languageButtonTooltip", this, true);
     }
 }

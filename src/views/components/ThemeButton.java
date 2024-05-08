@@ -9,6 +9,7 @@ import src.views.utils.ImageUtils;
 public class ThemeButton extends JButton {
 
     private boolean isLightTheme;
+    private TranslatedString tooltip;
 
     public ThemeButton() {
         isLightTheme = true;
@@ -36,5 +37,8 @@ public class ThemeButton extends JButton {
             isLightTheme = !isLightTheme;
             EventsHandler.toggleTheme();
         });
+
+        // Add tooltip
+        tooltip = new TranslatedString("themeButtonTooltip", this, true);
     }
 }

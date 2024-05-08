@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import src.views.utils.ImageUtils;
 
 public class RedoButton extends JButton {
+    private TranslatedString tooltip;
 
     public RedoButton() {
 
@@ -21,5 +22,7 @@ public class RedoButton extends JButton {
 
         addActionListener(e -> {
         });
+
+        tooltip = new TranslatedString("redoButtonTooltip", this, true);
     }
 }

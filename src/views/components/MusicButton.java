@@ -8,6 +8,7 @@ import src.views.utils.ImageUtils;
 public class MusicButton extends JButton {
 
     private boolean isMusicOn;
+    private TranslatedString tooltip;
 
     public MusicButton() {
         isMusicOn = true;
@@ -33,5 +34,9 @@ public class MusicButton extends JButton {
             }
             isMusicOn = !isMusicOn;
         });
+
+        // Add tooltip
+        tooltip = new TranslatedString("musicButtonTooltip", this, true);
+        setToolTipText(tooltip.getText());
     }
 }

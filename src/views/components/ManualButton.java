@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import src.views.utils.ImageUtils;
 
 public class ManualButton extends JButton {
+    private TranslatedString tooltip;
 
     public ManualButton() {
 
@@ -23,5 +24,8 @@ public class ManualButton extends JButton {
 
         addActionListener(e -> {
         });
+
+        tooltip = new TranslatedString("manualButtonTooltip", this, true);
     }
+
 }

@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import src.views.utils.ImageUtils;
 
 public class ExitButton extends JButton {
+    private TranslatedString tooltip;
 
     public ExitButton() {
         // Load
@@ -24,5 +25,8 @@ public class ExitButton extends JButton {
         addActionListener(e -> {
             System.exit(0);
         });
+
+        tooltip = new TranslatedString("quitButtonToolTip", this, true);
+
     }
 }

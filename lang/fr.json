@@ -27,5 +27,13 @@
   "saved-date": "Date de sauvegarde",
   "load-game": "Charger le jeu",
   "save-game": "Sauvegarder le jeu",
-  "clear-slot": "Vider l'emplacement"
+  "clear-slot": "Vider l'emplacement",
+  "musicButtonTooltip": "Activer/désactiver la musique",
+  "quitButtonToolTip": "Quitter le jeu",
+  "languageButtonTooltip": "Changer la langue",
+  "manualButtonTooltip": "Ouvrir le manuel",
+  "menuButtonTooltip": "Ouvrir le menu",
+  "redoButtonTooltip": "Refaire",
+  "themeButtonTooltip": "Changer le thème",
+  "undoButtonTooltip": "Annuler"
 }
