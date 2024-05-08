@@ -22,7 +22,7 @@ public class QuartoModel {
         win = new QuartoWin();
         this.firstPlayerName = firstPlayerName;
         this.secondPlayerName = secondPlayerName;
-//        System.out.println("name 1 : " + firstPlayerName + " name 2 :" + secondPlayerName);
+        //System.out.println("name 1 : " + firstPlayerName + "name 2 :" + secondPlayerName);
         if(firstPlayerType == 1){
             randomAIPlayer = new RandomAIPlayer();
         }else if (secondPlayerType == 1){
@@ -36,7 +36,7 @@ public class QuartoModel {
         playerType[0] = firstPlayerType;
         playerType[1] = secondPlayerType;
         pawnAvailable = new QuartoPawn[16];
-        for (int count = 0; count < 16; count++) {
+        for (byte count = 0; count < 16; count++) {
             pawnAvailable[count] = new QuartoPawn(count);
         }
     }
