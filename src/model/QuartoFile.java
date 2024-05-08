@@ -17,11 +17,11 @@ public class QuartoFile {
     }
 
     public boolean canRedo() {
-        return save.next != null;
+        return save.getNext() != null;
     }
 
     public boolean canUndo() {
-        return save.previous != null;
+        return save.getPrevious() != null;
     }
 
     public void saveFile(String fileName) throws IOException {
@@ -46,7 +46,7 @@ public class QuartoFile {
                         printWriter.print(head_cp.line + " " + head_cp.column + "\n");
                     }
                 }
-                head_cp = head_cp.next;
+                head_cp = head_cp.getNext();
             }
             printWriter.close();
         } catch (FileNotFoundException e) {
@@ -65,24 +65,24 @@ public class QuartoFile {
             while (s.hasNextLine()) {
                 line = s.nextLine().split(" ");
                 if (line.length == 1) { //state == 0
-                    temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
-                    temp.next.previous = temp;
-                    temp = temp.next;
+                    temp.setNext(new QuartoHistory(Integer.parseInt(line[0]), temp));
+                    temp.getNext().setPrevious(temp);
+                    temp = temp.getNext();
                 } else if (line.length == 2) {//(state == 1) or (state == 0 and actual state)
                     if (line[1].equals("*")) {
-                        temp.next = new QuartoHistory(Integer.parseInt(line[0]), temp);
-                        temp.next.previous = temp;
-                        temp = temp.next;
+                        temp.setNext(new QuartoHistory(Integer.parseInt(line[0]), temp));
+                        temp.getNext().setPrevious(temp);
+                        temp = temp.getNext();
                         save = temp;
                     } else {
-                        temp.next = new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp);
-                        temp.next.previous = temp;
-                        temp = temp.next;
+                        temp.setNext(new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp));
+                        temp.getNext().setPrevious(temp);
+                        temp = temp.getNext();
                     }
                 } else { //state == 1 and actual state
-                    temp.next = new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp);
-                    temp.next.previous = temp;
-                    temp = temp.next;
+                    temp.setNext(new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp));
+                    temp.getNext().setPrevious(temp);
+                    temp = temp.getNext();
                     save = temp;
                 }
             }
@@ -96,24 +96,28 @@ public class QuartoFile {
         return save;
     }
 
+    public QuartoHistory getHead(){
+        return head;
+    }
+
     public void setSave(QuartoHistory s) {
         save = s;
     }
 
     public int getNextIndexPawn() {
-        return save.next.getIndexPawn();
+        return save.getNext().getIndexPawn();
     }
 
     public int getNextLine() {
-        return save.next.getLine();
+        return save.getNext().getLine();
     }
 
     public int getNextColumn() {
-        return save.next.getColumn();
+        return save.getNext().getColumn();
     }
 
     public int getNextState() {
-        return save.next.getState();
+        return save.getNext().getState();
     }
 
     public int getIndexPawn() {
@@ -133,22 +137,19 @@ public class QuartoFile {
     }
 
     public int getPreviousIndexPawn() {
-        return save.previous.getIndexPawn();
+        return save.getPrevious().getIndexPawn();
     }
 
     public int getPreviousLine() {
-        return save.previous.getLine();
+        return save.getPrevious().getLine();
     }
 
     public int getPreviousColumn(){
-        return save.previous.getColumn();
+        return save.getPrevious().getColumn();
     }
 
     public int getPreviousState() {
-        return save.previous.getState();
+        return save.getPrevious().getState();
     }
 
-    public QuartoHistory getHead() {
-        return this.head;
-    }
 }

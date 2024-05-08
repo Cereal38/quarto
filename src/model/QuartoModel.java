@@ -4,24 +4,25 @@ import java.io.IOException;
 
 public class QuartoModel {
     private QuartoPawn[][] table;
-    private int currentPlayer; //1 for Player 1 and 2 for Player 2
+    private int currentPlayer;//1 for Player 1 and 2 for Player 2
     private int playerType[] = new int [2] ; // 0 for Human and 1 for Random AI
     //with playerType[0] type of the player 1 and playerType[1] type of the player 2
     private QuartoPawn[] pawnAvailable;
     private QuartoPawn selectedPawn;
     private QuartoFile file;
     private QuartoWin win;
-    private String name1, name2;
+    private SlotManager manager;
+    private String firstPlayerName, secondPlayerName;
 
     private Player randomAIPlayer;
 
-    public QuartoModel(int firstPlayerType, int secondPlayerType, String name1, String name2) {
+    public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName) {
         newTable(firstPlayerType, secondPlayerType);
         file = new QuartoFile();
         win = new QuartoWin();
-        this.name1 = name1;
-        this.name2 = name2;
-        System.out.println("name 1 : " + name1 + "name 2 :" + name2);
+        this.firstPlayerName = firstPlayerName;
+        this.secondPlayerName = secondPlayerName;
+//        System.out.println("name 1 : " + firstPlayerName + " name 2 :" + secondPlayerName);
         if(firstPlayerType == 1){
             randomAIPlayer = new RandomAIPlayer();
         }else if (secondPlayerType == 1){
@@ -123,8 +124,8 @@ public class QuartoModel {
                 || win.winSituationDiagonal(getTable(), line, column));
     }
 
-    public void chargeGame(String fileName) {
-        file.chargeFile(fileName);
+    public void chargeGame(int index) {
+        file.chargeFile(manager.getSlotFileDates().keySet().toArray(new String[0])[index]);
         QuartoHistory copy = file.getHead();
         while(!copy.equals(file.getSave())) {
             if (copy.state == 0) {
@@ -133,7 +134,7 @@ public class QuartoModel {
             } else if (copy.state == 1) {
                 setTable(copy.getLine(), copy.getColumn(), getSelectedPawn());
             }
-            copy = copy.next;
+            copy = copy.getNext();
         }
     }
 
@@ -151,6 +152,10 @@ public class QuartoModel {
         }
 
         return table[line][column];
+    }
+
+    public void saveFile(String fileName) throws IOException {
+        file.saveFile(fileName);
     }
 
     public QuartoPawn[][] getTable() {
@@ -181,7 +186,10 @@ public class QuartoModel {
         return playerType[getCurrentPlayer() - 1];
     }
 
-    public void saveFile(String fileName) throws IOException {
-        file.saveFile(fileName);
+    public void setPlayerType(int[] playerType) {
+        if (playerType.length != 2) {
+            throw new IllegalArgumentException("playerType array must have length 2");
+        }
+        this.playerType = playerType;
     }
 }
