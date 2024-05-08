@@ -42,7 +42,8 @@ public class LangUtils {
   }
 
   /**
-   * Sets the language to the given language.
+   * Sets the language to the given language. Updates the text of all registered
+   * text components.
    *
    * @param lang the language to set
    */

@@ -9,22 +9,30 @@ import src.views.components.PauseMenuButton;
 import src.views.components.RedoButton;
 import src.views.components.TranslatedLabel;
 import src.views.components.UndoButton;
+import src.views.listeners.GameStatusListener;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 
-public class TopBarGameBoard extends JPanel {
+public class TopBarGameBoard extends JPanel implements GameStatusListener {
   private UndoButton btnUndo = new UndoButton();
   private RedoButton btnRedo = new RedoButton();
   private PauseMenuButton btnPause = new PauseMenuButton();
-  private TranslatedLabel stateLbl;
-  private JLabel playerLbl = new JLabel("Player 1");
+  private TranslatedLabel stateLbl = new TranslatedLabel("play-pawn");
+  private JLabel playerLbl = new JLabel();
 
   public TopBarGameBoard() {
     setLayout(new BorderLayout());
+
+    // Register this class as a game status listener
+    GameStatusHandler.addGameStatusListener(this);
 
     // Add action listeners to the buttons
     btnPause.addActionListener(e -> {
       EventsHandler.showDialog(new PauseDialogContent());
     });
+
+    // Set the text of the labels
+    upatePlayerLbl();
 
     // Left panel with undo and redo buttons
     JPanel leftPanel = new JPanel();
@@ -44,12 +52,29 @@ public class TopBarGameBoard extends JPanel {
     add(centerPanel, BorderLayout.CENTER);
     centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 8, 15));
     playerLbl.setForeground(Color.BLUE);
-    centerPanel.add(stateLbl);
     centerPanel.add(playerLbl);
+    centerPanel.add(stateLbl);
   }
 
-  private TranslatedLabel getLabelText() {
-    return stateLbl;
+  private void upatePlayerLbl() {
+
+    System.out.println(GameStatusHandler.getGamePhaseAsText());
+
+    if (GameStatusHandler.isPlayerOneTurn()) {
+      playerLbl.setText("Player 1");
+    } else if (GameStatusHandler.isPlayerTwoTurn()) {
+      playerLbl.setText("Player 2");
+    } else {
+      playerLbl.setText("null");
+    }
+  }
+
+  @Override
+  public void update() {
+    System.out.println("DEBUG - TopBarGameBoard.update()");
+    upatePlayerLbl();
+    // stateLbl.setText(GameStatusHandler.getGamePhaseAsText());
+    stateLbl.setText("Blablabal");
   }
 
 }
