@@ -64,6 +64,20 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getTable();
   }
 
+  public void printTable() {
+    QuartoPawn[][] table = quartoModel.getTable();
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        if (table[i][j] == null) {
+          System.out.print(" .   ");
+        } else {
+          System.out.print(FormatUtils.byteToString(table[i][j].getPawn()) + " ");
+        }
+      }
+      System.out.println();
+    }
+  }
+
   public void setSelectedPawn(String pawnStr) {
     // Convert the string to the format accepted by the model
     byte code = FormatUtils.stringToByte(pawnStr);
