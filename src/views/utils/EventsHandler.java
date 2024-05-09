@@ -13,6 +13,7 @@ import src.views.components.ExitButton;
 import src.views.components.LanguageButton;
 import src.views.components.ManualButton;
 import src.views.components.MusicButton;
+import src.views.components.PauseMenuButton;
 import src.views.components.RedoButton;
 import src.views.components.UndoButton;
 
@@ -32,6 +33,7 @@ public class EventsHandler {
     private static ExitButton exitButton;
     private static UndoButton undoButton;
     private static RedoButton redoButton;
+    private static PauseMenuButton pauseMenuButton;
 
     public static void setCardLayout(CardLayout cardLayout) {
         EventsHandler.cardLayout = cardLayout;
@@ -71,6 +73,10 @@ public class EventsHandler {
 
     public static void setRedoButton(RedoButton rb) {
         redoButton = rb;
+    }
+
+    public static void setPauseMenuButton(PauseMenuButton pm) {
+        pauseMenuButton = pm;
     }
 
     /**
@@ -143,5 +149,16 @@ public class EventsHandler {
             exitButton.updateIcon(theme == 0);
         }
 
+        if (undoButton != null) {
+            undoButton.updateIcon(theme == 0);
+        }
+
+        if (redoButton != null) {
+            redoButton.updateIcon(theme == 0);
+        }
+
+        if (pauseMenuButton != null) {
+            pauseMenuButton.updateIcon(theme == 0);
+        }
     }
 }
