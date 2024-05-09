@@ -83,6 +83,7 @@ public class ChoosePlayers extends JPanel {
           player1TextField.getInputText(), player2TextField.getInputText());
       EventsHandler.navigate("GameBoard");
     });
+    startButton.setVisible(false);
 
     // Add panels to the ChoosePlayers panel
     add(topPanel, BorderLayout.NORTH);

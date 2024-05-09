@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/views/rules/RulesPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/QuartoPawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/QuartoPawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lang/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/fr.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/quartov5/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/quartov5/lang/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/lang/fr.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/components/ManualButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/ManualButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/game/board/PauseDialogContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/game/board/PauseDialogContent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -33,10 +39,11 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2g8NT9aJMhDbxyYUtTvW2K0zR3z" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -49,6 +56,7 @@
     "Application.Main.executor": "Run",
     "Application.MainTest.executor": "Run",
     "Application.RoundedBorderExample.executor": "Run",
+    "Application.RulesPage.executor": "Run",
     "Application.SlotManager.executor": "Run",
     "Application.SlotManagerTest.executor": "Run",
     "Application.SlotPanelCreator.executor": "Run",
@@ -60,7 +68,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "loadPage",
+    "git-widget-placeholder": "rulesPage",
     "jdk.selected.JAVA_MODULE": "corretto-17",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/adam/Uni/L3S2/PROG6/quartov5",
@@ -72,7 +80,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager">
     <configuration name="LoadSavePage (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="LoadSavePage" />
       <module name="quartov5" />
