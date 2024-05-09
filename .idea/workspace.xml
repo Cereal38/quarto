@@ -1,37 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/views/rules/RulesPage.java" afterDir="false" />
+    <list default="true" id="794ec968-eaa9-49c3-8fe1-833d9a5fcf56" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/quartov7.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/fr.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/quartov5/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/quartov5/lang/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/quartov5/lang/fr.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/components/ManualButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/ManualButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/game/board/PauseDialogContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/game/board/PauseDialogContent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ViewModelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ViewModelController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,97 +23,31 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
-  <component name="ProjectId" id="2g8NT9aJMhDbxyYUtTvW2K0zR3z" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2gE5Q7v0gQIQd7UelIPFbUb4ZJq" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.LoadPage.executor": "Run",
-    "Application.LoadSavePage (1).executor": "Run",
-    "Application.LoadSavePage.executor": "Run",
     "Application.Main.executor": "Run",
-    "Application.MainTest.executor": "Run",
-    "Application.RoundedBorderExample.executor": "Run",
-    "Application.RulesPage.executor": "Run",
-    "Application.SlotManager.executor": "Run",
-    "Application.SlotManagerTest.executor": "Run",
-    "Application.SlotPanelCreator.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "true",
-    "JUnit.SlotManagerTest.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "rulesPage",
-    "jdk.selected.JAVA_MODULE": "corretto-17",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/adam/Uni/L3S2/PROG6/quartov5",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
+    "last_opened_file_path": "C:/adam/Uni/L3S2/PROG6/quartov7",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="LoadSavePage (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="LoadSavePage" />
-      <module name="quartov5" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoadSavePage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.views.load.save.LoadSavePage" />
-      <module name="quartov5" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="src.views.load.save.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="src.Main" />
-      <module name="quartov5" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SlotManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.model.SlotManager" />
-      <module name="quartov5" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="src.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SlotManagerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.model.SlotManagerTest" />
-      <module name="quartov5" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="src.model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <module name="quartov7" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -139,21 +57,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="Application.Main" />
-      <item itemvalue="Application.LoadSavePage (1)" />
-      <item itemvalue="Application.LoadSavePage" />
-      <item itemvalue="Application.SlotManager" />
-      <item itemvalue="Application.SlotManagerTest" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.LoadSavePage" />
-        <item itemvalue="Application.LoadSavePage (1)" />
-        <item itemvalue="Application.SlotManager" />
-        <item itemvalue="Application.SlotManagerTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -165,12 +68,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9cc7a07d-1df6-4f5c-8ee3-a221d59d5ecc" name="Changes" comment="" />
-      <created>1715075249136</created>
+      <changelist id="794ec968-eaa9-49c3-8fe1-833d9a5fcf56" name="Changes" comment="" />
+      <created>1715249877631</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1715075249136</updated>
-      <workItem from="1715075250163" duration="27740000" />
+      <updated>1715249877631</updated>
+      <workItem from="1715249878673" duration="89000" />
     </task>
     <servers />
   </component>
