@@ -4,6 +4,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.components.TranslatedString;
+import src.views.utils.EventsHandler;
 import src.views.utils.ImageUtils;
 
 public class RedoButton extends JButton {
@@ -24,6 +25,7 @@ public class RedoButton extends JButton {
     setContentAreaFilled(false);
 
     addActionListener(e -> {
+      EventsHandler.getController().redo();
     });
 
     tooltip = new TranslatedString("redoButtonTooltip", this, true);
