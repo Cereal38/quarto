@@ -3,6 +3,9 @@ package src.views.components;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import src.views.rules.RulesPage;
+import src.views.utils.EventsHandler;
 import src.views.utils.ImageUtils;
 
 public class ManualButton extends JButton {
@@ -22,6 +25,7 @@ public class ManualButton extends JButton {
         setActionCommand("Manual");
 
         addActionListener(e -> {
+            EventsHandler.showDialog(new RulesPage(true));
         });
     }
 }
