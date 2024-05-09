@@ -51,8 +51,18 @@ public class ViewModelController implements ViewModelListener {
     quartoModel.playShot(line, column);
   }
 
-//    public void playShot(int line, int column){
-//        quartoModel.playShot(line,column);
-//    }
+  /**
+   * Undo the last shot played.
+   */
+  public void undo() {
+    quartoModel.undo();
+  }
+
+  /**
+   * Redo the last shot canceled.
+   */
+  public void redo() {
+    quartoModel.redo();
+  }
 
 }
