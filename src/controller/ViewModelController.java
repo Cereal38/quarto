@@ -3,8 +3,10 @@ package src.controller;
 import java.io.IOException;
 import java.util.Map;
 import src.model.QuartoModel;
+import src.model.QuartoPawn;
 import src.model.SlotManager;
 import src.views.listeners.ViewModelListener;
+import src.views.utils.FormatUtils;
 
 public class ViewModelController implements ViewModelListener {
   QuartoModel quartoModel;
@@ -47,22 +49,26 @@ public class ViewModelController implements ViewModelListener {
    * @param column the column where the shot is played (0-3)
    */
   public void playShot(int line, int column) {
-    System.out.println("ViewModelController.playShot() " + quartoModel);
     quartoModel.playShot(line, column);
   }
 
-  /**
-   * Undo the last shot played.
-   */
   public void undo() {
     quartoModel.undo();
   }
 
-  /**
-   * Redo the last shot canceled.
-   */
   public void redo() {
     quartoModel.redo();
+  }
+
+  public QuartoPawn[][] getTable() {
+    return quartoModel.getTable();
+  }
+
+  public void setSelectedPawn(String pawnStr) {
+    // Convert the string to the format accepted by the model
+    byte code = FormatUtils.stringToByte(pawnStr);
+    QuartoPawn pawn = new QuartoPawn(code);
+    quartoModel.setSelectedPawn(pawn);
   }
 
 }
