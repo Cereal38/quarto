@@ -7,11 +7,13 @@ import src.views.utils.ImageUtils;
 
 public class UndoButton extends JButton {
     private TranslatedString tooltip;
+    private boolean isLightTheme = true;
+
+    // Load icon
+    ImageIcon undoImg = ImageUtils.loadImage("undo.png", 30, 25);
+    ImageIcon undoWhiteImg = ImageUtils.loadImage("undo-white.png", 30, 25);
 
     public UndoButton() {
-
-        // Load icon
-        ImageIcon undoImg = ImageUtils.loadImage("undo.png", 30, 25);
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -24,5 +26,10 @@ public class UndoButton extends JButton {
         });
 
         tooltip = new TranslatedString("undoButtonTooltip", this, true);
+    }
+
+    public void updateIcon(boolean isLightTheme) {
+        this.isLightTheme = isLightTheme;
+        setIcon(isLightTheme ? undoImg : undoWhiteImg);
     }
 }
