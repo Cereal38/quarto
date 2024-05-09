@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import src.views.utils.ImageUtils;
 
 public class UndoButton extends JButton {
+    private TranslatedString tooltip;
 
     public UndoButton() {
 
@@ -21,5 +22,7 @@ public class UndoButton extends JButton {
 
         addActionListener(e -> {
         });
+
+        tooltip = new TranslatedString("undoButtonTooltip", this, true);
     }
 }

@@ -6,10 +6,15 @@ import javax.swing.JButton;
 import src.views.utils.ImageUtils;
 
 public class ExitButton extends JButton {
+    private TranslatedString tooltip;
+
+    // Load
+    ImageIcon exitImg = ImageUtils.loadImage("exit.png", 30, 30);
+    ImageIcon exitWhiteImg = ImageUtils.loadImage("exit-white.png", 30, 30);
+
+    private boolean isLightTheme = true;
 
     public ExitButton() {
-        // Load
-        ImageIcon exitImg = ImageUtils.loadImage("exit.png", 30, 30);
 
         // Add style
         setIcon(exitImg);
@@ -24,5 +29,13 @@ public class ExitButton extends JButton {
         addActionListener(e -> {
             System.exit(0);
         });
+
+        tooltip = new TranslatedString("quitButtonToolTip", this, true);
+
+    }
+
+    public void updateIcon(boolean isLightTheme) {
+        this.isLightTheme = isLightTheme;
+        setIcon(isLightTheme ? exitImg : exitWhiteImg);
     }
 }

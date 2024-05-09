@@ -12,7 +12,7 @@ public class Board extends JPanel {
     setLayout(new GridLayout(4, 4));
 
     for (int i = 0; i < 16; i++) {
-      cells[i] = new Cell(cellSize, this);
+      cells[i] = new Cell(i / 4, i % 4, cellSize, this);
       add(cells[i]);
     }
   }

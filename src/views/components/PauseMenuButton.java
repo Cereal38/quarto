@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import src.views.utils.ImageUtils;
 
 public class PauseMenuButton extends JButton {
+    private TranslatedString tooltip;
 
     public PauseMenuButton() {
 
@@ -22,5 +23,7 @@ public class PauseMenuButton extends JButton {
 
         addActionListener(e -> {
         });
+
+        tooltip = new TranslatedString("menuButtonTooltip", this, true);
     }
 }
