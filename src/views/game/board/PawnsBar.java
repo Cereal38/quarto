@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import src.views.components.Pawn;
 import src.views.listeners.GameStatusListener;
 import src.views.utils.DimensionUtils;
+import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
 public class PawnsBar extends JPanel implements GameStatusListener {
@@ -41,7 +42,7 @@ public class PawnsBar extends JPanel implements GameStatusListener {
   }
 
   public void updatePawns() {
-    pawns = GameStatusHandler.getAvailablePawns();
+    pawns = EventsHandler.getController().getAvailablePawns();
   }
 
   @Override

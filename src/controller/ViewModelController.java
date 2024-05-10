@@ -1,10 +1,13 @@
 package src.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import src.model.QuartoModel;
 import src.model.QuartoPawn;
 import src.model.SlotManager;
+import src.views.components.Pawn;
 import src.views.listeners.ViewModelListener;
 import src.views.utils.FormatUtils;
 
@@ -89,21 +92,21 @@ public class ViewModelController implements ViewModelListener {
   /**
    * Return all the pawns still available to play.
    * 
-   * @return an array of strings representing the code of pawns
+   * @return A list of pawns
    */
-  public String[] getAvailablePawns() {
-    // If the model is not created yet, return an empty array
+  public List<Pawn> getAvailablePawns() {
+    // If the model is not created yet, return an empty list
     if (quartoModel == null) {
-      return new String[0];
+      return new ArrayList<>();
     }
     QuartoPawn[] pawns = quartoModel.getPawnAvailable();
-    String[] pawnStrs = new String[pawns.length];
+    List<Pawn> pawnList = new ArrayList<>();
     for (int i = 0; i < pawns.length; i++) {
       if (pawns[i] != null) {
-        pawnStrs[i] = FormatUtils.byteToString(pawns[i].getPawn());
+        pawnList.add(new Pawn(FormatUtils.byteToString(pawns[i].getPawn()), 50, 50));
       }
     }
-    return pawnStrs;
+    return pawnList;
   }
 
 }
