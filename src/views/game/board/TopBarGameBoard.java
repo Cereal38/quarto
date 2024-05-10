@@ -59,8 +59,6 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
 
   private void upatePlayerLbl() {
 
-    System.out.println(GameStatusHandler.getGamePhaseAsText());
-
     if (GameStatusHandler.isPlayerOneTurn()) {
       playerLbl.setText(GameStatusHandler.getPlayer1Name());
     } else if (GameStatusHandler.isPlayerTwoTurn()) {

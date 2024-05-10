@@ -22,7 +22,6 @@ public class ViewModelController implements ViewModelListener {
 
   @Override
   public void createModel(int type1, int type2, String name1, String name2) {
-    System.out.println("Creating model");
     this.quartoModel = new QuartoModel(type1, type2, name1, name2);
   }
 
