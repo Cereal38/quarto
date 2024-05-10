@@ -185,12 +185,26 @@ public class GameStatusHandler {
 
   public static void playPawn(int line, int column) {
     EventsHandler.getController().playShot(line, column);
-    EventsHandler.getController().printTable();
+    printTable();
     for (Pawn pawn : pawns) {
       if (pawn.getCode().equals(selectedPawn)) {
         pawn.play();
         break;
       }
+    }
+  }
+
+  public static void printTable() {
+    String table[][] = EventsHandler.getController().getTable();
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        if (table[i][j] == null) {
+          System.out.print(" .   ");
+        } else {
+          System.out.print(table[i][j] + " ");
+        }
+      }
+      System.out.println();
     }
   }
 }

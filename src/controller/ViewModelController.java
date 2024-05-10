@@ -60,22 +60,25 @@ public class ViewModelController implements ViewModelListener {
     quartoModel.redo();
   }
 
-  public QuartoPawn[][] getTable() {
-    return quartoModel.getTable();
-  }
-
-  public void printTable() {
+  /**
+   * Get the current state of the board.
+   *
+   * @return A 4x4 matrix of strings representing the pawns on the board (null if
+   *         the cell is empty)
+   */
+  public String[][] getTable() {
     QuartoPawn[][] table = quartoModel.getTable();
+    String[][] tableStr = new String[4][4];
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
         if (table[i][j] == null) {
-          System.out.print(" .   ");
+          tableStr[i][j] = null;
         } else {
-          System.out.print(FormatUtils.byteToString(table[i][j].getPawn()) + " ");
+          tableStr[i][j] = FormatUtils.byteToString(table[i][j].getPawn());
         }
       }
-      System.out.println();
     }
+    return tableStr;
   }
 
   public void setSelectedPawn(String pawnStr) {
