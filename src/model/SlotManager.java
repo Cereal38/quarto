@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class SlotManager {
     private Map<String, Long> slotFileDates;
-    private static final String SLOTS_DIRECTORY = "slots";
+    private static final String SLOTS_DIRECTORY = "../../slots";
 
     public SlotManager() {
         this.slotFileDates = new HashMap<>();

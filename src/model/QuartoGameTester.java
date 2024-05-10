@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class QuartoGameTester {
     private QuartoModel quartoModel;
     private Scanner scanner;
+    private SlotManager manager;
 
     public QuartoGameTester() {
         scanner = new Scanner(System.in);
@@ -13,18 +14,32 @@ public class QuartoGameTester {
 
     public void startGame() throws IOException {
         System.out.println("Quarto Game Tester");
-        System.out.println("Choose player types:");
-        System.out.println("0 - Human, 1 - Random AI");
-
-        System.out.print("Player 1 type: ");
-        int firstPlayerType = scanner.nextInt();
-        System.out.print("Player 2 type: ");
-        int secondPlayerType = scanner.nextInt();
-
-        scanner.nextLine();//skip the \n
-
-        quartoModel = new QuartoModel(firstPlayerType, secondPlayerType, "", "");
-
+        System.out.println("New game ? 0 - yes, 1 - no");
+        int game = scanner.nextInt();
+        if (game == 0){
+            System.out.println("Choose player types:");
+            System.out.println("0 - Human, 1 - Random AI");
+            
+            System.out.print("Player 1 type: ");
+            int firstPlayerType = scanner.nextInt();
+            System.out.print("Player 2 type: ");
+            int secondPlayerType = scanner.nextInt();
+            
+            scanner.nextLine();//skip the \n
+            
+            quartoModel = new QuartoModel(firstPlayerType, secondPlayerType, "J1", "J2");
+            
+        } else {
+            manager = new SlotManager();
+            manager.loadFromDirectory();
+            System.out.println("Choose an index 0 and " + manager.getSlotFileDates().size());
+            int index = scanner.nextInt();
+            while (index < 0 || index > manager.getSlotFileDates().size()) {
+                System.out.println("Choose an index 0 and " + manager.getSlotFileDates().size());
+                index = scanner.nextInt();
+            }
+            quartoModel = new QuartoModel(index);
+        }
         System.out.println("Type 'help' for commands.");
 
         while (true) {
@@ -84,7 +99,7 @@ public class QuartoGameTester {
                 System.out.println("Game loaded from file of index: " + index);
             } else if (input.toLowerCase().startsWith("save ")) {
                 String fileName = input.substring(5).trim();
-                quartoModel.getFile().saveFile(fileName);
+                quartoModel.saveFile(fileName);
                 System.out.println("Game saved to file: " + fileName);
             } else if (input.equalsIgnoreCase("quit")) {
                 System.out.println("Quitting game.");

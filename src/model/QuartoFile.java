@@ -24,12 +24,14 @@ public class QuartoFile {
         return save.getPrevious() != null;
     }
 
-    public void saveFile(String fileName) throws IOException {
+    public void saveFile(String fileName, String firstPlayerName, String secondPlayerName, int[] playerType) throws IOException {
         try {
             // We create the variable to write in the filename
             FileWriter fileWriter = new FileWriter(fileName);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             QuartoHistory head_cp = head;
+            printWriter.print(firstPlayerName + " " + playerType[0] + "\n");
+            printWriter.print(secondPlayerName + " " + playerType[1] + "\n");
             while (head_cp != null) { //while we go through all the history
                 if (head_cp.equals(save)) {//If we are on the current move, we'll write a special caractere to know which move we'll return.
                     if (head_cp.state == 0) {// If we placed a pawn
@@ -50,18 +52,28 @@ public class QuartoFile {
             }
             printWriter.close();
         } catch (FileNotFoundException e) {
-            System.err.println("impossible de trouver le fichier " + fileName);
+            System.err.println("File " + fileName + " not found.");
         }
     }
 
-    public void chargeFile(String fileName) {
+    public String[] chargeFile(String fileName) {
         InputStream in = null;
         String[] line;
         head = new QuartoHistory();
         QuartoHistory temp = head;
         try {
-            in = new FileInputStream(fileName);
+            in = new FileInputStream("../../slots/"+fileName);
             Scanner s = new Scanner(in);
+            String[] infoPlayer = new String[2];
+            for (int countPlayer = 0; countPlayer < 2; countPlayer++) {
+                if (s.hasNextLine()) {
+                    infoPlayer[countPlayer] = s.nextLine();
+                } else {
+                    System.err.println("File do not contain informations about the players\n");
+                    s.close();
+                    return null;
+                }
+            }
             while (s.hasNextLine()) {
                 line = s.nextLine().split(" ");
                 if (line.length == 1) { //state == 0
@@ -87,8 +99,10 @@ public class QuartoFile {
                 }
             }
             s.close();
+            return infoPlayer;
         } catch (FileNotFoundException e) {
-            System.err.println("impossible de trouver le fichier " + fileName);
+            System.err.println("impossible de trouver le fichier slots/" + fileName);
+            return null;
         }
     }
 
