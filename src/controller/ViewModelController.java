@@ -19,6 +19,7 @@ public class ViewModelController implements ViewModelListener {
 
   @Override
   public void createModel(int type1, int type2, String name1, String name2) {
+    System.out.println("Creating model");
     this.quartoModel = new QuartoModel(type1, type2, name1, name2);
   }
 
@@ -94,10 +95,16 @@ public class ViewModelController implements ViewModelListener {
    * @return an array of strings representing the code of pawns
    */
   public String[] getAvailablePawns() {
+    // If the model is not created yet, return an empty array
+    if (quartoModel == null) {
+      return new String[0];
+    }
     QuartoPawn[] pawns = quartoModel.getPawnAvailable();
     String[] pawnStrs = new String[pawns.length];
     for (int i = 0; i < pawns.length; i++) {
-      pawnStrs[i] = FormatUtils.byteToString(pawns[i].getPawn());
+      if (pawns[i] != null) {
+        pawnStrs[i] = FormatUtils.byteToString(pawns[i].getPawn());
+      }
     }
     return pawnStrs;
   }

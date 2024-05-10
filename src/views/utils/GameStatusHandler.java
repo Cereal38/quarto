@@ -165,6 +165,15 @@ public class GameStatusHandler {
     return notPlayedPawns;
   }
 
+  public static List<Pawn> getAvailablePawns() {
+    String[] availablePawnsStr = EventsHandler.getController().getAvailablePawns();
+    List<Pawn> availablePawnsList = new ArrayList<>();
+    for (String pawnStr : availablePawnsStr) {
+      availablePawnsList.add(new Pawn(pawnStr, 50, 50));
+    }
+    return availablePawnsList;
+  }
+
   public static void setSelectedPawn(String pawn) {
     EventsHandler.getController().setSelectedPawn(pawn);
     selectedPawn = pawn;
