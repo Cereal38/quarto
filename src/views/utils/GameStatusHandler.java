@@ -175,7 +175,7 @@ public class GameStatusHandler {
   }
 
   public static void setSelectedPawn(String pawn) {
-    EventsHandler.getController().setSelectedPawn(pawn);
+    EventsHandler.getController().selectPawn(pawn);
     selectedPawn = pawn;
   }
 

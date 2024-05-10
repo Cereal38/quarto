@@ -82,11 +82,8 @@ public class ViewModelController implements ViewModelListener {
     return tableStr;
   }
 
-  public void setSelectedPawn(String pawnStr) {
-    // Convert the string to the format accepted by the model
-    byte code = FormatUtils.stringToByte(pawnStr);
-    QuartoPawn pawn = new QuartoPawn(code);
-    quartoModel.setSelectedPawn(pawn);
+  public void selectPawn(String pawnStr) {
+    quartoModel.selectPawn(FormatUtils.stringToIndex(pawnStr));
   }
 
   /**

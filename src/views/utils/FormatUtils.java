@@ -34,4 +34,15 @@ public class FormatUtils {
     return byteToString(pawn.getPawn());
   }
 
+  /**
+   * Converts a string in format "0110" to an index in the range 0-15. It's used
+   * for some purposes in the model.
+   * 
+   * @param str the string to convert
+   * @return the index value
+   */
+  public static int stringToIndex(String str) {
+    return Integer.parseInt(str, 2);
+  }
+
 }
