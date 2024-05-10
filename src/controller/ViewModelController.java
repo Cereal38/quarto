@@ -8,6 +8,7 @@ import src.model.QuartoModel;
 import src.model.QuartoPawn;
 import src.model.SlotManager;
 import src.views.components.Pawn;
+import src.views.game.board.Cell;
 import src.views.listeners.ViewModelListener;
 import src.views.utils.FormatUtils;
 
@@ -66,22 +67,25 @@ public class ViewModelController implements ViewModelListener {
   /**
    * Get the current state of the board.
    *
-   * @return A 4x4 matrix of strings representing the pawns on the board (null if
-   *         the cell is empty)
+   * @return A 4x4 matrix of Cells
    */
-  public String[][] getTable() {
-    QuartoPawn[][] table = quartoModel.getTable();
-    String[][] tableStr = new String[4][4];
+  public Cell[][] getTable() {
+    // If the model is not created yet, return an empty table
+    if (quartoModel == null) {
+      return new Cell[4][4];
+    }
+    QuartoPawn[][] pawns = quartoModel.getTable();
+    Cell[][] tableCells = new Cell[4][4];
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
-        if (table[i][j] == null) {
-          tableStr[i][j] = null;
-        } else {
-          tableStr[i][j] = FormatUtils.byteToString(table[i][j].getPawn());
+        Pawn pawn = null;
+        if (pawns[i][j] != null) {
+          pawn = new Pawn(FormatUtils.byteToString(pawns[i][j].getPawn()), 50, 50);
         }
+        tableCells[i][j] = new Cell(pawn, i, j);
       }
     }
-    return tableStr;
+    return tableCells;
   }
 
   public void selectPawn(String pawnStr) {

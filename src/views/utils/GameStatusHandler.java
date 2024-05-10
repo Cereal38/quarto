@@ -183,6 +183,7 @@ public class GameStatusHandler {
     return null;
   }
 
+  // TODO: Move it to controller directly
   public static void playPawn(int line, int column) {
     EventsHandler.getController().playShot(line, column);
     for (Pawn pawn : pawns) {
@@ -190,20 +191,6 @@ public class GameStatusHandler {
         pawn.play();
         break;
       }
-    }
-  }
-
-  public static void printTable() {
-    String table[][] = EventsHandler.getController().getTable();
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        if (table[i][j] == null) {
-          System.out.print(" .   ");
-        } else {
-          System.out.print(table[i][j] + " ");
-        }
-      }
-      System.out.println();
     }
   }
 }
