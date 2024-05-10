@@ -85,4 +85,18 @@ public class ViewModelController implements ViewModelListener {
     quartoModel.setSelectedPawn(pawn);
   }
 
+  /**
+   * Return all the pawns still available to play.
+   * 
+   * @return an array of strings representing the code of pawns
+   */
+  public String[] getAvailablePawns() {
+    QuartoPawn[] pawns = quartoModel.getPawnAvailable();
+    String[] pawnStrs = new String[pawns.length];
+    for (int i = 0; i < pawns.length; i++) {
+      pawnStrs[i] = FormatUtils.byteToString(pawns[i].getPawn());
+    }
+    return pawnStrs;
+  }
+
 }
