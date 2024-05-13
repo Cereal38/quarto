@@ -132,7 +132,15 @@ public class ViewModelController implements ViewModelListener {
         pawnList.add(new Pawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, 50, 50));
       }
     }
+    // Add the selected pawn
+    if (getSelectedPawn() != null) {
+      pawnList.add(new Pawn(FormatUtils.byteToString(getSelectedPawn().getPawn()), Pawn.SELECTED, 50, 50));
+    }
     return pawnList;
+  }
+
+  private QuartoPawn getSelectedPawn() {
+    return quartoModel.getSelectedPawn();
   }
 
   public String getCurrentPlayerName() {

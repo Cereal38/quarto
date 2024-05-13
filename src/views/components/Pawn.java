@@ -38,6 +38,10 @@ public class Pawn extends JButton {
     setBorder(BorderFactory.createEmptyBorder());
     setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+    if (state == SELECTED) {
+      setBorder(BorderFactory.createLineBorder(java.awt.Color.RED, 2));
+    }
+
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
         // Only allow the player to select a pawn during the select phase
