@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.TranslatedButton;
 import src.views.components.TranslatedLabel;
+import src.views.utils.EventsHandler;
 
 public class GameOverDialog extends JPanel {
   private String winnerName;
@@ -17,7 +18,8 @@ public class GameOverDialog extends JPanel {
     btnMenu.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println("New game");
+        EventsHandler.navigate("MainMenu");
+        EventsHandler.hideDialog();
       }
     });
 
