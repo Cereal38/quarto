@@ -70,8 +70,13 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
   @Override
   public void update() {
     upatePlayerLbl();
-    // TODO: Update the state label based on the current game status
-    stateLbl.setKey("select-pawn");
+    if (EventsHandler.getController().isSelectionPhase()) {
+      stateLbl.setKey("select-pawn");
+    } else if (EventsHandler.getController().isPlayPhase()) {
+      stateLbl.setKey("play-pawn");
+    } else {
+      stateLbl.setKey("");
+    }
   }
 
 }

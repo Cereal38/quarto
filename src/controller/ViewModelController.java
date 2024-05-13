@@ -18,6 +18,14 @@ public class ViewModelController implements ViewModelListener {
   QuartoFile quartoFile;
   private SlotManager slotManager;
 
+  private int status = SELECT; // TODO: Test purpose only. Remove this variable
+
+  // TODO: Get it from the model
+  // Game states
+  public static final int SELECT = 0;
+  public static final int PLAY = 1;
+  public static final int FINISHED = 2;
+
   public ViewModelController() {
     this.slotManager = new SlotManager();
     this.slotManager.loadFromDirectory();
@@ -56,6 +64,7 @@ public class ViewModelController implements ViewModelListener {
    */
   public void playShot(int line, int column) {
     quartoModel.playShot(line, column);
+    status = SELECT; // TODO: Remove this once info is retrieved from the model
   }
 
   public void undo() {
@@ -90,7 +99,7 @@ public class ViewModelController implements ViewModelListener {
       for (int j = 0; j < 4; j++) {
         Pawn pawn = null;
         if (pawns[i][j] != null) {
-          pawn = new Pawn(FormatUtils.byteToString(pawns[i][j].getPawn()), 50, 50);
+          pawn = new Pawn(FormatUtils.byteToString(pawns[i][j].getPawn()), Pawn.PLAYED, 50, 50);
         }
         tableCells[i][j] = new Cell(pawn, i, j);
       }
@@ -100,6 +109,7 @@ public class ViewModelController implements ViewModelListener {
 
   public void selectPawn(String pawnStr) {
     quartoModel.selectPawn(FormatUtils.stringToIndex(pawnStr));
+    status = PLAY; // TODO: Remove this once info is retrieved from the model
   }
 
   /**
@@ -116,7 +126,7 @@ public class ViewModelController implements ViewModelListener {
     List<Pawn> pawnList = new ArrayList<>();
     for (int i = 0; i < pawns.length; i++) {
       if (pawns[i] != null) {
-        pawnList.add(new Pawn(FormatUtils.byteToString(pawns[i].getPawn()), 50, 50));
+        pawnList.add(new Pawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, 50, 50));
       }
     }
     return pawnList;
@@ -126,8 +136,12 @@ public class ViewModelController implements ViewModelListener {
     return "Player name";
   }
 
-  public int getCurrentState() {
-    return -1;
+  public boolean isSelectionPhase() {
+    return status == SELECT;
+  }
+
+  public boolean isPlayPhase() {
+    return status == PLAY;
   }
 
 }

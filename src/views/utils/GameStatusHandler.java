@@ -39,10 +39,6 @@ public class GameStatusHandler {
     }
   }
 
-  public static void setSelectedPawn(String pawn) {
-    EventsHandler.getController().selectPawn(pawn);
-  }
-
   public static void undo() {
     EventsHandler.getController().undo();
     informListeners();

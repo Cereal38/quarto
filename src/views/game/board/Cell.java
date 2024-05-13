@@ -27,8 +27,7 @@ public class Cell extends JPanel {
       public void mouseClicked(MouseEvent e) {
         // Only allow the player to place a pawn during the play phase and if the cell
         // is empty
-        // TODO: Check if the current game phase allow to play a pawn
-        if (!hasPawn()) {
+        if (EventsHandler.getController().isPlayPhase() && !hasPawn()) {
           EventsHandler.getController().playShot(line, column);
           repaint();
         } else {
@@ -36,10 +35,6 @@ public class Cell extends JPanel {
         }
       }
     });
-  }
-
-  public void setPawn(Pawn pawn) {
-    this.pawn = pawn;
   }
 
   public boolean hasPawn() {

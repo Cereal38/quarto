@@ -109,7 +109,6 @@ public class EventsHandler {
    * Toggles the theme of the application.
    */
   public static void toggleTheme() {
-    // TODO: Theme must be fixed
     theme = (theme + 1) % 2;
     switch (theme) {
     case 0:
