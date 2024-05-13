@@ -39,6 +39,16 @@ public class GameStatusHandler {
     }
   }
 
+  public static void selectPawn(String code) {
+    EventsHandler.getController().selectPawn(code);
+    informListeners();
+  }
+
+  public static void playShot(int line, int column) {
+    EventsHandler.getController().playShot(line, column);
+    informListeners();
+  }
+
   public static void undo() {
     EventsHandler.getController().undo();
     informListeners();

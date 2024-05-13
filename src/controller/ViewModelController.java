@@ -63,6 +63,7 @@ public class ViewModelController implements ViewModelListener {
    * @param column the column where the shot is played (0-3)
    */
   public void playShot(int line, int column) {
+    System.out.println("Shot played: " + line + ", " + column);
     quartoModel.playShot(line, column);
     status = SELECT; // TODO: Remove this once info is retrieved from the model
   }
@@ -89,6 +90,7 @@ public class ViewModelController implements ViewModelListener {
    * @return A 4x4 matrix of Cells
    */
   public Cell[][] getTable() {
+    System.out.println("Getting table");
     // If the model is not created yet, return an empty table
     if (quartoModel == null) {
       return new Cell[4][4];

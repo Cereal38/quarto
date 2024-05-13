@@ -7,6 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 
 public class Pawn extends JButton {
@@ -41,7 +42,7 @@ public class Pawn extends JButton {
       public void mouseClicked(MouseEvent evt) {
         // Only allow the player to select a pawn during the select phase
         if (EventsHandler.getController().isSelectionPhase()) {
-          EventsHandler.getController().selectPawn(code);
+          GameStatusHandler.selectPawn(code);
         }
       }
 
