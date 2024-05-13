@@ -2,6 +2,7 @@ package src.views.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import src.views.game.board.GameOverDialog;
 import src.views.listeners.GameStatusListener;
 
 public class GameStatusHandler {
@@ -47,6 +48,10 @@ public class GameStatusHandler {
   public static void playShot(int line, int column) {
     EventsHandler.getController().playShot(line, column);
     informListeners();
+    // Check if the game is finished. If so, show a dialog
+    if (EventsHandler.getController().isGameFinished(line, column)) {
+      EventsHandler.showDialog(new GameOverDialog("Player name"), false);
+    }
   }
 
   public static void undo() {

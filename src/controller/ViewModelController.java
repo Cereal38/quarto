@@ -155,4 +155,8 @@ public class ViewModelController implements ViewModelListener {
     return status == PLAY;
   }
 
+  public boolean isGameFinished(int line, int column) {
+    return quartoModel.winSituation(line, column);
+  }
+
 }

@@ -92,10 +92,13 @@ public class EventsHandler {
    * Displays a dialog with the specified content.
    *
    * @param dialogContent the content to be displayed in the dialog
+   * @param closeable     whether the dialog can be closed by clicking outside of
+   *                      it
    */
-  public static void showDialog(JPanel dialogContent) {
+  public static void showDialog(JPanel dialogContent, boolean closeable) {
     dialog.setContent(dialogContent);
     dialog.setVisible(true);
+    dialog.setCloseable(closeable);
   }
 
   /**

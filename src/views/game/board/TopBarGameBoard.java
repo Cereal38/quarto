@@ -29,7 +29,7 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
 
     // Add action listeners to the buttons
     btnPause.addActionListener(e -> {
-      EventsHandler.showDialog(new PauseDialogContent());
+      EventsHandler.showDialog(new PauseDialogContent(), true);
     });
 
     // Set the text of the labels
