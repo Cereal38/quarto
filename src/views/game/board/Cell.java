@@ -9,15 +9,15 @@ import src.views.components.Pawn;
 import src.views.utils.GameStatusHandler;
 
 public class Cell extends JPanel {
-  private int size;
+  private int size = 50; // TODO: Make it dynamic
   private Pawn pawn;
   private int line;
   private int column;
 
-  public Cell(int line, int column, int size, Board board) {
+  public Cell(Pawn pawn, int line, int column) {
     this.line = line;
     this.column = column;
-    this.size = size;
+    this.pawn = pawn;
 
     if (!hasPawn()) {
       setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -28,7 +28,6 @@ public class Cell extends JPanel {
         // Only allow the player to place a pawn during the play phase and if the cell
         // is empty
         if (GameStatusHandler.isPlayPhase() && !hasPawn()) {
-          setPawn(GameStatusHandler.getSelectedPawn());
           GameStatusHandler.playPawn(line, column);
           repaint();
         } else {

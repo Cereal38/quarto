@@ -166,6 +166,7 @@ public class GameStatusHandler {
   }
 
   public static void setSelectedPawn(String pawn) {
+    EventsHandler.getController().selectPawn(pawn);
     selectedPawn = pawn;
   }
 
@@ -182,6 +183,7 @@ public class GameStatusHandler {
     return null;
   }
 
+  // TODO: Move it to controller directly
   public static void playPawn(int line, int column) {
     EventsHandler.getController().playShot(line, column);
     for (Pawn pawn : pawns) {

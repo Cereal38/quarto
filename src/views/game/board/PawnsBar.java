@@ -5,11 +5,15 @@ import java.util.List;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
 import src.views.listeners.GameStatusListener;
+import src.views.utils.DimensionUtils;
+import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
 public class PawnsBar extends JPanel implements GameStatusListener {
 
   private List<Pawn> pawns;
+  int widthPawn;
+  int heightPawn;
 
   public PawnsBar() {
     setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -20,8 +24,8 @@ public class PawnsBar extends JPanel implements GameStatusListener {
     updatePawns();
 
     // TODO: Reimplement this
-    // int widthPawn = DimensionUtils.getMainFrameWidth() / 16;
-    // int heightPawn = widthPawn * 2;
+    widthPawn = DimensionUtils.getMainFrameWidth() / 16;
+    heightPawn = widthPawn * 2;
 
     for (Pawn pawn : pawns) {
       add(pawn);
@@ -38,7 +42,7 @@ public class PawnsBar extends JPanel implements GameStatusListener {
   }
 
   public void updatePawns() {
-    pawns = GameStatusHandler.getNotPlayedPawns();
+    pawns = EventsHandler.getController().getAvailablePawns();
   }
 
   @Override
