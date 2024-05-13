@@ -1,0 +1,58 @@
+package src.views.components;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import src.views.utils.ImageUtils;
+import src.views.utils.LangUtils;
+
+public class LanguageButton extends JButton {
+    private static final int LANG_EN = 0;
+    private static final int LANG_FR = 1;
+    private int lang = LANG_EN;
+    private boolean isLightTheme = true;
+    private TranslatedString tooltip;
+
+    // Load icons for light and dark themes
+    private ImageIcon frImg = ImageUtils.loadImage("fr.png", 40, 30);
+    private ImageIcon enImg = ImageUtils.loadImage("en.png", 35, 30);
+    private ImageIcon frWhiteImg = ImageUtils.loadImage("fr-white.png", 40, 30);
+    private ImageIcon enWhiteImg = ImageUtils.loadImage("en-white.png", 35, 30);
+
+    public LanguageButton() {
+        // Set the default icon based on the current theme
+        updateIcon(isLightTheme);
+
+        // Add style
+        setBorder(BorderFactory.createEmptyBorder());
+        setContentAreaFilled(false);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        // Add action to switch languages
+        addActionListener(e -> switchLanguage());
+
+        // Add tooltip
+        tooltip = new TranslatedString("languageButtonTooltip", this, true);
+    }
+
+    private void switchLanguage() {
+        lang = (lang + 1) % 2;
+        LangUtils.setLang(lang == LANG_EN ? LANG_FR : LANG_EN);
+        updateIcon(isLightTheme);
+    }
+
+    public void updateIcon(boolean isLightTheme) {
+        this.isLightTheme = isLightTheme;
+
+        if (lang == LANG_EN) {
+            setIcon(isLightTheme ? enImg : enWhiteImg);
+        } else {
+            setIcon(isLightTheme ? frImg : frWhiteImg);
+        }
+    }
+
+    public void changeTheme(boolean isLightTheme) {
+        this.isLightTheme = isLightTheme;
+        updateIcon(isLightTheme);
+    }
+}
