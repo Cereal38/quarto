@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import src.model.QuartoFile;
 import src.model.QuartoModel;
 import src.model.QuartoPawn;
 import src.model.SlotManager;
@@ -14,6 +15,7 @@ import src.views.utils.FormatUtils;
 
 public class ViewModelController implements ViewModelListener {
   QuartoModel quartoModel;
+  QuartoFile quartoFile;
   private SlotManager slotManager;
 
   public ViewModelController() {
@@ -62,6 +64,14 @@ public class ViewModelController implements ViewModelListener {
 
   public void redo() {
     quartoModel.redo();
+  }
+
+  public boolean canRedo() {
+    return quartoFile.canRedo();
+  }
+
+  public boolean canUndo() {
+    return quartoFile.canUndo();
   }
 
   /**

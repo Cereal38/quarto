@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
+import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
 public class Cell extends JPanel {
@@ -28,7 +29,7 @@ public class Cell extends JPanel {
         // Only allow the player to place a pawn during the play phase and if the cell
         // is empty
         if (GameStatusHandler.isPlayPhase() && !hasPawn()) {
-          GameStatusHandler.playPawn(line, column);
+          EventsHandler.getController().playShot(line, column);
           repaint();
         } else {
           System.err.println("Not a play phase - " + GameStatusHandler.getGamePhaseAsText());

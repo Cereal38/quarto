@@ -2,7 +2,6 @@ package src.views.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import src.views.components.Pawn;
 import src.views.listeners.GameStatusListener;
 
 public class GameStatusHandler {
@@ -21,15 +20,11 @@ public class GameStatusHandler {
   private static String player1Name;
   private static String player2Name;
 
-  private static List<Pawn> pawns = new ArrayList<>();
-  private static String selectedPawn = "";
-
   // The list of game status listeners
   private static final List<GameStatusListener> listeners = new ArrayList<>();
 
   public static void startGame() {
     gamePhase = PLAYER_ONE_SELECT_PAWN;
-    initPawns();
     informListeners();
   }
 
@@ -142,56 +137,8 @@ public class GameStatusHandler {
     return player2Name;
   }
 
-  // =============== Pawns ===============
-  public static void initPawns() {
-    for (int i = 0; i < 16; i++) {
-      pawns.add(new Pawn(ImageUtils.getPawn(i), 50, 50));
-    }
-  }
-
-  public static void resetPawns() {
-    for (Pawn pawn : pawns) {
-      pawn.reset();
-    }
-  }
-
-  public static List<Pawn> getNotPlayedPawns() {
-    List<Pawn> notPlayedPawns = new ArrayList<>();
-    for (Pawn pawn : pawns) {
-      if (pawn.isNotPlayed() || pawn.isSelected()) {
-        notPlayedPawns.add(pawn);
-      }
-    }
-    return notPlayedPawns;
-  }
-
   public static void setSelectedPawn(String pawn) {
     EventsHandler.getController().selectPawn(pawn);
-    selectedPawn = pawn;
-  }
-
-  public static String getSelectedPawnCode() {
-    return selectedPawn;
-  }
-
-  public static Pawn getSelectedPawn() {
-    for (Pawn pawn : pawns) {
-      if (pawn.getCode().equals(selectedPawn)) {
-        return pawn;
-      }
-    }
-    return null;
-  }
-
-  // TODO: Move it to controller directly
-  public static void playPawn(int line, int column) {
-    EventsHandler.getController().playShot(line, column);
-    for (Pawn pawn : pawns) {
-      if (pawn.getCode().equals(selectedPawn)) {
-        pawn.play();
-        break;
-      }
-    }
   }
 
   public static void undo() {
