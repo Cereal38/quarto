@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
 import src.views.utils.EventsHandler;
-import src.views.utils.GameStatusHandler;
 
 public class Cell extends JPanel {
   private int size = 50; // TODO: Make it dynamic
@@ -28,11 +27,12 @@ public class Cell extends JPanel {
       public void mouseClicked(MouseEvent e) {
         // Only allow the player to place a pawn during the play phase and if the cell
         // is empty
-        if (GameStatusHandler.isPlayPhase() && !hasPawn()) {
+        // TODO: Check if the current game phase allow to play a pawn
+        if (!hasPawn()) {
           EventsHandler.getController().playShot(line, column);
           repaint();
         } else {
-          System.err.println("Not a play phase - " + GameStatusHandler.getGamePhaseAsText());
+          System.err.println("Error: The cell is already occupied or the game phase does not allow to play a pawn.");
         }
       }
     });

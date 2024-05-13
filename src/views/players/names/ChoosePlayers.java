@@ -73,9 +73,6 @@ public class ChoosePlayers extends JPanel {
     // Create Start button (initially hidden)
     startButton = new TranslatedButton("start");
     startButton.addActionListener(e -> {
-      // Setup player names
-      GameStatusHandler.setPlayer1Name(player1TextField.getInputText());
-      GameStatusHandler.setPlayer2Name(player2TextField.getInputText());
 
       EventsHandler.getController().createModel(player1IsAI ? 1 : 0, player2IsAI ? 1 : 0,
           player1TextField.getInputText(), player2TextField.getInputText());

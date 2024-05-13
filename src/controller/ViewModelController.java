@@ -122,4 +122,12 @@ public class ViewModelController implements ViewModelListener {
     return pawnList;
   }
 
+  public String getCurrentPlayerName() {
+    return "Player name";
+  }
+
+  public int getCurrentState() {
+    return -1;
+  }
+
 }

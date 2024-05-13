@@ -74,7 +74,6 @@ public class Pawn extends JButton {
   public void play() {
     state = PLAYED;
     setBorder(BorderFactory.createEmptyBorder());
-    GameStatusHandler.nextPhase();
   }
 
   /**
@@ -84,7 +83,6 @@ public class Pawn extends JButton {
     state = SELECTED;
     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     setBorder(BorderFactory.createLineBorder(Color.RED, 3));
-    GameStatusHandler.nextPhase();
   }
 
   public String getCode() {

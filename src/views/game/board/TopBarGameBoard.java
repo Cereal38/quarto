@@ -59,13 +59,7 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
 
   private void upatePlayerLbl() {
 
-    if (GameStatusHandler.isPlayerOneTurn()) {
-      playerLbl.setText(GameStatusHandler.getPlayer1Name());
-    } else if (GameStatusHandler.isPlayerTwoTurn()) {
-      playerLbl.setText(GameStatusHandler.getPlayer2Name());
-    } else {
-      playerLbl.setText("");
-    }
+    playerLbl.setText(EventsHandler.getController().getCurrentPlayerName());
   }
 
   /**
@@ -76,13 +70,8 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
   @Override
   public void update() {
     upatePlayerLbl();
-    if (GameStatusHandler.isSelectionPhase()) {
-      stateLbl.setKey("select-pawn");
-    } else if (GameStatusHandler.isPlayPhase()) {
-      stateLbl.setKey("play-pawn");
-    } else {
-      stateLbl.setKey("");
-    }
+    // TODO: Update the state label based on the current game status
+    stateLbl.setKey("select-pawn");
   }
 
 }
