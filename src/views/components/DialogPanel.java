@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 public class DialogPanel extends JPanel {
 
   private JPanel dialog;
+  private boolean closeable = true;
 
   public DialogPanel(JFrame main) {
 
@@ -44,11 +45,11 @@ public class DialogPanel extends JPanel {
       }
     });
 
-    // Disable clicks outside the dialog area
+    // Close the dialog when clicking outside of it if it is closeable
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        if (!dialog.getBounds().contains(e.getPoint())) {
+        if (!dialog.getBounds().contains(e.getPoint()) && closeable) {
           setVisible(false);
         }
       }
@@ -76,6 +77,15 @@ public class DialogPanel extends JPanel {
   public void setVisible(boolean visible) {
     super.setVisible(visible);
     dialog.setVisible(visible);
+  }
+
+  /**
+   * Set if the dialog panel is closeable by clicking outside of it.
+   * 
+   * @param closeable the closeable property of the dialog panel
+   */
+  public void setCloseable(boolean closeable) {
+    this.closeable = closeable;
   }
 
 }

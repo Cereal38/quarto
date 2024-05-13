@@ -4,7 +4,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.components.TranslatedString;
-import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 
 public class UndoButton extends JButton {
@@ -25,7 +25,8 @@ public class UndoButton extends JButton {
     setContentAreaFilled(false);
 
     addActionListener(e -> {
-      EventsHandler.getController().undo();
+      GameStatusHandler.undo();
+
     });
 
     tooltip = new TranslatedString("undoButtonTooltip", this, true);

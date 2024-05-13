@@ -1,5 +1,6 @@
 package src.views.game.board;
 
+import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,7 +17,7 @@ public class PauseMenuButton extends JButton {
   public PauseMenuButton() {
 
     // cursor : pointer
-    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    setCursor(new Cursor(Cursor.HAND_CURSOR));
 
     // Add style
     setIcon(MenuImg);

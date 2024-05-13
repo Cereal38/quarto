@@ -29,7 +29,7 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
 
     // Add action listeners to the buttons
     btnPause.addActionListener(e -> {
-      EventsHandler.showDialog(new PauseDialogContent());
+      EventsHandler.showDialog(new PauseDialogContent(), true);
     });
 
     // Set the text of the labels
@@ -59,13 +59,7 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
 
   private void upatePlayerLbl() {
 
-    if (GameStatusHandler.isPlayerOneTurn()) {
-      playerLbl.setText(GameStatusHandler.getPlayer1Name());
-    } else if (GameStatusHandler.isPlayerTwoTurn()) {
-      playerLbl.setText(GameStatusHandler.getPlayer2Name());
-    } else {
-      playerLbl.setText("");
-    }
+    playerLbl.setText(EventsHandler.getController().getCurrentPlayerName());
   }
 
   /**
@@ -76,9 +70,9 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
   @Override
   public void update() {
     upatePlayerLbl();
-    if (GameStatusHandler.isSelectionPhase()) {
+    if (EventsHandler.getController().isSelectionPhase()) {
       stateLbl.setKey("select-pawn");
-    } else if (GameStatusHandler.isPlayPhase()) {
+    } else if (EventsHandler.getController().isPlayPhase()) {
       stateLbl.setKey("play-pawn");
     } else {
       stateLbl.setKey("");
