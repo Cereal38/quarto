@@ -108,6 +108,7 @@ public class ViewModelController implements ViewModelListener {
   }
 
   public void selectPawn(String pawnStr) {
+    System.out.println("Pawn selected: " + pawnStr);
     quartoModel.selectPawn(FormatUtils.stringToIndex(pawnStr));
     status = PLAY; // TODO: Remove this once info is retrieved from the model
   }

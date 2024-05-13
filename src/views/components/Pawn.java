@@ -39,7 +39,10 @@ public class Pawn extends JButton {
 
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
-        EventsHandler.getController().selectPawn(code);
+        // Only allow the player to select a pawn during the select phase
+        if (EventsHandler.getController().isSelectionPhase()) {
+          EventsHandler.getController().selectPawn(code);
+        }
       }
 
     });
