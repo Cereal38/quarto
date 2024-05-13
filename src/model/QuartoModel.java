@@ -17,17 +17,27 @@ public class QuartoModel {
 
   private Player randomAIPlayer;
 
+  public QuartoModel(int index) {
+    newTable(0, 0);
+    file = new QuartoFile();
+    win = new QuartoWin();
+    manager = new SlotManager();
+    chargeGame(index);
+    if (playerType[0] == 1 || playerType[1] == 1) {
+      randomAIPlayer = new RandomAIPlayer();
+    }
+  }
+
   public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName) {
     newTable(firstPlayerType, secondPlayerType);
     file = new QuartoFile();
     win = new QuartoWin();
+    manager = new SlotManager();
     this.firstPlayerName = firstPlayerName;
     this.secondPlayerName = secondPlayerName;
     // System.out.println("name 1 : " + firstPlayerName + "name 2 :" +
     // secondPlayerName);
-    if (firstPlayerType == 1) {
-      randomAIPlayer = new RandomAIPlayer();
-    } else if (secondPlayerType == 1) {
+    if (firstPlayerType == 1 || secondPlayerType == 1) {
       randomAIPlayer = new RandomAIPlayer();
     }
   }
@@ -66,16 +76,21 @@ public class QuartoModel {
         pawnAvailable[file.getIndexPawn()] = getSelectedPawn();
         setSelectedPawn(null);
         switchPlayer();// next player
+      } else { // before the first move
+        pawnAvailable[file.getIndexPawn()] = getSelectedPawn();
+        setSelectedPawn(null);
       }
       file.setSave(file.getSave().getPrevious());
     }
   }
 
   public void selectPawn(int indexPawn) {
-    if (getCurrentPlayerType() == 1) {
-      randomAIPlayer.selectPawn(this);
-    } else {
-      selectPawnHuman(indexPawn);
+    if (pawnAvailable[indexPawn] != null) {
+      if (getCurrentPlayerType() == 1) {
+        randomAIPlayer.selectPawn(this);
+      } else {
+        selectPawnHuman(indexPawn);
+      }
     }
   }
 
@@ -126,15 +141,66 @@ public class QuartoModel {
         || win.winSituationDiagonal(getTable(), line, column));
   }
 
+  public void redoLoop(int countUndo) {
+    while (countUndo != 0) {
+      redo();
+      countUndo--;
+    }
+  }
+
+  public boolean goodInfoPlayer(int index) {
+    int countUndo = 0;
+    manager.loadFromDirectory();
+    while (file.canUndo()) {
+      undo();
+      countUndo++;
+    }
+    System.out.println("nb files =" + manager.getSlotFileDates().size());
+    if (manager.isSlotFileEmpty(index) == true) {
+      System.err.println("l'index: " + index + " contient "
+          + manager.getSlotFileDates().keySet().toArray(new String[0])[index] + " un fichier vide");
+      redoLoop(countUndo);
+      return false;
+    }
+    String[] infoPlayer = file.chargeFile(manager.getSlotFileDates().keySet().toArray(new String[0])[index]);
+    if (infoPlayer == null) {
+      redoLoop(countUndo);
+      return false;
+    }
+    String[] nameAndType = infoPlayer[0].split(" ");
+    if (nameAndType.length != 2) {
+      System.err.println("il manque une information pour le joueur 1");
+      redoLoop(countUndo);
+      return false;
+    }
+    firstPlayerName = nameAndType[0];
+    playerType[0] = Integer.parseInt(nameAndType[1]);
+    nameAndType = infoPlayer[1].split(" ");
+    if (nameAndType.length != 2) {
+      System.err.println("il manque une information pour le joueur 2");
+      redoLoop(countUndo);
+      return false;
+    }
+    secondPlayerName = nameAndType[0];
+    playerType[1] = Integer.parseInt(nameAndType[1]);
+    return true;
+  }
+
   public void chargeGame(int index) {
-    file.chargeFile(manager.getSlotFileDates().keySet().toArray(new String[0])[index]);
+    if (goodInfoPlayer(index) == false)
+      return;
     QuartoHistory copy = file.getHead();
-    while (!copy.equals(file.getSave())) {
+    boolean afterSave = false;
+    while (!afterSave) {
+
       if (copy.state == 0) {
         selectedPawn = pawnAvailable[copy.getIndexPawn()];
         pawnAvailable[copy.getIndexPawn()] = null;
       } else if (copy.state == 1) {
         setTable(copy.getLine(), copy.getColumn(), getSelectedPawn());
+      }
+      if (copy.equals(file.getSave())) {
+        afterSave = true;
       }
       copy = copy.getNext();
     }
@@ -157,7 +223,7 @@ public class QuartoModel {
   }
 
   public void saveFile(String fileName) throws IOException {
-    file.saveFile(fileName);
+    file.saveFile(fileName, firstPlayerName, secondPlayerName, playerType);
   }
 
   public QuartoPawn[][] getTable() {
