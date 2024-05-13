@@ -193,4 +193,14 @@ public class GameStatusHandler {
       }
     }
   }
+
+  public static void undo() {
+    EventsHandler.getController().undo();
+    informListeners();
+  }
+
+  public static void redo() {
+    EventsHandler.getController().redo();
+    informListeners();
+  }
 }
