@@ -1,3 +1,5 @@
+package src.model;
+
 import java.io.IOException;
 
 public class QuartoModel {
@@ -80,6 +82,22 @@ public class QuartoModel {
             }
             file.setSave(file.getSave().getPrevious());
         }
+  }
+
+  public void selectPawnHuman(int indexPawn) {
+    setSelectedPawn(pawnAvailable[indexPawn]);
+    // Add a new history because we chose what pawn the next player will play.
+    file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
+    file.getSave().getNext().setPrevious(file.getSave());
+    file.setSave(file.getSave().getNext());
+    pawnAvailable[indexPawn] = null;
+    switchPlayer();// next player
+  }
+
+  public boolean isPawnListEmpty() {
+    for (int i = 0; i < 16; i++) {
+      if (pawnAvailable[i] != null)
+        return false;
     }
 
     public void selectPawn(int indexPawn) {
@@ -100,6 +118,16 @@ public class QuartoModel {
         file.setSave(file.getSave().getNext());
         pawnAvailable[indexPawn] = null;
         switchPlayer();// next player
+  }
+
+  public void playShotHuman(int line, int column) {
+    if (isTableEmpty(line, column)) {
+      setTable(line, column, selectedPawn);
+      winSituation(line, column);
+      setSelectedPawn(null);
+      file.getSave().setNext(new QuartoHistory(line, column, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
+      file.getSave().getNext().setPrevious(file.getSave());
+      file.setSave(file.getSave().getNext());
     }
 
     public boolean isPawnListEmpty() {
@@ -220,9 +248,16 @@ public class QuartoModel {
         return table[line][column];
     }
 
-    public void saveFile(String fileName) throws IOException {
-        file.saveFile(fileName, firstPlayerName, secondPlayerName, playerType);
-    }
+    return table[line][column];
+  }
+
+  public void saveFile(int index) throws IOException {
+    manager.loadFromDirectory();
+    manager.renameSlotFile(index, firstPlayerName, secondPlayerName);
+    String fileName = firstPlayerName + "_vs_" + secondPlayerName + ".txt";
+    String filePath = "slots" + File.separator + fileName;
+    file.saveFile(filePath, firstPlayerName, secondPlayerName, playerType);
+  }
 
     public QuartoPawn[][] getTable() {
         return table;
@@ -258,4 +293,22 @@ public class QuartoModel {
         }
         this.playerType = playerType;
     }
+    this.playerType = playerType;
+  }
+  
+  public String getNameOfTheCurrentPlayer() {
+      return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
+  }
+  
+  public int stateOfGame() {
+    return (file.getState() == 0) ? 1 : 0;
+  }
+  
+  public QuartoHistory getCurrentState() {
+    return file.getSave();
+  }
+
+  public QuartoHistory getFirstState() {
+    return file.getHead();
+  }
 }

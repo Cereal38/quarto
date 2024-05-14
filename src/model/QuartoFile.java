@@ -76,25 +76,28 @@ public class QuartoFile {
           return null;
         }
       }
+      int currentPlayer = 1;
       while (s.hasNextLine()) {
         line = s.nextLine().split(" ");
         if (line.length == 1) { // state == 0
-          temp.setNext(new QuartoHistory(Integer.parseInt(line[0]), temp));
+          temp.setNext(chargePawn(temp, currentPlayer, infoPlayer[0].split(" ")[0], infoPlayer[1].split(" ")[0], Integer.parseInt(line[0])));
           temp.getNext().setPrevious(temp);
           temp = temp.getNext();
+          currentPlayer = (currentPlayer == 1) ? 2 : 1;
         } else if (line.length == 2) {// (state == 1) or (state == 0 and actual state)
           if (line[1].equals("*")) {
-            temp.setNext(new QuartoHistory(Integer.parseInt(line[0]), temp));
+            temp.setNext(chargePawn(temp, currentPlayer, infoPlayer[0].split(" ")[0], infoPlayer[1].split(" ")[0], Integer.parseInt(line[0])));
             temp.getNext().setPrevious(temp);
             temp = temp.getNext();
             save = temp;
+            currentPlayer = (currentPlayer == 1) ? 2 : 1;
           } else {
-            temp.setNext(new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp));
+            temp.setNext(chargePlace(temp, currentPlayer, infoPlayer[0].split(" ")[0], infoPlayer[1].split(" ")[0], Integer.parseInt(line[0]), Integer.parseInt(line[1])));
             temp.getNext().setPrevious(temp);
             temp = temp.getNext();
           }
         } else { // state == 1 and actual state
-          temp.setNext(new QuartoHistory(Integer.parseInt(line[0]), Integer.parseInt(line[1]), temp));
+          temp.setNext(chargePlace(temp, currentPlayer, infoPlayer[0].split(" ")[0], infoPlayer[1].split(" ")[0], Integer.parseInt(line[0]), Integer.parseInt(line[1])));
           temp.getNext().setPrevious(temp);
           temp = temp.getNext();
           save = temp;
@@ -106,6 +109,20 @@ public class QuartoFile {
       System.err.println("impossible de trouver le fichier slots/" + fileName);
       return null;
     }
+  }
+
+  private QuartoHistory chargePawn(QuartoHistory previous, int currentPlayer, String playerOne, String playerTwo, int indexPawn) {
+    if (currentPlayer == 1) {
+      return new QuartoHistory(indexPawn, previous, playerOne, currentPlayer);
+    }
+    return new QuartoHistory(indexPawn, previous, playerTwo, currentPlayer);
+  }
+  
+  private QuartoHistory chargePlace(QuartoHistory previous, int currentPlayer, String playerOne, String playerTwo, int line, int column) {
+    if (currentPlayer == 1) {
+      return new QuartoHistory(line, column, previous, playerOne, currentPlayer);
+    }
+    return new QuartoHistory(line, column, previous, playerTwo, currentPlayer);
   }
 
   public QuartoHistory getSave() {
