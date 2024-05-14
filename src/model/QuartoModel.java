@@ -5,7 +5,7 @@ import java.io.IOException;
 public class QuartoModel {
     private QuartoPawn[][] table;
     private int currentPlayer;// 1 for Player 1 and 2 for Player 2
-    private int[] playerType = new int[2]; // 0 for Human and 1 for Random AI
+    private int playerType[] = new int[2]; // 0 for Human and 1 for Random AI
     // with playerType[0] type of the player 1 and playerType[1] type of the player
     // 2
     private QuartoPawn[] pawnAvailable;
@@ -82,22 +82,6 @@ public class QuartoModel {
             }
             file.setSave(file.getSave().getPrevious());
         }
-  }
-
-  public void selectPawnHuman(int indexPawn) {
-    setSelectedPawn(pawnAvailable[indexPawn]);
-    // Add a new history because we chose what pawn the next player will play.
-    file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
-    file.getSave().getNext().setPrevious(file.getSave());
-    file.setSave(file.getSave().getNext());
-    pawnAvailable[indexPawn] = null;
-    switchPlayer();// next player
-  }
-
-  public boolean isPawnListEmpty() {
-    for (int i = 0; i < 16; i++) {
-      if (pawnAvailable[i] != null)
-        return false;
     }
 
     public void selectPawn(int indexPawn) {
@@ -113,28 +97,18 @@ public class QuartoModel {
     public void selectPawnHuman(int indexPawn) {
         setSelectedPawn(pawnAvailable[indexPawn]);
         // Add a new history because we chose what pawn the next player will play.
-        file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave()));
+        file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
         file.getSave().getNext().setPrevious(file.getSave());
         file.setSave(file.getSave().getNext());
         pawnAvailable[indexPawn] = null;
         switchPlayer();// next player
-  }
-
-  public void playShotHuman(int line, int column) {
-    if (isTableEmpty(line, column)) {
-      setTable(line, column, selectedPawn);
-      winSituation(line, column);
-      setSelectedPawn(null);
-      file.getSave().setNext(new QuartoHistory(line, column, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
-      file.getSave().getNext().setPrevious(file.getSave());
-      file.setSave(file.getSave().getNext());
     }
 
     public boolean isPawnListEmpty() {
         for (int i = 0; i < 16; i++) {
             if (pawnAvailable[i] != null)
                 return false;
-        }
+            }
         return true;
     }
 
@@ -155,16 +129,14 @@ public class QuartoModel {
             setTable(line, column, selectedPawn);
             winSituation(line, column);
             setSelectedPawn(null);
-            file.getSave().setNext(new QuartoHistory(line, column, file.getSave()));
+            file.getSave().setNext(new QuartoHistory(line, column, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
             file.getSave().getNext().setPrevious(file.getSave());
             file.setSave(file.getSave().getNext());
         }
     }
 
     public boolean winSituation(int line, int column) {
-
-        return (win.winSituationLine(getTable(), line) || win.winSituationColumn(getTable(), column)
-                || win.winSituationDiagonal(getTable(), line, column));
+        return (win.winSituationLine(getTable(), line) || win.winSituationColumn(getTable(), column) || win.winSituationDiagonal(getTable(), line, column));
     }
 
     public void redoLoop(int countUndo) {
@@ -183,8 +155,7 @@ public class QuartoModel {
         }
         System.out.println("nb files =" + manager.getSlotFileDates().size());
         if (manager.isSlotFileEmpty(index) == true) {
-            System.err.println("l'index: " + index + " contient "
-                    + manager.getSlotFileDates().keySet().toArray(new String[0])[index] + " un fichier vide");
+            System.err.println("l'index: " + index + " contient " + manager.getSlotFileDates().keySet().toArray(new String[0])[index] + " un fichier vide");
             redoLoop(countUndo);
             return false;
         }
@@ -218,7 +189,6 @@ public class QuartoModel {
         QuartoHistory copy = file.getHead();
         boolean afterSave = false;
         while (!afterSave) {
-
             if (copy.state == 0) {
                 selectedPawn = pawnAvailable[copy.getIndexPawn()];
                 pawnAvailable[copy.getIndexPawn()] = null;
@@ -244,20 +214,16 @@ public class QuartoModel {
         if (line < 0 || line >= 4 || column < 0 || column >= 4) {
             throw new IllegalArgumentException("Invalid position: (" + line + ", " + column + ")");
         }
-
         return table[line][column];
     }
 
-    return table[line][column];
-  }
-
-  public void saveFile(int index) throws IOException {
-    manager.loadFromDirectory();
-    manager.renameSlotFile(index, firstPlayerName, secondPlayerName);
-    String fileName = firstPlayerName + "_vs_" + secondPlayerName + ".txt";
-    String filePath = "slots" + File.separator + fileName;
-    file.saveFile(filePath, firstPlayerName, secondPlayerName, playerType);
-  }
+    public void saveFile(int index) throws IOException {
+        manager.loadFromDirectory();
+        manager.renameSlotFile(index, firstPlayerName, secondPlayerName);
+        String fileName = firstPlayerName + "_vs_" + secondPlayerName + ".txt";
+        String filePath = "slots" + File.separator + fileName;
+        file.saveFile(filePath, firstPlayerName, secondPlayerName, playerType);
+    }
 
     public QuartoPawn[][] getTable() {
         return table;
@@ -293,22 +259,20 @@ public class QuartoModel {
         }
         this.playerType = playerType;
     }
-    this.playerType = playerType;
-  }
-  
-  public String getNameOfTheCurrentPlayer() {
-      return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
-  }
-  
-  public int stateOfGame() {
-    return (file.getState() == 0) ? 1 : 0;
-  }
-  
-  public QuartoHistory getCurrentState() {
-    return file.getSave();
-  }
+    
+    public String getNameOfTheCurrentPlayer() {
+        return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
+    }
+    
+    public int stateOfGame() {
+        return (file.getState() == 0) ? 1 : 0;
+    }
+    
+    public QuartoHistory getCurrentState() {
+        return file.getSave();
+    }
 
-  public QuartoHistory getFirstState() {
-    return file.getHead();
-  }
+    public QuartoHistory getFirstState() {
+        return file.getHead();
+    }
 }

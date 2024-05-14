@@ -26,7 +26,7 @@ public class QuartoWin {
                 hTrue = false;
         }
         return rTrue || wTrue || lTrue || hTrue;
-}
+    }
 
     public boolean winSituationLine(QuartoPawn[][] table, int line) {
         return checkWin(table[line]);
@@ -50,5 +50,4 @@ public class QuartoWin {
         }
         return false;
     }
-
 }
