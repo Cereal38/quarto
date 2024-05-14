@@ -3,6 +3,7 @@ package src.views.game.board;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;
+import src.views.components.BorderCenterPanel;
 import src.views.game.history.MovesHistory;
 import src.views.utils.DimensionUtils;
 
@@ -30,11 +31,12 @@ public class GameBoard extends JPanel {
         BoardWrapper boardWrapper = new BoardWrapper();
 
         MovesHistory movesHistory = new MovesHistory();
+        BorderCenterPanel movesHistoryWrapper = new BorderCenterPanel(movesHistory, 50, 0, 50, 0);
 
         // Add components
         add(topBarGameBoard, BorderLayout.NORTH);
         add(boardWrapper, BorderLayout.CENTER);
-        add(movesHistory, BorderLayout.EAST);
+        add(movesHistoryWrapper, BorderLayout.EAST);
         add(pawnsBar, BorderLayout.SOUTH);
 
     }
