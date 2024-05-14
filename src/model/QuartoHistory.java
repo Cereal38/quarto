@@ -5,21 +5,27 @@ public class QuartoHistory {
              // play the pawn state = 1. state = 2 if it's the start of the game.
   int indexPawn;
   int line, column;
+  int currentPlayer;
+  String playerName;
   private QuartoHistory previous, next;
 
   // We saved the choice of pawn for the next player
-  public QuartoHistory(int index, QuartoHistory p) {
+  public QuartoHistory(int index, QuartoHistory p, String name, int player) {
     state = 0;
     indexPawn = index;
+    playerName = name;
+    currentPlayer = player;
     previous = p;
     next = null;
   }
 
   // We save the placement of the pawn we placed.
-  public QuartoHistory(int newLine, int newColumn, QuartoHistory p) {
+  public QuartoHistory(int newLine, int newColumn, QuartoHistory p, String name, int player) {
     state = 1;
     line = newLine;
     column = newColumn;
+    playerName = name;
+    currentPlayer = player;
     previous = p;
     next = null;
   }
@@ -60,6 +66,14 @@ public class QuartoHistory {
   }
 
   public int getState() {
-    return state;
+      return state;
+  }
+  
+  public String getName() {
+      return playerName;
+  }
+
+  public int getNumberOfThePlayer() {
+      return currentPlayer;
   }
 }

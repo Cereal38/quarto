@@ -13,22 +13,23 @@ public class QuartoGameTester {
     }
 
     public void startGame() throws IOException {
+        manager = new SlotManager();
         System.out.println("Quarto Game Tester");
         System.out.println("New game ? 0 - yes, 1 - no");
         int game = scanner.nextInt();
-        if (game == 0){
+        if (game == 0) {
             System.out.println("Choose player types:");
             System.out.println("0 - Human, 1 - Random AI");
-            
+
             System.out.print("Player 1 type: ");
             int firstPlayerType = scanner.nextInt();
             System.out.print("Player 2 type: ");
             int secondPlayerType = scanner.nextInt();
-            
+
             scanner.nextLine();//skip the \n
-            
+
             quartoModel = new QuartoModel(firstPlayerType, secondPlayerType, "J1", "J2");
-            
+
         } else {
             manager = new SlotManager();
             manager.loadFromDirectory();
@@ -98,17 +99,45 @@ public class QuartoGameTester {
                 quartoModel.chargeGame(index);
                 System.out.println("Game loaded from file of index: " + index);
             } else if (input.toLowerCase().startsWith("save ")) {
-                String fileName = input.substring(5).trim();
-                quartoModel.saveFile(fileName);
-                System.out.println("Game saved to file: " + fileName);
+                //                String fileName = input.substring(5).trim();
+                manager.loadFromDirectory();
+                System.out.println("Choose an index 0 and " + manager.getSlotFileDates().size());
+                int index = scanner.nextInt();
+                while (index < 0 || index > manager.getSlotFileDates().size()) {
+                    System.out.println("Choose an index 0 and " + manager.getSlotFileDates().size());
+                    index = scanner.nextInt();
+                }
+                quartoModel.saveFile(index);
+                System.out.println("Game saved");
             } else if (input.equalsIgnoreCase("quit")) {
                 System.out.println("Quitting game.");
                 break;
             } else if (input.equalsIgnoreCase("help")) {
                 printHelp();
+            } else if (input.equalsIgnoreCase("currentState")) {
+                QuartoHistory state = quartoModel.getCurrentState();
+                printState(state);
+            } else if (input.equalsIgnoreCase("headState")) {
+                QuartoHistory head = quartoModel.getFirstState();
+                while (head.getNext() != null) {
+                    printState(head);
+                    head = head.getNext();
+                }
+                if (head != null)
+                    printState(head);
             } else {
                 System.out.println("Unknown command. Type 'help' for commands.");
             }
+        }
+    }
+
+    private void printState(QuartoHistory state) {
+        if (state.getState() == 0) {
+            System.out.println("Etat 0: le joueur "+ state.currentPlayer + " " + state.playerName + " a donné le pion" + state.getIndexPawn());
+        } else if (state.getState() == 1) {
+            System.out.println("Etat 1: le joueur "+ state.currentPlayer + " " + state.playerName + " a posé le pion en [" + state.getLine() + "," + state.getColumn()+"]");
+        } else {
+            System.out.println("Début du jeu !");
         }
     }
 
