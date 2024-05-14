@@ -6,9 +6,8 @@ import java.io.IOException;
 public class QuartoModel {
     private QuartoPawn[][] table;
     private int currentPlayer;// 1 for Player 1 and 2 for Player 2
-    private int[] playerType = new int[2]; // 0 for Human and 1 for Random AI
-    // with playerType[0] type of the player 1 and playerType[1] type of the player
-    // 2
+    private int[] playerType = new int[2]; // 0 for Human, 1 for Random AI and 2 for Easy AI
+    // with playerType[0] type of the player 1 and playerType[1] type of the player 2
     private QuartoPawn[] pawnAvailable;
     private QuartoPawn selectedPawn;
     private QuartoFile file;
@@ -16,7 +15,7 @@ public class QuartoModel {
     private SlotManager manager;
     private String firstPlayerName, secondPlayerName;
 
-    private Player randomAIPlayer;
+    private Player randomAIPlayer, easyAIPlayer;
 
     public QuartoModel(int index) {
         newTable(0, 0);
@@ -27,6 +26,9 @@ public class QuartoModel {
         if (playerType[0] == 1 || playerType[1] == 1) {
             randomAIPlayer = new RandomAIPlayer();
         }
+        if (playerType[0] == 2 || playerType[1] == 2) {
+            easyAIPlayer = new EasyAIPlayer();
+        }
     }
 
     public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName) {
@@ -36,10 +38,11 @@ public class QuartoModel {
         manager = new SlotManager();
         this.firstPlayerName = firstPlayerName;
         this.secondPlayerName = secondPlayerName;
-        // System.out.println("name 1 : " + firstPlayerName + "name 2 :" +
-        // secondPlayerName);
-        if (firstPlayerType == 1 || secondPlayerType == 1) {
+        if (playerType[0] == 1 || playerType[1] == 1) {
             randomAIPlayer = new RandomAIPlayer();
+        }
+        if (playerType[0] == 2 || playerType[1] == 2) {
+            easyAIPlayer = new EasyAIPlayer();
         }
     }
 
@@ -89,7 +92,11 @@ public class QuartoModel {
         if (pawnAvailable[indexPawn] != null) {
             if (getCurrentPlayerType() == 1) {
                 randomAIPlayer.selectPawn(this);
-            } else {
+            }
+            else if (getCurrentPlayerType() == 2){
+                easyAIPlayer.selectPawn(this);
+            }
+            else {
                 selectPawnHuman(indexPawn);
             }
         }
@@ -120,7 +127,11 @@ public class QuartoModel {
     public void playShot(int line, int column) {
         if (getCurrentPlayerType() == 1) {
             randomAIPlayer.playShot(this);
-        } else {
+        }
+        else if(getCurrentPlayerType() == 2){
+            easyAIPlayer.playShot(this);
+        }
+        else {
             playShotHuman(line, column);
         }
     }
