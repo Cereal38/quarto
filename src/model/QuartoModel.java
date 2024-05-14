@@ -6,7 +6,7 @@ import java.io.IOException;
 public class QuartoModel {
     private QuartoPawn[][] table;
     private int currentPlayer;// 1 for Player 1 and 2 for Player 2
-    private int[] playerType = new int[2]; // 0 for Human, 1 for Random AI and 2 for Easy AI
+    private int[] playerType = new int[2]; // 0 for Human, 1 for Random AI, 2 for Easy AI and 3 for the MiniMax AI
     // with playerType[0] type of the player 1 and playerType[1] type of the player 2
     private QuartoPawn[] pawnAvailable;
     private QuartoPawn selectedPawn;
@@ -14,8 +14,8 @@ public class QuartoModel {
     private QuartoWin win;
     private SlotManager manager;
     private String firstPlayerName, secondPlayerName;
-
     private Player randomAIPlayer, easyAIPlayer;
+    private boolean gameOver = false; // true if end game
 
     public QuartoModel(int index) {
         newTable(0, 0);
@@ -148,7 +148,8 @@ public class QuartoModel {
     }
 
     public boolean winSituation(int line, int column) {
-        return (win.winSituationLine(getTable(), line) || win.winSituationColumn(getTable(), column) || win.winSituationDiagonal(getTable(), line, column));
+        gameOver = win.winSituationLine(getTable(), line) || win.winSituationColumn(getTable(), column) || win.winSituationDiagonal(getTable(), line, column);
+        return (gameOver);
     }
 
     public void redoLoop(int countUndo) {
@@ -286,5 +287,8 @@ public class QuartoModel {
 
     public QuartoHistory getFirstState() {
         return file.getHead();
+    }
+    public boolean isGameOver() {
+        return gameOver;
     }
 }
