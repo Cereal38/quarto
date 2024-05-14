@@ -252,6 +252,23 @@ public class QuartoModelTest {
     }
 
     @Test
+    public void testLooseSituationLine(){
+        QuartoModel quartoModel = new QuartoModel(0, 0,"", "");
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 15));
+        quartoModel.playShot(1, 0);
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 0));
+        quartoModel.playShot(1, 2);
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 3));
+        quartoModel.playShot(1, 1);
+        quartoModel.setSelectedPawn(new QuartoPawn((byte) 5));
+        quartoModel.playShot(1, 3);
+
+        for(int i = 0; i < 4; i++) {
+            Assertions.assertFalse(quartoModel.winSituation(1, i));
+        }
+    }
+    
+    @Test
     public void testRealisticMultipleWinSituation() {
         QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
         quartoModel.setSelectedPawn(new QuartoPawn((byte) 1));

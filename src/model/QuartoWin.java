@@ -5,26 +5,28 @@ public class QuartoWin {
     private boolean checkWin(QuartoPawn[] lineOrColumn) {
         if (lineOrColumn[0] == null)
             return false;
-
         boolean round = lineOrColumn[0].isRound();
+        boolean rTrue = true;
         boolean white = lineOrColumn[0].isWhite();
+        boolean wTrue = true;
         boolean little = lineOrColumn[0].isLittle();
-        boolean hollow = lineOrColumn[0].isHollow();
-
+        boolean lTrue = true;
+        boolean hollow = lineOrColumn[0].isWhite();
+        boolean hTrue = true;
         for (int i = 1; i < 4; i++) {
             if (lineOrColumn[i] == null)
                 return false;
-
-            if (!lineOrColumn[i].isRound() == round &&
-                    !lineOrColumn[i].isWhite() == white &&
-                    !lineOrColumn[i].isLittle() == little &&
-                    !lineOrColumn[i].isHollow() == hollow) {
-                return false;
-            }
+            if (rTrue && lineOrColumn[i].isRound() != round)
+                rTrue = false;
+            if (wTrue && lineOrColumn[i].isWhite() != white)
+                wTrue = false;
+            if (lTrue && lineOrColumn[i].isLittle() != little)
+                lTrue = false;
+            if (hTrue && lineOrColumn[i].isHollow() != hollow)
+                hTrue = false;
         }
-
-        return true; // If all are the same or at least one attribute matches
-    }
+        return rTrue || wTrue || lTrue || hTrue;
+}
 
     public boolean winSituationLine(QuartoPawn[][] table, int line) {
         return checkWin(table[line]);

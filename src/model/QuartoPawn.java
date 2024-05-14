@@ -13,38 +13,38 @@ public class QuartoPawn {
     }
 
     public boolean isRound() {
-        return ((pawnBinary & round) == 1);
+        return (getRound() != 0);
     }
 
     public boolean isWhite() {
-        return (((pawnBinary & white) >> 1) == 1);
+        return (getWhite() != 0);
     }
 
     public boolean isLittle() {
-        return (((pawnBinary & little) >> 2) == 1);
+        return (getLittle() != 0);
     }
 
     public boolean isHollow() {
-        return (((pawnBinary & hollow) >> 3) == 0);
+        return (getHollow() != 0);
     }
 
     public int getRound() {
-        return ((pawnBinary & round));
+        return (pawnBinary & round);
     }
 
     public int getWhite() {
-        return ((pawnBinary & white) >> 1);
+        return (pawnBinary & white);
     }
 
     public int getLittle() {
-        return ((pawnBinary & little) >> 2);
+        return (pawnBinary & little);
     }
 
     public int getHollow() {
-        return ((pawnBinary & hollow) >> 3);
+        return (pawnBinary & hollow);
     }
 
-    public int getPawn() {
+    public byte getPawn() {
         return pawnBinary;
     }
 }
