@@ -1,11 +1,12 @@
 package src.model;
 
+import java.io.File;
 import java.io.IOException;
 
 public class QuartoModel {
     private QuartoPawn[][] table;
     private int currentPlayer;// 1 for Player 1 and 2 for Player 2
-    private int playerType[] = new int[2]; // 0 for Human and 1 for Random AI
+    private int[] playerType = new int[2]; // 0 for Human and 1 for Random AI
     // with playerType[0] type of the player 1 and playerType[1] type of the player
     // 2
     private QuartoPawn[] pawnAvailable;
@@ -108,7 +109,7 @@ public class QuartoModel {
         for (int i = 0; i < 16; i++) {
             if (pawnAvailable[i] != null)
                 return false;
-            }
+        }
         return true;
     }
 
@@ -154,7 +155,7 @@ public class QuartoModel {
             countUndo++;
         }
         System.out.println("nb files =" + manager.getSlotFileDates().size());
-        if (manager.isSlotFileEmpty(index) == true) {
+        if (manager.isSlotFileEmpty(index)) {
             System.err.println("l'index: " + index + " contient " + manager.getSlotFileDates().keySet().toArray(new String[0])[index] + " un fichier vide");
             redoLoop(countUndo);
             return false;
@@ -184,7 +185,7 @@ public class QuartoModel {
     }
 
     public void chargeGame(int index) {
-        if (goodInfoPlayer(index) == false)
+        if (!goodInfoPlayer(index))
             return;
         QuartoHistory copy = file.getHead();
         boolean afterSave = false;
@@ -259,15 +260,15 @@ public class QuartoModel {
         }
         this.playerType = playerType;
     }
-    
+
     public String getNameOfTheCurrentPlayer() {
         return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
     }
-    
+
     public int stateOfGame() {
         return (file.getState() == 0) ? 1 : 0;
     }
-    
+
     public QuartoHistory getCurrentState() {
         return file.getSave();
     }
