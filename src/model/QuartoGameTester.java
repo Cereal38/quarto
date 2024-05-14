@@ -123,8 +123,7 @@ public class QuartoGameTester {
                     printState(head);
                     head = head.getNext();
                 }
-                if (head != null)
-                    printState(head);
+                printState(head);
             } else {
                 System.out.println("Unknown command. Type 'help' for commands.");
             }
