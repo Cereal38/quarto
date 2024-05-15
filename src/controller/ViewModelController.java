@@ -63,7 +63,6 @@ public class ViewModelController implements ViewModelListener {
    * @param column the column where the shot is played (0-3)
    */
   public void playShot(int line, int column) {
-    System.out.println("Shot played: " + line + ", " + column);
     quartoModel.playShot(line, column);
     status = SELECT; // TODO: Remove this once info is retrieved from the model
   }
@@ -109,7 +108,6 @@ public class ViewModelController implements ViewModelListener {
   }
 
   public void selectPawn(String pawnStr) {
-    System.out.println("Pawn selected: " + pawnStr);
     quartoModel.selectPawn(FormatUtils.stringToIndex(pawnStr));
     status = PLAY; // TODO: Remove this once info is retrieved from the model
   }
