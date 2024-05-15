@@ -5,10 +5,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import src.model.QuartoHistory;
+import src.views.listeners.GameStatusListener;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 import java.awt.GridLayout;
 
-public class MovesHistory extends JScrollPane {
+public class MovesHistory extends JScrollPane implements GameStatusListener {
 
     private JPanel movesContainer;
     JButton button = new JButton("Add Move");
@@ -18,37 +20,18 @@ public class MovesHistory extends JScrollPane {
         movesContainer = new JPanel();
         movesContainer.setLayout(new GridLayout(0, 1));
 
+        GameStatusHandler.addGameStatusListener(this);
+
         // make it small
         button.setPreferredSize(new Dimension(250, 50));
 
-        // Add the button to the history
-        movesContainer.add(button);
+        // // Add the button to the history
+        // movesContainer.add(button);
 
-        // make the button add a move to the history on the top of the list
-        button.addActionListener(e -> {
-            QuartoHistory save = EventsHandler.getController().getModel().getCurrentState();
+        // // make the button add a move to the history on the top of the list
+        // button.addActionListener(e -> {
 
-            // clear the history
-            clear();
-
-            while (save.getPrevious() != null) {
-
-                String name = save.getName();
-                int pawn = save.getIndexPawn();
-                int x = save.getLine();
-                int y = save.getColumn();
-
-                if (save.getIndexPawn() != 0) {
-                    String selected = name + " selected the pawn " + pawn;
-                    addMove(selected);
-                } else {
-                    String placed = name + " placed the pawn " + " at " + x + " " + y;
-                    addMove(placed);
-                }
-
-                save = save.getPrevious();
-            }
-        });
+        // });
 
         // Set the preferred size of the moves container
         movesContainer.setPreferredSize(new Dimension(250, 1000));
@@ -69,8 +52,42 @@ public class MovesHistory extends JScrollPane {
     // Clear the history moves and not the button
     public void clear() {
         movesContainer.removeAll();
-        movesContainer.add(button);
+        // movesContainer.add(button);
         movesContainer.revalidate();
         movesContainer.repaint();
+    }
+
+    public void updateHistory() {
+        QuartoHistory save = EventsHandler.getController().getModel().getCurrentState();
+
+        // clear the history
+        clear();
+
+        while (save.getPrevious() != null) {
+
+            String name = save.getName();
+            int pawn = save.getIndexPawn();
+            int x = save.getLine();
+            int y = save.getColumn();
+
+            if (save.getIndexPawn() != 0) {
+                String selected = name + " selected the pawn " + pawn;
+                addMove(selected);
+            } else {
+                String placed = name + " placed the pawn " + " at " + x + " " + y;
+                addMove(placed);
+            }
+
+            save = save.getPrevious();
+        }
+    }
+
+    @Override
+    public void update() {
+        // Clear the history moves
+        clear();
+
+        // Update the history moves
+        updateHistory();
     }
 }
