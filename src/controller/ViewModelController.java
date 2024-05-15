@@ -63,7 +63,6 @@ public class ViewModelController implements ViewModelListener {
    * @param column the column where the shot is played (0-3)
    */
   public void playShot(int line, int column) {
-    System.out.println("Shot played: " + line + ", " + column);
     quartoModel.playShot(line, column);
     status = SELECT; // TODO: Remove this once info is retrieved from the model
   }
@@ -90,7 +89,6 @@ public class ViewModelController implements ViewModelListener {
    * @return A 4x4 matrix of Cells
    */
   public Cell[][] getTable() {
-    System.out.println("Getting table");
     // If the model is not created yet, return an empty table
     if (quartoModel == null) {
       return new Cell[4][4];
@@ -110,7 +108,6 @@ public class ViewModelController implements ViewModelListener {
   }
 
   public void selectPawn(String pawnStr) {
-    System.out.println("Pawn selected: " + pawnStr);
     quartoModel.selectPawn(FormatUtils.stringToIndex(pawnStr));
     status = PLAY; // TODO: Remove this once info is retrieved from the model
   }
@@ -144,7 +141,7 @@ public class ViewModelController implements ViewModelListener {
   }
 
   public String getCurrentPlayerName() {
-    return "Player name";
+    return isCurrentPlayerAI() ? "AI" : "Player";
   }
 
   public boolean isSelectionPhase() {
@@ -157,6 +154,18 @@ public class ViewModelController implements ViewModelListener {
 
   public boolean isGameFinished(int line, int column) {
     return quartoModel.winSituation(line, column);
+  }
+
+  /**
+   * Determines if it is the AI's turn to play.
+   * 
+   * @return true if it is the AI's turn, false otherwise
+   */
+  public boolean isCurrentPlayerAI() {
+    if (quartoModel == null) {
+      return false;
+    }
+    return quartoModel.getCurrentPlayerType() != 0;
   }
 
 }
