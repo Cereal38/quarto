@@ -79,12 +79,35 @@ public class GameStatusHandler {
 
   public static void playShot(int line, int column) {
     EventsHandler.getController().playShot(line, column);
-    // Check if the game is finished. If so, show a dialog
-    if (EventsHandler.getController().isGameFinished(line, column)) {
-      EventsHandler.showDialog(new GameOverDialog("Player name"), false);
-    } else {
+    // Display the shot on the board
+    informListeners();
+    // Check if the game is finished. If not, got to the next phase
+    if (!checkWin(line, column)) {
       actionPerformed();
     }
+  }
+
+  /**
+   * Checks if the game is won by the player at the specified line and column.
+   * Shows a dialog if the game is finished.
+   *
+   * @param line   the line index of the selected position
+   * @param column the column index of the selected position
+   * @return true if the game is won, false otherwise
+   */
+  private static boolean checkWin(int line, int column) {
+    if (EventsHandler.getController().isGameFinished(line, column)) {
+      try {
+        Thread.sleep(500);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      // Wait for the last shot to be displayed
+      SwingUtilities.invokeLater(() -> EventsHandler
+          .showDialog(new GameOverDialog(EventsHandler.getController().getCurrentPlayerName()), false));
+      return true;
+    }
+    return false;
   }
 
   public static void undo() {
