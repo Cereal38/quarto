@@ -47,8 +47,11 @@ public class PawnsBar extends JPanel implements GameStatusListener {
 
   @Override
   public void update() {
+    System.out.println("AAAAAAAAAAAAAA");
     updatePawns();
+    System.out.println("BBBBBBBBBBBBBB");
     refresh();
+    System.out.println("CCCCCCCCCCCCC");
   }
 
 }

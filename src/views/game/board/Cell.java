@@ -27,7 +27,7 @@ public class Cell extends JPanel {
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         if (canPlay()) {
-          GameStatusHandler.playShotPlayer(line, column);
+          GameStatusHandler.playShot(line, column);
           repaint();
         } else {
           System.err.println("Error: Can't play a pawn right now.");
