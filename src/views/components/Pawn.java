@@ -45,13 +45,24 @@ public class Pawn extends JButton {
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
         // Only allow the player to select a pawn during the select phase
-        if (EventsHandler.getController().isSelectionPhase()) {
+        if (canSelect()) {
           GameStatusHandler.selectPawn(code);
+        } else {
+          System.err.println("Error: Can't select a pawn right now.");
         }
       }
 
     });
 
+  }
+
+  /**
+   * Checks if the pawn can be selected.
+   * 
+   * @return true if the pawn can be selected, false otherwise.
+   */
+  private boolean canSelect() {
+    return EventsHandler.getController().isSelectionPhase() && !EventsHandler.getController().isCurrentPlayerAI();
   }
 
 }

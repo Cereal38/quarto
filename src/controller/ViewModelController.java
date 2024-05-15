@@ -164,7 +164,7 @@ public class ViewModelController implements ViewModelListener {
    * 
    * @return true if it is the AI's turn, false otherwise
    */
-  public boolean aiTurn() {
+  public boolean isCurrentPlayerAI() {
     return quartoModel.getCurrentPlayerType() != 0;
   }
 
