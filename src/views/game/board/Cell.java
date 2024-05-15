@@ -29,7 +29,7 @@ public class Cell extends JPanel {
         // Only allow the player to place a pawn during the play phase and if the cell
         // is empty
         if (EventsHandler.getController().isPlayPhase() && !hasPawn()) {
-          GameStatusHandler.playShot(line, column);
+          GameStatusHandler.playShotPlayer(line, column);
           repaint();
         } else {
           System.err.println("Error: The cell is already occupied or the game phase does not allow to play a pawn.");

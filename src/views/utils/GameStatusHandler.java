@@ -45,7 +45,7 @@ public class GameStatusHandler {
     informListeners();
   }
 
-  public static void playShot(int line, int column) {
+  public static void playShotPlayer(int line, int column) {
     EventsHandler.getController().playShot(line, column);
     informListeners();
     // Check if the game is finished. If so, show a dialog

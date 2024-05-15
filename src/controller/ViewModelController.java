@@ -159,4 +159,13 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.winSituation(line, column);
   }
 
+  /**
+   * Determines if it is the AI's turn to play.
+   * 
+   * @return true if it is the AI's turn, false otherwise
+   */
+  public boolean aiTurn() {
+    return quartoModel.getCurrentPlayerType() != 0;
+  }
+
 }
