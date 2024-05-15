@@ -19,7 +19,7 @@ public class QuartoGameTester {
         int game = scanner.nextInt();
         if (game == 0) {
             System.out.println("Choose player types:");
-            System.out.println("0 - Human, 1 - Random AI, 2 - Easy AI");
+            System.out.println("0 - Human, 1 - Random AI, 2 - Easy AI, 3- MinMax AI");
 
             System.out.print("Player 1 type: ");
             int firstPlayerType = scanner.nextInt();

@@ -40,7 +40,7 @@ public class MiniMaxAIPlayer implements Player {
     private int minMax(QuartoModel quartoModel, int depth, boolean isMaximizingPlayer) {
         // Base case: if game is over ( or maximum depth is reached, return the evaluation score
         if (depth == maxDepth || quartoModel.isGameOver()) {
-            return evaluate(quartoModel);
+            return evaluate(quartoModel,isMaximizingPlayer);
         }
 
         if (isMaximizingPlayer) {
@@ -89,18 +89,47 @@ public class MiniMaxAIPlayer implements Player {
     }
 
     // Evaluation function (heuristic) to evaluate the game state
-    private int evaluate(QuartoModel quartoModel) {
+    private int evaluate(QuartoModel quartoModel, boolean isAIPlayer) {
         // Implement your evaluation logic here
         // Return a positive score if the current state is favorable for the AI
         // Return a negative score if the current state is favorable for the opponent
         // Return 0 if the game is balanced
         // The score should be based on factors such as potential winning positions, pawn combinations, etc.
-        // This is a placeholder, you may need to customize it based on your game's dynamics
-        return 0;
+        return evaluateRisk(quartoModel.getTable(),isAIPlayer);
     }
 
-    private void simulatePlacePawn (QuartoModel quartoModel, int row,  int colomn){
-        quartoModel.playShot(row, colomn);
+
+    private int evaluateRisk (QuartoPawn[][] table, boolean isAIPlayer) {
+        int riskValue = 0;
+        for (int i = 0 ; i < 4 ; i++){
+            for (int j = 0 ; j < 4 ; j++){
+                // Evaluate lines
+                if (table[i][j] != null ) {
+                    riskValue++;
+                }
+                // Evaluate columns
+                if (table[j][i] != null ) {
+                    riskValue++;
+                }
+                // Evaluate diagonals
+                if (i == j || (i + j) == 3){
+                    riskValue++;
+                }
+            }
+        }
+        if (isAIPlayer){
+            // Return a positive score if the current state is favorable for the AI
+            return riskValue;
+        }
+        // Return a negative score if the current state is favorable for the opponent
+        return (-1 * riskValue);
+    }
+
+
+
+
+    private void simulatePlacePawn (QuartoModel quartoModel, int row,  int column){
+        quartoModel.playShot(row, column);
     }
 
     private void undoSimulation (QuartoModel quartoModel){
@@ -114,8 +143,7 @@ public class MiniMaxAIPlayer implements Player {
 
     @Override
     public void playShot(QuartoModel quartoModel) {
-        int[] bestMove = new int[2];
-        bestMove = getBestMove(quartoModel);
+        int[] bestMove = getBestMove(quartoModel);
         quartoModel.playShotHuman(bestMove[0], bestMove[1]);
         System.out.println("Shot played by AI at (" + bestMove[0] +"," + bestMove[1] + ")." );
     }
