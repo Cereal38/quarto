@@ -11,7 +11,7 @@ public class GameStatusHandler {
   private static final List<GameStatusListener> listeners = new ArrayList<>();
 
   public static void startGame() {
-    informListeners();
+    actionPerformed();
   }
 
   // ================== Game Status Listeners ==================
@@ -40,11 +40,6 @@ public class GameStatusHandler {
     }
   }
 
-  public static void selectPawn(String code) {
-    EventsHandler.getController().selectPawn(code);
-    informListeners();
-  }
-
   /**
    * If the current player is an AI, play a shot or select a pawn. Add 1 second
    * delay.
@@ -63,31 +58,42 @@ public class GameStatusHandler {
       } else {
         EventsHandler.getController().selectPawn("0000");
       }
-      informListeners();
+      actionPerformed();
     }
+  }
+
+  /**
+   * Everytime an action is performed, we inform the listeners and check if the AI
+   * needs to take an action.
+   */
+  private static void actionPerformed() {
+    informListeners();
+    aiPlay();
+  }
+
+  public static void selectPawn(String code) {
+    EventsHandler.getController().selectPawn(code);
+    actionPerformed();
   }
 
   public static void playShotPlayer(int line, int column) {
     EventsHandler.getController().playShot(line, column);
-    informListeners();
     // Check if the game is finished. If so, show a dialog
     if (EventsHandler.getController().isGameFinished(line, column)) {
       EventsHandler.showDialog(new GameOverDialog("Player name"), false);
     } else {
-      aiPlay();
+      actionPerformed();
     }
   }
 
   public static void undo() {
     EventsHandler.getController().undo();
-    informListeners();
-    aiPlay();
+    actionPerformed();
   }
 
   public static void redo() {
     EventsHandler.getController().redo();
-    informListeners();
-    aiPlay();
+    actionPerformed();
   }
 
 }

@@ -90,7 +90,6 @@ public class ViewModelController implements ViewModelListener {
    * @return A 4x4 matrix of Cells
    */
   public Cell[][] getTable() {
-    System.out.println("Getting table");
     // If the model is not created yet, return an empty table
     if (quartoModel == null) {
       return new Cell[4][4];
@@ -144,7 +143,7 @@ public class ViewModelController implements ViewModelListener {
   }
 
   public String getCurrentPlayerName() {
-    return "Player name";
+    return isCurrentPlayerAI() ? "AI" : "Player";
   }
 
   public boolean isSelectionPhase() {
@@ -165,6 +164,9 @@ public class ViewModelController implements ViewModelListener {
    * @return true if it is the AI's turn, false otherwise
    */
   public boolean isCurrentPlayerAI() {
+    if (quartoModel == null) {
+      return false;
+    }
     return quartoModel.getCurrentPlayerType() != 0;
   }
 
