@@ -53,10 +53,12 @@ public class Cell extends JPanel {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g.drawOval(0, 0, size, size);
-    if (pawn != null) {
+    if (pawn == null) {
+      g.drawOval(0, 0, size, size);
+    } else {
       pawn.setBounds(0, 0, size, size);
       pawn.paint(g);
     }
+
   }
 }
