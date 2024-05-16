@@ -8,6 +8,7 @@ public class DimensionUtils {
   private static int widthTopBarGameBoard;
   private static int heightPawnsBarGameBoard;
   private static int widthPawnsBarGameBoard;
+  private static int boardCellSize;
 
   public static void setMainFrame(JFrame mainFrame) {
     DimensionUtils.mainFrame = mainFrame;
@@ -45,6 +46,14 @@ public class DimensionUtils {
 
   public static int getBoardPawnsBarWidth() {
     return widthPawnsBarGameBoard;
+  }
+
+  public static void setBoardCellSize(int size) {
+    boardCellSize = size;
+  }
+
+  public static int getBoardCellSize() {
+    return boardCellSize;
   }
 
 }
