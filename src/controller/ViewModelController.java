@@ -11,6 +11,7 @@ import src.model.SlotManager;
 import src.views.components.Pawn;
 import src.views.game.board.Cell;
 import src.views.listeners.ViewModelListener;
+import src.views.utils.DimensionUtils;
 import src.views.utils.FormatUtils;
 
 public class ViewModelController implements ViewModelListener {
@@ -95,11 +96,12 @@ public class ViewModelController implements ViewModelListener {
     }
     QuartoPawn[][] pawns = quartoModel.getTable();
     Cell[][] tableCells = new Cell[4][4];
+    int size = DimensionUtils.getBoardCellSize();
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
         Pawn pawn = null;
         if (pawns[i][j] != null) {
-          pawn = new Pawn(FormatUtils.byteToString(pawns[i][j].getPawn()), Pawn.PLAYED, 50, 50);
+          pawn = new Pawn(FormatUtils.byteToString(pawns[i][j].getPawn()), Pawn.PLAYED, size, size);
         }
         tableCells[i][j] = new Cell(pawn, i, j);
       }
