@@ -78,19 +78,30 @@ public class Pawn extends JButton {
       }
     }
 
-    // Resize the pawn only if the width or height has changed
+    // Do nothing if the width and height are the same
     if (this.width == width && this.height == height) {
       return;
     }
 
-    this.width = width;
-    this.height = height;
+    // If the width and height has been reduced, simply scale down the image
+    if (width < this.width && height < this.height) {
+      this.width = width;
+      this.height = height;
+      ImageIcon imageIcon = (ImageIcon) getIcon();
+      Image image = imageIcon.getImage();
+      Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+      ImageIcon scaledIcon = new ImageIcon(scaledImage);
+      setIcon(scaledIcon);
+    }
 
-    ImageIcon imageIcon = (ImageIcon) getIcon();
-    Image image = imageIcon.getImage();
-    Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-    ImageIcon scaledIcon = new ImageIcon(scaledImage);
-    setIcon(scaledIcon);
+    // If the width or height has been increased, reload the image
+    // This is necessary to avoid pixelation
+    else {
+      this.width = width;
+      this.height = height;
+      ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
+      setIcon(image);
+    }
   }
 
 }
