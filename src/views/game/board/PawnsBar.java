@@ -16,7 +16,7 @@ public class PawnsBar extends JPanel implements GameStatusListener {
   int heightPawn;
 
   public PawnsBar() {
-    setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+    setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
 
     // Register this class as a game status listener
     GameStatusHandler.addGameStatusListener(this);

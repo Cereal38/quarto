@@ -31,6 +31,8 @@ public class BoardWrapper extends JPanel {
     float cellSize = (height - height * GAP_FACTOR) / 4;
     float gap = (height - cellSize * 4) / 5;
 
+    DimensionUtils.setBoardCellSize((int) cellSize);
+
     // Get the position of the top left corner of the board
     float horizontalMargin = (float) (width / 2 - cellSize * 2 - gap * 1.5);
     float verticalMargin = gap;
@@ -48,11 +50,14 @@ public class BoardWrapper extends JPanel {
         int wFrame = DimensionUtils.getMainFrameWidth();
         int hTopBar = DimensionUtils.getBoardTopBarHeight();
         int hPawnsBar = DimensionUtils.getBoardPawnsBarHeight();
+        int wHistory = DimensionUtils.getHistoryWidth();
         int height = hFrame - hTopBar - hPawnsBar;
-        int width = wFrame;
+        int width = wFrame - wHistory;
 
         float cellSize = (height - height * GAP_FACTOR) / 4;
         float gap = (height - cellSize * 4) / 5;
+
+        DimensionUtils.setBoardCellSize((int) cellSize);
 
         float horizontalMargin = (float) (width / 2 - cellSize * 2 - gap * 1.5);
         float verticalMargin = gap;

@@ -6,11 +6,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
+import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
 public class Cell extends JPanel {
-  private int size = 50; // TODO: Make it dynamic
   private Pawn pawn;
   private int line;
   private int column;
@@ -53,6 +53,7 @@ public class Cell extends JPanel {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
+    int size = DimensionUtils.getBoardCellSize();
     if (pawn == null) {
       g.drawOval(0, 0, size, size);
     } else {
