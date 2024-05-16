@@ -13,6 +13,7 @@ import src.views.game.board.Cell;
 import src.views.listeners.ViewModelListener;
 import src.views.utils.DimensionUtils;
 import src.views.utils.FormatUtils;
+import src.views.utils.PawnUtils;
 
 public class ViewModelController implements ViewModelListener {
   QuartoModel quartoModel;
@@ -101,7 +102,7 @@ public class ViewModelController implements ViewModelListener {
       for (int j = 0; j < 4; j++) {
         Pawn pawn = null;
         if (pawns[i][j] != null) {
-          pawn = new Pawn(FormatUtils.byteToString(pawns[i][j].getPawn()), Pawn.PLAYED, size, size);
+          pawn = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i][j].getPawn()), Pawn.PLAYED, size, size);
         }
         tableCells[i][j] = new Cell(pawn, i, j);
       }
@@ -128,12 +129,12 @@ public class ViewModelController implements ViewModelListener {
     List<Pawn> pawnList = new ArrayList<>();
     for (int i = 0; i < pawns.length; i++) {
       if (pawns[i] != null) {
-        pawnList.add(new Pawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, 50, 50));
+        pawnList.add(PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, 50, 50));
       }
     }
     // Add the selected pawn
     if (getSelectedPawn() != null) {
-      pawnList.add(new Pawn(FormatUtils.byteToString(getSelectedPawn().getPawn()), Pawn.SELECTED, 50, 50));
+      pawnList.add(PawnUtils.getPawn(FormatUtils.byteToString(getSelectedPawn().getPawn()), Pawn.SELECTED, 50, 50));
     }
     return pawnList;
   }
