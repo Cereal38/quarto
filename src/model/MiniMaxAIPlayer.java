@@ -1,10 +1,14 @@
 package src.model;
 
+import java.util.Random;
+
 public class MiniMaxAIPlayer implements Player {
     private int maxDepth;
+    private Random random;
 
     public MiniMaxAIPlayer(int maxDepth) {
         this.maxDepth = maxDepth;
+        random = new Random();
     }
 
     public int[] getBestMove(QuartoModel quartoModel) {
@@ -17,11 +21,12 @@ public class MiniMaxAIPlayer implements Player {
                 if (quartoModel.isTableEmpty(i, j)) {
                     // Simulate placing a pawn at this position
                     simulatePlacePawn(quartoModel, i, j);
-
+                    selectPawn(quartoModel);
                     // Calculate the score for this move using Min-Max algorithm
                     int score = minMax(quartoModel, 0, false);
 
                     // Undo the simulation
+                    undoSimulation(quartoModel);
                     undoSimulation(quartoModel);
 
                     // If the calculated score is better than the best found so far, update bestMove and bestScore
@@ -51,11 +56,12 @@ public class MiniMaxAIPlayer implements Player {
                     if (quartoModel.isTableEmpty(i, j)) {
                         // Simulate placing a pawn at this position
                         simulatePlacePawn(quartoModel, i, j);
-
+                        selectPawn(quartoModel);
                         // Recursively call minMax with depth increased and switch player
                         int score = minMax(quartoModel, depth + 1, false);
 
                         // Undo the simulation
+                        undoSimulation(quartoModel);
                         undoSimulation(quartoModel);
 
                         // Update the bestScore
@@ -72,11 +78,12 @@ public class MiniMaxAIPlayer implements Player {
                     if (quartoModel.isTableEmpty(i, j)) {
                         // Simulate placing a pawn at this position
                         simulatePlacePawn(quartoModel, i, j);
-
+                        selectPawn(quartoModel);
                         // Recursively call minMax with depth increased and switch player
                         int score = minMax(quartoModel, depth + 1, true);
 
                         // Undo the simulation
+                        undoSimulation(quartoModel);
                         undoSimulation(quartoModel);
 
                         // Update the bestScore
@@ -125,11 +132,8 @@ public class MiniMaxAIPlayer implements Player {
         return (-1 * riskValue);
     }
 
-
-
-
     private void simulatePlacePawn (QuartoModel quartoModel, int row,  int column){
-        quartoModel.playShot(row, column);
+        quartoModel.playShotHuman(row, column);
     }
 
     private void undoSimulation (QuartoModel quartoModel){
@@ -137,15 +141,32 @@ public class MiniMaxAIPlayer implements Player {
     }
 
     @Override
-    public void selectPawn(QuartoModel quartoModel){
-        quartoModel.selectPawnHuman(0);
+    public void selectPawn(QuartoModel quartoModel) {
+        QuartoPawn[] pawnAvailable = quartoModel.getPawnAvailable();
+        int availableCount = 0;
+        for (QuartoPawn pawn : pawnAvailable) {
+            if (pawn != null) {
+                availableCount++;
+            }
+        } 
+        int selectedIndex = random.nextInt(availableCount);
+        int count = 0;
+        for (int i = 0; i < pawnAvailable.length; i++) {
+            if (pawnAvailable[i] != null) {
+                if (count == selectedIndex) {
+                    quartoModel.selectPawnHuman(i);
+                    break;
+                }
+                count++;
+            }
+        }
     }
 
     @Override
     public void playShot(QuartoModel quartoModel) {
         int[] bestMove = getBestMove(quartoModel);
         quartoModel.playShotHuman(bestMove[0], bestMove[1]);
-        System.out.println("Shot played by AI at (" + bestMove[0] +"," + bestMove[1] + ")." );
+        System.out.println("Shot played by Minimax AI at (" + bestMove[0] +"," + bestMove[1] + ")." );
     }
 
 }

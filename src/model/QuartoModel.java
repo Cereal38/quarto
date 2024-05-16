@@ -14,7 +14,7 @@ public class QuartoModel {
     private QuartoWin win;
     private SlotManager manager;
     private String firstPlayerName, secondPlayerName;
-    private Player randomAIPlayer, easyAIPlayer;
+    private Player randomAIPlayer, easyAIPlayer, minimaxAIPlayer;
     private boolean gameOver = false; // true if end game
 
     public QuartoModel(int index) {
@@ -28,6 +28,9 @@ public class QuartoModel {
         }
         if (playerType[0] == 2 || playerType[1] == 2) {
             easyAIPlayer = new EasyAIPlayer();
+        }
+        if(playerType[0] == 3 || playerType[1] == 3) {
+            minimaxAIPlayer = new MiniMaxAIPlayer(2);
         }
     }
 
@@ -43,6 +46,9 @@ public class QuartoModel {
         }
         if (playerType[0] == 2 || playerType[1] == 2) {
             easyAIPlayer = new EasyAIPlayer();
+        }
+        if(playerType[0] == 3 || playerType[1] == 3) {
+            minimaxAIPlayer = new MiniMaxAIPlayer(2);
         }
     }
 
@@ -76,6 +82,8 @@ public class QuartoModel {
             if (file.getPreviousState() == 0) {// we remove a placed pawn
                 setSelectedPawn(getPawnAtPosition(file.getLine(), file.getColumn()));
                 setTable(file.getLine(), file.getColumn(), null);
+                if (gameOver)
+                    gameOver = false;
             } else if (file.getPreviousState() == 1) {// we add the pawn chosen to the list of pawn available.
                 pawnAvailable[file.getIndexPawn()] = getSelectedPawn();
                 setSelectedPawn(null);
@@ -89,14 +97,17 @@ public class QuartoModel {
     }
 
     public void selectPawn(int indexPawn) {
-        if (pawnAvailable[indexPawn] != null) {
-            if (getCurrentPlayerType() == 1) {
-                randomAIPlayer.selectPawn(this);
-            }
-            else if (getCurrentPlayerType() == 2){
-                easyAIPlayer.selectPawn(this);
-            }
-            else {
+        if (getCurrentPlayerType() == 1) {
+            randomAIPlayer.selectPawn(this);
+        }
+        else if (getCurrentPlayerType() == 2){
+            easyAIPlayer.selectPawn(this);
+        }
+        else if (getCurrentPlayerType() == 3){
+            minimaxAIPlayer.selectPawn(this);
+        }
+        else {
+            if (pawnAvailable[indexPawn] != null) {
                 selectPawnHuman(indexPawn);
             }
         }
@@ -131,6 +142,9 @@ public class QuartoModel {
         else if(getCurrentPlayerType() == 2){
             easyAIPlayer.playShot(this);
         }
+        else if(getCurrentPlayerType() == 3){
+            minimaxAIPlayer.playShot(this);
+        }
         else {
             playShotHuman(line, column);
         }
@@ -159,7 +173,7 @@ public class QuartoModel {
         }
     }
 
-    public boolean goodInfoPlayer(int index) {
+    public boolean checkInfoPlayer(int index) {
         int countUndo = 0;
         manager.loadFromDirectory();
         while (file.canUndo()) {
@@ -197,7 +211,7 @@ public class QuartoModel {
     }
 
     public void chargeGame(int index) {
-        if (!goodInfoPlayer(index))
+        if (!checkInfoPlayer(index))
             return;
         QuartoHistory copy = file.getHead();
         boolean afterSave = false;
@@ -288,7 +302,8 @@ public class QuartoModel {
     public QuartoHistory getFirstState() {
         return file.getHead();
     }
+
     public boolean isGameOver() {
-        return gameOver;
+        return gameOver || (selectedPawn == null && isPawnListEmpty());
     }
 }

@@ -97,10 +97,10 @@ public class QuartoGameTester {
                     }
                     else {
                         quartoModel.playShot(0, 0);
-                        if (!quartoModel.isPawnListEmpty()) {
-                            quartoModel.selectPawn(0);
-                            System.out.println("Pawn " + quartoModel.getSelectedPawn().getPawn() + " selected by the ai.");
-                        }
+                        //if (!quartoModel.isPawnListEmpty()) {
+                        //    quartoModel.selectPawn(0);
+                        //    System.out.println("Pawn " + quartoModel.getSelectedPawn().getPawn() + " selected by the ai.");
+                        //}
                     }
                 }
             } else if (input.equalsIgnoreCase("undo")) {
