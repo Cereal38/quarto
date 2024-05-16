@@ -1,8 +1,6 @@
 package src.views.game.history;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import src.model.QuartoHistory;
@@ -13,7 +11,8 @@ import src.views.utils.GameStatusHandler;
 public class MovesHistory extends JScrollPane implements GameStatusListener {
 
   private JPanel movesContainer;
-  JButton button = new JButton("Add Move"); // TODO: Remove this button when not needed anymore
+  // JButton button = new JButton("Add Move"); // TODO: Remove this button when
+  // not needed anymore
 
   public MovesHistory() {
     // Set a layout for the moves in the history
@@ -22,8 +21,8 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
 
     GameStatusHandler.addGameStatusListener(this);
 
-    // make it small
-    button.setPreferredSize(new Dimension(250, 50));
+    // // make it small
+    // button.setPreferredSize(new Dimension(250, 50));
 
     // // Add the button to the history
     // movesContainer.add(button);

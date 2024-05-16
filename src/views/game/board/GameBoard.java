@@ -33,6 +33,7 @@ public class GameBoard extends JPanel {
 
     MovesHistory movesHistory = new MovesHistory();
     BorderCenterPanel movesHistoryWrapper = new BorderCenterPanel(movesHistory, 50, 0, 50, 0);
+    movesHistoryWrapper.setPreferredSize(new Dimension(250, heightFrame - heightTopBar - heightPawnsBar));
     DimensionUtils.setHistory(250, heightFrame - heightTopBar - heightPawnsBar);
 
     // Add components
