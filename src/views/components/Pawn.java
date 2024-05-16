@@ -1,6 +1,7 @@
 package src.views.components;
 
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
@@ -63,6 +64,33 @@ public class Pawn extends JButton {
    */
   private boolean canSelect() {
     return EventsHandler.getController().isSelectionPhase() && !EventsHandler.getController().isCurrentPlayerAI();
+  }
+
+  public void update(int state, int width, int height) {
+
+    // Update the state if it has changed
+    if (this.state != state) {
+      this.state = state;
+      if (state == SELECTED) {
+        setBorder(BorderFactory.createLineBorder(java.awt.Color.RED, 2));
+      } else {
+        setBorder(BorderFactory.createEmptyBorder());
+      }
+    }
+
+    // Resize the pawn only if the width or height has changed
+    if (this.width == width && this.height == height) {
+      return;
+    }
+
+    this.width = width;
+    this.height = height;
+
+    ImageIcon imageIcon = (ImageIcon) getIcon();
+    Image image = imageIcon.getImage();
+    Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+    setIcon(scaledIcon);
   }
 
 }

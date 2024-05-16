@@ -2,6 +2,9 @@ package src.views.utils;
 
 import src.model.QuartoPawn;
 
+/**
+ * This class contains all the methods used to format the data.
+ */
 public class FormatUtils {
 
   /**
@@ -43,6 +46,17 @@ public class FormatUtils {
    */
   public static int stringToIndex(String str) {
     return Integer.parseInt(str, 2);
+  }
+
+  /**
+   * Converts an index in the range 0-15 to a string in format "0110". It's used
+   * for some purposes in the model.
+   * 
+   * @param index the index to convert
+   * @return the string value
+   */
+  public static String indexToString(int index) {
+    return String.format("%4s", Integer.toBinaryString(index)).replace(' ', '0');
   }
 
 }
