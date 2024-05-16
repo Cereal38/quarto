@@ -97,7 +97,7 @@ public class QuartoModel {
   public void selectPawnHuman(int indexPawn) {
     setSelectedPawn(pawnAvailable[indexPawn]);
     // Add a new history because we chose what pawn the next player will play.
-    file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave()));
+    file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
     file.getSave().getNext().setPrevious(file.getSave());
     file.setSave(file.getSave().getNext());
     pawnAvailable[indexPawn] = null;
@@ -129,7 +129,7 @@ public class QuartoModel {
       setTable(line, column, selectedPawn);
       winSituation(line, column);
       setSelectedPawn(null);
-      file.getSave().setNext(new QuartoHistory(line, column, file.getSave()));
+      file.getSave().setNext(new QuartoHistory(line, column, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
       file.getSave().getNext().setPrevious(file.getSave());
       file.setSave(file.getSave().getNext());
     }
@@ -222,8 +222,12 @@ public class QuartoModel {
     return table[line][column];
   }
 
-  public void saveFile(String fileName) throws IOException {
-    file.saveFile(fileName, firstPlayerName, secondPlayerName, playerType);
+  public void saveFile(int index) throws IOException {
+    manager.loadFromDirectory();
+    manager.renameSlotFile(index, firstPlayerName, secondPlayerName);
+    String fileName = firstPlayerName + "_vs_" + secondPlayerName + ".txt";
+    String filePath = "slots" + File.separator + fileName;
+    file.saveFile(filePath, firstPlayerName, secondPlayerName, playerType);
   }
 
   public QuartoPawn[][] getTable() {
@@ -259,5 +263,21 @@ public class QuartoModel {
       throw new IllegalArgumentException("playerType array must have length 2");
     }
     this.playerType = playerType;
+  }
+  
+  public String getNameOfTheCurrentPlayer() {
+      return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
+  }
+  
+  public int stateOfGame() {
+    return (file.getState() == 0) ? 1 : 0;
+  }
+  
+  public QuartoHistory getCurrentState() {
+    return file.getSave();
+  }
+
+  public QuartoHistory getFirstState() {
+    return file.getHead();
   }
 }
