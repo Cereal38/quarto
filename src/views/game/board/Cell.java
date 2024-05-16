@@ -26,13 +26,11 @@ public class Cell extends JPanel {
 
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        // Only allow the player to place a pawn during the play phase and if the cell
-        // is empty
-        if (EventsHandler.getController().isPlayPhase() && !hasPawn()) {
+        if (canPlay()) {
           GameStatusHandler.playShot(line, column);
           repaint();
         } else {
-          System.err.println("Error: The cell is already occupied or the game phase does not allow to play a pawn.");
+          System.err.println("Error: Can't play a pawn right now.");
         }
       }
     });
@@ -42,13 +40,25 @@ public class Cell extends JPanel {
     return pawn != null;
   }
 
+  /**
+   * Checks if a player can play a pawn in this cell.
+   * 
+   * @return true if it's possible.
+   */
+  private boolean canPlay() {
+    return EventsHandler.getController().isPlayPhase() && !hasPawn()
+        && !EventsHandler.getController().isCurrentPlayerAI();
+  }
+
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g.drawOval(0, 0, size, size);
-    if (pawn != null) {
+    if (pawn == null) {
+      g.drawOval(0, 0, size, size);
+    } else {
       pawn.setBounds(0, 0, size, size);
       pawn.paint(g);
     }
+
   }
 }
