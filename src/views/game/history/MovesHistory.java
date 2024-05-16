@@ -1,6 +1,9 @@
 package src.views.game.history;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import src.model.QuartoHistory;
@@ -11,47 +14,43 @@ import src.views.utils.GameStatusHandler;
 public class MovesHistory extends JScrollPane implements GameStatusListener {
 
   private JPanel movesContainer;
-  // JButton button = new JButton("Add Move"); // TODO: Remove this button when
-  // not needed anymore
+  private List<Move> moveComponents; // List to keep track of Move components
+  private int maxDisplayedMoves = 10; // Maximum displayed moves
 
   public MovesHistory() {
     // Set a layout for the moves in the history
     movesContainer = new JPanel();
     movesContainer.setLayout(new GridLayout(0, 1));
+    moveComponents = new ArrayList<>(); // Initialize the list
 
     GameStatusHandler.addGameStatusListener(this);
 
-    // // make it small
-    // button.setPreferredSize(new Dimension(250, 50));
+    movesContainer.setPreferredSize(new Dimension(250, maxDisplayedMoves * 50)); // Adjusted based on
+                                                                                 // maxDisplayedMoves
 
-    // // Add the button to the history
-    // movesContainer.add(button);
-
-    // // make the button add a move to the history on the top of the list
-    // button.addActionListener(e -> {
-
-    // });
-
-    // Set the preferred size of the moves container
-    // movesContainer.setPreferredSize(new Dimension(250, 1000));
-
-    // Make the container scrollable
     setViewportView(movesContainer);
     setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
   }
 
   // Add a move to the history on the top of the list
   public void addMove(String move) {
-    Move newMove = new Move(move);
-    movesContainer.add(newMove);
+    Move newMove;
+    if (moveComponents.size() < maxDisplayedMoves) {
+      newMove = new Move(move);
+      movesContainer.add(newMove);
+      moveComponents.add(newMove);
+    } else {
+      newMove = moveComponents.remove(0);
+      newMove.updateMoveText(move); // Update the text
+      moveComponents.add(newMove);
+    }
     movesContainer.revalidate();
     movesContainer.repaint();
   }
 
-  // Clear the history moves and not the button
   public void clear() {
     movesContainer.removeAll();
-    // movesContainer.add(button);
+    moveComponents.clear(); // Clear the move components list
     movesContainer.revalidate();
     movesContainer.repaint();
   }
@@ -59,23 +58,30 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
   public void updateHistory() {
     QuartoHistory save = EventsHandler.getController().getModel().getCurrentState();
 
-    // clear the history
     clear();
 
-    while (save.getPrevious() != null) {
+    boolean isFirstMove = true; // Flag to check if it's the first move
 
+    while (save != null) {
       String name = save.getName();
       int pawn = save.getIndexPawn();
       int x = save.getLine();
       int y = save.getColumn();
 
-      if (save.getIndexPawn() != 0) {
-        String selected = name + " selected the pawn " + pawn;
-        addMove(selected);
-      } else {
-        String placed = name + " placed the pawn " + " at " + x + " " + y;
-        addMove(placed);
+      // Skip adding the first move if it's null
+      if (isFirstMove && name == null && pawn == 0 && x == 0 && y == 0) {
+        save = save.getPrevious();
+        isFirstMove = false;
+        continue;
       }
+
+      String moveDescription;
+      if (pawn != 0) {
+        moveDescription = name + " selected the pawn " + pawn;
+      } else {
+        moveDescription = name + " placed the pawn at " + x + " " + y;
+      }
+      addMove(moveDescription);
 
       save = save.getPrevious();
     }
@@ -83,10 +89,7 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
 
   @Override
   public void update() {
-    // Clear the history moves
     clear();
-
-    // Update the history moves
     updateHistory();
   }
 }
