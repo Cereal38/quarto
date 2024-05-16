@@ -50,8 +50,9 @@ public class BoardWrapper extends JPanel {
         int wFrame = DimensionUtils.getMainFrameWidth();
         int hTopBar = DimensionUtils.getBoardTopBarHeight();
         int hPawnsBar = DimensionUtils.getBoardPawnsBarHeight();
+        int wHistory = DimensionUtils.getHistoryWidth();
         int height = hFrame - hTopBar - hPawnsBar;
-        int width = wFrame;
+        int width = wFrame - wHistory;
 
         float cellSize = (height - height * GAP_FACTOR) / 4;
         float gap = (height - cellSize * 4) / 5;

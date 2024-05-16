@@ -12,6 +12,7 @@ public class GameBoard extends JPanel {
   public GameBoard() {
     setLayout(new BorderLayout());
 
+    int heightFrame = DimensionUtils.getMainFrameHeight();
     int widthFrame = DimensionUtils.getMainFrameWidth();
 
     // Setup top bar
@@ -32,6 +33,7 @@ public class GameBoard extends JPanel {
 
     MovesHistory movesHistory = new MovesHistory();
     BorderCenterPanel movesHistoryWrapper = new BorderCenterPanel(movesHistory, 50, 0, 50, 0);
+    DimensionUtils.setHistory(250, heightFrame - heightTopBar - heightPawnsBar);
 
     // Add components
     add(topBarGameBoard, BorderLayout.NORTH);

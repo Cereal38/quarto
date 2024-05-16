@@ -1,6 +1,7 @@
 package src.views.game.history;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -8,86 +9,85 @@ import src.model.QuartoHistory;
 import src.views.listeners.GameStatusListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
-import java.awt.GridLayout;
 
 public class MovesHistory extends JScrollPane implements GameStatusListener {
 
-    private JPanel movesContainer;
-    JButton button = new JButton("Add Move");
+  private JPanel movesContainer;
+  JButton button = new JButton("Add Move"); // TODO: Remove this button when not needed anymore
 
-    public MovesHistory() {
-        // Set a layout for the moves in the history
-        movesContainer = new JPanel();
-        movesContainer.setLayout(new GridLayout(0, 1));
+  public MovesHistory() {
+    // Set a layout for the moves in the history
+    movesContainer = new JPanel();
+    movesContainer.setLayout(new GridLayout(0, 1));
 
-        GameStatusHandler.addGameStatusListener(this);
+    GameStatusHandler.addGameStatusListener(this);
 
-        // make it small
-        button.setPreferredSize(new Dimension(250, 50));
+    // make it small
+    button.setPreferredSize(new Dimension(250, 50));
 
-        // // Add the button to the history
-        // movesContainer.add(button);
+    // // Add the button to the history
+    // movesContainer.add(button);
 
-        // // make the button add a move to the history on the top of the list
-        // button.addActionListener(e -> {
+    // // make the button add a move to the history on the top of the list
+    // button.addActionListener(e -> {
 
-        // });
+    // });
 
-        // Set the preferred size of the moves container
-        movesContainer.setPreferredSize(new Dimension(250, 1000));
+    // Set the preferred size of the moves container
+    // movesContainer.setPreferredSize(new Dimension(250, 1000));
 
-        // Make the container scrollable
-        setViewportView(movesContainer);
-        setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    // Make the container scrollable
+    setViewportView(movesContainer);
+    setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+  }
+
+  // Add a move to the history on the top of the list
+  public void addMove(String move) {
+    Move newMove = new Move(move);
+    movesContainer.add(newMove);
+    movesContainer.revalidate();
+    movesContainer.repaint();
+  }
+
+  // Clear the history moves and not the button
+  public void clear() {
+    movesContainer.removeAll();
+    // movesContainer.add(button);
+    movesContainer.revalidate();
+    movesContainer.repaint();
+  }
+
+  public void updateHistory() {
+    QuartoHistory save = EventsHandler.getController().getModel().getCurrentState();
+
+    // clear the history
+    clear();
+
+    while (save.getPrevious() != null) {
+
+      String name = save.getName();
+      int pawn = save.getIndexPawn();
+      int x = save.getLine();
+      int y = save.getColumn();
+
+      if (save.getIndexPawn() != 0) {
+        String selected = name + " selected the pawn " + pawn;
+        addMove(selected);
+      } else {
+        String placed = name + " placed the pawn " + " at " + x + " " + y;
+        addMove(placed);
+      }
+
+      save = save.getPrevious();
     }
+  }
 
-    // Add a move to the history on the top of the list
-    public void addMove(String move) {
-        Move newMove = new Move(move);
-        movesContainer.add(newMove);
-        movesContainer.revalidate();
-        movesContainer.repaint();
-    }
+  @Override
+  public void update() {
+    // Clear the history moves
+    clear();
 
-    // Clear the history moves and not the button
-    public void clear() {
-        movesContainer.removeAll();
-        // movesContainer.add(button);
-        movesContainer.revalidate();
-        movesContainer.repaint();
-    }
-
-    public void updateHistory() {
-        QuartoHistory save = EventsHandler.getController().getModel().getCurrentState();
-
-        // clear the history
-        clear();
-
-        while (save.getPrevious() != null) {
-
-            String name = save.getName();
-            int pawn = save.getIndexPawn();
-            int x = save.getLine();
-            int y = save.getColumn();
-
-            if (save.getIndexPawn() != 0) {
-                String selected = name + " selected the pawn " + pawn;
-                addMove(selected);
-            } else {
-                String placed = name + " placed the pawn " + " at " + x + " " + y;
-                addMove(placed);
-            }
-
-            save = save.getPrevious();
-        }
-    }
-
-    @Override
-    public void update() {
-        // Clear the history moves
-        clear();
-
-        // Update the history moves
-        updateHistory();
-    }
+    // Update the history moves
+    updateHistory();
+  }
 }
