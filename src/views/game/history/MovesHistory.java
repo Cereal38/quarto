@@ -57,7 +57,7 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
         moveConstraints.fill = GridBagConstraints.HORIZONTAL;
         moveConstraints.weightx = 1.0;
 
-        int moveNumber = moveComponents.size();
+        int moveNumber = 1; // Start with 1 for the most recent move
 
         // Add moves to container with separators in between
         for (int i = moveComponents.size() - 1; i >= 0; i--) {
@@ -75,7 +75,7 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
             movesContainer.add(new JSeparator(JSeparator.HORIZONTAL), moveConstraints);
             moveConstraints.gridwidth = 1; // Reset grid width
 
-            moveNumber--; // Decrement the move number for the next iteration
+            moveNumber++; // Increment the move number for the next iteration
         }
 
         movesContainer.revalidate();
