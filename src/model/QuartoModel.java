@@ -30,7 +30,7 @@ public class QuartoModel {
             easyAIPlayer = new EasyAIPlayer();
         }
         if(playerType[0] == 3 || playerType[1] == 3) {
-            minimaxAIPlayer = new MiniMaxAIPlayer(2);
+            minimaxAIPlayer = new MiniMaxAIPlayer(6);
         }
     }
 
@@ -305,5 +305,9 @@ public class QuartoModel {
 
     public boolean isGameOver() {
         return gameOver || (selectedPawn == null && isPawnListEmpty());
+    }
+
+    public QuartoPawn getPawn(int pawnIndex){
+        return getPawnAvailable()[pawnIndex];
     }
 }
