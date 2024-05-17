@@ -12,6 +12,7 @@ import src.views.players.names.ChoosePlayers;
 import src.views.rules.RulesPage;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
+import src.views.utils.PawnUtils;
 
 public class MainFrame extends JFrame {
   private CardLayout cardLayout;
@@ -67,13 +68,15 @@ public class MainFrame extends JFrame {
     getLayeredPane().add(rules, -1);
     getLayeredPane().add(about, -1);
 
-
     // Setup the EventsHandler
     EventsHandler.setCardLayout(cardLayout);
     EventsHandler.setMainPanel(mainPanel);
     EventsHandler.setDialog(dialog);
     EventsHandler.setDialog(rules);
     EventsHandler.setDialog(about);
+
+    // Load all pawns
+    PawnUtils.initPawns();
 
     setVisible(true);
   }
