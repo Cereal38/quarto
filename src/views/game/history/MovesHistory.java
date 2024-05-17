@@ -40,7 +40,7 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
 
     public void addMove(String move) {
         Move newMove = new Move(move);
-        moveComponents.add(0, newMove); // Add at the beginning of the list (to show newest moves first)
+        moveComponents.add(newMove);
         updateMovesContainer();
     }
 
@@ -57,20 +57,31 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
         moveConstraints.fill = GridBagConstraints.HORIZONTAL;
         moveConstraints.weightx = 1.0;
 
-        // Add moves to container with separators in between
-        for (int i = 0; i < moveComponents.size(); i++) {
-            moveConstraints.gridy = 2 * i; // Move
-            movesContainer.add(moveComponents.get(i), moveConstraints);
+        int moveNumber = moveComponents.size();
 
-            // Add separator
-            moveConstraints.gridy = 2 * i + 1; // Separator
+        // Add moves to container with separators in between
+        for (int i = moveComponents.size() - 1; i >= 0; i--) {
+            moveConstraints.gridy = 2 * i; // Move
+            // Add move number label
+            JLabel moveNumberLabel = new JLabel("Move " + moveNumber + ":");
+            movesContainer.add(moveNumberLabel, moveConstraints);
+            moveConstraints.gridx = 1;
+            movesContainer.add(moveComponents.get(i), moveConstraints);
+            moveConstraints.gridx = 0;
+
+            // Add separator that spans across both columns
+            moveConstraints.gridy = 2 * (moveComponents.size() - 1 - i) + 1; // Separator
+            moveConstraints.gridwidth = 2; // Span across two columns
             movesContainer.add(new JSeparator(JSeparator.HORIZONTAL), moveConstraints);
+            moveConstraints.gridwidth = 1; // Reset grid width
+
+            moveNumber--; // Decrement the move number for the next iteration
         }
 
         movesContainer.revalidate();
         movesContainer.repaint();
-        // Scroll to the bottom
-        getVerticalScrollBar().setValue(getVerticalScrollBar().getMaximum());
+        // Scroll to the top
+        getVerticalScrollBar().setValue(0);
     }
 
     public void updateHistory() {
@@ -89,6 +100,7 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
                 } else {
                     moveDescription = name + " placed the pawn at " + x + " " + y;
                 }
+                // Add the move to the history at the top
                 addMove(moveDescription);
             }
 
