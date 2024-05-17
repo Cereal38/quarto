@@ -63,7 +63,7 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
         for (int i = moveComponents.size() - 1; i >= 0; i--) {
             moveConstraints.gridy = 2 * i; // Move
             // Add move number label
-            JLabel moveNumberLabel = new JLabel("Move " + moveNumber + ":");
+            JLabel moveNumberLabel = new JLabel(moveNumber + " .");
             movesContainer.add(moveNumberLabel, moveConstraints);
             moveConstraints.gridx = 1;
             movesContainer.add(moveComponents.get(i), moveConstraints);
