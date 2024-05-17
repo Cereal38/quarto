@@ -9,7 +9,7 @@ import java.awt.Font;
 public class Move extends JLabel {
     public Move(String text) {
         super(text);
-        setPreferredSize(new Dimension(200, 50)); // Fixed size
+        setPreferredSize(new Dimension(180, 50)); // Fixed size
         setBorder(new EmptyBorder(5, 5, 5, 5)); // Padding
         // set a black border to the label
         setForeground(Color.BLACK);

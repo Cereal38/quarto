@@ -74,7 +74,8 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
             moveConstraints.gridwidth = 2; // Span across two columns
             movesContainer.add(new JSeparator(JSeparator.HORIZONTAL), moveConstraints);
             moveConstraints.gridwidth = 1; // Reset grid width
-
+            // set color of the separator to black
+            movesContainer.getComponent(movesContainer.getComponentCount() - 1).setForeground(java.awt.Color.BLACK);
             moveNumber++; // Increment the move number for the next iteration
         }
 
