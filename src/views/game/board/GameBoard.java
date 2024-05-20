@@ -54,8 +54,10 @@ public class GameBoard extends JPanel implements GameStatusListener {
     pawnsBar.setPreferredSize(new Dimension(widthPawnsBar, HEIGHT_PAWNS_BAR));
     BorderCenterPanel pawnsBarWrapper = new BorderCenterPanel(pawnsBar, 0, 0, 0, WIDTH_HISTORY);
 
+    // Setup board
     BoardWrapper boardWrapper = new BoardWrapper();
 
+    // Setup history
     MovesHistory movesHistory = new MovesHistory();
     BorderCenterPanel movesHistoryWrapper = new BorderCenterPanel(movesHistory, 50, 0, 50, 0);
     movesHistoryWrapper.setPreferredSize(new Dimension(WIDTH_HISTORY, heightFrame - HEIGHT_TOP_BAR - HEIGHT_PAWNS_BAR));
@@ -66,5 +68,8 @@ public class GameBoard extends JPanel implements GameStatusListener {
     add(boardWrapper, BorderLayout.CENTER);
     add(movesHistoryWrapper, BorderLayout.EAST);
     add(pawnsBarWrapper, BorderLayout.SOUTH);
+
+    revalidate();
+    repaint();
   }
 }
