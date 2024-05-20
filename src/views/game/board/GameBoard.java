@@ -42,6 +42,7 @@ public class GameBoard extends JPanel implements GameStatusListener {
     int heightFrame = DimensionUtils.getMainFrameHeight();
     int widthTopBar = widthFrame;
     int widthPawnsBar = widthFrame - WIDTH_HISTORY;
+    int pawnsBarPawnSize = widthPawnsBar / 16;
 
     // Setup top bar
     TopBarGameBoard topBarGameBoard = new TopBarGameBoard();
@@ -50,9 +51,9 @@ public class GameBoard extends JPanel implements GameStatusListener {
 
     // Setup pawns bar. Add a wrapper to add right margin
     DimensionUtils.setBoardPawnsBar(widthPawnsBar, HEIGHT_PAWNS_BAR);
-    PawnsBar pawnsBar = new PawnsBar();
-    pawnsBar.setPreferredSize(new Dimension(widthPawnsBar, HEIGHT_PAWNS_BAR));
+    PawnsBar pawnsBar = new PawnsBar(widthPawnsBar, HEIGHT_PAWNS_BAR);
     BorderCenterPanel pawnsBarWrapper = new BorderCenterPanel(pawnsBar, 0, 0, 0, WIDTH_HISTORY);
+    DimensionUtils.setBarCellSize(pawnsBarPawnSize);
 
     // Setup board
     BoardWrapper boardWrapper = new BoardWrapper();
