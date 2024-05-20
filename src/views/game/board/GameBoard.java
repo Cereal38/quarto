@@ -2,6 +2,8 @@ package src.views.game.board;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JPanel;
 import src.views.components.BorderCenterPanel;
 import src.views.game.history.MovesHistory;
@@ -23,6 +25,14 @@ public class GameBoard extends JPanel implements GameStatusListener {
     GameStatusHandler.addGameStatusListener(this);
 
     update();
+
+    // Resize listener
+    this.addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentResized(ComponentEvent e) {
+        update();
+      }
+    });
 
   }
 
