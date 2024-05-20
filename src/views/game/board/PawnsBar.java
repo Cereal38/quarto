@@ -16,6 +16,7 @@ public class PawnsBar extends JPanel {
     // Get the available pawns
     List<Pawn> pawns = EventsHandler.getController().getAvailablePawns();
 
+    // Display the pawns
     for (Pawn pawn : pawns) {
       add(pawn);
     }
