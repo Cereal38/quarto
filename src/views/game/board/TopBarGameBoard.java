@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import src.views.components.TranslatedLabel;
 import src.views.listeners.GameStatusListener;
 import src.views.utils.EventsHandler;
-import src.views.utils.GameStatusHandler;
 
 public class TopBarGameBoard extends JPanel implements GameStatusListener {
   private UndoButton btnUndo = new UndoButton();
@@ -25,7 +24,7 @@ public class TopBarGameBoard extends JPanel implements GameStatusListener {
     EventsHandler.setPauseMenuButton(btnPause);
 
     // Register this class as a game status listener
-    GameStatusHandler.addGameStatusListener(this);
+    // GameStatusHandler.addGameStatusListener(this);
 
     // Add action listeners to the buttons
     btnPause.addActionListener(e -> {

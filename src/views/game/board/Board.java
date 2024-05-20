@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import src.views.listeners.GameStatusListener;
 import src.views.utils.EventsHandler;
-import src.views.utils.GameStatusHandler;
 
 public class Board extends JPanel implements GameStatusListener {
 
@@ -13,7 +12,7 @@ public class Board extends JPanel implements GameStatusListener {
   public Board(int cellSize) {
 
     // Register this class as a game status listener
-    GameStatusHandler.addGameStatusListener(this);
+    // GameStatusHandler.addGameStatusListener(this);
 
     setLayout(new GridLayout(4, 4));
 
