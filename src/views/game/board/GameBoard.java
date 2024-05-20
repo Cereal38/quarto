@@ -25,11 +25,11 @@ public class GameBoard extends JPanel {
     DimensionUtils.setBoardTopBar(widthTopBar, heightTopBar);
 
     // Setup pawns bar. Add a wrapper to add right margin
-    PawnsBar pawnsBar = new PawnsBar();
     int widthPawnsBar = widthFrame - WIDTH_HISTORY;
     int heightPawnsBar = 70;
-    pawnsBar.setPreferredSize(new Dimension(widthPawnsBar, heightPawnsBar));
     DimensionUtils.setBoardPawnsBar(widthPawnsBar, heightPawnsBar);
+    PawnsBar pawnsBar = new PawnsBar();
+    pawnsBar.setPreferredSize(new Dimension(widthPawnsBar, heightPawnsBar));
     BorderCenterPanel pawnsBarWrapper = new BorderCenterPanel(pawnsBar, 0, 0, 0, WIDTH_HISTORY);
 
     BoardWrapper boardWrapper = new BoardWrapper();

@@ -12,8 +12,7 @@ import src.views.utils.GameStatusHandler;
 public class PawnsBar extends JPanel implements GameStatusListener {
 
   private List<Pawn> pawns;
-  int widthPawn;
-  int heightPawn;
+  int size;
 
   public PawnsBar() {
     setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
@@ -23,9 +22,8 @@ public class PawnsBar extends JPanel implements GameStatusListener {
 
     updatePawns();
 
-    // TODO: Reimplement this
-    widthPawn = DimensionUtils.getMainFrameWidth() / 16;
-    heightPawn = widthPawn * 2;
+    this.size = DimensionUtils.getBoardPawnsBarWidth() / 16;
+    DimensionUtils.setBarCellSize(this.size);
 
     for (Pawn pawn : pawns) {
       add(pawn);
@@ -37,6 +35,8 @@ public class PawnsBar extends JPanel implements GameStatusListener {
     for (Pawn pawn : pawns) {
       add(pawn);
     }
+    this.size = DimensionUtils.getMainFrameWidth() / 16;
+    DimensionUtils.setBarCellSize(this.size);
     revalidate();
     repaint();
   }

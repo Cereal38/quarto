@@ -11,6 +11,7 @@ public class DimensionUtils {
   private static int heightHistory;
   private static int widthHistory;
   private static int boardCellSize;
+  private static int barCellSize;
 
   public static void setMainFrame(JFrame mainFrame) {
     DimensionUtils.mainFrame = mainFrame;
@@ -73,6 +74,14 @@ public class DimensionUtils {
 
   public static int getBoardCellSize() {
     return boardCellSize;
+  }
+
+  public static void setBarCellSize(int size) {
+    barCellSize = size;
+  }
+
+  public static int getBarCellSize() {
+    return barCellSize;
   }
 
 }
