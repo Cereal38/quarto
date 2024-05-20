@@ -20,22 +20,22 @@ public class BoardWrapper extends JPanel {
     setLayout(new BorderLayout());
 
     // Compute the size of the panel
-    int hFrame = DimensionUtils.getMainFrameHeight();
-    int wFrame = DimensionUtils.getMainFrameWidth();
-    int hTopBar = DimensionUtils.getBoardTopBarHeight();
-    int hPawnsBar = DimensionUtils.getBoardPawnsBarHeight();
-    int height = hFrame - hTopBar - hPawnsBar;
-    int width = wFrame;
+    int hFrame = DimensionUtils.getMainFrameHeight(); // DONE
+    int wFrame = DimensionUtils.getMainFrameWidth(); // DONE
+    int hTopBar = DimensionUtils.getBoardTopBarHeight(); // DONE
+    int hPawnsBar = DimensionUtils.getBoardPawnsBarHeight(); // DONE
+    int height = hFrame - hTopBar - hPawnsBar; // DONE
+    int width = wFrame; // DONE
 
     // Compute the cell size and the gap between cells
-    float cellSize = (height - height * GAP_FACTOR) / 4;
-    float gap = (height - cellSize * 4) / 5;
+    float cellSize = (height - height * GAP_FACTOR) / 4; // DONE
+    float gap = (height - cellSize * 4) / 5; // DONE
 
     DimensionUtils.setBoardCellSize((int) cellSize);
 
     // Get the position of the top left corner of the board
-    float horizontalMargin = (float) (width / 2 - cellSize * 2 - gap * 1.5);
-    float verticalMargin = gap;
+    float horizontalMargin = (float) (width / 2 - cellSize * 2 - gap * 1.5); // DONE
+    float verticalMargin = gap; // DONE
 
     BorderCenterPanel centerPanel = new BorderCenterPanel(new Board((int) cellSize), (int) verticalMargin,
         (int) horizontalMargin, (int) verticalMargin, (int) horizontalMargin);
