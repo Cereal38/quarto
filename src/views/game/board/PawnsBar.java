@@ -21,13 +21,8 @@ public class PawnsBar extends JPanel implements GameStatusListener {
     GameStatusHandler.addGameStatusListener(this);
 
     updatePawns();
+    refresh();
 
-    this.size = DimensionUtils.getBoardPawnsBarWidth() / 16;
-    DimensionUtils.setBarCellSize(this.size);
-
-    for (Pawn pawn : pawns) {
-      add(pawn);
-    }
   }
 
   public void refresh() {
@@ -35,7 +30,7 @@ public class PawnsBar extends JPanel implements GameStatusListener {
     for (Pawn pawn : pawns) {
       add(pawn);
     }
-    this.size = DimensionUtils.getMainFrameWidth() / 16;
+    this.size = DimensionUtils.getBoardPawnsBarWidth() / 16;
     DimensionUtils.setBarCellSize(this.size);
     revalidate();
     repaint();
