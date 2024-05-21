@@ -153,20 +153,26 @@ public class EasyAIPlayer implements Player{
         return pawnScores;
     }
 
-    //if several pawns have the same score, takes the first found and not a random one
+    //if several pawns have the same score, takes a random pawn
     @Override
-    public void selectPawn(QuartoModel quartoModel){
+    public void selectPawn(QuartoModel quartoModel) {
         int[] pawnScores = calculateAvailablePawnsScores(quartoModel);
         int minScore = Integer.MAX_VALUE;
-        int selectedPawnIndex = -1;
+        List<Integer> minScoreIndices = new ArrayList<>();
 
-        // Find the index of the pawn with the smallest score
+        // Find the indices of the pawns with the smallest score
         for (int i = 0; i < pawnScores.length; i++) {
             if (pawnScores[i] < minScore) {
                 minScore = pawnScores[i];
-                selectedPawnIndex = i;
+                minScoreIndices.clear();
+                minScoreIndices.add(i);
+            } else if (pawnScores[i] == minScore) {
+                minScoreIndices.add(i);
             }
         }
+
+        // Select one random index among those with the minimum score
+        int selectedPawnIndex = minScoreIndices.get(random.nextInt(minScoreIndices.size()));
         quartoModel.selectPawnHuman(selectedPawnIndex);
     }
 
