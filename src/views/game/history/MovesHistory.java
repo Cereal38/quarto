@@ -3,8 +3,6 @@ package src.views.game.history;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,19 +10,18 @@ import javax.swing.JSeparator;
 import src.model.QuartoHistory;
 import src.views.listeners.GameStatusListener;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 
 public class MovesHistory extends JScrollPane implements GameStatusListener {
 
   private JPanel movesContainer;
-  private List<Move> moveComponents; // List to keep track of Move components
   private int maxDisplayedMoves = 10; // Maximum displayed moves
 
   public MovesHistory() {
     movesContainer = new JPanel();
     movesContainer.setLayout(new GridBagLayout());
-    moveComponents = new ArrayList<>(); // Initialize the list
 
-    // GameStatusHandler.addGameStatusListener(this);
+    GameStatusHandler.addGameStatusListener(this);
 
     // Add title label outside of the scroll pane
     JLabel titleLabel = new JLabel("Move History");
@@ -36,13 +33,12 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
   }
 
   public void addMove(String move) {
-    Move newMove = new Move(move);
-    moveComponents.add(newMove);
+    GameStatusHandler.addMove(move);
     updateMovesContainer();
   }
 
   public void clear() {
-    moveComponents.clear(); // Clear the move components list
+    GameStatusHandler.clearMoves();
     updateMovesContainer();
   }
 
@@ -57,17 +53,17 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
     int moveNumber = 1; // Start with 1 for the most recent move
 
     // Add moves to container with separators in between
-    for (int i = moveComponents.size() - 1; i >= 0; i--) {
+    for (int i = GameStatusHandler.getMoveComponents().size() - 1; i >= 0; i--) {
       moveConstraints.gridy = 2 * i; // Move
       // Add move number label
       JLabel moveNumberLabel = new JLabel(moveNumber + " .");
       movesContainer.add(moveNumberLabel, moveConstraints);
       moveConstraints.gridx = 1;
-      movesContainer.add(moveComponents.get(i), moveConstraints);
+      movesContainer.add(GameStatusHandler.getMoveComponents().get(i), moveConstraints);
       moveConstraints.gridx = 0;
 
       // Add separator that spans across both columns
-      moveConstraints.gridy = 2 * (moveComponents.size() - 1 - i) + 1; // Separator
+      moveConstraints.gridy = 2 * (GameStatusHandler.getMoveComponents().size() - 1 - i) + 1; // Separator
       moveConstraints.gridwidth = 2; // Span across two columns
       movesContainer.add(new JSeparator(JSeparator.HORIZONTAL), moveConstraints);
       moveConstraints.gridwidth = 1; // Reset grid width

@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingUtilities;
 import src.views.game.board.GameOverDialog;
+import src.views.game.history.Move;
 import src.views.listeners.GameStatusListener;
 
 public class GameStatusHandler {
 
   // The list of game status listeners
   private static final List<GameStatusListener> listeners = new ArrayList<>();
+
+  // Keep the history of moves
+  private static List<Move> moveComponents = new ArrayList<>();
 
   // ================== Game Status Listeners ==================
 
@@ -118,6 +122,19 @@ public class GameStatusHandler {
   public static void redo() {
     EventsHandler.getController().redo();
     actionPerformed();
+  }
+
+  public static void addMove(String move) {
+    Move newMove = new Move(move);
+    moveComponents.add(newMove);
+  }
+
+  public static void clearMoves() {
+    moveComponents.clear();
+  }
+
+  public static List<Move> getMoveComponents() {
+    return moveComponents;
   }
 
 }
