@@ -1,27 +1,20 @@
 package src.views.game.board;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
-import src.views.listeners.GameStatusListener;
 import src.views.utils.EventsHandler;
-import src.views.utils.GameStatusHandler;
 
-public class Board extends JPanel implements GameStatusListener {
+public class Board extends JPanel {
 
   private Cell[][] cells = new Cell[4][4];
 
-  public Board(int cellSize) {
-
-    // Register this class as a game status listener
-    GameStatusHandler.addGameStatusListener(this);
+  public Board(int width, int height, int cellSize) {
 
     setLayout(new GridLayout(4, 4));
+    setPreferredSize(new Dimension(width, height));
 
-    refresh();
-  }
-
-  public void refresh() {
-    removeAll();
+    // Get and add all cells
     cells = EventsHandler.getController().getTable();
     for (Cell[] line : cells) {
       for (Cell cell : line) {
@@ -30,13 +23,6 @@ public class Board extends JPanel implements GameStatusListener {
         }
       }
     }
-    revalidate();
-    repaint();
-  }
-
-  @Override
-  public void update() {
-    refresh();
   }
 
 }

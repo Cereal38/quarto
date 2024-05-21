@@ -127,14 +127,15 @@ public class ViewModelController implements ViewModelListener {
     }
     QuartoPawn[] pawns = quartoModel.getPawnAvailable();
     List<Pawn> pawnList = new ArrayList<>();
+    int size = DimensionUtils.getBarCellSize();
     for (int i = 0; i < pawns.length; i++) {
       if (pawns[i] != null) {
-        pawnList.add(PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, 50, 50));
+        pawnList.add(PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, size, size));
       }
     }
     // Add the selected pawn
     if (getSelectedPawn() != null) {
-      pawnList.add(PawnUtils.getPawn(FormatUtils.byteToString(getSelectedPawn().getPawn()), Pawn.SELECTED, 50, 50));
+      pawnList.add(PawnUtils.getPawn(FormatUtils.byteToString(getSelectedPawn().getPawn()), Pawn.SELECTED, size, size));
     }
     return pawnList;
   }
