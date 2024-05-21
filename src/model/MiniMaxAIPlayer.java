@@ -36,8 +36,10 @@ public class MiniMaxAIPlayer implements Player {
 
         for (int i = 0; i < 16; i++) {
             if (availablePawns[i] != null) {
-                int score = pawnScores[i];
-
+                simulateSelectPawn(quartoModel, i);
+                int score = minimax(quartoModel, 0, false, false);
+                undoSimulation(quartoModel);
+                
                 if (score < bestScore) {
                     bestScore = score;
                     bestPawns.clear();
@@ -54,23 +56,31 @@ public class MiniMaxAIPlayer implements Player {
     private int[] getBestMove(QuartoModel quartoModel) {
         int[] bestMove = new int[2];
         int bestScore = Integer.MIN_VALUE;
+        List<Integer> bestMovesAxis = new ArrayList<>();
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (quartoModel.isTableEmpty(i, j)) {
                     simulatePlacePawn(quartoModel, i, j);
-                    int score = minimax(quartoModel, 0, true, false);
+                    int score = minimax(quartoModel, 0, true, true);
                     undoSimulation(quartoModel);
 
                     if (score > bestScore) {
                         bestScore = score;
-                        bestMove[0] = i;
-                        bestMove[1] = j;
+                        bestMovesAxis.clear();
+                        bestMovesAxis.add(i);
+                        bestMovesAxis.add(j);
+                    } else if (score == bestScore) {
+                        bestMovesAxis.add(i);
+                        bestMovesAxis.add(j);
                     }
                 }
             }
         }
-
+        int len = bestMovesAxis.size()/2;
+        int indexAxis = random.nextInt(len);
+        bestMove[0] = bestMovesAxis.get(indexAxis);
+        bestMove[1] = bestMovesAxis.get(indexAxis+1);
         return bestMove;
     }
 
@@ -97,14 +107,13 @@ public class MiniMaxAIPlayer implements Player {
                 for (int j = 0; j < 4; j++) {
                     if (quartoModel.isTableEmpty(i, j)) {
                         simulatePlacePawn(quartoModel, i, j);
-                        int score = minimax(quartoModel, depth + 1, !isMaximizingPlayer, true);
+                        int score = minimax(quartoModel, depth + 1, isMaximizingPlayer, true);
                         undoSimulation(quartoModel);
                         bestScore = isMaximizingPlayer ? Math.max(bestScore, score) : Math.min(bestScore, score);
                     }
                 }
             }
         }
-
         return bestScore;
     }
 
@@ -113,6 +122,9 @@ public class MiniMaxAIPlayer implements Player {
     }
 
     private int evaluatePlacement(QuartoModel quartoModel, boolean isAIPlayer) {
+        if (quartoModel.isGameOver()) {
+            return isAIPlayer ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+        }
         return evaluateRisk(quartoModel.getTable(), isAIPlayer);
 
     }
@@ -260,49 +272,5 @@ public class MiniMaxAIPlayer implements Player {
         return pawnScores;
     }
 
-    public int[] calculateCharacteristicsFromGrid(QuartoPawn[][] grid) {
-        int[] characteristics = new int[8];
-
-        // for each row
-        for (int i = 0; i < 4; i++) {
-            QuartoPawn[] row = new QuartoPawn[4];
-            for (int j = 0; j < 4; j++) {
-                row[j] = grid[i][j];
-            }
-            if (!isCompleteList(row)) {
-                updateCharacteristics(characteristics, row);
-            }
-        }
-
-        // for each column
-        for (int j = 0; j < 4; j++) {
-            QuartoPawn[] column = new QuartoPawn[4];
-            for (int i = 0; i < 4; i++) {
-                column[i] = grid[i][j];
-            }
-            if (!isCompleteList(column)) {
-                updateCharacteristics(characteristics, column);
-            }
-        }
-
-        // first diagonal (up left to down right)
-        QuartoPawn[] diagonal1 = new QuartoPawn[4];
-        for (int i = 0; i < 4; i++) {
-            diagonal1[i] = grid[i][i];
-        }
-        if (!isCompleteList(diagonal1)) {
-            updateCharacteristics(characteristics, diagonal1);
-        }
-
-        // second diagonal (up right to down left)
-        QuartoPawn[] diagonal2 = new QuartoPawn[4];
-        for (int i = 0; i < 4; i++) {
-            diagonal2[i] = grid[i][3 - i];
-        }
-        if (!isCompleteList(diagonal2)) {
-            updateCharacteristics(characteristics, diagonal2);
-        }
-
-        return characteristics;
-    }
+    
 }
