@@ -29,7 +29,7 @@ public class ViewModelController implements ViewModelListener {
   }
 
   public void saveGame(String fileName) throws IOException {
-    quartoModel.saveFile(fileName);
+//    quartoModel.saveFile(fileName);
   }
 
   public void loadGame(int index) {
