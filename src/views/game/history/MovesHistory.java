@@ -8,11 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import src.model.QuartoHistory;
-import src.views.listeners.GameStatusListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
-public class MovesHistory extends JScrollPane implements GameStatusListener {
+public class MovesHistory extends JScrollPane {
 
   private JPanel movesContainer;
   private int maxDisplayedMoves = 10; // Maximum displayed moves
@@ -20,8 +19,6 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
   public MovesHistory() {
     movesContainer = new JPanel();
     movesContainer.setLayout(new GridBagLayout());
-
-    GameStatusHandler.addGameStatusListener(this);
 
     // Add title label outside of the scroll pane
     JLabel titleLabel = new JLabel("Move History");
@@ -100,11 +97,5 @@ public class MovesHistory extends JScrollPane implements GameStatusListener {
 
       save = save.getPrevious();
     }
-  }
-
-  @Override
-  public void update() {
-    clear();
-    updateHistory();
   }
 }
