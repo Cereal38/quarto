@@ -27,6 +27,9 @@ public class MovesHistory extends JScrollPane {
 
     setViewportView(movesContainer);
     setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+    clear();
+    updateHistory();
   }
 
   public void addMove(String move) {
@@ -76,6 +79,9 @@ public class MovesHistory extends JScrollPane {
   }
 
   public void updateHistory() {
+    if (EventsHandler.getController().getModel() == null) {
+      return;
+    }
     QuartoHistory save = EventsHandler.getController().getModel().getCurrentState();
 
     while (save != null) {
