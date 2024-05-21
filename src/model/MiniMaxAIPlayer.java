@@ -107,7 +107,7 @@ public class MiniMaxAIPlayer implements Player {
                 for (int j = 0; j < 4; j++) {
                     if (quartoModel.isTableEmpty(i, j)) {
                         simulatePlacePawn(quartoModel, i, j);
-                        int score = minimax(quartoModel, depth + 1, isMaximizingPlayer, true);
+                        int score = minimax(quartoModel, depth, isMaximizingPlayer, true);
                         undoSimulation(quartoModel);
                         bestScore = isMaximizingPlayer ? Math.max(bestScore, score) : Math.min(bestScore, score);
                     }
