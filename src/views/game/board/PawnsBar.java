@@ -9,8 +9,8 @@ import src.views.utils.EventsHandler;
 
 public class PawnsBar extends JPanel {
 
-  public PawnsBar(int width, int height) {
-    setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+  public PawnsBar(int width, int height, int gap) {
+    setLayout(new FlowLayout(FlowLayout.CENTER, gap, gap));
     setPreferredSize(new Dimension(width, height));
 
     // Get the available pawns
