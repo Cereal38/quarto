@@ -17,8 +17,6 @@ public class TopBarGameBoard extends JPanel {
     setPreferredSize(new Dimension(width, height));
 
     // Create elements
-    UndoButton btnUndo = new UndoButton();
-    RedoButton btnRedo = new RedoButton();
     PauseMenuButton btnPause = new PauseMenuButton();
     TranslatedLabel stateLbl = new TranslatedLabel("");
     JLabel playerLbl = new JLabel();
@@ -31,8 +29,6 @@ public class TopBarGameBoard extends JPanel {
     }
     playerLbl.setText(EventsHandler.getController().getCurrentPlayerName());
 
-    EventsHandler.setUndoButton(btnUndo);
-    EventsHandler.setRedoButton(btnRedo);
     EventsHandler.setPauseMenuButton(btnPause);
 
     // Add action listeners to the buttons
@@ -41,11 +37,8 @@ public class TopBarGameBoard extends JPanel {
     });
 
     // Left panel with undo and redo buttons
-    JPanel leftPanel = new JPanel();
+    JPanel leftPanel = new LeftPanelTopBar();
     add(leftPanel, BorderLayout.WEST);
-    leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
-    leftPanel.add(btnUndo);
-    leftPanel.add(btnRedo);
 
     // Right panel with pause button
     JPanel rightPanel = new JPanel();
