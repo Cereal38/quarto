@@ -32,12 +32,12 @@ public class PawnsBarSlot extends JPanel {
     setLayout(new GridBagLayout());
     GridBagConstraints gbc = new GridBagConstraints();
     gbc.anchor = GridBagConstraints.CENTER;
-    gbc.insets = new Insets(0, 6, 12, 0);
+    gbc.insets = new Insets(0, 6, 6, 0);
 
     // If the position is on the left, increase the offset to the right because
     // there is no right border on the image
     if (position == LEFT) {
-      gbc.insets = new Insets(0, 18, 12, 0);
+      gbc.insets = new Insets(0, 18, 6, 0);
     }
 
     add(pawn, gbc);
