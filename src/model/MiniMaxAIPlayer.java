@@ -29,7 +29,7 @@ public class MiniMaxAIPlayer implements Player {
     }
 
     private int getBestPawn(QuartoModel quartoModel) {
-        int bestScore = Integer.MAX_VALUE;
+        int bestScore = Integer.MIN_VALUE;
         List<Integer> bestPawns = new ArrayList<>();
         QuartoPawn[] availablePawns = quartoModel.getPawnAvailable();
         //int[] pawnScores = calculateAvailablePawnsScores(quartoModel);
@@ -40,7 +40,7 @@ public class MiniMaxAIPlayer implements Player {
                 int score = minimax(quartoModel, 0, false, false);
                 undoSimulation(quartoModel);
 
-                if (score < bestScore) {
+                if (score > bestScore) {
                     bestScore = score;
                     bestPawns.clear();
                     bestPawns.add(i);

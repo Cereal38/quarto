@@ -41,9 +41,9 @@ public class QuartoGameAIvsAITester {
 
             if (quartoModel.isGameOver() && !quartoModel.isPawnListEmpty()) {
                 if (quartoModel.getCurrentPlayer() == 1) {
-                    ai2Wins++;
-                } else {
                     ai1Wins++;
+                } else {
+                    ai2Wins++;
                 }
             } else {
                 draws++;
