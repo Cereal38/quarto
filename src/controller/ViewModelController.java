@@ -1,8 +1,6 @@
 package src.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import src.model.QuartoFile;
 import src.model.QuartoModel;
@@ -118,26 +116,32 @@ public class ViewModelController implements ViewModelListener {
   /**
    * Return all the pawns still available to play.
    * 
-   * @return A list of pawns
+   * @return An array of Pawns (null if no pawn available at this index)
    */
-  public List<Pawn> getAvailablePawns() {
+  public Pawn[] getAvailablePawns() {
+    Pawn[] result = new Pawn[16];
+
     // If the model is not created yet, return an empty list
     if (quartoModel == null) {
-      return new ArrayList<>();
+      return result;
     }
     QuartoPawn[] pawns = quartoModel.getPawnAvailable();
-    List<Pawn> pawnList = new ArrayList<>();
     int size = DimensionUtils.getBarCellSize();
     for (int i = 0; i < pawns.length; i++) {
       if (pawns[i] != null) {
-        pawnList.add(PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, size, size));
+        int index = FormatUtils.byteToIndex(pawns[i].getPawn());
+        result[index] = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, size, size);
+      } else {
+        result[i] = null;
       }
     }
     // Add the selected pawn
     if (getSelectedPawn() != null) {
-      pawnList.add(PawnUtils.getPawn(FormatUtils.byteToString(getSelectedPawn().getPawn()), Pawn.SELECTED, size, size));
+      byte selectedPawn = getSelectedPawn().getPawn();
+      result[FormatUtils.byteToIndex(selectedPawn)] = PawnUtils.getPawn(FormatUtils.byteToString(selectedPawn),
+          Pawn.SELECTED, size, size);
     }
-    return pawnList;
+    return result;
   }
 
   private QuartoPawn getSelectedPawn() {

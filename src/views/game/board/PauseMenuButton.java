@@ -11,8 +11,8 @@ public class PauseMenuButton extends JButton {
   private TranslatedString tooltip;
   private boolean isLightTheme = true;
   // Load icon
-  ImageIcon MenuImg = ImageUtils.loadImage("menu.png", 30, 25);
-  ImageIcon MenuWhiteImg = ImageUtils.loadImage("menu-white.png", 30, 25);
+  ImageIcon MenuImg = ImageUtils.loadImage("menu-wood.png", 32, 32);
+  ImageIcon MenuWhiteImg = ImageUtils.loadImage("menu-wood.png", 32, 32);
 
   public PauseMenuButton() {
 
