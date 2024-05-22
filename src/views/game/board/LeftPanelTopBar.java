@@ -25,7 +25,7 @@ public class LeftPanelTopBar extends JPanel {
 
     // Load background image
     try {
-      bgImage = ImageIO.read(new File("assets/images/gameboard-action-buttons-container.png"));
+      bgImage = ImageIO.read(new File("assets/images/gameboard-left-top-bar.png"));
     } catch (Exception e) {
       e.printStackTrace();
     }

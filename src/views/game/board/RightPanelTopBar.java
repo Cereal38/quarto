@@ -27,7 +27,7 @@ public class RightPanelTopBar extends JPanel {
 
     // Load background image
     try {
-      bgImage = ImageIO.read(new File("assets/images/gameboard-action-buttons-container.png"));
+      bgImage = ImageIO.read(new File("assets/images/gameboard-right-top-bar.png"));
     } catch (Exception e) {
       e.printStackTrace();
     }

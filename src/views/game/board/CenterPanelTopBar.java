@@ -34,7 +34,7 @@ public class CenterPanelTopBar extends JPanel {
 
     // Load background image
     try {
-      bgImage = ImageIO.read(new File("assets/images/gameboard-state-container.png"));
+      bgImage = ImageIO.read(new File("assets/images/gameboard-center-top-bar.png"));
     } catch (Exception e) {
       e.printStackTrace();
     }
