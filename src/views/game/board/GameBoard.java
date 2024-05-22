@@ -14,7 +14,7 @@ import src.views.utils.GameStatusHandler;
 public class GameBoard extends JPanel implements GameStatusListener {
 
   private static final int WIDTH_HISTORY = 250;
-  private static final int HEIGHT_TOP_BAR = 50;
+  private static final int HEIGHT_TOP_BAR = 60;
   private static final float BOARD_GAP_FACTOR = (float) 0.3;
   private static final int PAWNS_BAR_GAP = 10;
 

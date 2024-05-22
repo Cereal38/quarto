@@ -12,7 +12,7 @@ public class LeftPanelTopBar extends JPanel {
   private Image bgImage;
 
   public LeftPanelTopBar() {
-    setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
+    setLayout(new FlowLayout(FlowLayout.LEFT, 12, 17));
 
     UndoButton btnUndo = new UndoButton();
     RedoButton btnRedo = new RedoButton();

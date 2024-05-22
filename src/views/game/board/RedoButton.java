@@ -12,8 +12,8 @@ public class RedoButton extends JButton {
   private boolean isLightTheme = true;
 
   // Load icon
-  ImageIcon redoImg = ImageUtils.loadImage("redo.png", 30, 25);
-  ImageIcon redoWhiteImg = ImageUtils.loadImage("redo-white.png", 30, 25);
+  ImageIcon redoImg = ImageUtils.loadImage("redo-wood.png", 32, 32);
+  ImageIcon redoWhiteImg = ImageUtils.loadImage("redo-wood.png", 32, 32);
 
   public RedoButton() {
 
