@@ -6,9 +6,11 @@ import java.util.Random;
 
 public class EasyAIPlayer implements Player{
 
-    private Random random;
+    private final Random random;
+    private final QuartoWin quartoWin;
     public EasyAIPlayer() {
         random = new Random();
+        quartoWin = new QuartoWin();
     }
 
     public boolean isCompleteList(QuartoPawn[] pawns) {
@@ -21,6 +23,36 @@ public class EasyAIPlayer implements Player{
             }
         }
         return true;
+    }
+
+    public boolean hasPotentialList(QuartoPawn[] pawns){
+        //if list is complete, there is no potential
+        if(isCompleteList(pawns)){
+            return false;
+        }
+        //Initialize pawn count and characteristics counts
+        int pawnCount = 4;
+        int roundCount = 0;
+        int whiteCount = 0;
+        int littleCount = 0;
+        int hollowCount = 0;
+
+        for(QuartoPawn pawn : pawns){
+            if(pawn == null){
+                pawnCount--;
+                continue;
+            }
+            roundCount += pawn.isRound() ? 1 : 0;
+            whiteCount += pawn.isWhite() ? 1 : 0;
+            littleCount += pawn.isLittle() ? 1 : 0;
+            hollowCount += pawn.isHollow() ? 1 : 0;
+        }
+
+        //returns true if all pawns in the list share at least one characteristic
+        return (roundCount == 0 || roundCount == pawnCount ||
+                whiteCount == 0 || whiteCount == pawnCount ||
+                littleCount == 0 || littleCount == pawnCount ||
+                hollowCount == 0 || hollowCount == pawnCount);
     }
 
     public void updateCharacteristics(int[] characteristics, QuartoPawn[] pawns) {
@@ -65,10 +97,8 @@ public class EasyAIPlayer implements Player{
         // for each row
         for (int i = 0; i < 4; i++) {
             QuartoPawn[] row = new QuartoPawn[4];
-            for (int j = 0; j < 4; j++) {
-                row[j] = grid[i][j];
-            }
-            if (!isCompleteList(row)) {
+            System.arraycopy(grid[i], 0, row, 0, 4);
+            if (!isCompleteList(row) && hasPotentialList(row)) {
                 updateCharacteristics(characteristics, row);
             }
         }
@@ -79,7 +109,7 @@ public class EasyAIPlayer implements Player{
             for (int i = 0; i < 4; i++) {
                 column[i] = grid[i][j];
             }
-            if (!isCompleteList(column)) {
+            if (!isCompleteList(column) && hasPotentialList(column)) {
                 updateCharacteristics(characteristics, column);
             }
         }
@@ -89,7 +119,7 @@ public class EasyAIPlayer implements Player{
         for (int i = 0; i < 4; i++) {
             diagonal1[i] = grid[i][i];
         }
-        if (!isCompleteList(diagonal1)) {
+        if (!isCompleteList(diagonal1) && hasPotentialList(diagonal1)) {
             updateCharacteristics(characteristics, diagonal1);
         }
 
@@ -98,7 +128,7 @@ public class EasyAIPlayer implements Player{
         for (int i = 0; i < 4; i++) {
             diagonal2[i] = grid[i][3 - i];
         }
-        if (!isCompleteList(diagonal2)) {
+        if (!isCompleteList(diagonal2) && hasPotentialList(diagonal2)) {
             updateCharacteristics(characteristics, diagonal2);
         }
 
@@ -153,7 +183,7 @@ public class EasyAIPlayer implements Player{
         return pawnScores;
     }
 
-    //if several pawns have the same score, takes a random pawn
+    //if several pawns have the same score, takes the first found and not a random one
     @Override
     public void selectPawn(QuartoModel quartoModel) {
         int[] pawnScores = calculateAvailablePawnsScores(quartoModel);
@@ -176,12 +206,11 @@ public class EasyAIPlayer implements Player{
         quartoModel.selectPawnHuman(selectedPawnIndex);
     }
 
-    //RANDOM
     @Override
     public void playShot(QuartoModel quartoModel) {
         List<int[]> emptyCells = new ArrayList<>();
+        QuartoPawn[][] grid = quartoModel.getTable();
 
-        // Find all the empty cells
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (quartoModel.isTableEmpty(i, j)) {
@@ -191,18 +220,98 @@ public class EasyAIPlayer implements Player{
         }
 
         if (!emptyCells.isEmpty()) {
-            // Select one random cell in all the available cells
-            int[] randomCell = emptyCells.get(random.nextInt(emptyCells.size()));
-            int line = randomCell[0];
-            int column = randomCell[1];
+            QuartoPawn selectedPawn = quartoModel.getSelectedPawn();
 
-            // play shot on the random cell
-            quartoModel.playShotHuman(line, column);
-            System.out.println("Shot played by AI at (" + line + ", " + column + ").");
+            // Check for winning move
+            for (int[] cell : emptyCells) {
+                if (isWinningMove(grid, selectedPawn, cell[0], cell[1])) {
+                    quartoModel.playShotHuman(cell[0], cell[1]);
+                    System.out.println("Winning shot played by AI at (" + cell[0] + ", " + cell[1] + ").");
+                    return;
+                }
+            }
+
+            // Check for blocking move
+            QuartoPawn[] availablePawns = quartoModel.getPawnAvailable();
+            for (int[] cell : emptyCells) {
+                for (QuartoPawn pawn : availablePawns) {
+                    if (pawn != null && isWinningMove(grid, pawn, cell[0], cell[1])) {
+                        quartoModel.playShotHuman(cell[0], cell[1]);
+                        System.out.println("Blocking shot played by AI at (" + cell[0] + ", " + cell[1] + ").");
+                        return;
+                    }
+                }
+            }
+
+            // Play optimal move
+            int maxScore = Integer.MIN_VALUE;
+            List<int[]> bestCells = new ArrayList<>();
+            for (int[] cell : emptyCells) {
+                int score = evaluatePosition(grid, selectedPawn, cell[0], cell[1]);
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestCells.clear();
+                    bestCells.add(cell);
+                } else if (score == maxScore) {
+                    bestCells.add(cell);
+                }
+            }
+
+            if (!bestCells.isEmpty()) {
+                int[] bestCell = bestCells.get(random.nextInt(bestCells.size()));
+                quartoModel.playShotHuman(bestCell[0], bestCell[1]);
+                System.out.println("Optimal shot played by AI at (" + bestCell[0] + ", " + bestCell[1] + ").");
+            }
         } else {
-            // All cells are used
             System.out.println("All cells are occupied. Impossible to play.");
         }
     }
 
+    // Checks if placing a pawn at (x, y) results in a winning move
+    private boolean isWinningMove(QuartoPawn[][] grid, QuartoPawn pawn, int x, int y) {
+        grid[x][y] = pawn;
+        boolean winning = quartoWin.winSituationLine(grid, x) ||
+                quartoWin.winSituationColumn(grid, y) ||
+                quartoWin.winSituationDiagonal(grid, x, y);
+        grid[x][y] = null;
+        return winning;
+    }
+
+    // Evaluates the optimal position to play for the selected pawn
+    private int evaluatePosition(QuartoPawn[][] grid, QuartoPawn pawn, int x, int y) {
+        int score = 0;
+        grid[x][y] = pawn;
+        score += evaluateLine(grid, x, 0, x, 3); // Row
+        score += evaluateLine(grid, 0, y, 3, y); // Column
+        if (x == y) {
+            score += evaluateLine(grid, 0, 0, 3, 3); // Main diagonal
+        }
+        if (x + y == 3) {
+            score += evaluateLine(grid, 0, 3, 3, 0); // Anti-diagonal
+        }
+        grid[x][y] = null;
+        return score;
+    }
+
+    // Evaluates a line (row, column, or diagonal) for potential score
+    private int evaluateLine(QuartoPawn[][] grid, int x1, int y1, int x2, int y2) {
+        int[] characteristics = new int[8];
+        int dx = (x2 - x1) / 3;
+        int dy = (y2 - y1) / 3;
+        QuartoPawn[] line = new QuartoPawn[4];
+
+        for (int i = 0; i < 4; i++) {
+            line[i] = grid[x1 + i * dx][y1 + i * dy];
+        }
+
+        updateCharacteristics(characteristics, line);
+
+        int score = 0;
+        for (int count : characteristics) {
+            if (count == 3) {
+                score++;
+            }
+        }
+        return score;
+    }
 }
