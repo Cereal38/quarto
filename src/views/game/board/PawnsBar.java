@@ -1,5 +1,6 @@
 package src.views.game.board;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
@@ -12,6 +13,7 @@ public class PawnsBar extends JPanel {
     setLayout(new GridLayout(8, 2));
 
     setPreferredSize(new Dimension(width, height));
+    setBackground(new Color(211, 165, 71));
 
     // Get the available pawns
     Pawn[] pawns = EventsHandler.getController().getAvailablePawns();
