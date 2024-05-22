@@ -11,7 +11,6 @@ import src.views.utils.GameStatusHandler;
 
 public class GameBoard extends JPanel implements GameStatusListener {
 
-  private static final int WIDTH_PAWNS_BAR = 256;
   private static final int HEIGHT_TOP_BAR = 60;
   private static final float BOARD_GAP_FACTOR = (float) 0.3;
 
@@ -50,8 +49,9 @@ public class GameBoard extends JPanel implements GameStatusListener {
     int heightFrame = DimensionUtils.getMainFrameHeight();
     int widthTopBar = widthFrame;
     int heightPawnsBar = heightFrame - HEIGHT_TOP_BAR;
-    int pawnsBarPawnSize = Math.min((WIDTH_PAWNS_BAR / 2) - 30, (heightPawnsBar / 8) - 30);
-    int widthBoardWrapper = widthFrame - WIDTH_PAWNS_BAR;
+    int widthPawnsBar = (int) (heightPawnsBar / 3.81); // We want to keep the ratio 3.81 (height/width)
+    int pawnsBarPawnSize = Math.min((widthPawnsBar / 2) - 30, (heightPawnsBar / 8) - 30);
+    int widthBoardWrapper = widthFrame - widthPawnsBar;
     int heightBoardWrapper = heightFrame - HEIGHT_TOP_BAR;
     int boardCellSize = (int) (heightBoardWrapper - heightBoardWrapper * BOARD_GAP_FACTOR) / 4;
     int boardGap = (heightBoardWrapper - boardCellSize * 4) / 5;
@@ -61,14 +61,14 @@ public class GameBoard extends JPanel implements GameStatusListener {
     // Register useful dimensions
     DimensionUtils.setBarCellSize(pawnsBarPawnSize);
     DimensionUtils.setBoardCellSize(boardCellSize);
-    DimensionUtils.setBoardPawnsBar(WIDTH_PAWNS_BAR, heightPawnsBar);
+    DimensionUtils.setBoardPawnsBar(widthPawnsBar, heightPawnsBar);
 
     // Setup top bar
     TopBarGameBoard topBarGameBoard = new TopBarGameBoard(widthTopBar, HEIGHT_TOP_BAR);
 
     // Setup pawns bar
-    DimensionUtils.setBoardPawnsBar(WIDTH_PAWNS_BAR, heightPawnsBar);
-    PawnsBar pawnsBar = new PawnsBar(WIDTH_PAWNS_BAR, heightPawnsBar);
+    DimensionUtils.setBoardPawnsBar(widthPawnsBar, heightPawnsBar);
+    PawnsBar pawnsBar = new PawnsBar(widthPawnsBar, heightPawnsBar);
 
     // Setup board. Add a wrapper to center the board and add margins
     BorderCenterPanel boardWrapper = new BorderCenterPanel(
