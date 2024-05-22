@@ -2,6 +2,8 @@ package src.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuartoModel {
     private QuartoPawn[][] table;
@@ -310,4 +312,74 @@ public class QuartoModel {
     public QuartoPawn getPawn(int pawnIndex){
         return getPawnAvailable()[pawnIndex];
     }
+
+    public QuartoPawn[][] getLines() {
+        QuartoPawn[][] lines = new QuartoPawn[4][4];
+        for (int i = 0; i < 4; i++) {
+            System.arraycopy(table[i], 0, lines[i], 0, 4);
+        }
+        return lines;
+    }
+
+    public QuartoPawn[][] getColumns() {
+        QuartoPawn[][] columns = new QuartoPawn[4][4];
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 4; i++) {
+                columns[j][i] = table[i][j];
+            }
+        }
+        return columns;
+    }
+
+    public QuartoPawn[][] getDiagonals() {
+        QuartoPawn[][] diagonals = new QuartoPawn[2][4];
+
+        // First diagonal (top-left to bottom-right)
+        for (int i = 0; i < 4; i++) {
+            diagonals[0][i] = table[i][i];
+        }
+
+        // Second diagonal (top-right to bottom-left)
+        for (int i = 0; i < 4; i++) {
+            diagonals[1][i] = table[i][3 - i];
+        }
+
+        return diagonals;
+    }
+
+    public List<QuartoPawn[]> getIntersectingLines(int row, int column) {
+        List<QuartoPawn[]> intersectingLines = new ArrayList<>();
+
+        // Add the row
+        QuartoPawn[] lineRow = new QuartoPawn[4];
+        System.arraycopy(table[row], 0, lineRow, 0, 4);
+        intersectingLines.add(lineRow);
+
+        // Add the column
+        QuartoPawn[] lineColumn = new QuartoPawn[4];
+        for (int i = 0; i < 4; i++) {
+            lineColumn[i] = table[i][column];
+        }
+        intersectingLines.add(lineColumn);
+
+        // Add the diagonals if the position is on a diagonal
+        if (row == column) {
+            QuartoPawn[] diagonal1 = new QuartoPawn[4];
+            for (int i = 0; i < 4; i++) {
+                diagonal1[i] = table[i][i];
+            }
+            intersectingLines.add(diagonal1);
+        }
+
+        if (row + column == 3) {
+            QuartoPawn[] diagonal2 = new QuartoPawn[4];
+            for (int i = 0; i < 4; i++) {
+                diagonal2[i] = table[i][3 - i];
+            }
+            intersectingLines.add(diagonal2);
+        }
+
+        return intersectingLines;
+    }
+
 }

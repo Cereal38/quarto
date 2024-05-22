@@ -43,7 +43,12 @@ public class QuartoGameTester {
         }
         System.out.println("Type 'help' for commands.");
 
-        while (!quartoModel.isGameOver()) {
+        while (true) {
+            System.out.println(" Win situation : " + quartoModel.isGameOver());
+            System.out.println(" Table state : ");
+            printTable();
+            System.out.println(" Pawn list : " );
+            printPawnAvailable();
             System.out.print("> ");
             String input = scanner.nextLine().trim();
 
