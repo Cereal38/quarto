@@ -11,10 +11,9 @@ import src.views.utils.GameStatusHandler;
 
 public class GameBoard extends JPanel implements GameStatusListener {
 
-  private static final int WIDTH_PAWNS_BAR = 250;
+  private static final int WIDTH_PAWNS_BAR = 256;
   private static final int HEIGHT_TOP_BAR = 60;
   private static final float BOARD_GAP_FACTOR = (float) 0.3;
-  private static final int PAWNS_BAR_GAP = 10;
 
   public GameBoard() {
 
@@ -50,9 +49,8 @@ public class GameBoard extends JPanel implements GameStatusListener {
     int widthFrame = DimensionUtils.getMainFrameWidth();
     int heightFrame = DimensionUtils.getMainFrameHeight();
     int widthTopBar = widthFrame;
-    int widthPawnsBar = WIDTH_PAWNS_BAR;
-    int pawnsBarPawnSize = (WIDTH_PAWNS_BAR / 2) - 10;
     int heightPawnsBar = heightFrame - HEIGHT_TOP_BAR;
+    int pawnsBarPawnSize = Math.min((WIDTH_PAWNS_BAR / 2) - 30, (heightPawnsBar / 8) - 30);
     int widthBoardWrapper = widthFrame - WIDTH_PAWNS_BAR;
     int heightBoardWrapper = heightFrame - HEIGHT_TOP_BAR;
     int boardCellSize = (int) (heightBoardWrapper - heightBoardWrapper * BOARD_GAP_FACTOR) / 4;
@@ -63,27 +61,19 @@ public class GameBoard extends JPanel implements GameStatusListener {
     // Register useful dimensions
     DimensionUtils.setBarCellSize(pawnsBarPawnSize);
     DimensionUtils.setBoardCellSize(boardCellSize);
+    DimensionUtils.setBoardPawnsBar(WIDTH_PAWNS_BAR, heightPawnsBar);
 
     // Setup top bar
     TopBarGameBoard topBarGameBoard = new TopBarGameBoard(widthTopBar, HEIGHT_TOP_BAR);
 
     // Setup pawns bar
-    DimensionUtils.setBoardPawnsBar(widthPawnsBar, heightPawnsBar);
-    PawnsBar pawnsBar = new PawnsBar(widthPawnsBar, heightPawnsBar, PAWNS_BAR_GAP);
+    DimensionUtils.setBoardPawnsBar(WIDTH_PAWNS_BAR, heightPawnsBar);
+    PawnsBar pawnsBar = new PawnsBar(WIDTH_PAWNS_BAR, heightPawnsBar);
 
     // Setup board. Add a wrapper to center the board and add margins
     BorderCenterPanel boardWrapper = new BorderCenterPanel(
         new Board(widthBoardWrapper, heightBoardWrapper, boardCellSize), verticalMarginBoard, horizontalMarginBoard,
         verticalMarginBoard, horizontalMarginBoard);
-
-    // Setup history
-    // MovesHistory movesHistory = new MovesHistory();
-    // BorderCenterPanel movesHistoryWrapper = new BorderCenterPanel(movesHistory,
-    // 50, 0, 50, 0);
-    // movesHistoryWrapper.setPreferredSize(new Dimension(WIDTH_HISTORY, heightFrame
-    // - HEIGHT_TOP_BAR - heightPawnsBar));
-    // DimensionUtils.setHistory(WIDTH_HISTORY, heightFrame - HEIGHT_TOP_BAR -
-    // heightPawnsBar);
 
     // Add components
     add(topBarGameBoard, BorderLayout.NORTH);

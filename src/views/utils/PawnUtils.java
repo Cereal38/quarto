@@ -15,7 +15,8 @@ public class PawnUtils {
    */
   public static void initPawns() {
     for (int i = 0; i < 16; i++) {
-      pawns[i] = new Pawn(FormatUtils.indexToString(i), Pawn.NOT_PLAYED, 50, 50);
+      // pawns[i] = new Pawn(FormatUtils.indexToString(i), Pawn.NOT_PLAYED, 50, 50);
+      pawns[i] = new Pawn("1101", Pawn.NOT_PLAYED, 50, 50);
     }
   }
 
