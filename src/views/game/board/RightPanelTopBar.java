@@ -12,7 +12,7 @@ public class RightPanelTopBar extends JPanel {
   private Image bgImage;
 
   public RightPanelTopBar() {
-    setLayout(new FlowLayout(FlowLayout.LEFT, 12, 17));
+    setLayout(new FlowLayout(FlowLayout.LEFT, 12, 14));
 
     PauseMenuButton btnPause = new PauseMenuButton();
 
