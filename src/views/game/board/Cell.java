@@ -16,6 +16,8 @@ public class Cell extends JPanel {
   private int column;
 
   public Cell(Pawn pawn, int line, int column) {
+    setOpaque(false);
+
     this.line = line;
     this.column = column;
     this.pawn = pawn;
