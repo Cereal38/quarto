@@ -12,7 +12,6 @@ import src.views.utils.GameStatusHandler;
 public class GameBoard extends JPanel implements GameStatusListener {
 
   private static final int HEIGHT_TOP_BAR = 60;
-  private static final float BOARD_GAP_FACTOR = (float) 0.3;
 
   public GameBoard() {
 
@@ -53,7 +52,7 @@ public class GameBoard extends JPanel implements GameStatusListener {
     int pawnsBarPawnSize = Math.min((widthPawnsBar / 2) - 30, (heightPawnsBar / 8) - 30);
     int widthBoardWrapper = widthFrame - widthPawnsBar;
     int heightBoardWrapper = heightFrame - HEIGHT_TOP_BAR;
-    int boardCellSize = (int) (heightBoardWrapper - heightBoardWrapper * BOARD_GAP_FACTOR) / 4;
+    int boardCellSize = (int) (heightBoardWrapper) / 4;
     int boardGap = (heightBoardWrapper - boardCellSize * 4) / 5;
     int horizontalMarginBoard = (int) (widthBoardWrapper / 2 - boardCellSize * 2 - boardGap * 1.5);
     int verticalMarginBoard = boardGap;
