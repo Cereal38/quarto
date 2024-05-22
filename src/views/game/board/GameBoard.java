@@ -52,7 +52,7 @@ public class GameBoard extends JPanel implements GameStatusListener {
     int pawnsBarPawnSize = Math.min((widthPawnsBar / 2) - 30, (heightPawnsBar / 8) - 30);
     int widthBoardWrapper = widthFrame - widthPawnsBar;
     int heightBoardWrapper = heightFrame - HEIGHT_TOP_BAR;
-    int boardCellSize = (int) (heightBoardWrapper) / 4;
+    int boardCellSize = (int) (heightBoardWrapper - heightBoardWrapper * 0.5) / 4;
     int boardGap = (heightBoardWrapper - boardCellSize * 4) / 5;
     int horizontalMarginBoard = (int) (widthBoardWrapper / 2 - boardCellSize * 2 - boardGap * 1.5);
     int verticalMarginBoard = boardGap;
