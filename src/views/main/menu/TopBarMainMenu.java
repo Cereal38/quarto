@@ -13,38 +13,43 @@ import src.views.utils.EventsHandler;
 
 public class TopBarMainMenu extends JPanel {
 
-    private JButton musicButton, langButton, modeButton, exitButton, bookButton;
+  private JButton musicButton, langButton, modeButton, exitButton, bookButton;
 
-    public TopBarMainMenu() {
+  public TopBarMainMenu() {
 
-        // Create buttons
-        musicButton = new MusicButton();
-        modeButton = new ThemeButton();
-        langButton = new LanguageButton();
-        exitButton = new ExitButton();
-        bookButton = new ManualButton();
+    // Create buttons
+    musicButton = new MusicButton();
+    modeButton = new ThemeButton();
+    langButton = new LanguageButton();
+    exitButton = new ExitButton();
+    bookButton = new ManualButton();
 
-        // set a listener to the buttons
-        EventsHandler.setMusicButton((MusicButton) musicButton);
-        EventsHandler.setLanguageButton((LanguageButton) langButton);
-        EventsHandler.setManualButton((ManualButton) bookButton);
-        EventsHandler.setExitButton((ExitButton) exitButton);
+    // set a listener to the buttons
+    EventsHandler.setMusicButton((MusicButton) musicButton);
+    EventsHandler.setLanguageButton((LanguageButton) langButton);
+    EventsHandler.setManualButton((ManualButton) bookButton);
+    EventsHandler.setExitButton((ExitButton) exitButton);
 
-        // Buttons aligned on the left
-        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 10));
-        leftPanel.add(musicButton);
-        leftPanel.add(modeButton);
-        leftPanel.add(langButton);
+    // Buttons aligned on the left
+    JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 10));
+    leftPanel.setOpaque(false);
+    leftPanel.add(musicButton);
+    leftPanel.add(modeButton);
+    leftPanel.add(langButton);
 
-        // Buttons aligned on the right
-        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 10));
-        rightPanel.add(bookButton);
-        rightPanel.add(exitButton);
+    // Buttons aligned on the right
+    JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 10));
+    rightPanel.setOpaque(false);
+    rightPanel.add(bookButton);
+    rightPanel.add(exitButton);
 
-        setLayout(new BorderLayout());
+    setLayout(new BorderLayout());
 
-        add(leftPanel, BorderLayout.WEST);
-        add(rightPanel, BorderLayout.EAST);
+    add(leftPanel, BorderLayout.WEST);
+    add(rightPanel, BorderLayout.EAST);
 
-    }
+    // Transparent background
+    setOpaque(false);
+
+  }
 }
