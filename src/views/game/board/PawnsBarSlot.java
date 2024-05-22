@@ -40,7 +40,9 @@ public class PawnsBarSlot extends JPanel {
       gbc.insets = new Insets(0, 18, 6, 0);
     }
 
-    add(pawn, gbc);
+    if (pawn != null) {
+      add(pawn, gbc);
+    }
 
     try {
       // TODO: Load bg only once
