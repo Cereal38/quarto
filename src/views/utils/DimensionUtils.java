@@ -16,10 +16,16 @@ public class DimensionUtils {
   }
 
   public static int getMainFrameWidth() {
-    return mainFrame.getSize().width;
+    if (mainFrame == null) {
+      return 0;
+    }
+    return mainFrame.getWidth();
   }
 
   public static int getMainFrameHeight() {
+    if (mainFrame == null) {
+      return 0;
+    }
     return mainFrame.getHeight();
   }
 
