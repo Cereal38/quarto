@@ -7,12 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
 import src.views.components.GridCenterPanel;
-import src.views.components.TranslatedButton;
 import src.views.utils.EventsHandler;
 
 public class MainMenu extends JPanel {
-  private TranslatedButton btnLoad = new TranslatedButton("load");
   private CustomizedButton btnNewGame = new CustomizedButton("new-game");
+  private CustomizedButton btnLoad = new CustomizedButton("load");
 
   public MainMenu() {
     setLayout(new BorderLayout());
