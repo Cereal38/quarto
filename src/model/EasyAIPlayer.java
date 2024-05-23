@@ -234,12 +234,17 @@ public class EasyAIPlayer implements Player{
             // Check for blocking move
             QuartoPawn[] availablePawns = quartoModel.getPawnAvailable();
             for (int[] cell : emptyCells) {
+                boolean allWinning = true;
                 for (QuartoPawn pawn : availablePawns) {
-                    if (pawn != null && isWinningMove(grid, pawn, cell[0], cell[1])) {
-                        quartoModel.playShotHuman(cell[0], cell[1]);
-                        System.out.println("Blocking shot played by Easy AI at (" + cell[0] + ", " + cell[1] + ").");
-                        return;
+                    if (pawn != null && !isWinningMove(grid, pawn, cell[0], cell[1])) {
+                        allWinning = false;
+                        break;
                     }
+                }
+                if (allWinning) {
+                    quartoModel.playShotHuman(cell[0], cell[1]);
+                    System.out.println("Blocking shot played by Easy AI at (" + cell[0] + ", " + cell[1] + ").");
+                    return;
                 }
             }
 
