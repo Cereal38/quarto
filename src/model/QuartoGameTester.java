@@ -19,7 +19,7 @@ public class QuartoGameTester {
         int game = scanner.nextInt();
         if (game == 0) {
             System.out.println("Choose player types:");
-            System.out.println("0 - Human, 1 - Random AI, 2 - Easy AI, 3- MinMax AI");
+            System.out.println("0 - Human, 1 - Random AI, 2 - Easy AI, 3 - Medium AI, 4 - Minimax AI");
 
             System.out.print("Player 1 type: ");
             int firstPlayerType = scanner.nextInt();
@@ -44,11 +44,6 @@ public class QuartoGameTester {
         System.out.println("Type 'help' for commands.");
 
         while (true) {
-            System.out.println(" Win situation : " + quartoModel.isGameOver());
-            System.out.println(" Table state : ");
-            printTable();
-            System.out.println(" Pawn list : " );
-            printPawnAvailable();
             System.out.print("> ");
             String input = scanner.nextLine().trim();
 
