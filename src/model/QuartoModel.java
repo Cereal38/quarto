@@ -1,5 +1,6 @@
 package src.model;
 
+import java.io.File;
 import java.io.IOException;
 
 public class QuartoModel {
@@ -85,13 +86,14 @@ public class QuartoModel {
   }
 
   public void selectPawn(int indexPawn) {
-    if (pawnAvailable[indexPawn] != null) {
-      if (getCurrentPlayerType() == 1) {
-        randomAIPlayer.selectPawn(this);
-      } else {
+    if (getCurrentPlayerType() == 1) {
+      randomAIPlayer.selectPawn(this);
+    } else {
+      if (pawnAvailable[indexPawn] != null) {
         selectPawnHuman(indexPawn);
       }
     }
+
   }
 
   public void selectPawnHuman(int indexPawn) {
@@ -129,7 +131,8 @@ public class QuartoModel {
       setTable(line, column, selectedPawn);
       winSituation(line, column);
       setSelectedPawn(null);
-      file.getSave().setNext(new QuartoHistory(line, column, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
+      file.getSave()
+          .setNext(new QuartoHistory(line, column, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
       file.getSave().getNext().setPrevious(file.getSave());
       file.setSave(file.getSave().getNext());
     }
@@ -264,15 +267,15 @@ public class QuartoModel {
     }
     this.playerType = playerType;
   }
-  
+
   public String getNameOfTheCurrentPlayer() {
-      return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
+    return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
   }
-  
+
   public int stateOfGame() {
     return (file.getState() == 0) ? 1 : 0;
   }
-  
+
   public QuartoHistory getCurrentState() {
     return file.getSave();
   }

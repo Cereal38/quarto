@@ -13,7 +13,7 @@ public class PawnsBar extends JPanel {
     setLayout(new GridLayout(8, 2));
 
     setPreferredSize(new Dimension(width, height));
-    setBackground(new Color(211, 165, 71));
+    setBackground(new Color(211, 165, 71)); // Add background color to avoid flickering
 
     // Get the available pawns
     Pawn[] pawns = EventsHandler.getController().getAvailablePawns();
