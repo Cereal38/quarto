@@ -1,6 +1,5 @@
 {
-  "pvp": "2 joueurs",
-  "pvc": "1 joueur",
+  "new-game": "Nouvelle partie",
   "load": "Charger",
   "undo": "Annuler",
   "redo": "Refaire",
