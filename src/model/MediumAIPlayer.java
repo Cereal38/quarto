@@ -319,7 +319,6 @@ public class MediumAIPlayer implements Player{
     }
 
     private int evaluateAlignment(QuartoPawn[][] grid, int x1, int y1, int x2, int y2) {
-        int[] characteristics = new int[8];
         int dx = (x2 - x1) / 3;
         int dy = (y2 - y1) / 3;
         QuartoPawn[] line = new QuartoPawn[4];
