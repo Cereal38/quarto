@@ -270,11 +270,17 @@ public class MediumAIPlayer implements Player{
                 }
             }
 
-            // Play optimal move
+            // Play optimal move: prioritize 2-in-a-row, then 1-in-a-row, then 3-in-a-row
             int maxScore = Integer.MIN_VALUE;
             List<int[]> bestCells = new ArrayList<>();
+
             for (int[] cell : emptyCells) {
                 int score = evaluatePosition(grid, selectedPawn, cell[0], cell[1]);
+
+                // Adjust score based on desired alignments
+                int alignmentScore = getAlignmentScore(grid, selectedPawn, cell[0], cell[1]);
+                score += alignmentScore;
+
                 if (score > maxScore) {
                     maxScore = score;
                     bestCells.clear();
@@ -292,6 +298,54 @@ public class MediumAIPlayer implements Player{
         } else {
             System.out.println("All cells are occupied. Impossible to play.");
         }
+    }
+
+    private int getAlignmentScore(QuartoPawn[][] grid, QuartoPawn pawn, int x, int y) {
+        int score = 0;
+        grid[x][y] = pawn;
+
+        // Check rows, columns, and diagonals
+        score += evaluateAlignment(grid, x, 0, x, 3); // Row
+        score += evaluateAlignment(grid, 0, y, 3, y); // Column
+        if (x == y) {
+            score += evaluateAlignment(grid, 0, 0, 3, 3); // Main diagonal
+        }
+        if (x + y == 3) {
+            score += evaluateAlignment(grid, 0, 3, 3, 0); // Anti-diagonal
+        }
+
+        grid[x][y] = null;
+        return score;
+    }
+
+    private int evaluateAlignment(QuartoPawn[][] grid, int x1, int y1, int x2, int y2) {
+        int[] characteristics = new int[8];
+        int dx = (x2 - x1) / 3;
+        int dy = (y2 - y1) / 3;
+        QuartoPawn[] line = new QuartoPawn[4];
+        int alignmentScore = 0;
+
+        for (int i = 0; i < 4; i++) {
+            line[i] = grid[x1 + i * dx][y1 + i * dy];
+        }
+
+        // Check for alignments of 2, 1, and 3
+        int nonNullCount = 0;
+        for (QuartoPawn pawn : line) {
+            if (pawn != null) {
+                nonNullCount++;
+            }
+        }
+
+        if (nonNullCount == 2) {
+            alignmentScore += 100; // Prioritize alignments of 2
+        } else if (nonNullCount == 1) {
+            alignmentScore += 50;  // Then alignments of 1
+        } else if (nonNullCount == 3) {
+            alignmentScore += 10;  // Finally alignments of 3
+        }
+
+        return alignmentScore;
     }
 
     // Checks if placing a pawn at (x, y) results in a winning move
