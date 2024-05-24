@@ -8,6 +8,8 @@ public class MiniMaxAIPlayer implements Player {
     private int maxDepth;
     private Random random;
     private QuartoPawn actualPawn;
+    private boolean[] caracteristicsTable = new boolean[8];
+
 
     public MiniMaxAIPlayer(int maxDepth) {
         this.maxDepth = maxDepth;
@@ -36,6 +38,7 @@ public class MiniMaxAIPlayer implements Player {
 
         for (int i = 0; i < 16; i++) {
             if (availablePawns[i] != null) {
+                actualPawn = quartoModel.getPawn(i);
                 simulateSelectPawn(quartoModel, i);
                 int score = minimax(quartoModel, 0, false, false);
                 undoSimulation(quartoModel);
@@ -61,6 +64,7 @@ public class MiniMaxAIPlayer implements Player {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (quartoModel.isTableEmpty(i, j)) {
+                    actualPawn = quartoModel.getSelectedPawn();
                     simulatePlacePawn(quartoModel, i, j);
                     int score = minimax(quartoModel, 0, true, true);
                     undoSimulation(quartoModel);
@@ -86,7 +90,7 @@ public class MiniMaxAIPlayer implements Player {
 
     private int minimax(QuartoModel quartoModel, int depth, boolean isMaximizingPlayer, boolean isSelectingPawn) {
         if (depth == maxDepth || quartoModel.isGameOver()) {
-            return evaluateBoard(quartoModel, isMaximizingPlayer);
+            return evaluateBoard(quartoModel, isMaximizingPlayer) + evaluateRisk(quartoModel.getTable(), isMaximizingPlayer) - evaluatePawns(isMaximizingPlayer);
         }
 
         int bestScore = isMaximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
@@ -95,9 +99,9 @@ public class MiniMaxAIPlayer implements Player {
         if (isSelectingPawn) {
             for (int i = 0; i < 16; i++) {
                 if (availablePawns[i] != null) {
-                    actualPawn = quartoModel.getPawn(i);
+                    //actualPawn = quartoModel.getPawn(i);
                     simulateSelectPawn(quartoModel, i);
-                    int score = minimax(quartoModel, depth, !isMaximizingPlayer, false);
+                    int score = minimax(quartoModel, depth + 1, !isMaximizingPlayer, false);
                     undoSimulation(quartoModel);
                     bestScore = isMaximizingPlayer ? Math.max(bestScore, score) : Math.min(bestScore, score);
                 }
@@ -122,9 +126,6 @@ public class MiniMaxAIPlayer implements Player {
     }
 
     private int evaluatePlacement(QuartoModel quartoModel, boolean isAIPlayer) {
-        if (quartoModel.isGameOver()) {
-            return isAIPlayer ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-        }
         return evaluateRisk(quartoModel.getTable(), isAIPlayer);
 
     }
@@ -217,8 +218,14 @@ public class MiniMaxAIPlayer implements Player {
     private int evaluateLine(QuartoPawn[] line) {
         int score = 0;
         int commonCharacteristics = countCommonCharacteristicsInLine(line);
+        int count = 0;
+        for (QuartoPawn pawn : line) {
+            if (pawn != null) {
+                count ++;
+            }
+        }
 
-        if (commonCharacteristics == 4) {
+        if (commonCharacteristics > 0 && count == 4) {
             score += 10000; // Winning state
         }
         else{
@@ -255,7 +262,7 @@ public class MiniMaxAIPlayer implements Player {
 
         // Compare the characteristics of all pawns with the reference pawn
         for (QuartoPawn pawn : line) {
-            if (pawn != null) {
+            if (pawn != null && pawn != firstPawn ) {
                 sameRound &= (firstPawn.isRound() == pawn.isRound());
                 sameWhite &= (firstPawn.isWhite() == pawn.isWhite());
                 sameLittle &= (firstPawn.isLittle() == pawn.isLittle());
@@ -263,12 +270,62 @@ public class MiniMaxAIPlayer implements Player {
             }
         }
 
-        if (sameRound) commonCount++;
-        if (sameWhite) commonCount++;
-        if (sameLittle) commonCount++;
-        if (sameHollow) commonCount++;
-
+        if (sameRound) {
+            commonCount++;
+            if (firstPawn.isRound()) {
+                setCaracteristicsTable(1);
+            } else {
+                setCaracteristicsTable(0);
+            }
+        }
+        if (sameWhite) {
+            commonCount++;
+            if (firstPawn.isWhite()) {
+                setCaracteristicsTable(3);
+            } else {
+                setCaracteristicsTable(2);
+            }
+        }
+        if (sameLittle) {
+            commonCount++;
+            if (firstPawn.isLittle()) {
+                setCaracteristicsTable(5);
+            } else {
+                setCaracteristicsTable(4);
+            }
+        }
+        if (sameHollow) {
+            commonCount++;
+            if (firstPawn.isHollow()) {
+                setCaracteristicsTable(7);
+            } else {
+                setCaracteristicsTable(6);
+            }
+        }
         return commonCount;
+    }
+
+    private int evaluatePawns(boolean isAIPlayer){
+        int pawnScore = 0;
+
+        if ((actualPawn.isRound() && caracteristicsTable[1]) || (!actualPawn.isRound() && caracteristicsTable[0]) ){
+            pawnScore += 20;
+        }
+        if ((actualPawn.isWhite() && caracteristicsTable[3]) || (!actualPawn.isWhite() && caracteristicsTable[2]) ){
+            pawnScore += 20;
+        }
+        if ((actualPawn.isLittle() && caracteristicsTable[5]) || (!actualPawn.isLittle() && caracteristicsTable[4]) ){
+            pawnScore += 20;
+        }
+        if ((actualPawn.isHollow() && caracteristicsTable[7]) || (!actualPawn.isHollow() && caracteristicsTable[6]) ){
+            pawnScore += 20;
+        }
+
+        return isAIPlayer ? pawnScore : -pawnScore;
+    }
+
+    private void setCaracteristicsTable(int caracIndex){
+        caracteristicsTable[caracIndex] = true;
     }
 
 }

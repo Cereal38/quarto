@@ -32,7 +32,7 @@ public class QuartoModel {
             easyAIPlayer = new EasyAIPlayer();
         }
         if(playerType[0] == 3 || playerType[1] == 3) {
-            minimaxAIPlayer = new MiniMaxAIPlayer(6);
+            minimaxAIPlayer = new MiniMaxAIPlayer(15);
         }
     }
 
@@ -50,7 +50,7 @@ public class QuartoModel {
             easyAIPlayer = new EasyAIPlayer();
         }
         if(playerType[0] == 3 || playerType[1] == 3) {
-            minimaxAIPlayer = new MiniMaxAIPlayer(2);
+            minimaxAIPlayer = new MiniMaxAIPlayer(4);
         }
     }
 
