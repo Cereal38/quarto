@@ -75,4 +75,8 @@ public class CustomizedButton extends JButton {
     }
   }
 
+  public void setKey(String key) {
+    translatedString.setKey(key);
+  }
+
 }

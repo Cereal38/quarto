@@ -20,6 +20,8 @@ public class PlayerFields extends JPanel {
   private JTextField namePlayer2 = new JTextField();
   private CustomizedButton btnSwitchPlayer2 = new CustomizedButton("switch-to-ai");
   private CustomizedButton btnStartGame = new CustomizedButton("start");
+  private boolean player1IsAI = false;
+  private boolean player2IsAI = false;
 
   public PlayerFields() {
 
@@ -69,5 +71,25 @@ public class PlayerFields extends JPanel {
     add(playerFieldsWrapper);
     add(Box.createRigidArea(new Dimension(0, spacing))); // Divider
     add(startButtonWrapper);
+
+    // Setup buttons
+    btnSwitchPlayer1.addActionListener(e -> {
+      player1IsAI = !player1IsAI; // Toggle the flag
+      if (player1IsAI) {
+        btnSwitchPlayer1.setKey("switch-to-player"); // Change the text
+      } else {
+        btnSwitchPlayer1.setKey("switch-to-ai"); // Change the text
+      }
+    });
+
+    btnSwitchPlayer2.addActionListener(e -> {
+      player2IsAI = !player2IsAI; // Toggle the flag
+      if (player2IsAI) {
+        btnSwitchPlayer2.setKey("switch-to-player"); // Change the text
+      } else {
+        btnSwitchPlayer2.setKey("switch-to-ai"); // Change the text
+      }
+    });
+
   }
 }
