@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -22,6 +24,8 @@ public class PlayerFields extends JPanel {
   private CustomizedButton btnStartGame = new CustomizedButton("start");
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;
+  private JComboBox<String> aiLevelPlayer1 = new JComboBox<>();
+  private JComboBox<String> aiLevelPlayer2 = new JComboBox<>();
 
   public PlayerFields() {
 
@@ -74,22 +78,47 @@ public class PlayerFields extends JPanel {
 
     // Setup buttons
     btnSwitchPlayer1.addActionListener(e -> {
-      player1IsAI = !player1IsAI; // Toggle the flag
+      // Toggle the flag
+      // Switch components
+      // Change text
+      player1IsAI = !player1IsAI;
       if (player1IsAI) {
         btnSwitchPlayer1.setKey("switch-to-player"); // Change the text
+        player1Panel.remove(namePlayer1);
+        player1Panel.add(aiLevelPlayer1, 0);
       } else {
         btnSwitchPlayer1.setKey("switch-to-ai"); // Change the text
+        player1Panel.remove(aiLevelPlayer1);
+        player1Panel.add(namePlayer1, 0);
       }
     });
 
     btnSwitchPlayer2.addActionListener(e -> {
-      player2IsAI = !player2IsAI; // Toggle the flag
+      // Toggle the flag
+      // Switch components
+      // Change text
+      player2IsAI = !player2IsAI;
       if (player2IsAI) {
         btnSwitchPlayer2.setKey("switch-to-player"); // Change the text
+        player2Panel.remove(namePlayer2);
+        player2Panel.add(aiLevelPlayer2, 0);
       } else {
         btnSwitchPlayer2.setKey("switch-to-ai"); // Change the text
+        player2Panel.remove(aiLevelPlayer2);
+        player2Panel.add(namePlayer2, 0);
       }
     });
+
+    // Setup boxes
+    // First player
+    aiLevelPlayer1.setModel(new DefaultComboBoxModel<>(new String[] { "random", "easy", "medium", "hard" }));
+    aiLevelPlayer1.setPreferredSize(new Dimension(componentWidth, componentHeight));
+    aiLevelPlayer1.setVisible(false);
+
+    // Second player
+    aiLevelPlayer2.setModel(new DefaultComboBoxModel<>(new String[] { "random", "easy", "medium", "hard" }));
+    aiLevelPlayer2.setPreferredSize(new Dimension(componentWidth, componentHeight));
+    aiLevelPlayer2.setVisible(false);
 
   }
 }
