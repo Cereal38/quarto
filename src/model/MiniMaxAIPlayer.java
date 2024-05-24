@@ -8,6 +8,7 @@ public class MiniMaxAIPlayer implements Player {
     private int maxDepth;
     private Random random;
     private QuartoPawn actualPawn;
+    private int actualPawnScore;
 
     public MiniMaxAIPlayer(int maxDepth) {
         this.maxDepth = maxDepth;
@@ -32,7 +33,7 @@ public class MiniMaxAIPlayer implements Player {
         int bestScore = Integer.MIN_VALUE;
         List<Integer> bestPawns = new ArrayList<>();
         QuartoPawn[] availablePawns = quartoModel.getPawnAvailable();
-        //int[] pawnScores = calculateAvailablePawnsScores(quartoModel);
+        //int[] actualPawnScores = calculateAvailablePawnsScores(quartoModel);
 
         for (int i = 0; i < 16; i++) {
             if (availablePawns[i] != null) {
@@ -103,12 +104,15 @@ public class MiniMaxAIPlayer implements Player {
                 }
             }
         } else {
+            QuartoPawn copyActualPawn = actualPawn;
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     if (quartoModel.isTableEmpty(i, j)) {
                         simulatePlacePawn(quartoModel, i, j);
+                        actualPawn = null;
                         int score = minimax(quartoModel, depth + 1, isMaximizingPlayer, true);
                         undoSimulation(quartoModel);
+                        actualPawn = copyActualPawn;
                         bestScore = isMaximizingPlayer ? Math.max(bestScore, score) : Math.min(bestScore, score);
                     }
                 }
@@ -217,18 +221,26 @@ public class MiniMaxAIPlayer implements Player {
     private int evaluateLine(QuartoPawn[] line) {
         int score = 0;
         int commonCharacteristics = countCommonCharacteristicsInLine(line);
-
-        if (commonCharacteristics == 4) {
+        int count = 0;
+        for (QuartoPawn pawn : line) {
+            if (pawn != null) {
+                count++;
+            }
+        }
+        if (commonCharacteristics > 0 && count == 4) {
             score += 10000; // Winning state
         }
-        else{
-            score += commonCharacteristics * 100;
+        else {
+            if (count == 3 && commonCharacteristics != 0)
+                actualPawnScore += 20;
+            score += commonCharacteristics * 100 - (actualPawnScore * count);
         }
         return score;
     }
 
 
     private int countCommonCharacteristicsInLine(QuartoPawn[] line) {
+        actualPawnScore = 0;
         if (line.length != 4) {
             throw new IllegalArgumentException("The line must contain exactly 4 QuartoPawn objects.");
         }
@@ -255,7 +267,7 @@ public class MiniMaxAIPlayer implements Player {
 
         // Compare the characteristics of all pawns with the reference pawn
         for (QuartoPawn pawn : line) {
-            if (pawn != null) {
+            if (pawn != null && pawn != firstPawn) {
                 sameRound &= (firstPawn.isRound() == pawn.isRound());
                 sameWhite &= (firstPawn.isWhite() == pawn.isWhite());
                 sameLittle &= (firstPawn.isLittle() == pawn.isLittle());
@@ -263,10 +275,26 @@ public class MiniMaxAIPlayer implements Player {
             }
         }
 
-        if (sameRound) commonCount++;
-        if (sameWhite) commonCount++;
-        if (sameLittle) commonCount++;
-        if (sameHollow) commonCount++;
+        if (sameRound) {
+            if (actualPawn != null && firstPawn.isRound() == actualPawn.isRound())
+                actualPawnScore += 10;
+            commonCount++;   
+        }
+        if (sameWhite) {
+            if (actualPawn != null && firstPawn.isWhite() == actualPawn.isWhite())
+                actualPawnScore += 10;
+            commonCount++;
+        }
+        if (sameLittle) {
+            if (actualPawn != null && firstPawn.isLittle() == actualPawn.isLittle())
+                actualPawnScore += 10;
+            commonCount++;
+        }
+        if (sameHollow) {
+            if (actualPawn != null && firstPawn.isHollow() == actualPawn.isHollow())
+                actualPawnScore += 10;
+                commonCount++;
+        }
 
         return commonCount;
     }
