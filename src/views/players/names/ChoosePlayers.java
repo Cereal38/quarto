@@ -1,10 +1,12 @@
 package src.views.players.names;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.TranslatedLabel;
 import src.views.utils.DimensionUtils;
@@ -49,10 +51,11 @@ public class ChoosePlayers extends JPanel {
 
     // Setup title bar
     JPanel titleWrapper = new JPanel();
-    titleWrapper.setLayout(new GridBagLayout());
+    titleWrapper.setLayout(new BorderLayout());
     TranslatedLabel titleLabel = new TranslatedLabel("enter-players-names");
     titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-    titleWrapper.add(titleLabel);
+    titleLabel.setHorizontalAlignment(JLabel.CENTER); // Center the label horizontally
+    titleWrapper.add(titleLabel, BorderLayout.SOUTH);
 
     // Setup fields
     JPanel fieldsWrapper = new JPanel();
