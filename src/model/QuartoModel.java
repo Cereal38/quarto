@@ -2,13 +2,11 @@ package src.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class QuartoModel {
     private QuartoPawn[][] table;
     private int currentPlayer;// 1 for Player 1 and 2 for Player 2
-    private int[] playerType = new int[2]; // 0 for Human, 1 for Random AI, 2 for Easy AI and 3 for the MiniMax AI
+    private int[] playerType = new int[2]; // 0 for Human, 1 for Random AI, 2 for Easy AI, 3 for Medium AI and 4 for the MiniMax AI
     // with playerType[0] type of the player 1 and playerType[1] type of the player 2
     private QuartoPawn[] pawnAvailable;
     private QuartoPawn selectedPawn;
@@ -16,7 +14,7 @@ public class QuartoModel {
     private QuartoWin win;
     private SlotManager manager;
     private String firstPlayerName, secondPlayerName;
-    private Player randomAIPlayer, easyAIPlayer, minimaxAIPlayer;
+    private Player randomAIPlayer, easyAIPlayer, mediumAIPlayer, minimaxAIPlayer;
     private boolean gameOver = false; // true if end game
 
     public QuartoModel(int index) {
@@ -32,7 +30,10 @@ public class QuartoModel {
             easyAIPlayer = new EasyAIPlayer();
         }
         if(playerType[0] == 3 || playerType[1] == 3) {
-            minimaxAIPlayer = new MiniMaxAIPlayer(15);
+            mediumAIPlayer = new MediumAIPlayer();
+        }
+        if(playerType[0] == 4 || playerType[1] == 4) {
+            minimaxAIPlayer = new MiniMaxAIPlayer(2);
         }
     }
 
@@ -49,8 +50,11 @@ public class QuartoModel {
         if (playerType[0] == 2 || playerType[1] == 2) {
             easyAIPlayer = new EasyAIPlayer();
         }
-        if(playerType[0] == 3 || playerType[1] == 3) {
-            minimaxAIPlayer = new MiniMaxAIPlayer(4);
+        if (playerType[0] == 3 || playerType[1] == 3) {
+            mediumAIPlayer = new MediumAIPlayer();
+        }
+        if(playerType[0] == 4 || playerType[1] == 4) {
+            minimaxAIPlayer = new MiniMaxAIPlayer(2);
         }
     }
 
@@ -106,6 +110,9 @@ public class QuartoModel {
             easyAIPlayer.selectPawn(this);
         }
         else if (getCurrentPlayerType() == 3){
+            mediumAIPlayer.selectPawn(this);
+        }
+        else if (getCurrentPlayerType() == 4){
             minimaxAIPlayer.selectPawn(this);
         }
         else {
@@ -144,7 +151,10 @@ public class QuartoModel {
         else if(getCurrentPlayerType() == 2){
             easyAIPlayer.playShot(this);
         }
-        else if(getCurrentPlayerType() == 3){
+        else if (getCurrentPlayerType() == 3){
+            mediumAIPlayer.playShot(this);
+        }
+        else if(getCurrentPlayerType() == 4){
             minimaxAIPlayer.playShot(this);
         }
         else {
@@ -346,40 +356,4 @@ public class QuartoModel {
 
         return diagonals;
     }
-
-    public List<QuartoPawn[]> getIntersectingLines(int row, int column) {
-        List<QuartoPawn[]> intersectingLines = new ArrayList<>();
-
-        // Add the row
-        QuartoPawn[] lineRow = new QuartoPawn[4];
-        System.arraycopy(table[row], 0, lineRow, 0, 4);
-        intersectingLines.add(lineRow);
-
-        // Add the column
-        QuartoPawn[] lineColumn = new QuartoPawn[4];
-        for (int i = 0; i < 4; i++) {
-            lineColumn[i] = table[i][column];
-        }
-        intersectingLines.add(lineColumn);
-
-        // Add the diagonals if the position is on a diagonal
-        if (row == column) {
-            QuartoPawn[] diagonal1 = new QuartoPawn[4];
-            for (int i = 0; i < 4; i++) {
-                diagonal1[i] = table[i][i];
-            }
-            intersectingLines.add(diagonal1);
-        }
-
-        if (row + column == 3) {
-            QuartoPawn[] diagonal2 = new QuartoPawn[4];
-            for (int i = 0; i < 4; i++) {
-                diagonal2[i] = table[i][3 - i];
-            }
-            intersectingLines.add(diagonal2);
-        }
-
-        return intersectingLines;
-    }
-
 }

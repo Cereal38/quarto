@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class EasyAIPlayer implements Player{
+public class MediumAIPlayer implements Player{
 
     private final Random random;
     private final QuartoWin quartoWin;
-    public EasyAIPlayer() {
+    public MediumAIPlayer() {
         random = new Random();
         quartoWin = new QuartoWin();
     }
@@ -226,7 +226,7 @@ public class EasyAIPlayer implements Player{
             for (int[] cell : emptyCells) {
                 if (isWinningMove(grid, selectedPawn, cell[0], cell[1])) {
                     quartoModel.playShotHuman(cell[0], cell[1]);
-                    System.out.println("Winning shot played by Easy AI at (" + cell[0] + ", " + cell[1] + ").");
+                    System.out.println("Winning shot played by Medium AI at (" + cell[0] + ", " + cell[1] + ").");
                     return;
                 }
             }
@@ -234,16 +234,15 @@ public class EasyAIPlayer implements Player{
             // Check for blocking move
             QuartoPawn[] availablePawns = quartoModel.getPawnAvailable();
             for (int[] cell : emptyCells) {
-                boolean allWinning = true;
+                int nonWinningPawnsCount = 0;
                 for (QuartoPawn pawn : availablePawns) {
                     if (pawn != null && !isWinningMove(grid, pawn, cell[0], cell[1])) {
-                        allWinning = false;
-                        break;
+                        nonWinningPawnsCount++;
                     }
                 }
-                if (allWinning) {
+                if (nonWinningPawnsCount % 2 == 0) {
                     quartoModel.playShotHuman(cell[0], cell[1]);
-                    System.out.println("Blocking shot played by Easy AI at (" + cell[0] + ", " + cell[1] + ").");
+                    System.out.println("Blocking shot played by Medium AI at (" + cell[0] + ", " + cell[1] + ").");
                     return;
                 }
             }
@@ -265,7 +264,7 @@ public class EasyAIPlayer implements Player{
             if (!bestCells.isEmpty()) {
                 int[] bestCell = bestCells.get(random.nextInt(bestCells.size()));
                 quartoModel.playShotHuman(bestCell[0], bestCell[1]);
-                System.out.println("Optimal shot played by Easy AI at (" + bestCell[0] + ", " + bestCell[1] + ").");
+                System.out.println("Optimal shot played by Medium AI at (" + bestCell[0] + ", " + bestCell[1] + ").");
             }
         } else {
             System.out.println("All cells are occupied. Impossible to play.");
