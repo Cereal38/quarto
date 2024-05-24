@@ -9,8 +9,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import src.views.components.CustomizedButton;
+import src.views.components.CustomizedTextField;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
@@ -19,10 +19,11 @@ import src.views.utils.GameStatusHandler;
  */
 public class PlayerFields extends JPanel {
 
-  private JTextField namePlayer1 = new JTextField();
   private CustomizedButton btnSwitchPlayer1 = new CustomizedButton("switch-to-ai");
-  private JTextField namePlayer2 = new JTextField();
+
   private CustomizedButton btnSwitchPlayer2 = new CustomizedButton("switch-to-ai");
+  private CustomizedTextField namePlayer1 = new CustomizedTextField();
+  private CustomizedTextField namePlayer2 = new CustomizedTextField();
   private CustomizedButton btnStartGame = new CustomizedButton("start");
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;
