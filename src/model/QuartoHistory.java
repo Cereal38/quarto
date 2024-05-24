@@ -1,7 +1,7 @@
 package src.model;
 
 public class QuartoHistory {
-    int state; // If we have to select a pawn for the other player state = 0, if we have to
+    int state; // If we have to select a pawn for the other player state = 0, if we have toSZFX
                 // play the pawn state = 1. state = 2 if it's the start of the game.
     int indexPawn;
     int line, column;
