@@ -55,6 +55,25 @@ public class MediumAIPlayer implements Player{
                 hollowCount == 0 || hollowCount == pawnCount);
     }
 
+    // Checks if placing a pawn is an immediate winning pawn
+    private boolean isWinningPawn(QuartoModel quartoModel, QuartoPawn pawn) {
+        List<int[]> emptyCells = new ArrayList<>();
+        QuartoPawn[][] grid = quartoModel.getTable();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (quartoModel.isTableEmpty(i, j)) {
+                    emptyCells.add(new int[]{i, j});
+                }
+            }
+        }
+        for (int[] cell : emptyCells) {
+            if (isWinningMove(grid, pawn, cell[0], cell[1])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void updateCharacteristics(int[] characteristics, QuartoPawn[] pawns) {
         // Checks if input tables are of correct size
         if (characteristics.length != 8 || pawns.length != 4) {
@@ -173,6 +192,10 @@ public class MediumAIPlayer implements Player{
                     score += currentCharacteristics[7];
                 } else {
                     score += currentCharacteristics[6];
+                }
+
+                if(isWinningPawn(quartoModel, pawn)){
+                    score += 1000;
                 }
             }
 
