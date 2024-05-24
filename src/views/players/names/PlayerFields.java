@@ -91,6 +91,8 @@ public class PlayerFields extends JPanel {
         player1Panel.remove(aiLevelPlayer1);
         player1Panel.add(namePlayer1, 0);
       }
+      revalidate();
+      repaint();
     });
 
     btnSwitchPlayer2.addActionListener(e -> {
@@ -107,18 +109,18 @@ public class PlayerFields extends JPanel {
         player2Panel.remove(aiLevelPlayer2);
         player2Panel.add(namePlayer2, 0);
       }
+      revalidate();
+      repaint();
     });
 
     // Setup boxes
     // First player
     aiLevelPlayer1.setModel(new DefaultComboBoxModel<>(new String[] { "random", "easy", "medium", "hard" }));
     aiLevelPlayer1.setPreferredSize(new Dimension(componentWidth, componentHeight));
-    aiLevelPlayer1.setVisible(false);
 
     // Second player
     aiLevelPlayer2.setModel(new DefaultComboBoxModel<>(new String[] { "random", "easy", "medium", "hard" }));
     aiLevelPlayer2.setPreferredSize(new Dimension(componentWidth, componentHeight));
-    aiLevelPlayer2.setVisible(false);
 
   }
 }
