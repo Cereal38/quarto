@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import src.views.components.CustomizedButton;
+import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 
 /**
  * Component containing the fields to setup a player.
@@ -111,6 +113,18 @@ public class PlayerFields extends JPanel {
       }
       revalidate();
       repaint();
+    });
+
+    // Create Start button (initially hidden)
+    btnStartGame.addActionListener(e -> {
+
+      EventsHandler.getController().createModel(player1IsAI ? 1 : 0, player2IsAI ? 1 : 0, namePlayer1.getText(),
+          namePlayer2.getText());
+
+      // Start the game
+      GameStatusHandler.startGame();
+
+      EventsHandler.navigate("GameBoard");
     });
 
     // Setup boxes
