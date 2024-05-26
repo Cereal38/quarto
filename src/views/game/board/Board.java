@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javafx.scene.paint.Color;
 import src.views.utils.EventsHandler;
 
 public class Board extends JPanel {
@@ -38,7 +37,7 @@ public class Board extends JPanel {
     try {
       // TODO: Load board only once
       bgImage = ImageIO.read(new File("assets/images/board.png"));
-    backGroundImage = new ImageIcon(getClass().getResource("/assets/images/bg-board.png")).getImage();
+      backGroundImage = new ImageIcon(getClass().getResource("/assets/images/bg-board.png")).getImage();
     } catch (Exception e) {
       e.printStackTrace();
     }
