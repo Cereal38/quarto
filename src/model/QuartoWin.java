@@ -11,7 +11,7 @@ public class QuartoWin {
     boolean wTrue = true;
     boolean little = lineOrColumn[0].isLittle();
     boolean lTrue = true;
-    boolean hollow = lineOrColumn[0].isHollow();
+    boolean hollow = lineOrColumn[0].isWhite();
     boolean hTrue = true;
     for (int i = 1; i < 4; i++) {
       if (lineOrColumn[i] == null)
@@ -50,4 +50,5 @@ public class QuartoWin {
     }
     return false;
   }
+
 }

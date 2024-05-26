@@ -6,8 +6,7 @@ import java.io.IOException;
 public class QuartoModel {
   private QuartoPawn[][] table;
   private int currentPlayer;// 1 for Player 1 and 2 for Player 2
-  private int[] playerType = new int[2]; // 0 for Human, 1 for Random AI, 2 for Easy AI, 3 for Medium AI and 4 for the
-                                         // MiniMax AI
+  private int playerType[] = new int[2]; // 0 for Human and 1 for Random AI
   // with playerType[0] type of the player 1 and playerType[1] type of the player
   // 2
   private QuartoPawn[] pawnAvailable;
@@ -16,8 +15,8 @@ public class QuartoModel {
   private QuartoWin win;
   private SlotManager manager;
   private String firstPlayerName, secondPlayerName;
-  private Player randomAIPlayer, easyAIPlayer, mediumAIPlayer, minimaxAIPlayer;
-  private boolean gameOver = false; // true if end game
+
+  private Player randomAIPlayer;
 
   public QuartoModel(int index) {
     newTable(0, 0);
@@ -28,15 +27,6 @@ public class QuartoModel {
     if (playerType[0] == 1 || playerType[1] == 1) {
       randomAIPlayer = new RandomAIPlayer();
     }
-    if (playerType[0] == 2 || playerType[1] == 2) {
-      easyAIPlayer = new EasyAIPlayer();
-    }
-    if (playerType[0] == 3 || playerType[1] == 3) {
-      mediumAIPlayer = new MediumAIPlayer();
-    }
-    if (playerType[0] == 4 || playerType[1] == 4) {
-      minimaxAIPlayer = new MiniMaxAIPlayer(2);
-    }
   }
 
   public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName) {
@@ -46,17 +36,10 @@ public class QuartoModel {
     manager = new SlotManager();
     this.firstPlayerName = firstPlayerName;
     this.secondPlayerName = secondPlayerName;
-    if (playerType[0] == 1 || playerType[1] == 1) {
+    // System.out.println("name 1 : " + firstPlayerName + "name 2 :" +
+    // secondPlayerName);
+    if (firstPlayerType == 1 || secondPlayerType == 1) {
       randomAIPlayer = new RandomAIPlayer();
-    }
-    if (playerType[0] == 2 || playerType[1] == 2) {
-      easyAIPlayer = new EasyAIPlayer();
-    }
-    if (playerType[0] == 3 || playerType[1] == 3) {
-      mediumAIPlayer = new MediumAIPlayer();
-    }
-    if (playerType[0] == 4 || playerType[1] == 4) {
-      minimaxAIPlayer = new MiniMaxAIPlayer(2);
     }
   }
 
@@ -90,8 +73,6 @@ public class QuartoModel {
       if (file.getPreviousState() == 0) {// we remove a placed pawn
         setSelectedPawn(getPawnAtPosition(file.getLine(), file.getColumn()));
         setTable(file.getLine(), file.getColumn(), null);
-        if (gameOver)
-          gameOver = false;
       } else if (file.getPreviousState() == 1) {// we add the pawn chosen to the list of pawn available.
         pawnAvailable[file.getIndexPawn()] = getSelectedPawn();
         setSelectedPawn(null);
@@ -107,17 +88,12 @@ public class QuartoModel {
   public void selectPawn(int indexPawn) {
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.selectPawn(this);
-    } else if (getCurrentPlayerType() == 2) {
-      easyAIPlayer.selectPawn(this);
-    } else if (getCurrentPlayerType() == 3) {
-      mediumAIPlayer.selectPawn(this);
-    } else if (getCurrentPlayerType() == 4) {
-      minimaxAIPlayer.selectPawn(this);
     } else {
       if (pawnAvailable[indexPawn] != null) {
         selectPawnHuman(indexPawn);
       }
     }
+
   }
 
   public void selectPawnHuman(int indexPawn) {
@@ -145,12 +121,6 @@ public class QuartoModel {
   public void playShot(int line, int column) {
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.playShot(this);
-    } else if (getCurrentPlayerType() == 2) {
-      easyAIPlayer.playShot(this);
-    } else if (getCurrentPlayerType() == 3) {
-      mediumAIPlayer.playShot(this);
-    } else if (getCurrentPlayerType() == 4) {
-      minimaxAIPlayer.playShot(this);
     } else {
       playShotHuman(line, column);
     }
@@ -169,9 +139,9 @@ public class QuartoModel {
   }
 
   public boolean winSituation(int line, int column) {
-    gameOver = win.winSituationLine(getTable(), line) || win.winSituationColumn(getTable(), column)
-        || win.winSituationDiagonal(getTable(), line, column);
-    return (gameOver);
+
+    return (win.winSituationLine(getTable(), line) || win.winSituationColumn(getTable(), column)
+        || win.winSituationDiagonal(getTable(), line, column));
   }
 
   public void redoLoop(int countUndo) {
@@ -181,7 +151,7 @@ public class QuartoModel {
     }
   }
 
-  public boolean checkInfoPlayer(int index) {
+  public boolean goodInfoPlayer(int index) {
     int countUndo = 0;
     manager.loadFromDirectory();
     while (file.canUndo()) {
@@ -189,7 +159,7 @@ public class QuartoModel {
       countUndo++;
     }
     System.out.println("nb files =" + manager.getSlotFileDates().size());
-    if (manager.isSlotFileEmpty(index)) {
+    if (manager.isSlotFileEmpty(index) == true) {
       System.err.println("l'index: " + index + " contient "
           + manager.getSlotFileDates().keySet().toArray(new String[0])[index] + " un fichier vide");
       redoLoop(countUndo);
@@ -220,11 +190,12 @@ public class QuartoModel {
   }
 
   public void chargeGame(int index) {
-    if (!checkInfoPlayer(index))
+    if (goodInfoPlayer(index) == false)
       return;
     QuartoHistory copy = file.getHead();
     boolean afterSave = false;
     while (!afterSave) {
+
       if (copy.state == 0) {
         selectedPawn = pawnAvailable[copy.getIndexPawn()];
         pawnAvailable[copy.getIndexPawn()] = null;
@@ -250,6 +221,7 @@ public class QuartoModel {
     if (line < 0 || line >= 4 || column < 0 || column >= 4) {
       throw new IllegalArgumentException("Invalid position: (" + line + ", " + column + ")");
     }
+
     return table[line][column];
   }
 
@@ -310,47 +282,5 @@ public class QuartoModel {
 
   public QuartoHistory getFirstState() {
     return file.getHead();
-  }
-
-  public boolean isGameOver() {
-    return gameOver || (selectedPawn == null && isPawnListEmpty());
-  }
-
-  public QuartoPawn getPawn(int pawnIndex) {
-    return getPawnAvailable()[pawnIndex];
-  }
-
-  public QuartoPawn[][] getLines() {
-    QuartoPawn[][] lines = new QuartoPawn[4][4];
-    for (int i = 0; i < 4; i++) {
-      System.arraycopy(table[i], 0, lines[i], 0, 4);
-    }
-    return lines;
-  }
-
-  public QuartoPawn[][] getColumns() {
-    QuartoPawn[][] columns = new QuartoPawn[4][4];
-    for (int j = 0; j < 4; j++) {
-      for (int i = 0; i < 4; i++) {
-        columns[j][i] = table[i][j];
-      }
-    }
-    return columns;
-  }
-
-  public QuartoPawn[][] getDiagonals() {
-    QuartoPawn[][] diagonals = new QuartoPawn[2][4];
-
-    // First diagonal (top-left to bottom-right)
-    for (int i = 0; i < 4; i++) {
-      diagonals[0][i] = table[i][i];
-    }
-
-    // Second diagonal (top-right to bottom-left)
-    for (int i = 0; i < 4; i++) {
-      diagonals[1][i] = table[i][3 - i];
-    }
-
-    return diagonals;
   }
 }
