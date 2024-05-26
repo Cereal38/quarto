@@ -2,36 +2,18 @@ package src.views.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import src.views.components.Pawn;
+import javax.swing.SwingUtilities;
+import src.views.game.board.GameOverDialog;
+import src.views.game.history.Move;
 import src.views.listeners.GameStatusListener;
 
 public class GameStatusHandler {
 
-  // Constants
-  public static final int GAME_NOT_STARTED = 0;
-  public static final int PLAYER_ONE_PLAY_PAWN = 1;
-  public static final int PLAYER_ONE_SELECT_PAWN = 2;
-  public static final int PLAYER_TWO_PLAY_PAWN = 3;
-  public static final int PLAYER_TWO_SELECT_PAWN = 4;
-  public static final int PLAYER_ONE_WIN = 5;
-  public static final int PLAYER_TWO_WIN = 6;
-
-  private static int gamePhase = GAME_NOT_STARTED;
-
-  private static String player1Name;
-  private static String player2Name;
-
-  private static List<Pawn> pawns = new ArrayList<>();
-  private static String selectedPawn = "";
-
   // The list of game status listeners
   private static final List<GameStatusListener> listeners = new ArrayList<>();
 
-  public static void startGame() {
-    gamePhase = PLAYER_ONE_SELECT_PAWN;
-    initPawns();
-    informListeners();
-  }
+  // Keep the history of moves
+  private static List<Move> moveComponents = new ArrayList<>();
 
   // ================== Game Status Listeners ==================
 
@@ -59,136 +41,100 @@ public class GameStatusHandler {
     }
   }
 
-  // =============== Game Phase Management ===============
-
-  public static void setGamePhase(int phase) {
-    gamePhase = phase;
-    informListeners();
+  public static void startGame() {
+    actionPerformed();
   }
 
-  public static int getGamePhase() {
-    return gamePhase;
-  }
-
-  public static boolean isPlayerOneTurn() {
-    return gamePhase == PLAYER_ONE_PLAY_PAWN || gamePhase == PLAYER_ONE_SELECT_PAWN;
-  }
-
-  public static boolean isPlayerTwoTurn() {
-    return gamePhase == PLAYER_TWO_PLAY_PAWN || gamePhase == PLAYER_TWO_SELECT_PAWN;
-  }
-
-  public static boolean isSelectionPhase() {
-    return gamePhase == PLAYER_ONE_SELECT_PAWN || gamePhase == PLAYER_TWO_SELECT_PAWN;
-  }
-
-  public static boolean isPlayPhase() {
-    return gamePhase == PLAYER_ONE_PLAY_PAWN || gamePhase == PLAYER_TWO_PLAY_PAWN;
-  }
-
-  public static void nextPhase() {
-    switch (gamePhase) {
-    case PLAYER_ONE_PLAY_PAWN:
-      gamePhase = PLAYER_ONE_SELECT_PAWN;
-      break;
-    case PLAYER_ONE_SELECT_PAWN:
-      gamePhase = PLAYER_TWO_PLAY_PAWN;
-      break;
-    case PLAYER_TWO_PLAY_PAWN:
-      gamePhase = PLAYER_TWO_SELECT_PAWN;
-      break;
-    case PLAYER_TWO_SELECT_PAWN:
-      gamePhase = PLAYER_ONE_PLAY_PAWN;
-      break;
-    default:
-      break;
-    }
-    informListeners();
-  }
-
-  public static String getGamePhaseAsText() {
-    switch (gamePhase) {
-    case PLAYER_ONE_PLAY_PAWN:
-      return "Player One Play Pawn";
-    case PLAYER_ONE_SELECT_PAWN:
-      return "Player One Select Pawn";
-    case PLAYER_TWO_PLAY_PAWN:
-      return "Player Two Play Pawn";
-    case PLAYER_TWO_SELECT_PAWN:
-      return "Player Two Select Pawn";
-    case PLAYER_ONE_WIN:
-      return "Player One Win";
-    case PLAYER_TWO_WIN:
-      return "Player Two Win";
-    default:
-      return "Game Not Started";
-    }
-  }
-
-  // =============== Player Names ===============
-  public static void setPlayer1Name(String name) {
-    player1Name = name;
-  }
-
-  public static String getPlayer1Name() {
-    return player1Name;
-  }
-
-  public static void setPlayer2Name(String name) {
-    player2Name = name;
-  }
-
-  public static String getPlayer2Name() {
-    return player2Name;
-  }
-
-  // =============== Pawns ===============
-  public static void initPawns() {
-    for (int i = 0; i < 16; i++) {
-      pawns.add(new Pawn(ImageUtils.getPawn(i), 50, 50));
-    }
-  }
-
-  public static void resetPawns() {
-    for (Pawn pawn : pawns) {
-      pawn.reset();
-    }
-  }
-
-  public static List<Pawn> getNotPlayedPawns() {
-    List<Pawn> notPlayedPawns = new ArrayList<>();
-    for (Pawn pawn : pawns) {
-      if (pawn.isNotPlayed() || pawn.isSelected()) {
-        notPlayedPawns.add(pawn);
+  /**
+   * If the current player is an AI, play a shot or select a pawn. Add 1 second
+   * delay.
+   */
+  private static void aiPlay() {
+    if (EventsHandler.getController().isCurrentPlayerAI()) {
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      // We call methods with bullshit data because it's decided by the AI in the
+      // model
+      if (EventsHandler.getController().isPlayPhase()) {
+        playShot(0, 0);
+      } else {
+        selectPawn("0000");
       }
     }
-    return notPlayedPawns;
   }
 
-  public static void setSelectedPawn(String pawn) {
-    selectedPawn = pawn;
+  /**
+   * Everytime an action is performed, we inform the listeners and check if the AI
+   * needs to take an action.
+   */
+  private static void actionPerformed() {
+    informListeners();
+    // Using invokeLater to let the UI update before the AI plays
+    SwingUtilities.invokeLater(() -> aiPlay());
   }
 
-  public static String getSelectedPawnCode() {
-    return selectedPawn;
+  public static void selectPawn(String code) {
+    EventsHandler.getController().selectPawn(code);
+    actionPerformed();
   }
 
-  public static Pawn getSelectedPawn() {
-    for (Pawn pawn : pawns) {
-      if (pawn.getCode().equals(selectedPawn)) {
-        return pawn;
-      }
-    }
-    return null;
-  }
-
-  public static void playPawn(int line, int column) {
+  public static void playShot(int line, int column) {
     EventsHandler.getController().playShot(line, column);
-    for (Pawn pawn : pawns) {
-      if (pawn.getCode().equals(selectedPawn)) {
-        pawn.play();
-        break;
-      }
+    // Display the shot on the board
+    informListeners();
+    // Check if the game is finished. If not, got to the next phase
+    if (!checkWin(line, column)) {
+      actionPerformed();
     }
   }
+
+  /**
+   * Checks if the game is won by the player at the specified line and column.
+   * Shows a dialog if the game is finished.
+   *
+   * @param line   the line index of the selected position
+   * @param column the column index of the selected position
+   * @return true if the game is won, false otherwise
+   */
+  private static boolean checkWin(int line, int column) {
+    if (EventsHandler.getController().isGameFinished(line, column)) {
+      try {
+        Thread.sleep(500);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      // Wait for the last shot to be displayed
+      SwingUtilities.invokeLater(() -> EventsHandler
+          .showDialog(new GameOverDialog(EventsHandler.getController().getCurrentPlayerName()), false));
+      return true;
+    }
+    return false;
+  }
+
+  public static void undo() {
+    EventsHandler.getController().undo();
+    actionPerformed();
+  }
+
+  public static void redo() {
+    EventsHandler.getController().redo();
+    actionPerformed();
+  }
+
+  public static void addMove(String move) {
+    Move newMove = new Move(move);
+    moveComponents.add(newMove);
+  }
+
+  public static void clearMoves() {
+    moveComponents.clear();
+  }
+
+  public static List<Move> getMoveComponents() {
+    return moveComponents;
+  }
+
 }

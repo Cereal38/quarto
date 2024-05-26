@@ -13,9 +13,11 @@ import src.views.components.ExitButton;
 import src.views.components.LanguageButton;
 import src.views.components.ManualButton;
 import src.views.components.MusicButton;
-import src.views.components.PauseMenuButton;
-import src.views.components.RedoButton;
-import src.views.components.UndoButton;
+import src.views.game.board.PauseMenuButton;
+import src.views.game.board.RedoButton;
+import src.views.game.board.UndoButton;
+import src.views.game.history.Move;
+import src.views.game.history.MovesHistory;
 
 /**
  * A custom class that handles events for the main frame.
@@ -34,6 +36,16 @@ public class EventsHandler {
     private static UndoButton undoButton;
     private static RedoButton redoButton;
     private static PauseMenuButton pauseMenuButton;
+
+    private static MovesHistory movesHistory;
+
+    public static void setMovesHistory(MovesHistory movesHistory) {
+        EventsHandler.movesHistory = movesHistory;
+    }
+
+    public static void addMove(String move) {
+        movesHistory.addMove(move);
+    }
 
     public static void setCardLayout(CardLayout cardLayout) {
         EventsHandler.cardLayout = cardLayout;
@@ -92,10 +104,13 @@ public class EventsHandler {
      * Displays a dialog with the specified content.
      *
      * @param dialogContent the content to be displayed in the dialog
+     * @param closeable     whether the dialog can be closed by clicking outside of
+     *                      it
      */
-    public static void showDialog(JPanel dialogContent) {
+    public static void showDialog(JPanel dialogContent, boolean closeable) {
         dialog.setContent(dialogContent);
         dialog.setVisible(true);
+        dialog.setCloseable(closeable);
     }
 
     /**
@@ -109,7 +124,6 @@ public class EventsHandler {
      * Toggles the theme of the application.
      */
     public static void toggleTheme() {
-        // TODO: Theme must be fixed
         theme = (theme + 1) % 2;
         switch (theme) {
         case 0:

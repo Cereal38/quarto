@@ -1,12 +1,13 @@
 package src.views.components;
 
-import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 
@@ -19,11 +20,15 @@ public class Pawn extends JButton {
 
   private String code;
   private int state;
+  private int width;
+  private int height;
 
-  public Pawn(String code, int width, int height) {
+  public Pawn(String code, int state, int width, int height) {
 
-    this.state = NOT_PLAYED;
     this.code = code;
+    this.state = state;
+    this.width = width;
+    this.height = height;
 
     // Load image
     ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
@@ -34,12 +39,17 @@ public class Pawn extends JButton {
     setBorder(BorderFactory.createEmptyBorder());
     setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+    if (state == SELECTED) {
+      setBorder(BorderFactory.createLineBorder(java.awt.Color.RED, 2));
+    }
+
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
-        // If not played, select the pawn
-        if (isNotPlayed()) {
-          select();
-          GameStatusHandler.setSelectedPawn(code);
+        // Only allow the player to select a pawn during the select phase
+        if (canSelect()) {
+          GameStatusHandler.selectPawn(code);
+        } else {
+          System.err.println("Error: Can't select a pawn right now.");
         }
       }
 
@@ -47,47 +57,51 @@ public class Pawn extends JButton {
 
   }
 
-  public boolean isNotPlayed() {
-    return state == NOT_PLAYED;
-  }
-
-  public boolean isPlayed() {
-    return state == PLAYED;
-  }
-
-  public boolean isSelected() {
-    return state == SELECTED;
-  }
-
   /**
-   * Resets the state of the pawn to its initial state.
+   * Checks if the pawn can be selected.
+   * 
+   * @return true if the pawn can be selected, false otherwise.
    */
-  public void reset() {
-    state = NOT_PLAYED;
-    setCursor(new Cursor(Cursor.HAND_CURSOR));
-    setBorder(BorderFactory.createEmptyBorder());
+  private boolean canSelect() {
+    return EventsHandler.getController().isSelectionPhase() && !EventsHandler.getController().isCurrentPlayerAI();
   }
 
-  /**
-   * Update the state of the pawn to PLAYED and change the game phase.
-   */
-  public void play() {
-    state = PLAYED;
-    setBorder(BorderFactory.createEmptyBorder());
-    GameStatusHandler.nextPhase();
+  public void update(int state, int width, int height) {
+
+    // Update the state if it has changed
+    if (this.state != state) {
+      this.state = state;
+      if (state == SELECTED) {
+        setBorder(BorderFactory.createLineBorder(java.awt.Color.RED, 2));
+      } else {
+        setBorder(BorderFactory.createEmptyBorder());
+      }
+    }
+
+    // Do nothing if the width and height are the same
+    if (this.width == width && this.height == height) {
+      return;
+    }
+
+    // If the width and height has been reduced, simply scale down the image
+    if (width < this.width && height < this.height) {
+      this.width = width;
+      this.height = height;
+      ImageIcon imageIcon = (ImageIcon) getIcon();
+      Image image = imageIcon.getImage();
+      Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+      ImageIcon scaledIcon = new ImageIcon(scaledImage);
+      setIcon(scaledIcon);
+    }
+
+    // If the width or height has been increased, reload the image
+    // This is necessary to avoid pixelation
+    else {
+      this.width = width;
+      this.height = height;
+      ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
+      setIcon(image);
+    }
   }
 
-  /**
-   * Update the state of the pawn to SELECTED and change the game phase.
-   */
-  public void select() {
-    state = SELECTED;
-    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    setBorder(BorderFactory.createLineBorder(Color.RED, 3));
-    GameStatusHandler.nextPhase();
-  }
-
-  public String getCode() {
-    return code;
-  }
 }
