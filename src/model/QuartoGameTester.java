@@ -19,7 +19,7 @@ public class QuartoGameTester {
         int game = scanner.nextInt();
         if (game == 0) {
             System.out.println("Choose player types:");
-            System.out.println("0 - Human, 1 - Random AI");
+            System.out.println("0 - Human, 1 - Random AI, 2 - Easy AI, 3 - Medium AI, 4 - Minimax AI");
 
             System.out.print("Player 1 type: ");
             int firstPlayerType = scanner.nextInt();
@@ -54,26 +54,54 @@ public class QuartoGameTester {
             } else if (input.equalsIgnoreCase("printP")) {
                 printPawnAvailable();
             } else if (input.toLowerCase().startsWith("select ")) {
-                try {
-                    int pawnIndex = Integer.parseInt(input.substring(7).trim());
-                    quartoModel.selectPawn(pawnIndex);
-                    System.out.println("Pawn " + quartoModel.getSelectedPawn().getPawn() + " selected.");
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    System.out.println("Invalid pawn index.");
+                if(quartoModel.getCurrentPlayerType() != 0 ){
+                    System.out.println("Select option is for human players only");
+                }
+                else {
+                    try {
+                        int pawnIndex = Integer.parseInt(input.substring(7).trim());
+                        quartoModel.selectPawn(pawnIndex);
+                        System.out.println("Pawn " + quartoModel.getSelectedPawn().getPawn() + " selected.");
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        System.out.println("Invalid pawn index.");
+                    }
                 }
             } else if (input.toLowerCase().startsWith("play ")) {
-                try {
-                    String[] coordinates = input.substring(5).trim().split("\\s+");
-                    if (coordinates.length == 2) {
-                        int row = Integer.parseInt(coordinates[0]);
-                        int column = Integer.parseInt(coordinates[1]);
-                        quartoModel.playShot(row, column);
-                        System.out.println("Shot played at (" + row + ", " + column + ").");
-                    } else {
+                if(quartoModel.getCurrentPlayerType() != 0 ){
+                    System.out.println("Play option is for human players only");
+                }
+                else {
+                    try {
+                        String[] coordinates = input.substring(5).trim().split("\\s+");
+                        if (coordinates.length == 2) {
+                            int row = Integer.parseInt(coordinates[0]);
+                            int column = Integer.parseInt(coordinates[1]);
+                            quartoModel.playShot(row, column);
+                            System.out.println("Shot played at (" + row + ", " + column + ").");
+                        } else {
+                            System.out.println("Invalid coordinates.");
+                        }
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
                         System.out.println("Invalid coordinates.");
                     }
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    System.out.println("Invalid coordinates.");
+                }
+            }
+            else if (input.equalsIgnoreCase("ai")){
+                if((quartoModel.getCurrentPlayerType() == 0 )){
+                    System.out.println("The player is not an AI");
+                }
+                else{
+                    if (quartoModel.getSelectedPawn() == null){
+                        quartoModel.selectPawn(0);
+                        System.out.println("Pawn " + quartoModel.getSelectedPawn().getPawn() + " selected by the ai.");
+                    }
+                    else {
+                        quartoModel.playShot(0, 0);
+                        //if (!quartoModel.isPawnListEmpty()) {
+                        //    quartoModel.selectPawn(0);
+                        //    System.out.println("Pawn " + quartoModel.getSelectedPawn().getPawn() + " selected by the ai.");
+                        //}
+                    }
                 }
             } else if (input.equalsIgnoreCase("undo")) {
                 quartoModel.undo();
@@ -123,8 +151,7 @@ public class QuartoGameTester {
                     printState(head);
                     head = head.getNext();
                 }
-                if (head != null)
-                    printState(head);
+                printState(head);
             } else {
                 System.out.println("Unknown command. Type 'help' for commands.");
             }
@@ -174,6 +201,7 @@ public class QuartoGameTester {
         System.out.println("printP - Display the available pawns.");
         System.out.println("select i - Select pawn i to play.");
         System.out.println("play i j - Play at coordinates i j.");
+        System.out.println("ai - Allow the ai to play its turn.");
         System.out.println("undo - Undo last action.");
         System.out.println("redo - Redo last undone action.");
         System.out.println("win i j - Check win situation at coordinates i j.");

@@ -119,8 +119,10 @@ public class PlayerFields extends JPanel {
     // Create Start button (initially hidden)
     btnStartGame.addActionListener(e -> {
 
-      EventsHandler.getController().createModel(player1IsAI ? 1 : 0, player2IsAI ? 1 : 0, namePlayer1.getText(),
-          namePlayer2.getText());
+      int player1 = player1IsAI ? getAIPlayerLevel(aiLevelPlayer1) : 0;
+      int player2 = player2IsAI ? getAIPlayerLevel(aiLevelPlayer2) : 0;
+
+      EventsHandler.getController().createModel(player1, player2, namePlayer1.getText(), namePlayer2.getText());
 
       // Start the game
       GameStatusHandler.startGame();
@@ -137,5 +139,20 @@ public class PlayerFields extends JPanel {
     aiLevelPlayer2.setModel(new DefaultComboBoxModel<>(new String[] { "random", "easy", "medium", "hard" }));
     aiLevelPlayer2.setPreferredSize(new Dimension(componentWidth, componentHeight));
 
+  }
+
+  private int getAIPlayerLevel(JComboBox<String> aiLevel) {
+    switch (aiLevel.getSelectedIndex()) {
+    case 0:
+      return 1;
+    case 1:
+      return 2;
+    case 2:
+      return 3;
+    case 3:
+      return 4;
+    default:
+      return 1;
+    }
   }
 }
