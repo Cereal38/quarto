@@ -11,6 +11,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
+import src.views.utils.EventsHandler;
 
 public class PawnsBarSlot extends JPanel {
 
@@ -20,7 +21,6 @@ public class PawnsBarSlot extends JPanel {
   private Image bgImageHovered;
   private Image bgImageSelected;
   private Pawn pawn;
-  private boolean hovered;
 
   /**
    * Constructor.
@@ -64,17 +64,15 @@ public class PawnsBarSlot extends JPanel {
       e.printStackTrace();
     }
 
-    // Add a MouseListener to the PawnsBarSlot
+    // Repaint on mouse enter && mouse exit to trigger visual hover effect
     MouseListener mouseListener = new MouseAdapter() {
       @Override
       public void mouseEntered(MouseEvent e) {
-        hovered = true;
         repaint();
       }
 
       @Override
       public void mouseExited(MouseEvent e) {
-        hovered = false;
         repaint();
       }
     };
@@ -87,7 +85,9 @@ public class PawnsBarSlot extends JPanel {
     super.paintComponent(g);
     if (pawn != null && pawn.isSelected()) {
       g.drawImage(bgImageSelected, 0, 0, getWidth(), getHeight(), this);
-    } else if (hovered || (pawn != null && pawn.isHovered())) {
+      // If the pawn is hovered and the game is in the selection phase, display the
+      // hovered image
+    } else if ((pawn != null && pawn.isHovered()) && EventsHandler.getController().isSelectionPhase()) {
       g.drawImage(bgImageHovered, 0, 0, getWidth(), getHeight(), this);
     } else {
       g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
