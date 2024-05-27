@@ -68,15 +68,7 @@ public class Pawn extends JButton {
 
   public void update(int state, int width, int height) {
 
-    // Update the state if it has changed
-    if (this.state != state) {
-      this.state = state;
-      if (state == SELECTED) {
-        setBorder(BorderFactory.createLineBorder(java.awt.Color.RED, 2));
-      } else {
-        setBorder(BorderFactory.createEmptyBorder());
-      }
-    }
+    this.state = state;
 
     // Do nothing if the width and height are the same
     if (this.width == width && this.height == height) {
