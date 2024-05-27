@@ -206,7 +206,6 @@ public class MediumAIPlayer implements Player{
         return pawnScores;
     }
 
-    //if several pawns have the same score, takes the first found and not a random one
     @Override
     public void selectPawn(QuartoModel quartoModel) {
         int[] pawnScores = calculateAvailablePawnsScores(quartoModel);
