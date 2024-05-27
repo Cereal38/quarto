@@ -39,6 +39,10 @@ public class EventsHandler {
 
     private static MovesHistory movesHistory;
 
+    public static int getTheme() {
+        return theme;
+    }
+
     public static void setMovesHistory(MovesHistory movesHistory) {
         EventsHandler.movesHistory = movesHistory;
     }
