@@ -1,6 +1,9 @@
 package src.views.game.board;
 
+import java.awt.AlphaComposite;
 import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
@@ -62,11 +65,15 @@ public class Cell extends JPanel {
   }
 
   @Override
-  protected void paintComponent(java.awt.Graphics g) {
+  protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
     if (hovered && ghostPawn != null && canPlay()) {
-      g.drawImage(ghostPawn.getImage(), 0, 0, null);
+      Graphics2D g2d = (Graphics2D) g;
+
+      // Draw the ghost pawn with 50% opacity
+      g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+      g2d.drawImage(ghostPawn.getImage(), 20, 18, null);
     }
   }
 
