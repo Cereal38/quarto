@@ -72,7 +72,7 @@ public class Cell extends JPanel {
 
       // Draw the ghost pawn with 50% opacity
       g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-      g2d.drawImage(ghostPawn.getImage(), 20, 18, null);
+      g2d.drawImage(ghostPawn.getImage(), 22, 5, null);
     }
   }
 
