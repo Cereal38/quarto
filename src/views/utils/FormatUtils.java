@@ -38,14 +38,23 @@ public class FormatUtils {
   }
 
   /**
-   * Converts a string in format "0110" to an index in the range 0-15. It's used
-   * for some purposes in the model.
+   * Converts a string in format "0110" to an index in the range 0-15.
    * 
    * @param str the string to convert
    * @return the index value
    */
   public static int stringToIndex(String str) {
     return Integer.parseInt(str, 2);
+  }
+
+  /**
+   * Converts a byte to an index in the range 0-15.
+   * 
+   * @param b the byte to convert
+   * @return the index value
+   */
+  public static int byteToIndex(byte b) {
+    return b & 0xFF;
   }
 
   /**

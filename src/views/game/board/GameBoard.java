@@ -1,46 +1,85 @@
 package src.views.game.board;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JPanel;
 import src.views.components.BorderCenterPanel;
-import src.views.game.history.MovesHistory;
+import src.views.listeners.GameStatusListener;
 import src.views.utils.DimensionUtils;
+import src.views.utils.GameStatusHandler;
 
-public class GameBoard extends JPanel {
+public class GameBoard extends JPanel implements GameStatusListener {
+
+  private static final int HEIGHT_TOP_BAR = 60;
 
   public GameBoard() {
+
+    // Register this class as a game status listener
+    // update() will be called when informListeners() is called
+    GameStatusHandler.addGameStatusListener(this);
+
+    update();
+
+    // Resize listener
+    this.addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentResized(ComponentEvent e) {
+        update();
+      }
+    });
+
+  }
+
+  /**
+   * All the purpose of this method is to refresh the whole game board. We compute
+   * the dimensions of the components here and pass them as props to components.
+   */
+  @Override
+  public void update() {
+
+    // Clear the board
+    removeAll();
+
     setLayout(new BorderLayout());
 
-    int heightFrame = DimensionUtils.getMainFrameHeight();
+    // Compute dimensions
     int widthFrame = DimensionUtils.getMainFrameWidth();
-
-    // Setup top bar
-    TopBarGameBoard topBarGameBoard = new TopBarGameBoard();
+    int heightFrame = DimensionUtils.getMainFrameHeight();
     int widthTopBar = widthFrame;
-    int heightTopBar = 50;
-    topBarGameBoard.setPreferredSize(new Dimension(widthTopBar, heightTopBar));
-    DimensionUtils.setBoardTopBar(widthTopBar, heightTopBar);
+    int heightPawnsBar = heightFrame - HEIGHT_TOP_BAR;
+    int widthPawnsBar = (int) (heightPawnsBar / 3.81); // We want to keep the ratio 3.81 (height/width)
+    int pawnsBarPawnSize = Math.min((widthPawnsBar / 2) - 30, (heightPawnsBar / 8) - 30);
+    int widthBoardWrapper = widthFrame - widthPawnsBar;
+    int heightBoardWrapper = heightFrame - HEIGHT_TOP_BAR;
+    int boardCellSize = (int) (heightBoardWrapper - heightBoardWrapper * 0.5) / 4;
+    int boardGap = (heightBoardWrapper - boardCellSize * 4) / 5;
+    int horizontalMarginBoard = (int) (widthBoardWrapper / 2 - boardCellSize * 2 - boardGap * 1.5);
+    int verticalMarginBoard = boardGap;
 
-    // Setup pawns bar
-    PawnsBar pawnsBar = new PawnsBar();
-    int widthPawnsBar = widthFrame;
-    int heightPawnsBar = 70;
-    pawnsBar.setPreferredSize(new Dimension(widthPawnsBar, heightPawnsBar));
+    // Register useful dimensions
+    DimensionUtils.setBarCellSize(pawnsBarPawnSize);
+    DimensionUtils.setBoardCellSize(boardCellSize);
     DimensionUtils.setBoardPawnsBar(widthPawnsBar, heightPawnsBar);
 
-    BoardWrapper boardWrapper = new BoardWrapper();
+    // Setup top bar
+    TopBarGameBoard topBarGameBoard = new TopBarGameBoard(widthTopBar, HEIGHT_TOP_BAR);
 
-    MovesHistory movesHistory = new MovesHistory();
-    BorderCenterPanel movesHistoryWrapper = new BorderCenterPanel(movesHistory, 50, 0, 50, 0);
-    movesHistoryWrapper.setPreferredSize(new Dimension(250, heightFrame - heightTopBar - heightPawnsBar));
-    DimensionUtils.setHistory(250, heightFrame - heightTopBar - heightPawnsBar);
+    // Setup pawns bar
+    DimensionUtils.setBoardPawnsBar(widthPawnsBar, heightPawnsBar);
+    PawnsBar pawnsBar = new PawnsBar(widthPawnsBar, heightPawnsBar);
+
+    // Setup board. Add a wrapper to center the board and add margins
+    BorderCenterPanel boardWrapper = new BorderCenterPanel(
+        new Board(widthBoardWrapper, heightBoardWrapper, boardCellSize), verticalMarginBoard, horizontalMarginBoard,
+        verticalMarginBoard, horizontalMarginBoard);
 
     // Add components
     add(topBarGameBoard, BorderLayout.NORTH);
     add(boardWrapper, BorderLayout.CENTER);
-    add(movesHistoryWrapper, BorderLayout.EAST);
-    add(pawnsBar, BorderLayout.SOUTH);
+    add(pawnsBar, BorderLayout.EAST);
 
+    revalidate();
+    repaint();
   }
 }

@@ -1,54 +1,30 @@
 package src.views.game.board;
 
-import java.awt.FlowLayout;
-import java.util.List;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
-import src.views.listeners.GameStatusListener;
-import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
-import src.views.utils.GameStatusHandler;
 
-public class PawnsBar extends JPanel implements GameStatusListener {
+public class PawnsBar extends JPanel {
 
-  private List<Pawn> pawns;
-  int widthPawn;
-  int heightPawn;
+  public PawnsBar(int width, int height) {
+    setLayout(new GridLayout(8, 2));
 
-  public PawnsBar() {
-    setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+    setPreferredSize(new Dimension(width, height));
+    setBackground(new Color(211, 165, 71)); // Add background color to avoid flickering
 
-    // Register this class as a game status listener
-    GameStatusHandler.addGameStatusListener(this);
+    // Get the available pawns
+    Pawn[] pawns = EventsHandler.getController().getAvailablePawns();
 
-    updatePawns();
-
-    // TODO: Reimplement this
-    widthPawn = DimensionUtils.getMainFrameWidth() / 16;
-    heightPawn = widthPawn * 2;
-
+    // Display the pawns
+    // TODO: Rework this
+    int i = 0;
     for (Pawn pawn : pawns) {
-      add(pawn);
+      add(new PawnsBarSlot(pawn, i % 2));
+      i++;
     }
-  }
 
-  public void refresh() {
-    removeAll();
-    for (Pawn pawn : pawns) {
-      add(pawn);
-    }
-    revalidate();
-    repaint();
   }
-
-  public void updatePawns() {
-    pawns = EventsHandler.getController().getAvailablePawns();
-  }
-
-  @Override
-  public void update() {
-    updatePawns();
-    refresh();
-  }
-
 }
