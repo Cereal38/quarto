@@ -112,4 +112,8 @@ public class Pawn extends JButton {
   public boolean isHovered() {
     return hovered;
   }
+
+  public Image getImage() {
+    return ((ImageIcon) getIcon()).getImage();
+  }
 }

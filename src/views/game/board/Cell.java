@@ -5,13 +5,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
+import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.PawnUtils;
 
 public class Cell extends JPanel {
   private Pawn pawn;
   private int line;
   private int column;
+  private Pawn ghostPawn;
+  private boolean hovered;
 
   public Cell(Pawn pawn, int line, int column) {
     setOpaque(false);
@@ -28,6 +32,13 @@ public class Cell extends JPanel {
       add(pawn);
     }
 
+    // Get the selected pawn to display it at a ghost on hover
+    int size = DimensionUtils.getBoardCellSize();
+    String selectedPawn = EventsHandler.getController().getSelectedPawnStr();
+    if (selectedPawn != null) {
+      ghostPawn = PawnUtils.getPawn(selectedPawn, Pawn.PLAYED, size, size);
+    }
+
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         if (canPlay()) {
@@ -37,7 +48,26 @@ public class Cell extends JPanel {
           System.err.println("Error: Can't play a pawn right now.");
         }
       }
+
+      public void mouseEntered(MouseEvent e) {
+        hovered = true;
+        repaint();
+      }
+
+      public void mouseExited(MouseEvent e) {
+        hovered = false;
+        repaint();
+      }
     });
+  }
+
+  @Override
+  protected void paintComponent(java.awt.Graphics g) {
+    super.paintComponent(g);
+
+    if (hovered && ghostPawn != null && canPlay()) {
+      g.drawImage(ghostPawn.getImage(), 0, 0, null);
+    }
   }
 
   public boolean hasPawn() {
