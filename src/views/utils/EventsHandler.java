@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
@@ -13,11 +14,13 @@ import src.views.components.ExitButton;
 import src.views.components.LanguageButton;
 import src.views.components.ManualButton;
 import src.views.components.MusicButton;
+import src.views.game.board.MovesHistoryDialog;
 import src.views.game.board.PauseMenuButton;
 import src.views.game.board.RedoButton;
 import src.views.game.board.UndoButton;
 import src.views.game.history.Move;
 import src.views.game.history.MovesHistory;
+import javax.swing.JScrollPane;
 
 /**
  * A custom class that handles events for the main frame.
@@ -38,9 +41,18 @@ public class EventsHandler {
     private static PauseMenuButton pauseMenuButton;
 
     private static MovesHistory movesHistory;
+    private static MovesHistoryDialog movesHistoryDialog;
 
     public static void setMovesHistory(MovesHistory movesHistory) {
         EventsHandler.movesHistory = movesHistory;
+    }
+    public static void setMovesHistoryDialog(MovesHistoryDialog movesHistoryDialog) {
+        EventsHandler.movesHistoryDialog = movesHistoryDialog;
+    }
+
+    public static void showHistoryPanel() {
+        // Show the history panel
+        EventsHandler.navigate("history");
     }
 
     public static void addMove(String move) {
@@ -113,6 +125,9 @@ public class EventsHandler {
         dialog.setCloseable(closeable);
     }
 
+    public static void showHistoryDialog(){
+        movesHistoryDialog.setVisible(true);
+    }
     /**
      * Hides the dialog.
      */

@@ -4,7 +4,9 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import src.views.game.history.MovesHistory;
 import src.views.utils.EventsHandler;
 
 public class RightPanelTopBar extends JPanel {
@@ -24,6 +26,12 @@ public class RightPanelTopBar extends JPanel {
     });
 
     add(btnPause);
+    JButton historyButton = new JButton("History");
+    historyButton.addActionListener(e -> {
+      // Show the history panel
+      EventsHandler.showHistoryDialog();
+    });
+    add(historyButton);
 
     // Load background image
     try {
