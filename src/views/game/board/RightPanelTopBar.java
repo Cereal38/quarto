@@ -6,7 +6,6 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import src.views.game.history.MovesHistory;
 import src.views.utils.EventsHandler;
 
 public class RightPanelTopBar extends JPanel {
@@ -29,7 +28,7 @@ public class RightPanelTopBar extends JPanel {
     JButton historyButton = new JButton("History");
     historyButton.addActionListener(e -> {
       // Show the history panel
-      EventsHandler.showHistoryDialog();
+      EventsHandler.showDialog(new MovesHistoryDialog(), true);
     });
     add(historyButton);
 
