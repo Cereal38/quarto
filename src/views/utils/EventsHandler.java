@@ -18,6 +18,7 @@ import src.views.game.board.RedoButton;
 import src.views.game.board.UndoButton;
 import src.views.game.history.Move;
 import src.views.game.history.MovesHistory;
+import src.views.main.menu.MainMenu;
 
 /**
  * A custom class that handles events for the main frame.
@@ -36,11 +37,12 @@ public class EventsHandler {
     private static UndoButton undoButton;
     private static RedoButton redoButton;
     private static PauseMenuButton pauseMenuButton;
+    private static MainMenu mainMenu;
 
     private static MovesHistory movesHistory;
 
-    public static int getTheme() {
-        return theme;
+    public static void setMainMenu(MainMenu mainMenu) {
+        EventsHandler.mainMenu = mainMenu;
     }
 
     public static void setMovesHistory(MovesHistory movesHistory) {
@@ -177,6 +179,10 @@ public class EventsHandler {
 
         if (pauseMenuButton != null) {
             pauseMenuButton.updateIcon(theme == 0);
+        }
+
+        if (mainMenu != null) {
+            mainMenu.UpdateBackground(theme == 0);
         }
     }
 }

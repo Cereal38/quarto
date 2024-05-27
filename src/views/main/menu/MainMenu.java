@@ -14,20 +14,19 @@ public class MainMenu extends JPanel {
   private CustomizedButton btnNewGame = new CustomizedButton("new-game");
   private CustomizedButton btnLoad = new CustomizedButton("load");
     private Image backgroundImage;
-    private static int theme = 0; // 0: light, 1: dark
+    private Image backgroundImageDark;
+
+    private boolean isLightTheme = true;
+
 
 
   public MainMenu() {
+
+    EventsHandler.setMainMenu(this);
+
     setLayout(new BorderLayout());
-
-    theme = EventsHandler.getTheme();
-
-    if (theme == 1) {
-        backgroundImage = new javax.swing.ImageIcon(getClass().getResource("/assets/images/MenuBgDark.jpg")).getImage();
-    }
-    else {
-        backgroundImage = new javax.swing.ImageIcon(getClass().getResource("/assets/images/MenuBg.jpg")).getImage();
-    }
+    backgroundImage = new javax.swing.ImageIcon(getClass().getResource("/assets/images/MenuBgDark.jpg")).getImage();
+    backgroundImageDark = new javax.swing.ImageIcon(getClass().getResource("/assets/images/MenuBg.jpg")).getImage();
 
     JPanel navbar = new TopBarMainMenu();
     add(navbar, BorderLayout.NORTH);
@@ -63,6 +62,16 @@ public class MainMenu extends JPanel {
     @Override
     protected void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
+        if( isLightTheme )
+            g.drawImage(backgroundImageDark, 0, 0, this.getWidth(), this.getHeight(), this);
+        else
         g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+    }
+
+    public void UpdateBackground(boolean isLightTheme) {
+        isLightTheme = isLightTheme;
+        repaint();
+        System.out.println("Background updated");
+        System.out.println(isLightTheme);
     }
 }
