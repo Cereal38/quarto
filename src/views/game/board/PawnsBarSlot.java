@@ -18,6 +18,7 @@ public class PawnsBarSlot extends JPanel {
   public static final int RIGHT = 1;
   private Image bgImage;
   private Image bgImageHovered;
+  private Image bgImageSelected;
   private Pawn pawn;
   private boolean hovered;
 
@@ -53,9 +54,11 @@ public class PawnsBarSlot extends JPanel {
       if (position == LEFT) {
         bgImage = ImageIO.read(new File("assets/images/pawns-bar-left-slot.png"));
         bgImageHovered = ImageIO.read(new File("assets/images/pawns-bar-left-slot-hovered.png"));
+        bgImageSelected = ImageIO.read(new File("assets/images/pawns-bar-left-slot-selected.png"));
       } else {
         bgImage = ImageIO.read(new File("assets/images/pawns-bar-right-slot.png"));
-        bgImageHovered = ImageIO.read(new File("assets/images/pawns-bar-left-slot-hovered.png"));
+        bgImageHovered = ImageIO.read(new File("assets/images/pawns-bar-right-slot-hovered.png"));
+        bgImageSelected = ImageIO.read(new File("assets/images/pawns-bar-right-slot-selected.png"));
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -82,7 +85,9 @@ public class PawnsBarSlot extends JPanel {
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
-    if (hovered) {
+    if (pawn != null && pawn.isSelected()) {
+      g.drawImage(bgImageSelected, 0, 0, getWidth(), getHeight(), this);
+    } else if (hovered) {
       g.drawImage(bgImageHovered, 0, 0, getWidth(), getHeight(), this);
     } else {
       g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);

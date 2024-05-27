@@ -104,4 +104,7 @@ public class Pawn extends JButton {
     }
   }
 
+  public boolean isSelected() {
+    return state == SELECTED;
+  }
 }
