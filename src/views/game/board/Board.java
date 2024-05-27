@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javafx.scene.paint.Color;
 import src.views.utils.EventsHandler;
 
 public class Board extends JPanel {
