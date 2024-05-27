@@ -11,7 +11,6 @@ import src.views.components.Pawn;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.PawnUtils;
 
 public class Cell extends JPanel {
   private Pawn pawn;
@@ -39,7 +38,7 @@ public class Cell extends JPanel {
     int size = DimensionUtils.getBoardCellSize();
     String selectedPawn = EventsHandler.getController().getSelectedPawnStr();
     if (selectedPawn != null) {
-      ghostPawn = PawnUtils.getPawn(selectedPawn, Pawn.PLAYED, size, size);
+      ghostPawn = new Pawn(selectedPawn, Pawn.NOT_PLAYED, size, size);
     }
 
     addMouseListener(new MouseAdapter() {
