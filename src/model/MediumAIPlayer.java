@@ -258,12 +258,16 @@ public class MediumAIPlayer implements Player{
             QuartoPawn[] availablePawns = quartoModel.getPawnAvailable();
             for (int[] cell : emptyCells) {
                 int nonWinningPawnsCount = 0;
+                int winningPawnsCount = 0;
                 for (QuartoPawn pawn : availablePawns) {
                     if (pawn != null && !isWinningMove(grid, pawn, cell[0], cell[1])) {
                         nonWinningPawnsCount++;
                     }
+                    else if (pawn!=null && isWinningMove(grid, pawn, cell[0], cell[1])){
+                        winningPawnsCount++;
+                    }
                 }
-                if (nonWinningPawnsCount % 2 == 0) {
+                if (nonWinningPawnsCount % 2 == 0 && winningPawnsCount != 0) {
                     quartoModel.playShotHuman(cell[0], cell[1]);
                     System.out.println("Blocking shot played by Medium AI at (" + cell[0] + ", " + cell[1] + ").");
                     return;
