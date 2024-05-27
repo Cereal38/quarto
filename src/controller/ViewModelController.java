@@ -151,7 +151,10 @@ public class ViewModelController implements ViewModelListener {
   }
 
   public String getCurrentPlayerName() {
-    return isCurrentPlayerAI() ? "AI" : "Player";
+    if (quartoModel == null) {
+      return null;
+    }
+    return quartoModel.getNameOfTheCurrentPlayer();
   }
 
   public boolean isSelectionPhase() {

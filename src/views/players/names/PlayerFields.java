@@ -121,6 +121,27 @@ public class PlayerFields extends JPanel {
 
       int player1 = player1IsAI ? getAIPlayerLevel(aiLevelPlayer1) : 0;
       int player2 = player2IsAI ? getAIPlayerLevel(aiLevelPlayer2) : 0;
+      // For humans players, use the name entered in the text field
+      // If the text field is empty, use a default name "Player 1" or "Player 2"
+      // For AI players, use the name corresponding to the level
+      // If both players are differents AI, also add a suffix number to differentiate
+      // them
+      if (player1 == 0) {
+        namePlayer1.setText(namePlayer1.getText().isEmpty() ? "Player 1" : namePlayer1.getText());
+      } else {
+        namePlayer1.setText(getAIName(player1));
+      }
+
+      if (player2 == 0) {
+        namePlayer2.setText(namePlayer2.getText().isEmpty() ? "Player 2" : namePlayer2.getText());
+      } else {
+        namePlayer2.setText(getAIName(player2));
+      }
+
+      if (player1 != 0 && player1 == player2) {
+        namePlayer1.setText(namePlayer1.getText() + " 1");
+        namePlayer2.setText(namePlayer2.getText() + " 2");
+      }
 
       EventsHandler.getController().createModel(player1, player2, namePlayer1.getText(), namePlayer2.getText());
 
@@ -153,6 +174,21 @@ public class PlayerFields extends JPanel {
       return 4;
     default:
       return 1;
+    }
+  }
+
+  private String getAIName(int level) {
+    switch (level) {
+    case 1:
+      return "Random AI";
+    case 2:
+      return "Easy AI";
+    case 3:
+      return "Medium AI";
+    case 4:
+      return "Hard AI";
+    default:
+      return "Random AI";
     }
   }
 }
