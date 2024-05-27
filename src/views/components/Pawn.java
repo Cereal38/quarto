@@ -22,6 +22,7 @@ public class Pawn extends JButton {
   private int state;
   private int width;
   private int height;
+  private boolean hovered;
 
   public Pawn(String code, int state, int width, int height) {
 
@@ -51,6 +52,14 @@ public class Pawn extends JButton {
         } else {
           System.err.println("Error: Can't select a pawn right now.");
         }
+      }
+
+      public void mouseEntered(MouseEvent evt) {
+        hovered = true;
+      }
+
+      public void mouseExited(MouseEvent evt) {
+        hovered = false;
       }
 
     });
@@ -98,5 +107,9 @@ public class Pawn extends JButton {
 
   public boolean isSelected() {
     return state == SELECTED;
+  }
+
+  public boolean isHovered() {
+    return hovered;
   }
 }

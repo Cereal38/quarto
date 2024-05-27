@@ -87,7 +87,7 @@ public class PawnsBarSlot extends JPanel {
     super.paintComponent(g);
     if (pawn != null && pawn.isSelected()) {
       g.drawImage(bgImageSelected, 0, 0, getWidth(), getHeight(), this);
-    } else if (hovered) {
+    } else if (hovered || (pawn != null && pawn.isHovered())) {
       g.drawImage(bgImageHovered, 0, 0, getWidth(), getHeight(), this);
     } else {
       g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
