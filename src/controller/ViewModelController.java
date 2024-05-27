@@ -1,11 +1,13 @@
 package src.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import src.model.QuartoFile;
 import src.model.QuartoModel;
 import src.model.QuartoPawn;
 import src.model.SlotManager;
+import src.structures.SlotFile;
 import src.views.components.Pawn;
 import src.views.game.board.Cell;
 import src.views.listeners.ViewModelListener;
@@ -40,20 +42,27 @@ public class ViewModelController implements ViewModelListener {
     return this.quartoModel;
   }
 
-  public Map<String, Long> getSlotFileDates() {
-    return slotManager.getSlotFileDates();
-  }
 
   public void saveGame(String fileName) throws IOException {
-//    quartoModel.saveFile(fileName);
+    quartoModel.saveFile(fileName);
   }
 
   public void loadGame(int index) {
-    quartoModel.chargeGame(index);
+    this.quartoModel = new QuartoModel(index);
   }
 
   public boolean isSlotFileEmpty(int index) {
     return slotManager.isSlotFileEmpty(index);
+  }
+
+  @Override
+  public List<SlotFile> getSlotFiles() {
+    return slotManager.getSlotFiles();
+  }
+
+  @Override
+  public void clearSlot(int id) {
+    slotManager.clearSlotFile(id);
   }
 
   /**
