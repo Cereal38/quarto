@@ -1,10 +1,12 @@
 package src.views.game.board;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -15,7 +17,9 @@ public class PawnsBarSlot extends JPanel {
   public static final int LEFT = 0;
   public static final int RIGHT = 1;
   private Image bgImage;
+  private Image bgImageHovered;
   private Pawn pawn;
+  private boolean hovered;
 
   /**
    * Constructor.
@@ -48,25 +52,40 @@ public class PawnsBarSlot extends JPanel {
       // TODO: Load bg only once
       if (position == LEFT) {
         bgImage = ImageIO.read(new File("assets/images/pawns-bar-left-slot.png"));
+        bgImageHovered = ImageIO.read(new File("assets/images/pawns-bar-left-slot-hovered.png"));
       } else {
         bgImage = ImageIO.read(new File("assets/images/pawns-bar-right-slot.png"));
+        bgImageHovered = ImageIO.read(new File("assets/images/pawns-bar-left-slot-hovered.png"));
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
 
-  @Override
-  public Dimension getPreferredSize() {
-    Dimension pawnSize = pawn.getPreferredSize();
-    return new Dimension(pawnSize.width, pawnSize.height);
+    // Add a MouseListener to the PawnsBarSlot
+    MouseListener mouseListener = new MouseAdapter() {
+      @Override
+      public void mouseEntered(MouseEvent e) {
+        hovered = true;
+        repaint();
+      }
+
+      @Override
+      public void mouseExited(MouseEvent e) {
+        hovered = false;
+        repaint();
+      }
+    };
+
+    addMouseListener(mouseListener);
   }
 
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
-    // Draw background image
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    if (hovered) {
+      g.drawImage(bgImageHovered, 0, 0, getWidth(), getHeight(), this);
+    } else {
+      g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    }
   }
-
 }
