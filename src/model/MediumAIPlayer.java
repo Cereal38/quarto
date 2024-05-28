@@ -276,7 +276,15 @@ public class MediumAIPlayer implements Player{
                         winningPawnsCount++;
                     }
                 }
-                if (nonWinningPawnsCount % 2 == 0 && winningPawnsCount != 0) {
+
+                //if all the other pawns are winning pawns after this shot, then it is a bad shot
+                boolean danger = false;
+                grid[cell[0]][cell[1]] = selectedPawn;
+                if (areAllPawnWinning(quartoModel))
+                    danger = true;
+                grid[cell[0]][cell[1]] = null;
+
+                if (nonWinningPawnsCount % 2 == 0 && winningPawnsCount != 0 && !danger) {
                     quartoModel.playShotHuman(cell[0], cell[1]);
                     System.out.println("Blocking shot played by Medium AI at (" + cell[0] + ", " + cell[1] + ").");
                     return;
