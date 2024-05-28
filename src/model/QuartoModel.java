@@ -121,13 +121,15 @@ public class QuartoModel {
   }
 
   public void selectPawnHuman(int indexPawn) {
-    setSelectedPawn(pawnAvailable[indexPawn]);
-    // Add a new history because we chose what pawn the next player will play.
-    file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
-    file.getSave().getNext().setPrevious(file.getSave());
-    file.setSave(file.getSave().getNext());
-    pawnAvailable[indexPawn] = null;
-    switchPlayer();// next player
+    if(getSelectedPawn() == null) {
+      setSelectedPawn(pawnAvailable[indexPawn]);
+      // Add a new history because we chose what pawn the next player will play.
+      file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
+      file.getSave().getNext().setPrevious(file.getSave());
+      file.setSave(file.getSave().getNext());
+      pawnAvailable[indexPawn] = null;
+      switchPlayer();// next player
+    }
   }
 
   public boolean isPawnListEmpty() {
@@ -157,7 +159,7 @@ public class QuartoModel {
   }
 
   public void playShotHuman(int line, int column) {
-    if (isTableEmpty(line, column)) {
+    if (isTableEmpty(line, column) && getSelectedPawn() != null) {
       setTable(line, column, selectedPawn);
       winSituation(line, column);
       setSelectedPawn(null);
