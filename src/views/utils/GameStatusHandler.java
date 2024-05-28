@@ -52,7 +52,7 @@ public class GameStatusHandler {
   private static void aiPlay() {
     if (EventsHandler.getController().isCurrentPlayerAI()) {
       try {
-        Thread.sleep(1000);
+        Thread.sleep(300);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
@@ -77,11 +77,17 @@ public class GameStatusHandler {
   }
 
   public static void selectPawn(String code) {
+    if (EventsHandler.getController().isGameOver()) {
+      return;
+    }
     EventsHandler.getController().selectPawn(code);
     actionPerformed();
   }
 
   public static void playShot(int line, int column) {
+    if (EventsHandler.getController().isGameOver()) {
+      return;
+    }
     EventsHandler.getController().playShot(line, column);
     // Display the shot on the board
     informListeners();

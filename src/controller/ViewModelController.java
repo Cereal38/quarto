@@ -187,4 +187,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getCurrentPlayerType() != 0;
   }
 
+  public boolean isGameOver() {
+    if (quartoModel == null) {
+      return false;
+    }
+    return quartoModel.isGameOver();
+  }
+
 }
