@@ -1,10 +1,14 @@
 package src.views.game.board;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
@@ -20,6 +24,9 @@ public class GameOverDialog extends JPanel {
 
   public GameOverDialog(String winnerName) {
     this.winnerName = winnerName;
+
+    setLayout(new BorderLayout());
+
     btnMenu.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -35,11 +42,24 @@ public class GameOverDialog extends JPanel {
       }
     });
 
-    // TODO: Beautify the dialog
-    add(winnerLabel);
-    add(new JLabel(winnerName));
-    add(btnBack);
-    add(btnMenu);
+    // Panel that contains winner label and image
+    JPanel winnerPanel = new JPanel();
+    winnerPanel.setOpaque(false);
+    winnerPanel.setLayout(new GridLayout(2, 1));
+    winnerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    winnerPanel.add(winnerLabel);
+    winnerPanel.add(new JLabel(winnerName));
+    add(winnerPanel, BorderLayout.CENTER);
+
+    // Panel that contains buttons
+    JPanel buttonsPanel = new JPanel();
+    buttonsPanel.setOpaque(false);
+    buttonsPanel.setLayout(new GridLayout(1, 2, 20, 0));
+    buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
+    buttonsPanel.setPreferredSize(new Dimension(getWidth(), 75));
+    buttonsPanel.add(btnBack);
+    buttonsPanel.add(btnMenu);
+    add(buttonsPanel, BorderLayout.SOUTH);
 
     try {
       bgImage = ImageIO.read(new File("assets/images/squared-background.png"));
