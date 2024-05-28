@@ -315,7 +315,11 @@ public class QuartoModel {
   }
 
   public boolean isGameOver() {
-    return gameOver || (selectedPawn == null && isPawnListEmpty());
+      return gameOver;
+  }
+  
+  public boolean isATie() {
+    return (selectedPawn == null && isPawnListEmpty());
   }
 
   public QuartoPawn getPawn(int pawnIndex) {
