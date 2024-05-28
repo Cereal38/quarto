@@ -92,21 +92,18 @@ public class GameStatusHandler {
     // Display the shot on the board
     informListeners();
     // Check if the game is finished. If not, got to the next phase
-    if (!checkWin(line, column)) {
+    if (!checkGameOver()) {
       actionPerformed();
     }
   }
 
   /**
-   * Checks if the game is won by the player at the specified line and column.
-   * Shows a dialog if the game is finished.
-   *
-   * @param line   the line index of the selected position
-   * @param column the column index of the selected position
-   * @return true if the game is won, false otherwise
+   * Checks if the game is finished. If it is, shows a dialog.
+   * 
+   * @return true if the game is finished, false otherwise
    */
-  private static boolean checkWin(int line, int column) {
-    if (EventsHandler.getController().checkWinner(line, column)) {
+  private static boolean checkGameOver() {
+    if (EventsHandler.getController().isGameOver()) {
       try {
         Thread.sleep(500);
       } catch (InterruptedException e) {

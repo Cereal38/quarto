@@ -201,11 +201,25 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getCurrentPlayerType() != 0;
   }
 
+  /**
+   * Return true if the game is over because of a win.
+   */
+  public boolean isGameWon() {
+    return quartoModel.hasAWinner();
+  }
+
+  /**
+   * Return true if the game is over because of a draw.
+   */
+  public boolean isGameDraw() {
+    return quartoModel.isATie();
+  }
+
+  /**
+   * Return true if the game is over.
+   */
   public boolean isGameOver() {
-    if (quartoModel == null) {
-      return false;
-    }
-    return quartoModel.isGameOver();
+    return isGameDraw() || isGameWon();
   }
 
 }
