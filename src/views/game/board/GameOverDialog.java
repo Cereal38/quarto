@@ -9,23 +9,29 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
-import src.views.components.TranslatedLabel;
 import src.views.utils.EventsHandler;
+import src.views.utils.ImageUtils;
 
 public class GameOverDialog extends JPanel {
   private String winnerName;
   private CustomizedButton btnBack = new CustomizedButton("back-to-game");
   private CustomizedButton btnMenu = new CustomizedButton("main-menu");
-  private TranslatedLabel winnerLabel = new TranslatedLabel("winner-is");
   private Image bgImage;
 
   public GameOverDialog(String winnerName) {
     this.winnerName = winnerName;
 
     setLayout(new BorderLayout());
+
+    try {
+      bgImage = ImageIO.read(new File("assets/images/squared-background.png"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
     btnMenu.addActionListener(new ActionListener() {
       @Override
@@ -47,7 +53,9 @@ public class GameOverDialog extends JPanel {
     winnerPanel.setOpaque(false);
     winnerPanel.setLayout(new GridLayout(2, 1));
     winnerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-    winnerPanel.add(winnerLabel);
+    // Load and add crown image
+    ImageIcon scaledCrownImage = ImageUtils.loadImage("crown.png", 100, 100);
+    winnerPanel.add(scaledCrownImage != null ? new JLabel(scaledCrownImage) : null);
     winnerPanel.add(new JLabel(winnerName));
     add(winnerPanel, BorderLayout.CENTER);
 
@@ -61,11 +69,6 @@ public class GameOverDialog extends JPanel {
     buttonsPanel.add(btnMenu);
     add(buttonsPanel, BorderLayout.SOUTH);
 
-    try {
-      bgImage = ImageIO.read(new File("assets/images/squared-background.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Override
