@@ -39,5 +39,6 @@
   "game-rules": "<h2>How the game goes on</h2><p>Players move alternatively, placing one piece on the board; once inserted, pieces cannot be moved.</p><p>One of the more special characteristics of this game is that the choice of the piece to be placed on the board is not made by the same player who places it; it is the opponent who, after doing his move, decides which will be the next piece to place.</p><p>So, each turn consists of two actions:</p><ol><li>Place on the board the piece given by the opponent.</li><li>Give to the opponent the piece to be placed in the next move.</li></ol><p>In the first turn of the game, the player who starts has only to choose one piece for the opponent.</p>",
   "winner-is": "The winner is",
   "switch-to-ai": "Switch to AI",
-  "switch-to-player": "Switch to Player"
+  "switch-to-player": "Switch to Player",
+  "back-to-game": "Back to game"
 }
