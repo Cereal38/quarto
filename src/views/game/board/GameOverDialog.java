@@ -25,7 +25,7 @@ public class GameOverDialog extends JPanel {
   private CustomizedButton btnMenu = new CustomizedButton("main-menu");
   private Image bgImage;
 
-  public GameOverDialog(String winnerName) {
+  public GameOverDialog(String winner) {
     setLayout(new BorderLayout());
 
     try {
@@ -66,7 +66,9 @@ public class GameOverDialog extends JPanel {
     gridBagConstraints.gridy = 0;
     gridBagConstraints.anchor = GridBagConstraints.CENTER;
     gridBagLayout.setConstraints(crownLabel, gridBagConstraints);
-    winnerPanel.add(crownLabel);
+    if (winner != null) {
+      winnerPanel.add(crownLabel);
+    }
 
     // Add 20-pixel vertical space
     gridBagConstraints.gridx = 0;
@@ -78,7 +80,12 @@ public class GameOverDialog extends JPanel {
     winnerPanel.add(Box.createVerticalStrut(20));
 
     // Create and add winner label with larger font
-    JLabel winnerLabel = new JLabel(winnerName);
+    JLabel winnerLabel;
+    if (winner != null) {
+      winnerLabel = new JLabel(winner + " wins!");
+    } else {
+      winnerLabel = new JLabel("It's a draw!");
+    }
     Font font = winnerLabel.getFont().deriveFont(Font.BOLD, 24); // set font to bold and 24-point size
     winnerLabel.setFont(font);
     gridBagConstraints.gridx = 0;

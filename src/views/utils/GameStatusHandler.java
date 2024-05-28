@@ -104,14 +104,20 @@ public class GameStatusHandler {
    */
   private static boolean checkGameOver() {
     if (EventsHandler.getController().isGameOver()) {
+      // Wait for the last shot to be displayed
       try {
         Thread.sleep(500);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-      // Wait for the last shot to be displayed
-      SwingUtilities.invokeLater(() -> EventsHandler
-          .showDialog(new GameOverDialog(EventsHandler.getController().getCurrentPlayerName()), false));
+      // Set winner to null if it's a draw
+      String winner;
+      if (EventsHandler.getController().isGameWon()) {
+        winner = EventsHandler.getController().getCurrentPlayerName();
+      } else {
+        winner = null;
+      }
+      SwingUtilities.invokeLater(() -> EventsHandler.showDialog(new GameOverDialog(winner), false));
       return true;
     }
     return false;
