@@ -74,6 +74,16 @@ public class MediumAIPlayer implements Player{
         return false;
     }
 
+    private boolean areAllPawnWinning(QuartoModel quartoModel){
+        QuartoPawn[] listOfPawn = quartoModel.getPawnAvailable();
+        for(QuartoPawn pawn : listOfPawn){
+            if(pawn != null && !isWinningPawn(quartoModel, pawn)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void updateCharacteristics(int[] characteristics, QuartoPawn[] pawns) {
         // Checks if input tables are of correct size
         if (characteristics.length != 8 || pawns.length != 4) {
@@ -284,6 +294,12 @@ public class MediumAIPlayer implements Player{
                 int alignmentScore = getAlignmentScore(grid, selectedPawn, cell[0], cell[1]);
                 score += alignmentScore;
 
+                //if all the other pawns are winning pawns after this shot, then it is a bad shot
+                grid[cell[0]][cell[1]] = selectedPawn;
+                if (areAllPawnWinning(quartoModel))
+                    score-=10000;
+                grid[cell[0]][cell[1]] = null;
+
                 if (score > maxScore) {
                     maxScore = score;
                     bestCells.clear();
@@ -340,11 +356,13 @@ public class MediumAIPlayer implements Player{
         }
 
         if (nonNullCount == 2) {
-            alignmentScore += 100; // Prioritize alignments of 2
+            alignmentScore += 200; // Prioritize alignments of 2
+        } else if (nonNullCount == 4){
+            alignmentScore += 100; // Prioritize alignments of 4
         } else if (nonNullCount == 1) {
-            alignmentScore += 50;  // Then alignments of 1
+            alignmentScore += 50;  // Prioritize alignments of 1
         } else if (nonNullCount == 3) {
-            alignmentScore += 10;  // Finally alignments of 3
+            alignmentScore += 10;  // Prioritize alignments of 3
         }
 
         return alignmentScore;
