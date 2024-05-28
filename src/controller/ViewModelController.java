@@ -171,7 +171,14 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.stateOfGame() == PLAY;
   }
 
-  public boolean isGameFinished(int line, int column) {
+  /**
+   * Checks if the game is won by the player at the specified line and column.
+   *
+   * @param line   the line index of the selected position
+   * @param column the column index of the selected position
+   * @return true if the game is won, false otherwise
+   */
+  public boolean checkWinner(int line, int column) {
     return quartoModel.winSituation(line, column);
   }
 

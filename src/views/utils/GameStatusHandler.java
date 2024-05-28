@@ -106,7 +106,7 @@ public class GameStatusHandler {
    * @return true if the game is won, false otherwise
    */
   private static boolean checkWin(int line, int column) {
-    if (EventsHandler.getController().isGameFinished(line, column)) {
+    if (EventsHandler.getController().checkWinner(line, column)) {
       try {
         Thread.sleep(500);
       } catch (InterruptedException e) {
