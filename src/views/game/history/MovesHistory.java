@@ -35,13 +35,13 @@ public class MovesHistory extends JScrollPane {
     setPreferredSize(new Dimension(00, DimensionUtils.getMainFrameHeight()));
 
     movesContainer = new JPanel() {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (bgImage != null) {
-          g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
-        }
-      }
+    //   @Override
+    //   protected void paintComponent(Graphics g) {
+    //     super.paintComponent(g);
+    //     if (bgImage != null) {
+    //       g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    //     }
+    //   }
     };
 
     movesContainer.setLayout(new GridBagLayout());
@@ -88,7 +88,13 @@ public class MovesHistory extends JScrollPane {
       moveConstraints.gridx = 1;
       movesContainer.add(GameStatusHandler.getMoveComponents().get(i), moveConstraints);
       moveConstraints.gridx = 0;
-
+        // Add separator that spans across both columns
+        moveConstraints.gridy = 2 * (GameStatusHandler.getMoveComponents().size() - 1 - i) + 1; // Separator
+        moveConstraints.gridwidth = 2; // Span across two columns
+        movesContainer.add(new JSeparator(JSeparator.HORIZONTAL), moveConstraints);
+        moveConstraints.gridwidth = 1; // Reset grid width
+        // set color of the separator to black
+        movesContainer.getComponent(movesContainer.getComponentCount() - 1).setForeground(java.awt.Color.BLACK);
 
       moveNumber++; // Increment the move number for the next iteration
     }

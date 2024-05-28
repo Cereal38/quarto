@@ -24,13 +24,13 @@ public class RightPanelTopBar extends JPanel {
       EventsHandler.showDialog(new PauseDialogContent(), true);
     });
 
-    add(btnPause);
-    JButton historyButton = new JButton("History");
+    JButton historyButton = new HistoryButton();
     historyButton.addActionListener(e -> {
-      // Show the history panel
-      EventsHandler.showDialog(new MovesHistoryDialog(), true);
+        // Show the history panel
+        EventsHandler.showDialog(new MovesHistoryDialog(), true);
     });
     add(historyButton);
+    add(btnPause);
 
     // Load background image
     try {

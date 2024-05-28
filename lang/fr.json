@@ -39,5 +39,6 @@
   "game-rules": "<h2>Déroulement du jeu</h2><p>Les joueurs jouent alternativement en plaçant une pièce sur le plateau ; une fois insérées, les pièces ne peuvent pas être déplacées.</p><p>Une des caractéristiques spéciales de ce jeu est que le choix de la pièce à placer sur le plateau n'est pas fait par le joueur qui la place ; c'est l'adversaire qui, après avoir effectué son mouvement, décide quelle sera la prochaine pièce à placer.</p><p>Ainsi, chaque tour se compose de deux actions :</p><ol><li>Placer sur le plateau la pièce donnée par l'adversaire.</li><li>Donner à l'adversaire la pièce à placer lors du prochain coup.</li></ol><p>Lors du premier tour de jeu, le joueur qui commence doit simplement choisir une pièce pour l'adversaire.</p>",
   "winner-is": "Le gagnant est",
   "switch-to-ai": "Changer en IA",
-  "switch-to-player": "Changer en Joueur"
+  "switch-to-player": "Changer en Joueur",
+  "historyButton" : "Historique"
 }
