@@ -20,9 +20,9 @@ public class Board extends JPanel {
 
     setLayout(new GridLayout(4, 4));
     setPreferredSize(new Dimension(width, height));
-    // Create a 20-pixel margin around the grid
-    // TODO: Change that
-    setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+    // Add border to fit the background image
+    setBorder(BorderFactory.createEmptyBorder(5, 20, 15, 5));
 
     // Get and add all cells
     cells = EventsHandler.getController().getTable();
@@ -37,7 +37,7 @@ public class Board extends JPanel {
     try {
       // TODO: Load board only once
       bgImage = ImageIO.read(new File("assets/images/board.png"));
-    backGroundImage = new ImageIcon(getClass().getResource("/assets/images/bg-board.png")).getImage();
+      backGroundImage = new ImageIcon(getClass().getResource("/assets/images/bg-board.png")).getImage();
     } catch (Exception e) {
       e.printStackTrace();
     }

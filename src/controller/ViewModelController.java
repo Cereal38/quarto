@@ -18,13 +18,10 @@ public class ViewModelController implements ViewModelListener {
   QuartoFile quartoFile;
   private SlotManager slotManager;
 
-  private int status = SELECT; // TODO: Test purpose only. Remove this variable
-
   // TODO: Get it from the model
   // Game states
   public static final int SELECT = 0;
   public static final int PLAY = 1;
-  public static final int FINISHED = 2;
 
   public ViewModelController() {
     this.slotManager = new SlotManager();
@@ -45,7 +42,7 @@ public class ViewModelController implements ViewModelListener {
   }
 
   public void saveGame(String fileName) throws IOException {
-//    quartoModel.saveFile(fileName);
+    // quartoModel.saveFile(fileName);
   }
 
   public void loadGame(int index) {
@@ -64,7 +61,6 @@ public class ViewModelController implements ViewModelListener {
    */
   public void playShot(int line, int column) {
     quartoModel.playShot(line, column);
-    status = SELECT; // TODO: Remove this once info is retrieved from the model
   }
 
   public void undo() {
@@ -110,7 +106,6 @@ public class ViewModelController implements ViewModelListener {
 
   public void selectPawn(String pawnStr) {
     quartoModel.selectPawn(FormatUtils.stringToIndex(pawnStr));
-    status = PLAY; // TODO: Remove this once info is retrieved from the model
   }
 
   /**
@@ -148,16 +143,32 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getSelectedPawn();
   }
 
+  public String getSelectedPawnStr() {
+    if (getSelectedPawn() == null) {
+      return null;
+    }
+    return FormatUtils.byteToString(getSelectedPawn().getPawn());
+  }
+
   public String getCurrentPlayerName() {
-    return isCurrentPlayerAI() ? "AI" : "Player";
+    if (quartoModel == null) {
+      return null;
+    }
+    return quartoModel.getNameOfTheCurrentPlayer();
   }
 
   public boolean isSelectionPhase() {
-    return status == SELECT;
+    if (quartoModel == null) {
+      return false;
+    }
+    return quartoModel.stateOfGame() == SELECT;
   }
 
   public boolean isPlayPhase() {
-    return status == PLAY;
+    if (quartoModel == null) {
+      return false;
+    }
+    return quartoModel.stateOfGame() == PLAY;
   }
 
   public boolean isGameFinished(int line, int column) {
