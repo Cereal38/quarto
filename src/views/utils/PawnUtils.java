@@ -33,5 +33,4 @@ public class PawnUtils {
     pawns[index].update(state, width, height);
     return pawns[index];
   }
-
 }

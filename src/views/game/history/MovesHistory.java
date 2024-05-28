@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,6 +18,7 @@ import src.model.QuartoHistory;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.ImageUtils;
 import java.awt.Dimension;
 
 public class MovesHistory extends JScrollPane {
@@ -105,21 +107,28 @@ public class MovesHistory extends JScrollPane {
     }
     QuartoHistory save = EventsHandler.getController().getModel().getCurrentState();
 
+    int isSelectedCounter = 0;
     while (save != null) {
       String name = save.getName();
       int pawn = save.getIndexPawn();
       int x = save.getLine();
       int y = save.getColumn();
-
       String moveDescription;
-      if (name != null || pawn != 0 || (x != 0 && y != 0)) {
-        // y 0 is a, y 1 is b, etc.
-        char column = (char) (y + 97);
-        //player name in blue
-        if (pawn != 0) {
-          moveDescription = "<html><font color='white'>" + name + "</font>" + " selected the pawn " + pawn ;
+
+
+      if (name != null ) {
+          // y 0 is a, y 1 is b, etc.
+          char column = (char) (y + 97);
+          //player name in blue
+        if (isSelectedCounter == 0) {
+            String pawnIconString = pawnNumberToString(pawn);
+            System.out.println(pawnIconString);
+            ImageIcon pawnIcon = ImageUtils.loadImage(pawnIconString + ".png", 40, 40);
+            moveDescription = "<html><font color='white'>" + name + "</font>" + " selected the pawn " + "<img src='" + pawnIcon + "'>";
+            isSelectedCounter++;
         } else {
-          moveDescription = "<html><font color='white'>" + name + "</font>"+ " placed it at " + "<html><font color='white'>" + x + " - " + column + "</font>";
+            moveDescription = "<html><font color='white'>" + name + "</font>"+ " placed it at " + "<html><font color='white'>" + x + " - " + column + "</font>";
+            isSelectedCounter = 0;
         } 
         // Add the move to the history at the top
         addMove(moveDescription);
@@ -128,4 +137,14 @@ public class MovesHistory extends JScrollPane {
       save = save.getPrevious();
     }
   }
+
+
+  //to load the pawn images we need to turn the pawn number into a string ( 0 -> "0000.png" , 1 -> "0001.png" , "2" -> "0010.png" to "15" -> "1111.png")
+    private String pawnNumberToString(int pawn) {
+        String binary = Integer.toBinaryString(pawn);
+        while (binary.length() < 4) {
+            binary = "0" + binary;
+        }
+        return binary;
+    }
 }
