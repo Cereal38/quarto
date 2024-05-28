@@ -6,7 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import src.views.components.DialogPanel;
 import src.views.game.board.GameBoard;
-import src.views.load.save.LoadSavePage;
+import src.views.load.save.LoadPage;
+import src.views.load.save.SavePage;
 import src.views.main.menu.MainMenu;
 import src.views.players.names.ChoosePlayers;
 import src.views.rules.RulesPage;
@@ -23,8 +24,8 @@ public class MainFrame extends JFrame {
   private DialogPanel dialog;
   private DialogPanel rules;
   private DialogPanel about;
-  private LoadSavePage loadPage;
-  private LoadSavePage savePage;
+  private LoadPage loadPage;
+  private SavePage savePage;
   private RulesPage rulesPage;
   private RulesPage aboutPage;
 
@@ -37,8 +38,8 @@ public class MainFrame extends JFrame {
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
     choosePlayers = new ChoosePlayers();
-    loadPage = new LoadSavePage(false);
-    savePage = new LoadSavePage(true);
+    loadPage = new LoadPage();
+    savePage = new SavePage(loadPage);
 
     // Create app pages
     mainMenu = new MainMenu();
