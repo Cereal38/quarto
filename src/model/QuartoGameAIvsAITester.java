@@ -30,7 +30,7 @@ public class QuartoGameAIvsAITester {
         for (int i = 0; i < numberOfGames; i++) {
             QuartoModel quartoModel = new QuartoModel(player1Type, player2Type, "AI1", "AI2");
 
-            while (!quartoModel.isGameOver()) {
+            while (!quartoModel.hasAWinner()) {
                 if (quartoModel.getSelectedPawn() == null) {
                     quartoModel.selectPawn(0); // L'IA sélectionne un pion
                 } else {
@@ -39,7 +39,7 @@ public class QuartoGameAIvsAITester {
                 }
             }
 
-            if (quartoModel.isGameOver() && !quartoModel.isPawnListEmpty()) {
+            if (quartoModel.hasAWinner() && !quartoModel.isPawnListEmpty()) {
                 if (quartoModel.getCurrentPlayer() == 1) {
                     ai1Wins++;
                 } else {

@@ -314,7 +314,7 @@ public class QuartoModel {
     return file.getHead();
   }
 
-  public boolean isGameOver() {
+  public boolean hasAWinner() {
       return gameOver;
   }
   

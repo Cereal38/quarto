@@ -122,7 +122,7 @@ public class MiniMaxAIPlayer implements Player {
     }
 
     private int minimax(QuartoModel quartoModel, int depth, boolean isMaximizingPlayer, boolean isSelectingPawn, int alpha, int beta) {
-        if (depth == maxDepth || quartoModel.isGameOver()) {
+        if (depth == maxDepth || quartoModel.hasAWinner()) {
             return evaluateBoard(quartoModel, isMaximizingPlayer);
         }
 
