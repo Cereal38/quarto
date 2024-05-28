@@ -22,8 +22,8 @@ public class PlayerFields extends JPanel {
   private CustomizedButton btnSwitchPlayer1 = new CustomizedButton("switch-to-ai");
 
   private CustomizedButton btnSwitchPlayer2 = new CustomizedButton("switch-to-ai");
-  private CustomizedTextField namePlayer1 = new CustomizedTextField();
-  private CustomizedTextField namePlayer2 = new CustomizedTextField();
+  private CustomizedTextField namePlayer1 = new CustomizedTextField("Player 1");
+  private CustomizedTextField namePlayer2 = new CustomizedTextField("Player 2");
   private CustomizedButton btnStartGame = new CustomizedButton("start");
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;

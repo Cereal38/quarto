@@ -28,30 +28,23 @@ public class MovesHistory extends JScrollPane {
   public MovesHistory() {
     // Load the background image
     try {
-        bgImage = ImageIO.read(new File("assets/images/pawns-bar-left-slot.png"));
+        bgImage = ImageIO.read(new File("assets/images/pawns-bar.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }
     setPreferredSize(new Dimension(00, DimensionUtils.getMainFrameHeight()));
 
     movesContainer = new JPanel() {
-    //   @Override
-    //   protected void paintComponent(Graphics g) {
-    //     super.paintComponent(g);
-    //     if (bgImage != null) {
-    //       g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
-    //     }
-    //   }
+      @Override
+      protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (bgImage != null) {
+          g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+        }
+      }
     };
 
     movesContainer.setLayout(new GridBagLayout());
-
-    // Add title label outside of the scroll pane
-    JLabel titleLabel = new JLabel("Move History");
-    titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    setColumnHeaderView(titleLabel);
-    titleLabel.setOpaque(false); // Make the title label background transparent
-
     setViewportView(movesContainer);
     setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -93,8 +86,9 @@ public class MovesHistory extends JScrollPane {
         moveConstraints.gridwidth = 2; // Span across two columns
         movesContainer.add(new JSeparator(JSeparator.HORIZONTAL), moveConstraints);
         moveConstraints.gridwidth = 1; // Reset grid width
+        
         // set color of the separator to black
-        movesContainer.getComponent(movesContainer.getComponentCount() - 1).setForeground(java.awt.Color.BLACK);
+        movesContainer.getComponent(movesContainer.getComponentCount() - 1).setForeground(new java.awt.Color(0, 0, 0));
 
       moveNumber++; // Increment the move number for the next iteration
     }
@@ -119,11 +113,14 @@ public class MovesHistory extends JScrollPane {
 
       String moveDescription;
       if (name != null || pawn != 0 || (x != 0 && y != 0)) {
+        // y 0 is a, y 1 is b, etc.
+        char column = (char) (y + 97);
+        //player name in blue
         if (pawn != 0) {
-          moveDescription = name + " selected the pawn " + pawn;
+          moveDescription = "<html><font color='white'>" + name + "</font>" + " selected the pawn " + pawn ;
         } else {
-          moveDescription = name + " placed the pawn at " + x + " " + y;
-        }
+          moveDescription = "<html><font color='white'>" + name + "</font>"+ " placed it at " + "<html><font color='white'>" + x + " - " + column + "</font>";
+        } 
         // Add the move to the history at the top
         addMove(moveDescription);
       }
