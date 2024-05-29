@@ -73,7 +73,7 @@ public class QuartoGameAIvsAITester {
         }
 
         scanner.close();
-    }a
+    }
 
     private static Heuristics inputHeuristics(Scanner scanner, String playerNumber) {
         System.out.println("Entrez les valeurs heuristiques pour le joueur " + playerNumber + ": ");
