@@ -120,6 +120,8 @@ public class GameStatusHandler {
         winner = null;
       }
       SwingUtilities.invokeLater(() -> EventsHandler.showDialog(new GameOverDialog(winner), false));
+      // Pause the game
+      pauseGame();
       return true;
     }
     return false;
@@ -156,6 +158,10 @@ public class GameStatusHandler {
   }
 
   public static void resumeGame() {
+    // Can't resume if game is over
+    if (EventsHandler.getController().isGameOver()) {
+      return;
+    }
     isPaused = false;
     actionPerformed();
   }
