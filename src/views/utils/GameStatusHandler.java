@@ -2,9 +2,12 @@ package src.views.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import src.views.game.board.GameOverDialog;
 import src.views.game.history.Move;
+import src.views.game.history.MovePanel;
 import src.views.listeners.GameStatusListener;
 
 public class GameStatusHandler {
@@ -13,7 +16,7 @@ public class GameStatusHandler {
   private static final List<GameStatusListener> listeners = new ArrayList<>();
 
   // Keep the history of moves
-  private static List<Move> moveComponents = new ArrayList<>();
+  private static List<MovePanel> moveComponents = new ArrayList<>();
 
   // ================== Game Status Listeners ==================
 
@@ -124,8 +127,8 @@ public class GameStatusHandler {
     actionPerformed();
   }
 
-  public static void addMove(String move) {
-    Move newMove = new Move(move);
+  public static void addMove(String move, ImageIcon icon) {
+    MovePanel newMove = new MovePanel(move, icon);
     moveComponents.add(newMove);
   }
 
@@ -133,7 +136,7 @@ public class GameStatusHandler {
     moveComponents.clear();
   }
 
-  public static List<Move> getMoveComponents() {
+  public static List<MovePanel> getMoveComponents() {
     return moveComponents;
   }
 
