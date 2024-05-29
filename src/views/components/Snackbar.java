@@ -27,7 +27,7 @@ public class Snackbar {
     snackbarFrame.addWindowListener(new WindowAdapter() {
       @Override
       public void windowOpened(WindowEvent e) {
-        Timer timer = new Timer(3000, (ActionEvent e1) -> snackbarFrame.dispose());
+        Timer timer = new Timer(1500, (ActionEvent e1) -> snackbarFrame.dispose());
         timer.setRepeats(false);
         timer.start();
       }
@@ -56,7 +56,7 @@ public class Snackbar {
     Point parentLocation = mainPanel.getLocationOnScreen();
     Dimension parentSize = mainPanel.getSize();
     Dimension snackbarSize = snackbarFrame.getSize();
-    snackbarFrame.setLocation(parentLocation.x + parentSize.width - snackbarSize.width - margin,
+    snackbarFrame.setLocation(parentLocation.x + margin,
         parentLocation.y + parentSize.height - snackbarSize.height - margin);
 
     snackbarFrame.setVisible(true);
