@@ -81,7 +81,11 @@ public class GameStatusHandler {
 
   public static void selectPawn(String code) {
     if (isPaused()) {
-      EventsHandler.showSnackbar("Game is paused");
+      EventsHandler.showSnackbar("game-paused");
+      return;
+    }
+    if (!EventsHandler.getController().isSelectionPhase()) {
+      EventsHandler.showSnackbar("cant-select-pawn");
       return;
     }
     if (EventsHandler.getController().isGameOver()) {
@@ -92,7 +96,15 @@ public class GameStatusHandler {
   }
 
   public static void playShot(int line, int column) {
-    if (EventsHandler.getController().isGameOver() || isPaused()) {
+    if (isPaused()) {
+      EventsHandler.showSnackbar("game-paused");
+      return;
+    }
+    if (!EventsHandler.getController().isPlayPhase()) {
+      EventsHandler.showSnackbar("cant-play-pawn");
+      return;
+    }
+    if (EventsHandler.getController().isGameOver()) {
       return;
     }
     EventsHandler.getController().playShot(line, column);

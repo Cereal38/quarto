@@ -43,5 +43,7 @@
   "back-to-game": "Retour au jeu",
   "pause-tooltip": "Mettre en pause",
   "resume-tooltip": "Reprendre",
-  "game-paused": "Partie en pause"
+  "game-paused": "Partie en pause",
+  "cant-play-pawn": "Impossible de jouer un pion maintenant",
+  "cant-select-pawn": "Impossible de sélectionner un pion maintenant"
 }

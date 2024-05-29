@@ -10,14 +10,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import src.views.utils.EventsHandler;
 
 public class Snackbar {
+  private TranslatedLabel translatedLabel;
   private final JFrame snackbarFrame;
-  private final JLabel snackbarLabel;
   private final int margin = 20;
 
   public Snackbar() {
@@ -33,20 +32,20 @@ public class Snackbar {
       }
     });
 
-    snackbarLabel = new JLabel();
-    snackbarLabel.setForeground(Color.BLACK);
-    snackbarLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
-    snackbarLabel.setBackground(Color.WHITE);
-    snackbarLabel.setOpaque(true);
-    snackbarLabel.setBorder(BorderFactory.createEmptyBorder(margin, margin, margin, margin));
+    translatedLabel = new TranslatedLabel("");
+    translatedLabel.setForeground(Color.BLACK);
+    translatedLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+    translatedLabel.setBackground(Color.WHITE);
+    translatedLabel.setOpaque(true);
+    translatedLabel.setBorder(BorderFactory.createEmptyBorder(margin, margin, margin, margin));
 
     snackbarFrame.getContentPane().setLayout(new BorderLayout());
-    snackbarFrame.add(snackbarLabel, BorderLayout.CENTER);
+    snackbarFrame.add(translatedLabel, BorderLayout.CENTER);
     snackbarFrame.pack();
   }
 
-  public void show(String message) {
-    snackbarLabel.setText(message);
+  public void show(String key) {
+    translatedLabel.setKey(key);
     snackbarFrame.setSize(snackbarFrame.getPreferredSize());
 
     // Set the Snackbar location using main panel reference
