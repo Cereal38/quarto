@@ -44,6 +44,7 @@ public class GameStatusHandler {
   }
 
   public static void startGame() {
+    isPaused = false;
     actionPerformed();
   }
 
