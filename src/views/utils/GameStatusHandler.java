@@ -15,6 +15,8 @@ public class GameStatusHandler {
   // Keep the history of moves
   private static List<Move> moveComponents = new ArrayList<>();
 
+  private static boolean isPaused = false;
+
   // ================== Game Status Listeners ==================
 
   /**
@@ -144,6 +146,19 @@ public class GameStatusHandler {
 
   public static List<Move> getMoveComponents() {
     return moveComponents;
+  }
+
+  public static void pauseGame() {
+    isPaused = true;
+  }
+
+  public static void resumeGame() {
+    isPaused = false;
+    actionPerformed();
+  }
+
+  public static boolean isPaused() {
+    return isPaused;
   }
 
 }
