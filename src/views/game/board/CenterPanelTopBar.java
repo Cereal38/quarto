@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.TranslatedLabel;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 
 public class CenterPanelTopBar extends JPanel {
 
@@ -21,15 +22,22 @@ public class CenterPanelTopBar extends JPanel {
     JLabel playerLbl = new JLabel();
 
     // Set the labels
-    if (EventsHandler.getController().isSelectionPhase()) {
+    if (GameStatusHandler.isPaused()) {
+      stateLbl.setKey("game-paused");
+      stateLbl.setForeground(Color.RED);
+    } else if (EventsHandler.getController().isSelectionPhase()) {
       stateLbl.setKey("select-pawn");
     } else if (EventsHandler.getController().isPlayPhase()) {
       stateLbl.setKey("play-pawn");
     }
-    playerLbl.setText(EventsHandler.getController().getCurrentPlayerName());
 
-    playerLbl.setForeground(Color.BLUE);
-    add(playerLbl);
+    // Display the current player if the game is not paused
+    if (!GameStatusHandler.isPaused()) {
+      playerLbl.setText(EventsHandler.getController().getCurrentPlayerName());
+      playerLbl.setForeground(Color.BLUE);
+      add(playerLbl);
+    }
+
     add(stateLbl);
 
     // Load background image

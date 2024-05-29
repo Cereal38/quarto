@@ -26,7 +26,7 @@ public class Cell extends JPanel {
     this.column = column;
     this.pawn = pawn;
 
-    if (!hasPawn()) {
+    if (!hasPawn() && canPlay() && !GameStatusHandler.isPaused()) {
       setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
@@ -67,7 +67,7 @@ public class Cell extends JPanel {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
-    if (hovered && ghostPawn != null && canPlay()) {
+    if (hovered && ghostPawn != null && canPlay() && !GameStatusHandler.isPaused()) {
       Graphics2D g2d = (Graphics2D) g;
 
       // Draw the ghost pawn with 50% opacity

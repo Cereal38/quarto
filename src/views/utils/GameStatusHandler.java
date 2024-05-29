@@ -15,6 +15,8 @@ public class GameStatusHandler {
   // Keep the history of moves
   private static List<Move> moveComponents = new ArrayList<>();
 
+  private static boolean isPaused = false;
+
   // ================== Game Status Listeners ==================
 
   /**
@@ -77,7 +79,7 @@ public class GameStatusHandler {
   }
 
   public static void selectPawn(String code) {
-    if (EventsHandler.getController().isGameOver()) {
+    if (EventsHandler.getController().isGameOver() || isPaused()) {
       return;
     }
     EventsHandler.getController().selectPawn(code);
@@ -85,7 +87,7 @@ public class GameStatusHandler {
   }
 
   public static void playShot(int line, int column) {
-    if (EventsHandler.getController().isGameOver()) {
+    if (EventsHandler.getController().isGameOver() || isPaused()) {
       return;
     }
     EventsHandler.getController().playShot(line, column);
@@ -118,6 +120,8 @@ public class GameStatusHandler {
         winner = null;
       }
       SwingUtilities.invokeLater(() -> EventsHandler.showDialog(new GameOverDialog(winner), false));
+      // Pause the game
+      pauseGame();
       return true;
     }
     return false;
@@ -125,11 +129,13 @@ public class GameStatusHandler {
 
   public static void undo() {
     EventsHandler.getController().undo();
+    pauseGame();
     actionPerformed();
   }
 
   public static void redo() {
     EventsHandler.getController().redo();
+    pauseGame();
     actionPerformed();
   }
 
@@ -144,6 +150,24 @@ public class GameStatusHandler {
 
   public static List<Move> getMoveComponents() {
     return moveComponents;
+  }
+
+  public static void pauseGame() {
+    isPaused = true;
+    informListeners();
+  }
+
+  public static void resumeGame() {
+    // Can't resume if game is over
+    if (EventsHandler.getController().isGameOver()) {
+      return;
+    }
+    isPaused = false;
+    actionPerformed();
+  }
+
+  public static boolean isPaused() {
+    return isPaused;
   }
 
 }
