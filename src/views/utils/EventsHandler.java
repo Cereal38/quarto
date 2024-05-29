@@ -13,6 +13,7 @@ import src.views.components.ExitButton;
 import src.views.components.LanguageButton;
 import src.views.components.ManualButton;
 import src.views.components.MusicButton;
+import src.views.components.Snackbar;
 import src.views.game.board.PauseMenuButton;
 import src.views.game.board.RedoButton;
 import src.views.game.board.UndoButton;
@@ -37,6 +38,7 @@ public class EventsHandler {
   private static RedoButton redoButton;
   private static PauseMenuButton pauseMenuButton;
   private static MainMenu mainMenu;
+  private static Snackbar snackbar = new Snackbar();
 
   private static MovesHistory movesHistory;
 
@@ -187,5 +189,9 @@ public class EventsHandler {
     if (mainMenu != null) {
       mainMenu.UpdateBackground(theme == 0);
     }
+  }
+
+  public static void showSnackbar(String message) {
+    snackbar.show(message);
   }
 }

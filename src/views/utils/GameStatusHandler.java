@@ -80,7 +80,11 @@ public class GameStatusHandler {
   }
 
   public static void selectPawn(String code) {
-    if (EventsHandler.getController().isGameOver() || isPaused()) {
+    if (isPaused()) {
+      EventsHandler.showSnackbar("Game is paused");
+      return;
+    }
+    if (EventsHandler.getController().isGameOver()) {
       return;
     }
     EventsHandler.getController().selectPawn(code);
