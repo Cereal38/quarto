@@ -79,7 +79,7 @@ public class GameStatusHandler {
   }
 
   public static void selectPawn(String code) {
-    if (EventsHandler.getController().isGameOver()) {
+    if (EventsHandler.getController().isGameOver() || isPaused()) {
       return;
     }
     EventsHandler.getController().selectPawn(code);
@@ -87,7 +87,7 @@ public class GameStatusHandler {
   }
 
   public static void playShot(int line, int column) {
-    if (EventsHandler.getController().isGameOver()) {
+    if (EventsHandler.getController().isGameOver() || isPaused()) {
       return;
     }
     EventsHandler.getController().playShot(line, column);
