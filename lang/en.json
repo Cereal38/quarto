@@ -42,5 +42,6 @@
   "switch-to-player": "Switch to Player",
   "back-to-game": "Back to game",
   "pause-tooltip": "Pause game",
-  "resume-tooltip": "Resume game"
+  "resume-tooltip": "Resume game",
+  "game-paused": "Game paused"
 }
