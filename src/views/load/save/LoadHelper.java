@@ -1,8 +1,9 @@
 package src.views.load.save;
 
+import src.structures.SlotFile;
 import src.views.components.RoundBorder;
 import src.views.components.TranslatedString;
-import src.views.listeners.ViewModelListener;
+import src.views.utils.EventsHandler;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,20 +11,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
-public class LoadSaveHelper {
-    ViewModelListener control;
-    boolean isSaveMode;
+public class LoadHelper {
     JPanel slotsPanel;
-    Map<String, Long> slotFileDates;
+    List<SlotFile> slotFiles;
+    LoadPage loadSavePage;
 
-    LoadSaveHelper(ViewModelListener c, boolean isSaveMode) {
-        this.control = c;
-        this.isSaveMode = isSaveMode;
+    public LoadHelper(LoadPage l) {
+        this.slotFiles = EventsHandler.getController().getSlotFiles();
+        loadSavePage = l;
     }
 
-    public JPanel createSlotPanel(String slotTitle, Date savedDate, int index) {
+    public JPanel createSlotPanel(String slotTitle, Date savedDate, int id) {
         JPanel slotPanel = new JPanel(new BorderLayout());
 
         // Set rounded border for the main content panel
@@ -50,28 +50,16 @@ public class LoadSaveHelper {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5)); // Right-aligned layout with spacing
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
+        // Load Game button (colored green)
         TranslatedString loadTranslate = new TranslatedString("load-game");
-        TranslatedString saveTranslate = new TranslatedString("save-game");
-
-        JButton loadGameButton = new JButton(!isSaveMode ? loadTranslate.getText() : saveTranslate.getText());
-        if (isSaveMode && !control.isSlotFileEmpty(index)){
-            loadGameButton.setVisible(false);
-        } else if (isSaveMode && control.isSlotFileEmpty(index)){
-            loadGameButton.setVisible(true);
-        } else if (!isSaveMode && control.isSlotFileEmpty(index)){
-            loadGameButton.setVisible(false);
-        } else if (!isSaveMode && !control.isSlotFileEmpty(index)){
-            loadGameButton.setVisible(true);
-        }
+        JButton loadGameButton = new JButton(loadTranslate.getText());
         loadGameButton.setBackground(Color.GREEN); // Set background color to green
         loadGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               if (isSaveMode){
-//                   control.saveGame();
-               } else {
-                   control.loadGame(index);
-               }
+                // Load the game
+                EventsHandler.getController().loadGame(id);
+                EventsHandler.navigate("GameBoard");
             }
         });
         buttonPanel.add(loadGameButton);
@@ -81,19 +69,13 @@ public class LoadSaveHelper {
         JButton clearSlotButton = new JButton(clearTranslate.getText());
         clearSlotButton.setBackground(Color.RED); // Set background color to red
         clearSlotButton.setForeground(Color.WHITE);
-        if (control.isSlotFileEmpty(index)) {
-            clearSlotButton.setVisible(false);
-        } else {
-            clearSlotButton.setVisible(true);
-        }
         clearSlotButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO : methode to delete
-                // control.clearSlot(index)
+                EventsHandler.getController().clearSlot(id);
+                slotPanel.setVisible(false);
             }
         });
-
         buttonPanel.add(clearSlotButton);
 
         // Add the buttonPanel to a new JPanel that uses BorderLayout (to handle border layout separately)
@@ -106,19 +88,15 @@ public class LoadSaveHelper {
         return slotPanel;
     }
 
-    public void renderSlots(JPanel panel) {
-        this.slotsPanel = panel;
-        this.slotFileDates = control.getSlotFileDates();
+    public void renderSlots(JPanel slotsPanel, List<SlotFile> slotFiles) {
+        slotsPanel.removeAll();
 
-        // Iterate over the entries of slotFileDates map to create and render slot panels
-        int index = 0;
-        for (Map.Entry<String, Long> entry : slotFileDates.entrySet()) {
-            String slotName = entry.getKey();
-            Long lastModified = entry.getValue();
-
-            JPanel slotPanel = createSlotPanel(slotName, new Date(lastModified), index); // Create a slot panel
-            slotsPanel.add(slotPanel); // Add slot panel to the slotsPanel
-            index++;
+        for (SlotFile slotFile : slotFiles) {
+            JPanel slotPanel = createSlotPanel(slotFile.getFilename(), new Date(slotFile.getLastModified()), slotFile.getId());
+            slotsPanel.add(slotPanel);
         }
+
+        slotsPanel.revalidate();
+        slotsPanel.repaint();
     }
 }
