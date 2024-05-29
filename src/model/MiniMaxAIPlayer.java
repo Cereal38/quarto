@@ -9,10 +9,12 @@ public class MiniMaxAIPlayer implements Player {
     private Random random;
     private QuartoPawn actualPawn;
     private int actualPawnScore;
+    private Heuristics heuristics;
 
-    public MiniMaxAIPlayer(int maxDepth) {
+    public MiniMaxAIPlayer(int maxDepth, Heuristics heuristics ) {
         this.maxDepth = maxDepth;
         this.random = new Random();
+        this.heuristics = heuristics;
     }
 
     @Override
@@ -25,6 +27,9 @@ public class MiniMaxAIPlayer implements Player {
     @Override
     public void playShot(QuartoModel quartoModel) {
         int[] bestMove = getBestMove(quartoModel);
+        while (!quartoModel.isTableEmpty(bestMove[0], bestMove[1])){
+            bestMove = getBestMove(quartoModel);
+        }
         quartoModel.playShotHuman(bestMove[0], bestMove[1]);
         System.out.println("Shot played by Minimax AI at (" + bestMove[0] + "," + bestMove[1] + ").");
     }
@@ -97,6 +102,7 @@ public class MiniMaxAIPlayer implements Player {
                     alpha = alphaBetaValue[0];
                     beta = alphaBetaValue[1];
                     undoSimulation(quartoModel);
+
                     if (score > bestScore) {
                         bestScore = score;
                         bestMovesAxis.clear();
@@ -169,6 +175,59 @@ public class MiniMaxAIPlayer implements Player {
         return bestScore;
     }
 
+    private int evaluateSelection(QuartoModel quartoModel, boolean isAIPlayer) {
+        return evaluateCommonCharacteristics(quartoModel, isAIPlayer);
+    }
+
+    /*
+    private int evaluatePlacement(QuartoModel quartoModel, boolean isAIPlayer) {
+        if (quartoModel.isGameOver()) {
+            return isAIPlayer ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+        }
+        return evaluateRisk(quartoModel.getTable(), isAIPlayer);
+
+    }*/
+
+    private int evaluateCommonCharacteristics(QuartoModel quartoModel, boolean isAIPlayer) {
+        int commonCharacteristics = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (!quartoModel.isTableEmpty(i, j)) {
+                    QuartoPawn boardPawn = quartoModel.getPawnAtPosition(i, j);
+                    commonCharacteristics += countCommonCharacteristics(boardPawn);
+                }
+            }
+        }
+        return isAIPlayer ? commonCharacteristics : -commonCharacteristics;
+    }
+
+    private int evaluateRisk(QuartoPawn[][] table, boolean isAIPlayer) {
+        int riskValue = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (table[i][j] != null) {
+                    riskValue++;
+                }
+                if (table[j][i] != null) {
+                    riskValue++;
+                }
+                if (i == j || (i + j) == 3) {
+                    riskValue++;
+                }
+            }
+        }
+        return isAIPlayer ? riskValue : -riskValue;
+    }
+
+    private int countCommonCharacteristics(QuartoPawn pawn2) {
+        int commonCount = 0;
+        if (actualPawn.isHollow() == pawn2.isHollow()) commonCount++;
+        if (actualPawn.isLittle() == pawn2.isLittle()) commonCount++;
+        if (actualPawn.isRound() == pawn2.isRound()) commonCount++;
+        if (actualPawn.isWhite() == pawn2.isWhite()) commonCount++;
+        return commonCount;
+    }
+
     private void simulatePlacePawn(QuartoModel quartoModel, int row, int column) {
         quartoModel.playShotHuman(row, column);
     }
@@ -179,6 +238,18 @@ public class MiniMaxAIPlayer implements Player {
 
     private void undoSimulation(QuartoModel quartoModel) {
         quartoModel.undo();
+    }
+
+    private boolean isCompleteList(QuartoPawn[] pawns) {
+        if (pawns.length != 4) {
+            throw new IllegalArgumentException("The list must contain exactly 4 QuartoPawn objects.");
+        }
+        for (QuartoPawn pawn : pawns) {
+            if (pawn == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private int evaluateBoard(QuartoModel quartoModel, boolean isAIPlayer ) {
@@ -212,12 +283,12 @@ public class MiniMaxAIPlayer implements Player {
             }
         }
         if (commonCharacteristics > 0 && count == 4) {
-            score += 10000; // Winning state
+            score += heuristics.getWinStateValue(); // Winning state
         }
         else {
             if (count == 3 && commonCharacteristics != 0)
-                actualPawnScore += 40;
-            score += commonCharacteristics * 100 - (actualPawnScore * count);
+                actualPawnScore += heuristics.getLineOfThreeValue();
+            score += commonCharacteristics * heuristics.getCommonCharValue()  - (actualPawnScore * count);
         }
         return score;
     }
@@ -261,22 +332,22 @@ public class MiniMaxAIPlayer implements Player {
 
         if (sameRound) {
             if (actualPawn != null && firstPawn.isRound() == actualPawn.isRound())
-                actualPawnScore += 10;
+                actualPawnScore += heuristics.getSameCharValue();
             commonCount++;   
         }
         if (sameWhite) {
             if (actualPawn != null && firstPawn.isWhite() == actualPawn.isWhite())
-                actualPawnScore += 10;
+                actualPawnScore += heuristics.getSameCharValue();
             commonCount++;
         }
         if (sameLittle) {
             if (actualPawn != null && firstPawn.isLittle() == actualPawn.isLittle())
-                actualPawnScore += 10;
+                actualPawnScore += heuristics.getSameCharValue();
             commonCount++;
         }
         if (sameHollow) {
             if (actualPawn != null && firstPawn.isHollow() == actualPawn.isHollow())
-                actualPawnScore += 10;
+                actualPawnScore += heuristics.getSameCharValue();
                 commonCount++;
         }
 

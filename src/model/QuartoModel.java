@@ -16,8 +16,10 @@ public class QuartoModel {
   private QuartoWin win;
   private SlotManager manager;
   private String firstPlayerName, secondPlayerName;
-  private Player randomAIPlayer, easyAIPlayer, mediumAIPlayer, minimaxAIPlayer;
+  private Player randomAIPlayer, easyAIPlayer, mediumAIPlayer, minimaxAIPlayer1, minimaxAIPlayer2;
   private boolean gameOver = false; // true if end game
+  private Heuristics heuristic1; // Heuristic for player 1
+  private Heuristics heuristic2; // Heuristic for player 2
 
   public QuartoModel(int index) {
     newTable(0, 0);
@@ -25,27 +27,28 @@ public class QuartoModel {
     win = new QuartoWin();
     manager = new SlotManager();
     chargeGame(index);
-    if (playerType[0] == 1 || playerType[1] == 1) {
-      randomAIPlayer = new RandomAIPlayer();
-    }
-    if (playerType[0] == 2 || playerType[1] == 2) {
-      easyAIPlayer = new EasyAIPlayer();
-    }
-    if (playerType[0] == 3 || playerType[1] == 3) {
-      mediumAIPlayer = new MediumAIPlayer();
-    }
-    if (playerType[0] == 4 || playerType[1] == 4) {
-      minimaxAIPlayer = new MiniMaxAIPlayer(10);
-    }
+    initializeAIPlayers();
   }
 
+  // Constructor without heuristics (for non-MiniMax AI players)
   public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName) {
+    this(firstPlayerType, secondPlayerType, firstPlayerName, secondPlayerName, null, null);
+  }
+
+  // Constructor with heuristics (for MiniMax AI players)
+  public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName, Heuristics heuristic1, Heuristics heuristic2) {
+    this.heuristic1 = heuristic1;
+    this.heuristic2 = heuristic2;
     newTable(firstPlayerType, secondPlayerType);
     file = new QuartoFile();
     win = new QuartoWin();
     manager = new SlotManager();
     this.firstPlayerName = firstPlayerName;
     this.secondPlayerName = secondPlayerName;
+    initializeAIPlayers();
+  }
+
+  private void initializeAIPlayers() {
     if (playerType[0] == 1 || playerType[1] == 1) {
       randomAIPlayer = new RandomAIPlayer();
     }
@@ -55,8 +58,11 @@ public class QuartoModel {
     if (playerType[0] == 3 || playerType[1] == 3) {
       mediumAIPlayer = new MediumAIPlayer();
     }
-    if (playerType[0] == 4 || playerType[1] == 4) {
-      minimaxAIPlayer = new MiniMaxAIPlayer(2);
+    if (playerType[0] == 4) {
+      minimaxAIPlayer1 = new MiniMaxAIPlayer(2, heuristic1);
+    }
+    if (playerType[1] == 4) {
+      minimaxAIPlayer2 = new MiniMaxAIPlayer(2, heuristic2);
     }
   }
 
@@ -112,7 +118,11 @@ public class QuartoModel {
     } else if (getCurrentPlayerType() == 3) {
       mediumAIPlayer.selectPawn(this);
     } else if (getCurrentPlayerType() == 4) {
-      minimaxAIPlayer.selectPawn(this);
+      if (currentPlayer == 1) {
+        minimaxAIPlayer1.selectPawn(this);
+      } else {
+        minimaxAIPlayer2.selectPawn(this);
+      }
     } else {
       if (pawnAvailable[indexPawn] != null) {
         selectPawnHuman(indexPawn);
@@ -152,7 +162,11 @@ public class QuartoModel {
     } else if (getCurrentPlayerType() == 3) {
       mediumAIPlayer.playShot(this);
     } else if (getCurrentPlayerType() == 4) {
-      minimaxAIPlayer.playShot(this);
+      if (currentPlayer == 1) {
+        minimaxAIPlayer1.playShot(this);
+      } else {
+        minimaxAIPlayer2.playShot(this);
+      }
     } else {
       playShotHuman(line, column);
     }
