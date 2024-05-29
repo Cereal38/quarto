@@ -127,11 +127,13 @@ public class GameStatusHandler {
 
   public static void undo() {
     EventsHandler.getController().undo();
+    pauseGame();
     actionPerformed();
   }
 
   public static void redo() {
     EventsHandler.getController().redo();
+    pauseGame();
     actionPerformed();
   }
 
