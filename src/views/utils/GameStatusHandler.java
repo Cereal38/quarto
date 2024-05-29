@@ -150,6 +150,7 @@ public class GameStatusHandler {
 
   public static void pauseGame() {
     isPaused = true;
+    informListeners();
   }
 
   public static void resumeGame() {
