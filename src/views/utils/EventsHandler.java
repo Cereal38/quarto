@@ -13,7 +13,7 @@ import src.views.components.ExitButton;
 import src.views.components.LanguageButton;
 import src.views.components.ManualButton;
 import src.views.components.MusicButton;
-import src.views.components.Snackbar;
+import src.views.components.SnackbarPanel;
 import src.views.game.board.PauseMenuButton;
 import src.views.game.board.RedoButton;
 import src.views.game.board.UndoButton;
@@ -29,6 +29,7 @@ public class EventsHandler {
   private static CardLayout cardLayout;
   private static JPanel mainPanel;
   private static DialogPanel dialog;
+  private static SnackbarPanel snackbar;
   private static int theme = 0; // 0: light, 1: dark
   private static MusicButton musicButton;
   private static LanguageButton languageButton;
@@ -38,7 +39,6 @@ public class EventsHandler {
   private static RedoButton redoButton;
   private static PauseMenuButton pauseMenuButton;
   private static MainMenu mainMenu;
-  private static Snackbar snackbar = new Snackbar();
 
   private static MovesHistory movesHistory;
 
@@ -68,6 +68,10 @@ public class EventsHandler {
 
   public static void setDialog(DialogPanel dialog) {
     EventsHandler.dialog = dialog;
+  }
+
+  public static void setSnackbar(SnackbarPanel snackbar) {
+    EventsHandler.snackbar = snackbar;
   }
 
   public static ViewModelController getController() {
@@ -122,6 +126,11 @@ public class EventsHandler {
     dialog.setContent(dialogContent);
     dialog.setVisible(true);
     dialog.setCloseable(closeable);
+  }
+
+  public static void showSnackbar(String message) {
+    snackbar.setMessage(message);
+    snackbar.setVisible(true);
   }
 
   /**
@@ -191,7 +200,4 @@ public class EventsHandler {
     }
   }
 
-  public static void showSnackbar(String message) {
-    snackbar.show(message);
-  }
 }
