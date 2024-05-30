@@ -22,8 +22,10 @@ public class CenterPanelTopBar extends JPanel {
 
     String selectionPhaseStr = new TranslatedString("select-pawn").getText();
     String playPhaseStr = new TranslatedString("play-pawn").getText();
-    player1Name = new Field("Player 1", EventsHandler.getController().getCurrentPlayer() == 1);
-    player2Name = new Field("Player 2", EventsHandler.getController().getCurrentPlayer() == 2);
+    player1Name = new Field(EventsHandler.getController().getPlayer1Name(),
+        EventsHandler.getController().getCurrentPlayer() == 1);
+    player2Name = new Field(EventsHandler.getController().getPlayer2Name(),
+        EventsHandler.getController().getCurrentPlayer() == 2);
     selectionPhase = new Field(selectionPhaseStr, EventsHandler.getController().isSelectionPhase());
     playPhase = new Field(playPhaseStr, EventsHandler.getController().isPlayPhase());
 
