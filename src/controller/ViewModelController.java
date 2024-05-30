@@ -164,6 +164,20 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getNameOfTheCurrentPlayer();
   }
 
+  public String getPlayer1Name() {
+    if (quartoModel == null) {
+      return null;
+    }
+    return quartoModel.getPlayer1Name();
+  }
+
+  public String getPlayer2Name() {
+    if (quartoModel == null) {
+      return null;
+    }
+    return quartoModel.getPlayer2Name();
+  }
+
   public boolean isSelectionPhase() {
     if (quartoModel == null) {
       return false;
