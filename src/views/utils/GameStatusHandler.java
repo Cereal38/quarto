@@ -55,7 +55,7 @@ public class GameStatusHandler {
   private static void aiPlay() {
     if (EventsHandler.getController().isCurrentPlayerAI()) {
       try {
-        Thread.sleep(300);
+        Thread.sleep(1500);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
@@ -80,7 +80,15 @@ public class GameStatusHandler {
   }
 
   public static void selectPawn(String code) {
-    if (EventsHandler.getController().isGameOver() || isPaused()) {
+    if (isPaused()) {
+      EventsHandler.showSnackbar("game-paused");
+      return;
+    }
+    if (!EventsHandler.getController().isSelectionPhase()) {
+      EventsHandler.showSnackbar("cant-select-pawn");
+      return;
+    }
+    if (EventsHandler.getController().isGameOver()) {
       return;
     }
     EventsHandler.getController().selectPawn(code);
@@ -88,7 +96,15 @@ public class GameStatusHandler {
   }
 
   public static void playShot(int line, int column) {
-    if (EventsHandler.getController().isGameOver() || isPaused()) {
+    if (isPaused()) {
+      EventsHandler.showSnackbar("game-paused");
+      return;
+    }
+    if (!EventsHandler.getController().isPlayPhase()) {
+      EventsHandler.showSnackbar("cant-play-pawn");
+      return;
+    }
+    if (EventsHandler.getController().isGameOver()) {
       return;
     }
     EventsHandler.getController().playShot(line, column);
@@ -109,7 +125,7 @@ public class GameStatusHandler {
     if (EventsHandler.getController().isGameOver()) {
       // Wait for the last shot to be displayed
       try {
-        Thread.sleep(500);
+        Thread.sleep(1000);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }

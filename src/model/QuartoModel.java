@@ -1,10 +1,9 @@
 package src.model;
 
-import src.structures.SlotFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import src.structures.SlotFile;
 
 public class QuartoModel {
   private QuartoPawn[][] table;
@@ -124,7 +123,7 @@ public class QuartoModel {
   }
 
   public void selectPawnHuman(int indexPawn) {
-    if(getSelectedPawn() == null) {
+    if (getSelectedPawn() == null) {
       setSelectedPawn(pawnAvailable[indexPawn]);
       // Add a new history because we chose what pawn the next player will play.
       file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
@@ -316,6 +315,14 @@ public class QuartoModel {
     return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
   }
 
+  public String getPlayer1Name() {
+    return firstPlayerName;
+  }
+
+  public String getPlayer2Name() {
+    return secondPlayerName;
+  }
+
   public int stateOfGame() {
     return (file.getState() == 0) ? 1 : 0;
   }
@@ -329,9 +336,9 @@ public class QuartoModel {
   }
 
   public boolean hasAWinner() {
-      return gameOver;
+    return gameOver;
   }
-  
+
   public boolean isATie() {
     return (selectedPawn == null && isPawnListEmpty());
   }
