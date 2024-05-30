@@ -1,44 +1,36 @@
 package src.views.game.board;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import src.views.components.TranslatedLabel;
+import src.views.components.Field;
+import src.views.components.TranslatedString;
 import src.views.utils.EventsHandler;
-import src.views.utils.GameStatusHandler;
 
 public class CenterPanelTopBar extends JPanel {
 
   private Image bgImage;
+  private Field player1Name;
+  private Field player2Name;
+  private Field selectionPhase;
+  private Field playPhase;
 
   public CenterPanelTopBar() {
-    setLayout(new FlowLayout(FlowLayout.CENTER, 8, 15));
+    setLayout(new GridLayout(1, 4));
 
-    TranslatedLabel stateLbl = new TranslatedLabel("");
-    JLabel playerLbl = new JLabel();
+    String selectionPhaseStr = new TranslatedString("select-pawn").getText();
+    String playPhaseStr = new TranslatedString("play-pawn").getText();
+    player1Name = new Field("Player 1", true);
+    player2Name = new Field("Player 2", false);
+    selectionPhase = new Field(selectionPhaseStr, EventsHandler.getController().isSelectionPhase());
+    playPhase = new Field(playPhaseStr, EventsHandler.getController().isPlayPhase());
 
-    // Set the labels
-    if (GameStatusHandler.isPaused()) {
-      stateLbl.setKey("game-paused");
-      stateLbl.setForeground(Color.RED);
-    } else if (EventsHandler.getController().isSelectionPhase()) {
-      stateLbl.setKey("select-pawn");
-    } else if (EventsHandler.getController().isPlayPhase()) {
-      stateLbl.setKey("play-pawn");
-    }
-
-    // Display the current player if the game is not paused
-    if (!GameStatusHandler.isPaused()) {
-      playerLbl.setText(EventsHandler.getController().getCurrentPlayerName());
-      playerLbl.setForeground(Color.BLUE);
-      add(playerLbl);
-    }
-
-    add(stateLbl);
+    add(player1Name);
+    add(player2Name);
+    add(selectionPhase);
+    add(playPhase);
 
     // Load background image
     try {
