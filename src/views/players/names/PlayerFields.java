@@ -234,7 +234,8 @@ public class PlayerFields extends JPanel {
   }
 
   private void updateStartButtonState() {
-    if ((!player1IsAI && namePlayer1.getText().isEmpty()) || (!player2IsAI && namePlayer2.getText().isEmpty())) {
+    if ((!player1IsAI && namePlayer1.getText().isEmpty()) || (!player2IsAI && namePlayer2.getText().isEmpty())
+        || namePlayer1.getText().equals(namePlayer2.getText())) {
       btnStartGame.setEnabled(false);
     } else {
       btnStartGame.setEnabled(true);
