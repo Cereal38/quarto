@@ -22,7 +22,6 @@ public class Field extends JPanel {
 
     // Load image
     try {
-      // TODO: Load board only once
       bgImageOn = ImageIO.read(new File("assets/images/field-on.png"));
       bgImageOff = ImageIO.read(new File("assets/images/field-off.png"));
     } catch (Exception e) {
