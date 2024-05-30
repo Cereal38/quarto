@@ -164,7 +164,7 @@ public class ViewModelController implements ViewModelListener {
     if (quartoModel == null) {
       return 0;
     }
-    return quartoModel.getCurrentPlayerType();
+    return quartoModel.getCurrentPlayer();
   }
 
   public String getCurrentPlayerName() {
