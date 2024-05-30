@@ -1,6 +1,7 @@
 package src.views.components;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -18,7 +19,10 @@ public class Field extends JPanel {
     this.isOn = isOn;
 
     setLayout(new BorderLayout());
-    add(new JLabel(message, JLabel.CENTER), BorderLayout.CENTER);
+
+    JLabel text = new JLabel(message, JLabel.CENTER);
+    text.setFont(new Font("Arial", Font.BOLD, 16));
+    add(text, BorderLayout.CENTER);
 
     // Load image
     try {
