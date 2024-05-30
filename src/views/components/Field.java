@@ -18,7 +18,7 @@ public class Field extends JPanel {
     this.isOn = isOn;
 
     setLayout(new BorderLayout());
-    add(new JLabel(message), BorderLayout.CENTER);
+    add(new JLabel(message, JLabel.CENTER), BorderLayout.CENTER);
 
     // Load image
     try {
