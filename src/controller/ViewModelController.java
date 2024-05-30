@@ -157,6 +157,16 @@ public class ViewModelController implements ViewModelListener {
     return FormatUtils.byteToString(getSelectedPawn().getPawn());
   }
 
+  /**
+   * Get the current player. 1 for player 1, 2 for player 2.
+   */
+  public int getCurrentPlayer() {
+    if (quartoModel == null) {
+      return 0;
+    }
+    return quartoModel.getCurrentPlayerType();
+  }
+
   public String getCurrentPlayerName() {
     if (quartoModel == null) {
       return null;
