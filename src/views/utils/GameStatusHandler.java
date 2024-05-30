@@ -55,7 +55,7 @@ public class GameStatusHandler {
   private static void aiPlay() {
     if (EventsHandler.getController().isCurrentPlayerAI()) {
       try {
-        Thread.sleep(300);
+        Thread.sleep(1500);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
@@ -125,7 +125,7 @@ public class GameStatusHandler {
     if (EventsHandler.getController().isGameOver()) {
       // Wait for the last shot to be displayed
       try {
-        Thread.sleep(500);
+        Thread.sleep(1000);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
