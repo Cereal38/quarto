@@ -2,7 +2,6 @@ package src.views.components;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +30,6 @@ public class SnackbarPanel extends JPanel {
     // Setup the snackbar
     snackbar = new JPanel();
     snackbar.setLayout(new BorderLayout());
-    snackbar.setPreferredSize(new Dimension(main.getWidth() / 4, main.getHeight() / 10));
     snackbar.setBackground(Color.WHITE);
 
     messageLabel = new TranslatedLabel("");
@@ -45,7 +43,7 @@ public class SnackbarPanel extends JPanel {
 
     // Add margin to the snackbar
     setBorder(BorderFactory.createEmptyBorder(40, 10, 40, 40));
-    // snackbar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    messageLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
     // Add the snackbar to the container
     wrapper.add(snackbar);
@@ -72,8 +70,8 @@ public class SnackbarPanel extends JPanel {
     main.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
-        setBounds(0, main.getHeight() - 100, main.getWidth() / 4, 100);
-        snackbar.setPreferredSize(new Dimension(main.getWidth() / 4, 100));
+        setBounds(0, 0, main.getWidth(), main.getHeight());
+
       }
     });
   }
