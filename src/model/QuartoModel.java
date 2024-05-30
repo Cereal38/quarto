@@ -311,16 +311,16 @@ public class QuartoModel {
     this.playerType = playerType;
   }
 
+  public String getNameOfTheCurrentPlayer() {
+    return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
+  }
+
   public String getPlayer1Name() {
     return firstPlayerName;
   }
 
   public String getPlayer2Name() {
     return secondPlayerName;
-  }
-
-  public String getNameOfTheOtherPlayer() {
-    return (currentPlayer == 1) ? secondPlayerName : firstPlayerName;
   }
 
   public int stateOfGame() {
