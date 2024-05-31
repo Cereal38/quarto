@@ -5,8 +5,10 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import src.views.components.DialogPanel;
+import src.views.components.SnackbarPanel;
 import src.views.game.board.GameBoard;
-import src.views.load.save.LoadSavePage;
+import src.views.load.save.LoadPage;
+import src.views.load.save.SavePage;
 import src.views.main.menu.MainMenu;
 import src.views.players.names.ChoosePlayers;
 import src.views.rules.RulesPage;
@@ -20,11 +22,12 @@ public class MainFrame extends JFrame {
   private MainMenu mainMenu;
   private GameBoard gameBoard;
   private ChoosePlayers choosePlayers;
+  private SnackbarPanel snackbar;
   private DialogPanel dialog;
   private DialogPanel rules;
   private DialogPanel about;
-  private LoadSavePage loadPage;
-  private LoadSavePage savePage;
+  private LoadPage loadPage;
+  private SavePage savePage;
   private RulesPage rulesPage;
   private RulesPage aboutPage;
 
@@ -37,8 +40,8 @@ public class MainFrame extends JFrame {
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
     choosePlayers = new ChoosePlayers();
-    loadPage = new LoadSavePage(false);
-    savePage = new LoadSavePage(true);
+    loadPage = new LoadPage();
+    savePage = new SavePage(loadPage);
 
     // Create app pages
     mainMenu = new MainMenu();
@@ -57,6 +60,11 @@ public class MainFrame extends JFrame {
 
     add(mainPanel);
 
+    // Init the snackbar
+    snackbar = new SnackbarPanel(this);
+    snackbar.setVisible(false);
+    getLayeredPane().add(snackbar, 0);
+
     // Init the dialog panel (Multi-purpose dialog panel)
     dialog = new DialogPanel(this);
     rules = new DialogPanel(this);
@@ -71,6 +79,7 @@ public class MainFrame extends JFrame {
     // Setup the EventsHandler
     EventsHandler.setCardLayout(cardLayout);
     EventsHandler.setMainPanel(mainPanel);
+    EventsHandler.setSnackbar(snackbar);
     EventsHandler.setDialog(dialog);
     EventsHandler.setDialog(rules);
     EventsHandler.setDialog(about);

@@ -9,8 +9,8 @@
   "save": "Save",
   "rules": "Rules",
   "main-menu": "Main menu",
-  "select-pawn": "Is choosing a pawn",
-  "play-pawn": "Is playing the pawn",
+  "select-pawn": "Choose a pawn",
+  "play-pawn": "Play the pawn",
   "enter-players-names": "Enter players names",
   "start": "Start",
   "player1": "Player 1",
@@ -40,5 +40,11 @@
   "winner-is": "The winner is",
   "switch-to-ai": "Switch to AI",
   "switch-to-player": "Switch to Player",
-  "historyButton" : "History"
+  "historyButton": "History",
+  "back-to-game": "Back to game",
+  "pause-tooltip": "Pause game",
+  "resume-tooltip": "Resume game",
+  "game-paused": "Game paused",
+  "cant-play-pawn": "You can't play a pawn right now",
+  "cant-select-pawn": "You can't select a pawn right now"
 }

@@ -9,6 +9,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import src.views.components.CustomizedButton;
 import src.views.components.CustomizedTextField;
 import src.views.utils.EventsHandler;
@@ -20,7 +22,6 @@ import src.views.utils.GameStatusHandler;
 public class PlayerFields extends JPanel {
 
   private CustomizedButton btnSwitchPlayer1 = new CustomizedButton("switch-to-ai");
-
   private CustomizedButton btnSwitchPlayer2 = new CustomizedButton("switch-to-ai");
   private CustomizedTextField namePlayer1 = new CustomizedTextField("Player 1");
   private CustomizedTextField namePlayer2 = new CustomizedTextField("Player 2");
@@ -94,6 +95,7 @@ public class PlayerFields extends JPanel {
         player1Panel.remove(aiLevelPlayer1);
         player1Panel.add(namePlayer1, 0);
       }
+      updateStartButtonState();
       revalidate();
       repaint();
     });
@@ -112,6 +114,7 @@ public class PlayerFields extends JPanel {
         player2Panel.remove(aiLevelPlayer2);
         player2Panel.add(namePlayer2, 0);
       }
+      updateStartButtonState();
       revalidate();
       repaint();
     });
@@ -121,6 +124,26 @@ public class PlayerFields extends JPanel {
 
       int player1 = player1IsAI ? getAIPlayerLevel(aiLevelPlayer1) : 0;
       int player2 = player2IsAI ? getAIPlayerLevel(aiLevelPlayer2) : 0;
+      // For humans players, use the name entered in the text field
+      // For AI players, use the name corresponding to the level
+      // If both players are differents AI, also add a suffix number to differentiate
+      // them
+      if (player1 == 0) {
+        namePlayer1.setText(namePlayer1.getText());
+      } else {
+        namePlayer1.setText(getAIName(player1));
+      }
+
+      if (player2 == 0) {
+        namePlayer2.setText(namePlayer2.getText());
+      } else {
+        namePlayer2.setText(getAIName(player2));
+      }
+
+      if (player1 != 0 && player1 == player2) {
+        namePlayer1.setText(namePlayer1.getText() + " 1");
+        namePlayer2.setText(namePlayer2.getText() + " 2");
+      }
 
       EventsHandler.getController().createModel(player1, player2, namePlayer1.getText(), namePlayer2.getText());
 
@@ -128,6 +151,45 @@ public class PlayerFields extends JPanel {
       GameStatusHandler.startGame();
 
       EventsHandler.navigate("GameBoard");
+    });
+
+    // Initially disable the start button
+    btnStartGame.setEnabled(false);
+
+    // Add DocumentListener to namePlayer1 to enable/disable the start button
+    namePlayer1.getDocument().addDocumentListener(new DocumentListener() {
+      @Override
+      public void insertUpdate(DocumentEvent e) {
+        updateStartButtonState();
+      }
+
+      @Override
+      public void removeUpdate(DocumentEvent e) {
+        updateStartButtonState();
+      }
+
+      @Override
+      public void changedUpdate(DocumentEvent e) {
+        updateStartButtonState();
+      }
+    });
+
+    // Add DocumentListener to namePlayer2 to enable/disable the start button
+    namePlayer2.getDocument().addDocumentListener(new DocumentListener() {
+      @Override
+      public void insertUpdate(DocumentEvent e) {
+        updateStartButtonState();
+      }
+
+      @Override
+      public void removeUpdate(DocumentEvent e) {
+        updateStartButtonState();
+      }
+
+      @Override
+      public void changedUpdate(DocumentEvent e) {
+        updateStartButtonState();
+      }
     });
 
     // Setup boxes
@@ -155,4 +217,28 @@ public class PlayerFields extends JPanel {
       return 1;
     }
   }
+
+  private String getAIName(int level) {
+    switch (level) {
+    case 1:
+      return "Random AI";
+    case 2:
+      return "Easy AI";
+    case 3:
+      return "Medium AI";
+    case 4:
+      return "Hard AI";
+    default:
+      return "Random AI";
+    }
+  }
+
+  private void updateStartButtonState() {
+    if ((!player1IsAI && namePlayer1.getText().isEmpty()) || (!player2IsAI && namePlayer2.getText().isEmpty())) {
+      btnStartGame.setEnabled(false);
+    } else {
+      btnStartGame.setEnabled(true);
+    }
+  }
+
 }

@@ -76,6 +76,7 @@ public class QuartoFile {
                 }
             }
             int currentPlayer = 1;
+            save = head;
             while (s.hasNextLine()) {
                 line = s.nextLine().split(" ");
                 if (line.length == 1) { // state == 0

@@ -1,6 +1,5 @@
 package src.views.components;
 
-import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,6 +21,7 @@ public class Pawn extends JButton {
   private int state;
   private int width;
   private int height;
+  private boolean hovered;
 
   public Pawn(String code, int state, int width, int height) {
 
@@ -37,7 +37,7 @@ public class Pawn extends JButton {
     setIcon(image);
     setContentAreaFilled(false);
     setBorder(BorderFactory.createEmptyBorder());
-    setCursor(new Cursor(Cursor.HAND_CURSOR));
+    // setCursor(new Cursor(Cursor.HAND_CURSOR));
 
     if (state == SELECTED) {
       setBorder(BorderFactory.createLineBorder(java.awt.Color.RED, 2));
@@ -45,12 +45,15 @@ public class Pawn extends JButton {
 
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
-        // Only allow the player to select a pawn during the select phase
-        if (canSelect()) {
-          GameStatusHandler.selectPawn(code);
-        } else {
-          System.err.println("Error: Can't select a pawn right now.");
-        }
+        GameStatusHandler.selectPawn(code);
+      }
+
+      public void mouseEntered(MouseEvent evt) {
+        hovered = true;
+      }
+
+      public void mouseExited(MouseEvent evt) {
+        hovered = false;
       }
 
     });
@@ -68,15 +71,7 @@ public class Pawn extends JButton {
 
   public void update(int state, int width, int height) {
 
-    // Update the state if it has changed
-    if (this.state != state) {
-      this.state = state;
-      if (state == SELECTED) {
-        setBorder(BorderFactory.createLineBorder(java.awt.Color.RED, 2));
-      } else {
-        setBorder(BorderFactory.createEmptyBorder());
-      }
-    }
+    this.state = state;
 
     // Do nothing if the width and height are the same
     if (this.width == width && this.height == height) {
@@ -104,4 +99,15 @@ public class Pawn extends JButton {
     }
   }
 
+  public boolean isSelected() {
+    return state == SELECTED;
+  }
+
+  public boolean isHovered() {
+    return hovered;
+  }
+
+  public Image getImage() {
+    return ((ImageIcon) getIcon()).getImage();
+  }
 }

@@ -1,6 +1,5 @@
 package src.views.game.board;
 
-import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -8,33 +7,32 @@ import src.views.components.TranslatedString;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 
-public class PauseMenuButton extends JButton {
+public class ResumeButton extends JButton {
   private TranslatedString tooltip;
   private boolean isLightTheme = true;
+
   // Load icon
-  ImageIcon MenuImg = ImageUtils.loadImage("menu-wood.png", 32, 32);
-  ImageIcon MenuWhiteImg = ImageUtils.loadImage("menu-wood.png", 32, 32);
+  ImageIcon resumeImg = ImageUtils.loadImage("resume.png", 32, 32);
+  ImageIcon resumeWhiteImg = ImageUtils.loadImage("resume.png", 32, 32);
 
-  public PauseMenuButton() {
+  public ResumeButton() {
 
-    // cursor : pointer
-    setCursor(new Cursor(Cursor.HAND_CURSOR));
+    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
     // Add style
-    setIcon(MenuImg);
+    setIcon(resumeImg);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
 
     addActionListener(e -> {
-      // Pause the game
-      GameStatusHandler.pauseGame();
+      GameStatusHandler.resumeGame();
     });
 
-    tooltip = new TranslatedString("menuButtonTooltip", this, true);
+    tooltip = new TranslatedString("resume-tooltip", this, true);
   }
 
   public void updateIcon(boolean isLightTheme) {
     this.isLightTheme = isLightTheme;
-    setIcon(isLightTheme ? MenuImg : MenuWhiteImg);
+    setIcon(isLightTheme ? resumeImg : resumeWhiteImg);
   }
 }

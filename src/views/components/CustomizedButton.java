@@ -1,8 +1,10 @@
 package src.views.components;
 
+import java.awt.AlphaComposite;
 import java.awt.Cursor;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -62,16 +64,28 @@ public class CustomizedButton extends JButton {
     int x = (getWidth() - fontMetrics.stringWidth(text)) / 2;
     int y = (getHeight() - fontMetrics.getHeight()) / 2 + fontMetrics.getAscent();
 
+    // Create a Graphics2D object from the Graphics object
+    Graphics2D g2d = (Graphics2D) g;
+
     // Draw the appropriate image and text
     if (getModel().isPressed()) {
-      g.drawImage(buttonImageClicked.getImage(), 0, 0, getWidth(), getHeight(), this);
-      g.drawString(text, x, y + 4);
-    } else if (getModel().isRollover()) {
-      g.drawImage(buttonImageHover.getImage(), 0, 0, getWidth(), getHeight(), this);
-      g.drawString(text, x, y + 2);
+      g2d.drawImage(buttonImageClicked.getImage(), 0, 0, getWidth(), getHeight(), this);
+      g2d.drawString(text, x, y + 4);
+    } else if (getModel().isRollover() && isEnabled()) {
+      g2d.drawImage(buttonImageHover.getImage(), 0, 0, getWidth(), getHeight(), this);
+      g2d.drawString(text, x, y + 2);
     } else {
-      g.drawImage(buttonImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-      g.drawString(text, x, y);
+      // Set the opacity of the Graphics2D object if the button is disabled
+      if (!isEnabled()) {
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+      }
+
+      g2d.drawImage(buttonImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+
+      // Reset the opacity of the Graphics2D object
+      g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+
+      g2d.drawString(text, x, y);
     }
   }
 

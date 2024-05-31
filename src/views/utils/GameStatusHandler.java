@@ -18,6 +18,8 @@ public class GameStatusHandler {
   // Keep the history of moves
   private static List<MovePanel> moveComponents = new ArrayList<>();
 
+  private static boolean isPaused = false;
+
   // ================== Game Status Listeners ==================
 
   /**
@@ -45,6 +47,7 @@ public class GameStatusHandler {
   }
 
   public static void startGame() {
+    isPaused = false;
     actionPerformed();
   }
 
@@ -55,7 +58,7 @@ public class GameStatusHandler {
   private static void aiPlay() {
     if (EventsHandler.getController().isCurrentPlayerAI()) {
       try {
-        Thread.sleep(1000);
+        Thread.sleep(1500);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
@@ -80,38 +83,65 @@ public class GameStatusHandler {
   }
 
   public static void selectPawn(String code) {
+    if (isPaused()) {
+      EventsHandler.showSnackbar("game-paused");
+      return;
+    }
+    if (!EventsHandler.getController().isSelectionPhase()) {
+      EventsHandler.showSnackbar("cant-select-pawn");
+      return;
+    }
+    if (EventsHandler.getController().isGameOver()) {
+      return;
+    }
     EventsHandler.getController().selectPawn(code);
     actionPerformed();
   }
 
   public static void playShot(int line, int column) {
+    if (isPaused()) {
+      EventsHandler.showSnackbar("game-paused");
+      return;
+    }
+    if (!EventsHandler.getController().isPlayPhase()) {
+      EventsHandler.showSnackbar("cant-play-pawn");
+      return;
+    }
+    if (EventsHandler.getController().isGameOver()) {
+      return;
+    }
     EventsHandler.getController().playShot(line, column);
     // Display the shot on the board
     informListeners();
     // Check if the game is finished. If not, got to the next phase
-    if (!checkWin(line, column)) {
+    if (!checkGameOver()) {
       actionPerformed();
     }
   }
 
   /**
-   * Checks if the game is won by the player at the specified line and column.
-   * Shows a dialog if the game is finished.
-   *
-   * @param line   the line index of the selected position
-   * @param column the column index of the selected position
-   * @return true if the game is won, false otherwise
+   * Checks if the game is finished. If it is, shows a dialog.
+   * 
+   * @return true if the game is finished, false otherwise
    */
-  private static boolean checkWin(int line, int column) {
-    if (EventsHandler.getController().isGameFinished(line, column)) {
+  private static boolean checkGameOver() {
+    if (EventsHandler.getController().isGameOver()) {
+      // Wait for the last shot to be displayed
       try {
-        Thread.sleep(500);
+        Thread.sleep(1000);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-      // Wait for the last shot to be displayed
-      SwingUtilities.invokeLater(() -> EventsHandler
-          .showDialog(new GameOverDialog(EventsHandler.getController().getCurrentPlayerName()), false));
+      // Set winner to null if it's a draw
+      String winner;
+      if (EventsHandler.getController().isGameWon()) {
+        winner = EventsHandler.getController().getCurrentPlayerName();
+      } else {
+        winner = null;
+      }
+      SwingUtilities.invokeLater(() -> EventsHandler.showDialog(new GameOverDialog(winner), false));
+      // Pause the game
+      pauseGame();
       return true;
     }
     return false;
@@ -119,11 +149,13 @@ public class GameStatusHandler {
 
   public static void undo() {
     EventsHandler.getController().undo();
+    pauseGame();
     actionPerformed();
   }
 
   public static void redo() {
     EventsHandler.getController().redo();
+    pauseGame();
     actionPerformed();
   }
 
@@ -138,6 +170,24 @@ public class GameStatusHandler {
 
   public static List<MovePanel> getMoveComponents() {
     return moveComponents;
+  }
+
+  public static void pauseGame() {
+    isPaused = true;
+    informListeners();
+  }
+
+  public static void resumeGame() {
+    // Can't resume if game is over
+    if (EventsHandler.getController().isGameOver()) {
+      return;
+    }
+    isPaused = false;
+    actionPerformed();
+  }
+
+  public static boolean isPaused() {
+    return isPaused;
   }
 
 }

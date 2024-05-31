@@ -6,6 +6,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 
 public class LeftPanelTopBar extends JPanel {
 
@@ -22,6 +23,13 @@ public class LeftPanelTopBar extends JPanel {
 
     add(btnUndo);
     add(btnRedo);
+
+    // Choose if display pause or resume button
+    if (GameStatusHandler.isPaused()) {
+      add(new ResumeButton());
+    } else {
+      add(new PauseButton());
+    }
 
     // Load background image
     try {
