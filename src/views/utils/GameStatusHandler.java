@@ -160,6 +160,10 @@ public class GameStatusHandler {
   }
 
   public static void pauseGame() {
+    // Can't pause in PvP mode
+    if (isPvP()) {
+      return;
+    }
     isPaused = true;
     informListeners();
   }
