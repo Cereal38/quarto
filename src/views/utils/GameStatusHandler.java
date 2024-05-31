@@ -2,11 +2,9 @@ package src.views.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import src.views.game.board.GameOverDialog;
-import src.views.game.history.Move;
 import src.views.game.history.MovePanel;
 import src.views.listeners.GameStatusListener;
 
@@ -57,11 +55,6 @@ public class GameStatusHandler {
    */
   private static void aiPlay() {
     if (EventsHandler.getController().isCurrentPlayerAI()) {
-      try {
-        Thread.sleep(1500);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
       // We call methods with bullshit data because it's decided by the AI in the
       // model
       if (EventsHandler.getController().isPlayPhase()) {
@@ -126,12 +119,6 @@ public class GameStatusHandler {
    */
   private static boolean checkGameOver() {
     if (EventsHandler.getController().isGameOver()) {
-      // Wait for the last shot to be displayed
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
       // Set winner to null if it's a draw
       String winner;
       if (EventsHandler.getController().isGameWon()) {
