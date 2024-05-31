@@ -13,17 +13,17 @@ public class QuartoGameAIvsAITester {
         // Demander le type d'IA pour le premier joueur
         System.out.println("Choisissez le type d'IA pour le joueur 1 (1 - Random, 2 - Easy, 3 - Medium, 4 - Minimax): ");
         int player1Type = scanner.nextInt();
-        Heuristics heuristic1 = null;
+        Heuristics heuristic1 = new Heuristics();
         if (player1Type == 4) {
-            heuristic1 = inputHeuristics(scanner, "1");
+            inputHeuristics(scanner, "1",heuristic1);
         }
 
         // Demander le type d'IA pour le deuxième joueur
         System.out.println("Choisissez le type d'IA pour le joueur 2 (1 - Random, 2 - Easy, 3 - Medium, 4 - Minimax): ");
         int player2Type = scanner.nextInt();
-        Heuristics heuristic2 = null;
+        Heuristics heuristic2 = new Heuristics();
         if (player2Type == 4) {
-            heuristic2 = inputHeuristics(scanner, "2");
+            inputHeuristics(scanner, "2",heuristic2);
         }
 
         // Demander le nombre de parties à jouer
@@ -75,18 +75,25 @@ public class QuartoGameAIvsAITester {
         scanner.close();
     }
 
-    private static Heuristics inputHeuristics(Scanner scanner, String playerNumber) {
+    private static void inputHeuristics(Scanner scanner, String playerNumber, Heuristics heuristic) {
         System.out.println("Entrez les valeurs heuristiques pour le joueur " + playerNumber + ": ");
-        System.out.print("Valeur de l'état de victoire: ");
-        int winStateValue = scanner.nextInt();
-        System.out.print("Valeur du même caractère: ");
-        int sameCharValue = scanner.nextInt();
-        System.out.print("Valeur de la ligne de trois: ");
-        int lineOfThreeValue = scanner.nextInt();
-        System.out.print("Valeur du caractère commun: ");
-        int commonCharValue = scanner.nextInt();
 
-        return new Heuristics(winStateValue, sameCharValue, lineOfThreeValue, commonCharValue);
+        System.out.print("Valeur de l'état de victoire (winState): ");
+        int winStateValue = scanner.nextInt();
+        heuristic.setWinStateValue(winStateValue);
+
+        System.out.print("Valeur du même caractère (sameChar): ");
+        int sameCharValue = scanner.nextInt();
+        heuristic.setSameCharValue(sameCharValue);
+
+        System.out.print("Valeur de la ligne de trois (lineOfThree): ");
+        int lineOfThreeValue = scanner.nextInt();
+        heuristic.setLineOfThreeValue(lineOfThreeValue);
+
+        System.out.print("Valeur du caractère commun (commonChar): ");
+        int commonCharValue = scanner.nextInt();
+        heuristic.setCommonCharValue(commonCharValue);
+
     }
 
     private static void displayHeuristics(Heuristics heuristics, String playerName) {

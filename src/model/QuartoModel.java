@@ -34,7 +34,7 @@ public class QuartoModel {
 
   // Constructor without heuristics (for non-MiniMax AI players)
   public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName) {
-    this(firstPlayerType, secondPlayerType, firstPlayerName, secondPlayerName, null, null);
+    this(firstPlayerType, secondPlayerType, firstPlayerName, secondPlayerName, new Heuristics(), new Heuristics());
   }
 
   // Constructor with heuristics (for MiniMax AI players)
