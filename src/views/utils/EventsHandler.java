@@ -50,10 +50,6 @@ public class EventsHandler {
     EventsHandler.movesHistory = movesHistory;
   }
 
-  public static void addMove(String move) {
-    movesHistory.addMove(move);
-  }
-
   public static void setCardLayout(CardLayout cardLayout) {
     EventsHandler.cardLayout = cardLayout;
   }

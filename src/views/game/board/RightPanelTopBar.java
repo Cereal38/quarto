@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import src.views.utils.EventsHandler;
 
@@ -23,6 +24,12 @@ public class RightPanelTopBar extends JPanel {
       EventsHandler.showDialog(new PauseDialogContent(), true);
     });
 
+    JButton historyButton = new HistoryButton();
+    historyButton.addActionListener(e -> {
+        // Show the history panel
+        EventsHandler.showDialog(new MovesHistoryDialog(), true);
+    });
+    add(historyButton);
     add(btnPause);
 
     // Load background image
