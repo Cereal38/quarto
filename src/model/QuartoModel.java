@@ -107,6 +107,15 @@ public class QuartoModel {
   }
 
   public void selectPawn(int indexPawn) {
+    if (getCurrentPlayerType() == 0) {
+      if (pawnAvailable[indexPawn] != null) {
+        selectPawnHuman(indexPawn);
+      }
+      return;
+    }
+
+    // Add 1 second delay when AI is selecting a pawn
+    delay(1000);
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.selectPawn(this);
     } else if (getCurrentPlayerType() == 2) {
@@ -115,10 +124,6 @@ public class QuartoModel {
       mediumAIPlayer.selectPawn(this);
     } else if (getCurrentPlayerType() == 4) {
       minimaxAIPlayer.selectPawn(this);
-    } else {
-      if (pawnAvailable[indexPawn] != null) {
-        selectPawnHuman(indexPawn);
-      }
     }
   }
 
@@ -147,6 +152,12 @@ public class QuartoModel {
   }
 
   public void playShot(int line, int column) {
+    if (getCurrentPlayerType() == 0) {
+      playShotHuman(line, column);
+      return;
+    }
+    // Add 1 second delay when AI is playing
+    delay(1000);
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.playShot(this);
     } else if (getCurrentPlayerType() == 2) {
@@ -155,8 +166,6 @@ public class QuartoModel {
       mediumAIPlayer.playShot(this);
     } else if (getCurrentPlayerType() == 4) {
       minimaxAIPlayer.playShot(this);
-    } else {
-      playShotHuman(line, column);
     }
   }
 
@@ -379,5 +388,16 @@ public class QuartoModel {
     }
 
     return diagonals;
+  }
+
+  /**
+   * Artificial delay.
+   */
+  public void delay(int ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }
