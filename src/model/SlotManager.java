@@ -1,177 +1,152 @@
 package src.model;
 
+import src.structures.SlotFile;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SlotManager {
-  private Map<String, Long> slotFileDates;
-  private static final String SLOTS_DIRECTORY = "slots";
+    private List<SlotFile> slotFiles;
+    public static final String SLOTS_DIRECTORY = "slots";
 
-  public SlotManager() {
-    this.slotFileDates = new HashMap<>();
-  }
-
-  public void renameSlotFile(int index, String newFileName) {
-    if (index < 0 || index >= getSlotFileDates().size()) {
-      throw new IllegalArgumentException("Invalid index " + index);
+    public SlotManager() {
+        this.slotFiles = new ArrayList<>();
     }
 
-    String oldFileName = getSlotFileDates().keySet().toArray(new String[0])[index];
+    public void renameSlotFile(int id, String newFileName) {
+        SlotFile slotFile = findSlotFileById(id);
+        if (slotFile == null) {
+            throw new IllegalArgumentException("Invalid id " + id);
+        }
 
-    // Build full paths to old and new files
-    String oldFilePath = SLOTS_DIRECTORY + File.separator + oldFileName;
-    String newFilePath = SLOTS_DIRECTORY + File.separator + newFileName;
+        String oldFileName = slotFile.getFilename();
+        String oldFilePath = SLOTS_DIRECTORY + File.separator + oldFileName;
+        String newFilePath = SLOTS_DIRECTORY + File.separator + newFileName;
 
-    // Create File objects for old and new files
-    File oldFile = new File(oldFilePath);
-    File newFile = new File(newFilePath);
+        File oldFile = new File(oldFilePath);
+        File newFile = new File(newFilePath);
 
-    // Rename the file in the file system
-    if (oldFile.renameTo(newFile)) {
-      // Update the filename in the dictionary
-      getSlotFileDates().put(newFileName, getSlotFileDates().remove(oldFileName));
-      System.out.println("File renamed successfully.");
-    } else {
-      System.err.println("Failed to rename file.");
-    }
-  }
-
-  public boolean isSlotFileEmpty(int index) {
-    if (index < 0 || index >= getSlotFileDates().size()) {
-      throw new IllegalArgumentException("Invalid index " + index);
-    }
-    String fileName = getSlotFileDates().keySet().toArray(new String[0])[index];
-    String filePath = SLOTS_DIRECTORY + File.separator + fileName;
-    File file = new File(filePath);
-    return file.length() == 0;
-  }
-
-  public void clearSlotFile(int index) {
-    if (index < 0 || index >= getSlotFileDates().size()) {
-      throw new IllegalArgumentException("Invalid index " + index);
+        if (oldFile.renameTo(newFile)) {
+            slotFile.setFilename(newFileName);
+            slotFile.setLastModified(newFile.lastModified());
+            System.out.println("File renamed successfully.");
+        } else {
+            System.err.println("Failed to rename file.");
+        }
     }
 
-    String fileName = getSlotFileDates().keySet().toArray(new String[0])[index];
-    String filePath = SLOTS_DIRECTORY + File.separator + fileName;
-    String newFileName = "EmptySlot_" + (index + 1) + ".txt";
-    String newFilePath = SLOTS_DIRECTORY + File.separator + newFileName;
 
-    try {
-      // Writing an empty string to dump the contents of the file
-      BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-      writer.write("");
-      writer.close();
+    public boolean isSlotFileEmpty(int id) {
+        SlotFile slotFile = findSlotFileById(id);
+        if (slotFile == null) {
+            throw new IllegalArgumentException("Invalid id " + id);
+        }
 
-      // Renaming the file
-      renameSlotFile(index, newFileName);
-
-    } catch (IOException e) {
-      e.printStackTrace();
-      System.err.println("An error occurred while clearing and renaming the file at index " + index);
-    }
-  }
-
-  // Method to load slot data from all text files within the directory
-  public void loadFromDirectory() {
-    File directory = new File(SLOTS_DIRECTORY);
-
-    if (!directory.exists() || !directory.isDirectory()) {
-      System.err.println("Slots directory not found.");
-      return;
+        String filePath = SLOTS_DIRECTORY + File.separator + slotFile.getFilename();
+        File file = new File(filePath);
+        return file.length() == 0;
     }
 
-    // Clear existing data before loading new data
-    slotFileDates.clear();
 
-    // Recursively traverse the directory to find all files
-    traverseDirectory(directory);
-  }
+    public String clearSlotFile(int id) {
+        SlotFile slotFile = findSlotFileById(id);
+        if (slotFile == null) {
+            throw new IllegalArgumentException("Invalid id " + id);
+        }
 
-  // Recursive method to traverse directory and collect file information
-  private void traverseDirectory(File directory) {
-    File[] files = directory.listFiles();
+        String filePath = SLOTS_DIRECTORY + File.separator + slotFile.getFilename();
 
-    if (files == null) {
-      System.err.println("Failed to list files in the directory.");
-      return;
+        // Create a File object representing the file to be deleted
+        File fileToDelete = new File(filePath);
+
+        // Check if the file exists before attempting to delete
+        if (fileToDelete.exists()) {
+            // Attempt to delete the file
+            if (fileToDelete.delete()) {
+                System.out.println("File deleted successfully: " + filePath);
+            } else {
+                System.err.println("Failed to delete file: " + filePath);
+            }
+        } else {
+            System.err.println("File does not exist: " + filePath);
+        }
+
+        // Return the filename as confirmation (or null if file doesn't exist or couldn't be deleted)
+        return fileToDelete.exists() ? slotFile.getFilename() : null;
     }
 
-    for (File file : files) {
-      if (file.isDirectory()) {
-        // Recursive call if it's a directory
-        traverseDirectory(file);
-      } else if (file.isFile() && file.getName().endsWith(".txt")) {
-        // Process the file if it's a .txt file
-        String fileName = file.getName();
-        long lastModified = file.lastModified();
-        slotFileDates.put(fileName, lastModified);
 
-        // Debug print statement
-        // System.out.println("Added file: " + fileName + ", Last modified: " +
-        // lastModified);
-      }
-    }
-  }
+    public void loadFromDirectory() {
+        File directory = new File(SLOTS_DIRECTORY);
 
-  public void renameSlotFile(int index, String playerName1, String playerName2) {
-    if (index < 0 || index >= getSlotFileDates().size()) {
-      throw new IllegalArgumentException("Invalid index " + index);
+        if (!directory.exists() || !directory.isDirectory()) {
+            System.err.println("Slots directory not found.");
+            return;
+        }
+
+        slotFiles.clear();
+        traverseDirectory(directory);
     }
 
-    // Creating new name of file with .txt
-    String newFileName = playerName1 + "_vs_" + playerName2 + ".txt";
+    private void traverseDirectory(File directory) {
+        File[] files = directory.listFiles();
+        int id = slotFiles.size(); // Initialize id based on the size of slotFiles list
 
-    renameSlotFile(index, newFileName);
-  }
+        if (files == null) {
+            System.err.println("Failed to list files in the directory.");
+            return;
+        }
 
-  // Method to get the map of slot file names and their last modified dates
-  public Map<String, Long> getSlotFileDates() {
-    return this.slotFileDates;
-  }
-
-  public static void main(String[] args) {
-    // Create a new instance of SlotManager
-    SlotManager slotManager = new SlotManager();
-
-    // Load slot data from the directory
-    slotManager.loadFromDirectory();
-
-    // Get the map of slot file names and their last modified dates
-    Map<String, Long> slotFileDates = slotManager.getSlotFileDates();
-
-    // Print out the collected data
-    System.out.println("Slot files and their last modified dates:");
-    for (Map.Entry<String, Long> entry : slotFileDates.entrySet()) {
-      System.out.println("File: " + entry.getKey() + ", Last Modified: " + entry.getValue());
+        for (File file : files) {
+            if (file.isDirectory()) {
+                traverseDirectory(file);
+            } else if (file.isFile()) {
+                String fileName = file.getName();
+                long lastModified = file.lastModified();
+                slotFiles.add(new SlotFile(id++, fileName, lastModified));
+            }
+        }
     }
 
-    // Check if the slots are empty or not
-    System.out.println("\nSlot file emptiness:");
-    for (int i = 0; i < slotFileDates.size(); i++) {
-      boolean isEmpty = slotManager.isSlotFileEmpty(i);
-      System.out.println("File " + i + " is empty: " + isEmpty);
+
+    public void renameSlotFile(int id, String playerName1, String playerName2) {
+        String newFileName = playerName1 + "_vs_" + playerName2 + ".txt";
+        renameSlotFile(id, newFileName);
     }
 
-    // Changing the name of the 2nd slot
-    slotManager.renameSlotFile(1, "Antoine", "Adam");
-
-    // Print out the collected data
-    System.out.println("Slot files and their last modified dates:");
-    for (Map.Entry<String, Long> entry : slotFileDates.entrySet()) {
-      System.out.println("File: " + entry.getKey() + ", Last Modified: " + entry.getValue());
+    public List<SlotFile> getSlotFiles() {
+        loadFromDirectory();
+        return slotFiles;
     }
 
-    // Clearing the 2nd slot
-    slotManager.clearSlotFile(1);
-
-    // Print out the collected data
-    System.out.println("Slot files and their last modified dates:");
-    for (Map.Entry<String, Long> entry : slotFileDates.entrySet()) {
-      System.out.println("File: " + entry.getKey() + ", Last Modified: " + entry.getValue());
+    private SlotFile findSlotFileById(int id) {
+        return slotFiles.stream().filter(slotFile -> slotFile.getId() == id).findFirst().orElse(null);
     }
-  }
+
+    public void createNewFile(String fileName) throws IOException {
+        File file = new File(SLOTS_DIRECTORY + File.separator + fileName);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs(); // Ensure the directory exists
+            if (!file.createNewFile()) {
+                throw new IOException("Failed to create new file: " + fileName);
+            }
+        }
+    }
+//  public static void main(String[] args) {
+//    SlotManager slotManager = new SlotManager();
+//    slotManager.loadFromDirectory();
+//
+//    System.out.println("Slot Files:");
+//
+//    slotManager.renameSlotFile(2, "adam", "rymav2");
+//    //slotManager.clearSlotFile(0);
+//    for (SlotFile slotFile : slotManager.getSlotFiles()) {
+//      System.out.println("ID: " + slotFile.getId() + ", Filename: " + slotFile.getFilename() + ", Last Modified: " + slotFile.getLastModified());
+//    }
+//  }
+
 }

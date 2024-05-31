@@ -1,0 +1,49 @@
+package src.views.game.board;
+
+import java.awt.FlowLayout;
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
+
+public class LeftPanelTopBar extends JPanel {
+
+  private Image bgImage;
+
+  public LeftPanelTopBar() {
+    setLayout(new FlowLayout(FlowLayout.LEFT, 12, 14));
+
+    UndoButton btnUndo = new UndoButton();
+    RedoButton btnRedo = new RedoButton();
+
+    EventsHandler.setUndoButton(btnUndo);
+    EventsHandler.setRedoButton(btnRedo);
+
+    add(btnUndo);
+    add(btnRedo);
+
+    // Choose if display pause or resume button
+    if (GameStatusHandler.isPaused()) {
+      add(new ResumeButton());
+    } else {
+      add(new PauseButton());
+    }
+
+    // Load background image
+    try {
+      bgImage = ImageIO.read(new File("assets/images/gameboard-left-top-bar.png"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  protected void paintComponent(java.awt.Graphics g) {
+    super.paintComponent(g);
+    // Draw background image
+    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+  }
+
+}
