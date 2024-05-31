@@ -116,7 +116,6 @@ public class MovesHistory extends JScrollPane {
       int y = save.getColumn();
       String moveDescription;
       ImageIcon pawnIcon = null;
-      System.out.println(save.getState());
       if (name != null) {
         // y 0 is a, y 1 is b, etc.
         char column = (char) (y + 97);
