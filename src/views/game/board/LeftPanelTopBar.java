@@ -24,11 +24,14 @@ public class LeftPanelTopBar extends JPanel {
     add(btnUndo);
     add(btnRedo);
 
-    // Choose if display pause or resume button
-    if (GameStatusHandler.isPaused()) {
-      add(new ResumeButton());
-    } else {
-      add(new PauseButton());
+    // Only add pause button if not PvP
+    if (!GameStatusHandler.isPvP()) {
+      // Choose if display pause or resume button
+      if (GameStatusHandler.isPaused()) {
+        add(new ResumeButton());
+      } else {
+        add(new PauseButton());
+      }
     }
 
     // Load background image

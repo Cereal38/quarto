@@ -160,6 +160,10 @@ public class GameStatusHandler {
   }
 
   public static void pauseGame() {
+    // Can't pause in PvP mode
+    if (isPvP()) {
+      return;
+    }
     isPaused = true;
     informListeners();
   }
@@ -175,6 +179,15 @@ public class GameStatusHandler {
 
   public static boolean isPaused() {
     return isPaused;
+  }
+
+  /**
+   * Return true if both players are humans
+   * 
+   * @return
+   */
+  public static boolean isPvP() {
+    return !EventsHandler.getController().isPlayer1AI() && !EventsHandler.getController().isPlayer2AI();
   }
 
 }
