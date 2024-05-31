@@ -332,6 +332,14 @@ public class QuartoModel {
     return secondPlayerName;
   }
 
+  public int getPlayer1Type() {
+    return playerType[0];
+  }
+
+  public int getPlayer2Type() {
+    return playerType[1];
+  }
+
   public int stateOfGame() {
     return (file.getState() == 0) ? 1 : 0;
   }

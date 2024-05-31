@@ -177,4 +177,13 @@ public class GameStatusHandler {
     return isPaused;
   }
 
+  /**
+   * Return true if both players are humans
+   * 
+   * @return
+   */
+  public static boolean isPvP() {
+    return !EventsHandler.getController().isPlayer1AI() && !EventsHandler.getController().isPlayer2AI();
+  }
+
 }
