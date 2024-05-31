@@ -11,7 +11,7 @@ public class QuartoGameAIvsAITester {
         System.out.println("Quarto Game AI vs AI Test");
 
         // Demander le type d'IA pour le premier joueur
-        System.out.println("Choisissez le type d'IA pour le joueur 1 (1 - Random, 2 - Easy, 3 - Medium, 4 - Minimax): ");
+        System.out.println("Choisissez   le type d'IA pour le joueur 1 (1 - Random, 2 - Easy, 3 - Medium, 4 - Minimax): ");
         int player1Type = scanner.nextInt();
         Heuristics heuristic1 = new Heuristics();
         if (player1Type == 4) {
