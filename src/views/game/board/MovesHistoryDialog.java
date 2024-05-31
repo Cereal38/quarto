@@ -4,13 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import src.views.game.history.MovesHistory;
-import src.views.utils.EventsHandler;
 
 public class MovesHistoryDialog extends JPanel {
 
   public MovesHistoryDialog() {
     setLayout(new BorderLayout());
-    EventsHandler.setMovesHistoryDialog(this);
 
     // Créez une instance de MovesHistory
     MovesHistory movesHistory = new MovesHistory();
