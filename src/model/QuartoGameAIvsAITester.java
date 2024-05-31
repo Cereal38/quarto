@@ -15,7 +15,7 @@ public class QuartoGameAIvsAITester {
         int player1Type = scanner.nextInt();
         Heuristics heuristic1 = new Heuristics();
         if (player1Type == 4) {
-            inputHeuristics(scanner, "1",heuristic1);
+            inputHeuristics(scanner, "1", heuristic1);
         }
 
         // Demander le type d'IA pour le deuxième joueur
@@ -23,7 +23,7 @@ public class QuartoGameAIvsAITester {
         int player2Type = scanner.nextInt();
         Heuristics heuristic2 = new Heuristics();
         if (player2Type == 4) {
-            inputHeuristics(scanner, "2",heuristic2);
+            inputHeuristics(scanner, "2", heuristic2);
         }
 
         // Demander le nombre de parties à jouer
@@ -35,14 +35,41 @@ public class QuartoGameAIvsAITester {
         int draws = 0;
         int totalMoves = 0;
 
+        long totalPlayer1Time = 0;
+        long totalPlayer2Time = 0;
+        int totalPlayer1Moves = 0;
+        int totalPlayer2Moves = 0;
+
         for (int i = 0; i < numberOfGames; i++) {
             QuartoModel quartoModel = new QuartoModel(player1Type, player2Type, "AI1", "AI2", heuristic1, heuristic2);
 
             while (!quartoModel.hasAWinner() && !quartoModel.isATie()) {
                 if (quartoModel.getSelectedPawn() == null) {
+                    long startTime = System.nanoTime();
                     quartoModel.selectPawn(0); // L'IA sélectionne un pion
+                    long endTime = System.nanoTime();
+
+                    if (quartoModel.getCurrentPlayer() == 1) {
+                        totalPlayer1Time += (endTime - startTime);
+                        totalPlayer1Moves++;
+                    } else {
+                        totalPlayer2Time += (endTime - startTime);
+                        totalPlayer2Moves++;
+                    }
+
                 } else {
+                    long startTime = System.nanoTime();
                     quartoModel.playShot(0, 0); // L'IA joue un coup
+                    long endTime = System.nanoTime();
+
+                    if (quartoModel.getCurrentPlayer() == 1) {
+                        totalPlayer1Time += (endTime - startTime);
+                        totalPlayer1Moves++;
+                    } else {
+                        totalPlayer2Time += (endTime - startTime);
+                        totalPlayer2Moves++;
+                    }
+
                     totalMoves++;
                 }
             }
@@ -72,6 +99,17 @@ public class QuartoGameAIvsAITester {
             displayHeuristics(heuristic2, "AI2");
         }
 
+        // Calculer et afficher le temps moyen d'exécution pour chaque joueur
+        if (totalPlayer1Moves > 0) {
+            double avgPlayer1Time = totalPlayer1Time / (double) totalPlayer1Moves / 1_000_000.0; // Convertir en millisecondes
+            System.out.println("Temps moyen d'exécution pour AI1 : " + avgPlayer1Time + " ms");
+        }
+
+        if (totalPlayer2Moves > 0) {
+            double avgPlayer2Time = totalPlayer2Time / (double) totalPlayer2Moves / 1_000_000.0; // Convertir en millisecondes
+            System.out.println("Temps moyen d'exécution pour AI2 : " + avgPlayer2Time + " ms");
+        }
+
         scanner.close();
     }
 
@@ -93,7 +131,6 @@ public class QuartoGameAIvsAITester {
         System.out.print("Valeur du caractère commun (commonChar): ");
         int commonCharValue = scanner.nextInt();
         heuristic.setCommonCharValue(commonCharValue);
-
     }
 
     private static void displayHeuristics(Heuristics heuristics, String playerName) {
