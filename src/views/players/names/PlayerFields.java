@@ -153,8 +153,8 @@ public class PlayerFields extends JPanel {
       EventsHandler.navigate("GameBoard");
     });
 
-    // Initially disable the start button
-    btnStartGame.setEnabled(false);
+    // Initially enable the start button
+    btnStartGame.setEnabled(true);
 
     // Add DocumentListener to namePlayer1 to enable/disable the start button
     namePlayer1.getDocument().addDocumentListener(new DocumentListener() {
