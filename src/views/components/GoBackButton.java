@@ -1,4 +1,4 @@
-package src.views.load.save;
+package src.views.components;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;

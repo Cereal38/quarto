@@ -1,14 +1,12 @@
 package src.views.load.save;
 
 import src.views.components.BorderCenterPanel;
+import src.views.components.GoBackButton;
 import src.views.components.TranslatedLabel;
 import src.views.utils.EventsHandler;
-import src.views.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class LoadPage extends JPanel {
     private LoadHelper helper;
