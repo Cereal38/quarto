@@ -10,24 +10,24 @@ public class QuartoGameAIvsAITester {
 
         System.out.println("Quarto Game AI vs AI Test");
 
-        // Demander le type d'IA pour le premier joueur
-        System.out.println("Choisissez   le type d'IA pour le joueur 1 (1 - Random, 2 - Easy, 3 - Medium, 4 - Minimax): ");
+        // Ask for the AI type for player 1
+        System.out.println("Choose AI type for player 1 (1 - Random, 2 - Easy, 3 - Medium, 4 - Minimax): ");
         int player1Type = scanner.nextInt();
         Heuristics heuristic1 = new Heuristics();
         if (player1Type == 4) {
             inputHeuristics(scanner, "1", heuristic1);
         }
 
-        // Demander le type d'IA pour le deuxième joueur
-        System.out.println("Choisissez le type d'IA pour le joueur 2 (1 - Random, 2 - Easy, 3 - Medium, 4 - Minimax): ");
+        // Ask for the AI type for player 2
+        System.out.println("Choose AI type for player 2 (1 - Random, 2 - Easy, 3 - Medium, 4 - Minimax): ");
         int player2Type = scanner.nextInt();
         Heuristics heuristic2 = new Heuristics();
         if (player2Type == 4) {
             inputHeuristics(scanner, "2", heuristic2);
         }
 
-        // Demander le nombre de parties à jouer
-        System.out.println("Entrez le nombre de parties à jouer: ");
+        // Ask for the number of games to play
+        System.out.println("Enter the number of games to play: ");
         int numberOfGames = scanner.nextInt();
 
         int ai1Wins = 0;
@@ -40,13 +40,15 @@ public class QuartoGameAIvsAITester {
         int totalPlayer1Moves = 0;
         int totalPlayer2Moves = 0;
 
+        // Loop to play the specified number of games
         for (int i = 0; i < numberOfGames; i++) {
             QuartoModel quartoModel = new QuartoModel(player1Type, player2Type, "AI1", "AI2", heuristic1, heuristic2);
 
+            // Play the game until there is a winner or a tie
             while (!quartoModel.hasAWinner() && !quartoModel.isATie()) {
                 if (quartoModel.getSelectedPawn() == null) {
                     long startTime = System.nanoTime();
-                    quartoModel.selectPawn(0); // L'IA sélectionne un pion
+                    quartoModel.selectPawn(0); // AI selects a pawn
                     long endTime = System.nanoTime();
 
                     if (quartoModel.getCurrentPlayer() == 1) {
@@ -59,7 +61,7 @@ public class QuartoGameAIvsAITester {
 
                 } else {
                     long startTime = System.nanoTime();
-                    quartoModel.playShot(0, 0); // L'IA joue un coup
+                    quartoModel.playShot(0, 0); // AI plays a shot
                     long endTime = System.nanoTime();
 
                     if (quartoModel.getCurrentPlayer() == 1) {
@@ -74,6 +76,7 @@ public class QuartoGameAIvsAITester {
                 }
             }
 
+            // Update the win counters
             if (quartoModel.hasAWinner() && !quartoModel.isPawnListEmpty()) {
                 if (quartoModel.getCurrentPlayer() == 1) {
                     ai1Wins++;
@@ -85,13 +88,14 @@ public class QuartoGameAIvsAITester {
             }
         }
 
-        System.out.println("Nombre de parties jouées : " + numberOfGames);
-        System.out.println("IA 1 a gagné : " + ai1Wins + " parties.");
-        System.out.println("IA 2 a gagné : " + ai2Wins + " parties.");
-        System.out.println("Parties nulles : " + draws);
-        System.out.println("Nombre moyen de coups par partie : " + (totalMoves / (double) numberOfGames));
+        // Display the results
+        System.out.println("Number of games played: " + numberOfGames);
+        System.out.println("AI 1 won: " + ai1Wins + " games.");
+        System.out.println("AI 2 won: " + ai2Wins + " games.");
+        System.out.println("Draws: " + draws);
+        System.out.println("Average number of moves per game: " + (totalMoves / (double) numberOfGames));
 
-        // Afficher les heuristiques utilisées si les joueurs sont de type Minimax
+        // Display heuristics if the players are Minimax
         if (player1Type == 4) {
             displayHeuristics(heuristic1, "AI1");
         }
@@ -99,50 +103,50 @@ public class QuartoGameAIvsAITester {
             displayHeuristics(heuristic2, "AI2");
         }
 
-        // Calculer et afficher le temps moyen d'exécution pour chaque joueur
+        // Calculate and display the average execution time for each player
         if (totalPlayer1Moves > 0) {
-            double avgPlayer1Time = totalPlayer1Time / (double) totalPlayer1Moves / 1_000_000.0; // Convertir en millisecondes
-            System.out.println("Temps moyen d'exécution pour AI1 : " + avgPlayer1Time + " ms");
+            double avgPlayer1Time = totalPlayer1Time / (double) totalPlayer1Moves / 1_000_000.0; // Convert to milliseconds
+            System.out.println("Average execution time for AI1: " + avgPlayer1Time + " ms");
         }
 
         if (totalPlayer2Moves > 0) {
-            double avgPlayer2Time = totalPlayer2Time / (double) totalPlayer2Moves / 1_000_000.0; // Convertir en millisecondes
-            System.out.println("Temps moyen d'exécution pour AI2 : " + avgPlayer2Time + " ms");
+            double avgPlayer2Time = totalPlayer2Time / (double) totalPlayer2Moves / 1_000_000.0; // Convert to milliseconds
+            System.out.println("Average execution time for AI2: " + avgPlayer2Time + " ms");
         }
 
         scanner.close();
     }
 
     private static void inputHeuristics(Scanner scanner, String playerNumber, Heuristics heuristic) {
-        System.out.println("Entrez les valeurs heuristiques pour le joueur " + playerNumber + ": ");
+        System.out.println("Enter heuristic values for player " + playerNumber + ": ");
 
-        System.out.print("Valeur de l'état de victoire (winState): ");
+        System.out.print("Win state value (winState): ");
         int winStateValue = scanner.nextInt();
         heuristic.setWinStateValue(winStateValue);
 
-        System.out.print("Valeur du même caractère (sameChar): ");
+        System.out.print("Same character value (sameChar): ");
         int sameCharValue = scanner.nextInt();
         heuristic.setSameCharValue(sameCharValue);
 
-        System.out.print("Valeur de la ligne de trois (lineOfThree): ");
+        System.out.print("Line of three value (lineOfThree): ");
         int lineOfThreeValue = scanner.nextInt();
         heuristic.setLineOfThreeValue(lineOfThreeValue);
 
-        System.out.print("Valeur du caractère commun (commonChar): ");
+        System.out.print("Common character value (commonChar): ");
         int commonCharValue = scanner.nextInt();
         heuristic.setCommonCharValue(commonCharValue);
 
-        System.out.print("Valeur du risque (riskValue): ");
+        System.out.println("Risk value (riskValue): ");
         int riskValue = scanner.nextInt();
         heuristic.setRiskValue(riskValue);
     }
 
     private static void displayHeuristics(Heuristics heuristics, String playerName) {
-        System.out.println("Heuristiques utilisées par " + playerName + ":");
-        System.out.println("Valeur de l'état de victoire: " + heuristics.getWinStateValue());
-        System.out.println("Valeur du même caractère: " + heuristics.getSameCharValue());
-        System.out.println("Valeur de la ligne de trois: " + heuristics.getLineOfThreeValue());
-        System.out.println("Valeur du caractère commun: " + heuristics.getCommonCharValue());
-        System.out.println("Valeur du risque: " + heuristics.getRiskValue());
+        System.out.println("Heuristics used by " + playerName + ":");
+        System.out.println("Win state value: " + heuristics.getWinStateValue());
+        System.out.println("Same character value: " + heuristics.getSameCharValue());
+        System.out.println("Line of three value: " + heuristics.getLineOfThreeValue());
+        System.out.println("Common character value: " + heuristics.getCommonCharValue());
+        System.out.println("Risk value: " + heuristics.getRiskValue());
     }
 }
