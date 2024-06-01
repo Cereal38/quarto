@@ -10,7 +10,7 @@
   "rules": "Règles",
   "main-menu": "Menu principal",
   "select-pawn": "Choisit un pion",
-  "play-pawn": "Joue un pion",
+  "play-pawn": "Joue le pion",
   "enter-players-names": "Entrer les noms des joueurs",
   "start": "Commencer",
   "player1": "Joueur 1",
@@ -40,5 +40,11 @@
   "winner-is": "Le gagnant est",
   "switch-to-ai": "Changer en IA",
   "switch-to-player": "Changer en Joueur",
-  "back-to-game": "Retour au jeu"
+  "historyButton": "Historique",
+  "back-to-game": "Retour au jeu",
+  "pause-tooltip": "Mettre en pause",
+  "resume-tooltip": "Reprendre",
+  "game-paused": "Partie en pause",
+  "cant-play-pawn": "Impossible de jouer un pion maintenant",
+  "cant-select-pawn": "Impossible de sélectionner un pion maintenant"
 }

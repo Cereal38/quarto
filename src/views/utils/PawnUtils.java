@@ -1,5 +1,6 @@
 package src.views.utils;
 
+import java.awt.Image;
 import src.views.components.Pawn;
 
 /**
@@ -32,5 +33,4 @@ public class PawnUtils {
     pawns[index].update(state, width, height);
     return pawns[index];
   }
-
 }

@@ -1,12 +1,15 @@
 package src.views.game.board;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JPanel;
 import src.views.components.BorderCenterPanel;
+import src.views.game.history.MovesHistory;
 import src.views.listeners.GameStatusListener;
 import src.views.utils.DimensionUtils;
+import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
 public class GameBoard extends JPanel implements GameStatusListener {
@@ -18,7 +21,6 @@ public class GameBoard extends JPanel implements GameStatusListener {
     // Register this class as a game status listener
     // update() will be called when informListeners() is called
     GameStatusHandler.addGameStatusListener(this);
-
     update();
 
     // Resize listener
@@ -74,11 +76,15 @@ public class GameBoard extends JPanel implements GameStatusListener {
         new Board(widthBoardWrapper, heightBoardWrapper, boardCellSize), verticalMarginBoard, horizontalMarginBoard,
         verticalMarginBoard, horizontalMarginBoard);
 
+    //Setup history
+    MovesHistory movesHistory = new MovesHistory();
+    EventsHandler.setMovesHistory(movesHistory);
+
     // Add components
     add(topBarGameBoard, BorderLayout.NORTH);
     add(boardWrapper, BorderLayout.CENTER);
     add(pawnsBar, BorderLayout.EAST);
-
+    // add(movesHistory, BorderLayout.EAST);
     revalidate();
     repaint();
   }
