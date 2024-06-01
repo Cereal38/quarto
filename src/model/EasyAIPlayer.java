@@ -68,10 +68,10 @@ public class EasyAIPlayer implements Player{
                 continue;
             }
             // Checks characteristics
-            characteristics[pawn.isRound()? 1 : 0]++;//round or square
-            characteristics[pawn.isWhite()? 3 : 2]++;//white or black
-            characteristics[pawn.isLittle()? 5 : 4]++;//little or big
-            characteristics[pawn.isHollow()? 7 : 6]++;//hollow or full
+            characteristics[pawn.isRound()? 1 : 0]++; // round or square
+            characteristics[pawn.isWhite()? 3 : 2]++; // white or black
+            characteristics[pawn.isLittle()? 5 : 4]++; // little or big
+            characteristics[pawn.isHollow()? 7 : 6]++; // hollow or full
         }
     }
 
