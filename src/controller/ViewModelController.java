@@ -112,7 +112,6 @@ public class ViewModelController implements ViewModelListener {
   }
 
   public void selectPawn(String pawnStr) {
-    System.out.println("selecting pawn in controller");
     quartoModel.selectPawn(FormatUtils.stringToIndex(pawnStr));
   }
 

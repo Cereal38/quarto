@@ -87,7 +87,6 @@ public class GameStatusHandler {
     if (EventsHandler.getController().isGameOver()) {
       return;
     }
-    System.out.println( "is selection phase : "+ EventsHandler.getController().isSelectionPhase());
 
     EventsHandler.getController().selectPawn(code);
     actionPerformed();
@@ -99,8 +98,6 @@ public class GameStatusHandler {
       return;
     }
     if (!EventsHandler.getController().isPlayPhase()) {
-      System.out.println( "is selection phase : "+ EventsHandler.getController().isSelectionPhase());
-      System.out.println("is play phase : "+EventsHandler.getController().isPlayPhase());
       EventsHandler.showSnackbar("cant-play-pawn");
       return;
     }
