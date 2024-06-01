@@ -4,6 +4,7 @@ import src.structures.SlotFile;
 import src.views.components.RoundBorder;
 import src.views.components.TranslatedString;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -59,6 +60,7 @@ public class LoadHelper {
             public void actionPerformed(ActionEvent e) {
                 // Load the game
                 EventsHandler.getController().loadGame(id);
+                GameStatusHandler.informListeners();
                 EventsHandler.navigate("GameBoard");
             }
         });
