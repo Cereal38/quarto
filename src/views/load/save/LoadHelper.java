@@ -80,6 +80,7 @@ public class LoadHelper {
                         "Confirm Clear Slot",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE
+
                 );
 
                 if (response == JOptionPane.YES_OPTION) {
