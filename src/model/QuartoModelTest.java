@@ -39,19 +39,6 @@ public class QuartoModelTest {
     Assertions.assertNotNull(quartoModel.getSelectedPawn());
   }
 
-  @Test
-  public void testAllPawnsSelected() {
-    QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
-    // Select all pawns available
-    for (int i = 0; i < 16; i++) {
-      // Check if isPawnListEmpty returns false
-      Assertions.assertFalse(quartoModel.isPawnListEmpty());
-      quartoModel.selectPawn(i);
-      // System.out.println(quartoModel.getPawnAvailable().length);
-    }
-    // Check if isPawnListEmpty returns true
-    Assertions.assertTrue(quartoModel.isPawnListEmpty());
-  }
 
   @Test
   public void testIsPawnListEmpty() {
