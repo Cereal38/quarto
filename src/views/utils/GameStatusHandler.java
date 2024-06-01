@@ -81,13 +81,14 @@ public class GameStatusHandler {
       return;
     }
     if (!EventsHandler.getController().isSelectionPhase()) {
-      System.out.println( "is selection phase : "+ EventsHandler.getController().isSelectionPhase());
       EventsHandler.showSnackbar("cant-select-pawn");
       return;
     }
     if (EventsHandler.getController().isGameOver()) {
       return;
     }
+    System.out.println( "is selection phase : "+ EventsHandler.getController().isSelectionPhase());
+
     EventsHandler.getController().selectPawn(code);
     actionPerformed();
   }

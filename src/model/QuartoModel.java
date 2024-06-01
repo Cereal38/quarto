@@ -107,6 +107,8 @@ public class QuartoModel {
   }
 
   public void selectPawn(int indexPawn) {
+    System.out.println("player type : " + getCurrentPlayerType());
+    System.out.println("pawn index : " + indexPawn);
     if (getCurrentPlayerType() == 0) {
       if (pawnAvailable[indexPawn] != null) {
         selectPawnHuman(indexPawn);
@@ -128,6 +130,8 @@ public class QuartoModel {
   }
 
   public void selectPawnHuman(int indexPawn) {
+    System.out.println("selecting pawn in model ");
+    System.out.println("selected pawn in select pawn human : " + getSelectedPawn());
     if (getSelectedPawn() == null) {
       setSelectedPawn(pawnAvailable[indexPawn]);
       // Add a new history because we chose what pawn the next player will play.
@@ -256,6 +260,7 @@ public class QuartoModel {
         pawnAvailable[copy.getIndexPawn()] = null;
       } else if (copy.state == 1) {
         setTable(copy.getLine(), copy.getColumn(), getSelectedPawn());
+        setSelectedPawn(null);
       }
       if (copy.equals(file.getSave())) {
         afterSave = true;
@@ -269,6 +274,7 @@ public class QuartoModel {
   }
 
   public void setSelectedPawn(QuartoPawn pawn) {
+    System.out.println("selected pawn : " + pawn);
     selectedPawn = pawn;
   }
 
