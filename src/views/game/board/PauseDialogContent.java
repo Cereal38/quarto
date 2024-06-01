@@ -2,7 +2,10 @@ package src.views.game.board;
 
 import java.awt.GridLayout;
 import javax.swing.JPanel;
+
+import src.views.MainFrame;
 import src.views.components.TranslatedButton;
+import src.views.load.save.SavePage;
 import src.views.rules.RulesPage;
 import src.views.utils.EventsHandler;
 
@@ -24,8 +27,9 @@ public class PauseDialogContent extends JPanel {
     });
 
     btnSave.addActionListener(e -> {
-      EventsHandler.navigate("SavePage");
+      //EventsHandler.navigate("SavePage");
       EventsHandler.hideDialog();
+      EventsHandler.showDialog(new SavePage(MainFrame.getLoadPage()), true);
     });
 
     btnRules.addActionListener(e -> {
