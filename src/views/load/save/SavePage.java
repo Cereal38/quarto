@@ -22,7 +22,7 @@ public class SavePage extends JPanel {
 
     public SavePage(LoadPage l) {
         loadSavePage = l;
-        backGroundImage = new ImageIcon(getClass().getResource("/assets/images/bg-board.png")).getImage();
+        backGroundImage = new ImageIcon(getClass().getResource("/assets/images/squared-background.png")).getImage();
         // Set up the layout
         setLayout(new BorderLayout());
 
@@ -33,11 +33,11 @@ public class SavePage extends JPanel {
                 super.paintComponent(g);
                 // Draw background gradient
                 Graphics2D g2d = (Graphics2D) g.create();
-                GradientPaint gradient = new GradientPaint(0, 0, new Color(230, 255, 230), 0, getHeight(), new Color(200, 255, 200));
-                g2d.setPaint(gradient);
-                g2d.fillRect(0, 0, getWidth(), getHeight());
-                // Draw background image with transparency
-                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f)); // Adjust transparency as needed
+//                GradientPaint gradient = new GradientPaint(0, 0, new Color(230, 255, 230), 0, getHeight(), new Color(200, 255, 200));
+//                g2d.setPaint(gradient);
+//                g2d.fillRect(0, 0, getWidth(), getHeight());
+//                // Draw background image with transparency
+//                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f)); // Adjust transparency as needed
                 g2d.drawImage(backGroundImage, 0, 0, getWidth(), getHeight(), this);
                 g2d.dispose();
             }
