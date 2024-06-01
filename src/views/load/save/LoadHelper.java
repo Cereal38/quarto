@@ -60,8 +60,8 @@ public class LoadHelper {
             public void actionPerformed(ActionEvent e) {
                 // Load the game
                 EventsHandler.getController().loadGame(id);
-                GameStatusHandler.informListeners();
                 EventsHandler.navigate("GameBoard");
+                GameStatusHandler.informListeners();
             }
         });
         buttonPanel.add(loadGameButton);
@@ -74,8 +74,18 @@ public class LoadHelper {
         clearSlotButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsHandler.getController().clearSlot(id);
-                slotPanel.setVisible(false);
+                int response = JOptionPane.showConfirmDialog(
+                        null,
+                        "Are you sure you want to clear this slot?",
+                        "Confirm Clear Slot",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                if (response == JOptionPane.YES_OPTION) {
+                    EventsHandler.getController().clearSlot(id);
+                    slotPanel.setVisible(false);
+                }
             }
         });
         buttonPanel.add(clearSlotButton);
