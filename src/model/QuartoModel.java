@@ -2,6 +2,7 @@ package src.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class QuartoModel {
   private QuartoPawn[][] table;
@@ -242,10 +243,12 @@ public class QuartoModel {
     boolean afterSave = false;
     while (!afterSave) {
       if (copy.state == 0) {
-        selectedPawn = pawnAvailable[copy.getIndexPawn()];
+        setSelectedPawn(pawnAvailable[copy.getIndexPawn()]);
         pawnAvailable[copy.getIndexPawn()] = null;
       } else if (copy.state == 1) {
         setTable(copy.getLine(), copy.getColumn(), getSelectedPawn());
+        winSituation(copy.getLine(), copy.getColumn());
+        setSelectedPawn(null);
       }
       if (copy.equals(file.getSave())) {
         afterSave = true;
@@ -372,5 +375,9 @@ public class QuartoModel {
     }
 
     return diagonals;
+  }
+
+  public List<int[]> getWinLine() {
+    return win.getWinLine();
   }
 }
