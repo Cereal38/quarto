@@ -87,6 +87,7 @@ public class GameStatusHandler {
     if (EventsHandler.getController().isGameOver()) {
       return;
     }
+
     EventsHandler.getController().selectPawn(code);
     actionPerformed();
   }

@@ -1,28 +1,16 @@
 package src.views.game.history;
 
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Graphics;
-import java.awt.Image;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.UIManager;
-import javax.swing.plaf.ColorUIResource;
-import javafx.scene.paint.Color;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import src.model.QuartoHistory;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
-import java.awt.Dimension;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class MovesHistory extends JScrollPane {
 

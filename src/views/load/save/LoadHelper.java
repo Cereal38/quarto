@@ -4,6 +4,8 @@ import src.structures.SlotFile;
 import src.views.components.RoundBorder;
 import src.views.components.TranslatedString;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
+import src.views.utils.ImageUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,28 +14,42 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class LoadHelper {
     JPanel slotsPanel;
     List<SlotFile> slotFiles;
     LoadPage loadSavePage;
+    Image woodTexture;
+    Image differentWood;
 
     public LoadHelper(LoadPage l) {
         this.slotFiles = EventsHandler.getController().getSlotFiles();
         loadSavePage = l;
+        woodTexture = Objects.requireNonNull(ImageUtils.loadImage("wood.jpeg", 50, 50)).getImage();
+        differentWood = Objects.requireNonNull(ImageUtils.loadImage("woodSlots.png", 50, 50)).getImage();
     }
 
     public JPanel createSlotPanel(String slotTitle, Date savedDate, int id) {
-        JPanel slotPanel = new JPanel(new BorderLayout());
+        JPanel slotPanel = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(woodTexture, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        slotPanel.setOpaque(false);
 
         // Set rounded border for the main content panel
         Border slotBorder = new RoundBorder(Color.BLACK, 5, 15); // Black rounded border with thickness 5 and radius 15
 
         // Panel for the left side (slot name and date)
         JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.setOpaque(false); // Ensure content panel is transparent
 
         // Left side (slot name and date)
         JPanel leftPanel = new JPanel(new GridLayout(2, 1));
+        leftPanel.setOpaque(false); // Ensure left panel is transparent
         JLabel titleLabel = new JLabel(slotTitle);
         titleLabel.setFont(titleLabel.getFont().deriveFont(20f));
         leftPanel.add(titleLabel);
@@ -49,6 +65,7 @@ public class LoadHelper {
         // Create a panel for buttons (Load Game and Clear Slot)
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5)); // Right-aligned layout with spacing
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        buttonPanel.setOpaque(false); // Ensure button panel is transparent
 
         // Load Game button (colored green)
         TranslatedString loadTranslate = new TranslatedString("load-game");
@@ -60,6 +77,7 @@ public class LoadHelper {
                 // Load the game
                 EventsHandler.getController().loadGame(id);
                 EventsHandler.navigate("GameBoard");
+                GameStatusHandler.informListeners();
             }
         });
         buttonPanel.add(loadGameButton);
@@ -72,14 +90,25 @@ public class LoadHelper {
         clearSlotButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EventsHandler.getController().clearSlot(id);
-                slotPanel.setVisible(false);
+                int response = JOptionPane.showConfirmDialog(
+                        null,
+                        "Are you sure you want to clear this slot?",
+                        "Confirm Clear Slot",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                if (response == JOptionPane.YES_OPTION) {
+                    EventsHandler.getController().clearSlot(id);
+                    slotPanel.setVisible(false);
+                }
             }
         });
         buttonPanel.add(clearSlotButton);
 
         // Add the buttonPanel to a new JPanel that uses BorderLayout (to handle border layout separately)
         JPanel buttonWrapperPanel = new JPanel(new BorderLayout());
+        buttonWrapperPanel.setOpaque(false); // Ensure button wrapper panel is transparent
         buttonWrapperPanel.add(buttonPanel, BorderLayout.NORTH); // Add buttonPanel to the top (NORTH) of the wrapper
 
         // Add the buttonWrapperPanel to slotPanel on the right side (EAST) but outside the main content panel
@@ -91,12 +120,29 @@ public class LoadHelper {
     public void renderSlots(JPanel slotsPanel, List<SlotFile> slotFiles) {
         slotsPanel.removeAll();
 
+        slotsPanel.setLayout(new GridBagLayout()); // Set layout to GridBagLayout
+        slotsPanel.setOpaque(false); // Ensure the slotsPanel is transparent
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(0, 0, 0, 0); // Remove any insets (spacing) between slots
+
         for (SlotFile slotFile : slotFiles) {
             JPanel slotPanel = createSlotPanel(slotFile.getFilename(), new Date(slotFile.getLastModified()), slotFile.getId());
-            slotsPanel.add(slotPanel);
+            slotsPanel.add(slotPanel, gbc);
         }
 
         slotsPanel.revalidate();
         slotsPanel.repaint();
+    }
+
+    public Image getWoodTexture() {
+        return woodTexture;
+    }
+    public Image getDifferentWood() {
+        return differentWood;
     }
 }
