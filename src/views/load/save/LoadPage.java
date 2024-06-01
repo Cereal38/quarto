@@ -3,9 +3,12 @@ package src.views.load.save;
 import src.views.components.BorderCenterPanel;
 import src.views.components.TranslatedLabel;
 import src.views.utils.EventsHandler;
+import src.views.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoadPage extends JPanel {
     private LoadHelper helper;
@@ -16,16 +19,43 @@ public class LoadPage extends JPanel {
 
         setLayout(new BorderLayout());
 
-        JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        // Create and add the "Go Back" button with an image
+        GoBackButton backButton = new GoBackButton();
+        // Create top panel and add the "Go Back" button to it
+        JPanel topPanel = new JPanel(new BorderLayout()){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(helper.getDifferentWood(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        topPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
+        topPanel.add(backButton, BorderLayout.WEST);
+
+        // Add top panel to the north of LoadPage
+        add(topPanel, BorderLayout.NORTH);
+
+        // Create the title label and add it to the center of the top panel
         TranslatedLabel titleLabel = new TranslatedLabel("load-page");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(helper.getWoodTexture(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         labelPanel.add(titleLabel);
-        add(labelPanel, BorderLayout.NORTH);
+        topPanel.add(labelPanel, BorderLayout.CENTER);
 
+
+        // Initialize the slots panel with GridLayout
         this.slotsPanel = new JPanel(new GridLayout(10, 1, 10, 10));
 
-        renderSlots(); // Render slots initially
+        // Render slots initially
+        renderSlots();
 
+        // Create a scroll pane for the slots panel
         BorderCenterPanel center = new BorderCenterPanel(slotsPanel, 10, 320, 10, 320);
         JScrollPane scrollPane = new JScrollPane(center);
         add(scrollPane, BorderLayout.CENTER);
@@ -38,6 +68,7 @@ public class LoadPage extends JPanel {
     public LoadHelper getHelper() {
         return helper;
     }
+
     public void refreshPage() {
         // Clear existing slotsPanel content
         slotsPanel.removeAll();
@@ -47,16 +78,4 @@ public class LoadPage extends JPanel {
         revalidate();
         repaint();
     }
-    //    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("Load Page");
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//            LoadSavePage loadSavePage = new LoadSavePage();
-//            frame.getContentPane().add(loadSavePage);
-//
-//            frame.pack();
-//            frame.setVisible(true);
-//        });
-//    }
 }
