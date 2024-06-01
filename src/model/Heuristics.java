@@ -5,13 +5,16 @@ public class Heuristics {
     int sameCharValue;
     int lineOfThreeValue;
     int commonCharValue;
+    int riskValue;
 
     Heuristics (){
         this.winStateValue = 1000;
         this.sameCharValue = 10;
         this.lineOfThreeValue = 20;
         this.commonCharValue = 10;
+        this.riskValue = 1;
     }
+
     int getWinStateValue(){
         return winStateValue;
     }
@@ -25,7 +28,8 @@ public class Heuristics {
     int getCommonCharValue(){
         return commonCharValue;
     }
-
+    int getRiskValue(){
+        return riskValue;       }
     void setWinStateValue(int winStateValue){
         this.winStateValue = winStateValue;
     }
@@ -38,7 +42,9 @@ public class Heuristics {
         this.sameCharValue = sameCharValue;
     }
     
+    public void setRiskValue(int riskValue){
+        this.riskValue = riskValue;
+    }
     public void setLineOfThreeValue( int lineOfThreeValue){
         this.lineOfThreeValue = lineOfThreeValue;
-    }
-}
+    }}

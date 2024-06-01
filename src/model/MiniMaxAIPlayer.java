@@ -129,7 +129,7 @@ public class MiniMaxAIPlayer implements Player {
 
     private int minimax(QuartoModel quartoModel, int depth, boolean isMaximizingPlayer, boolean isSelectingPawn, int alpha, int beta) {
         if (depth == maxDepth || quartoModel.hasAWinner() || quartoModel.isATie()) {
-            return evaluateBoard(quartoModel, isMaximizingPlayer);
+            return evaluateBoard(quartoModel, isMaximizingPlayer) + evaluateRisk(quartoModel.getTable(), isMaximizingPlayer);
         }
 
         int bestScore = isMaximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
@@ -202,21 +202,21 @@ public class MiniMaxAIPlayer implements Player {
     }
 
     private int evaluateRisk(QuartoPawn[][] table, boolean isAIPlayer) {
-        int riskValue = 0;
+        int count = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (table[i][j] != null) {
-                    riskValue++;
+                    count++;
                 }
                 if (table[j][i] != null) {
-                    riskValue++;
+                    count++;
                 }
                 if (i == j || (i + j) == 3) {
-                    riskValue++;
+                    count++;
                 }
             }
         }
-        return isAIPlayer ? riskValue : -riskValue;
+        return isAIPlayer ? count * heuristics.getRiskValue(): - count * heuristics.getRiskValue();
     }
 
     private int countCommonCharacteristics(QuartoPawn pawn2) {

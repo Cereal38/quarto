@@ -131,6 +131,10 @@ public class QuartoGameAIvsAITester {
         System.out.print("Valeur du caractère commun (commonChar): ");
         int commonCharValue = scanner.nextInt();
         heuristic.setCommonCharValue(commonCharValue);
+
+        System.out.print("Valeur du risque (riskValue): ");
+        int riskValue = scanner.nextInt();
+        heuristic.setRiskValue(riskValue);
     }
 
     private static void displayHeuristics(Heuristics heuristics, String playerName) {
@@ -139,5 +143,6 @@ public class QuartoGameAIvsAITester {
         System.out.println("Valeur du même caractère: " + heuristics.getSameCharValue());
         System.out.println("Valeur de la ligne de trois: " + heuristics.getLineOfThreeValue());
         System.out.println("Valeur du caractère commun: " + heuristics.getCommonCharValue());
+        System.out.println("Valeur du risque: " + heuristics.getRiskValue());
     }
 }

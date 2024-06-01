@@ -59,10 +59,10 @@ public class QuartoModel {
       mediumAIPlayer = new MediumAIPlayer();
     }
     if (playerType[0] == 4) {
-      minimaxAIPlayer1 = new MiniMaxAIPlayer(5, heuristic1);
+      minimaxAIPlayer1 = new MiniMaxAIPlayer(2, heuristic1);
     }
     if (playerType[1] == 4) {
-      minimaxAIPlayer2 = new MiniMaxAIPlayer(5, heuristic2);
+      minimaxAIPlayer2 = new MiniMaxAIPlayer(2, heuristic2);
     }
   }
 
