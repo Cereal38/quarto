@@ -54,7 +54,6 @@ public class RandomAIPlayer implements Player {
 
             // play shot on the random cell
             quartoModel.playShotHuman(line, column);
-            System.out.println("Shot played by AI at (" + line + ", " + column + ").");
         } else {
             // All cells are used
             System.out.println("All cells are occupied. Impossible to play.");

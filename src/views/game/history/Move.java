@@ -14,7 +14,7 @@ public class Move extends JLabel {
         // set a black border to the label
         setForeground(Color.BLACK);
         setBorder(new EmptyBorder(5, 5, 5, 5));
-        setOpaque(true);
+        setOpaque(false); // Make the label background transparent
         setFont(new Font("Arial", Font.PLAIN, 14));
     }
 

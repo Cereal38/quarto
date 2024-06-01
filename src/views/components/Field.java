@@ -20,9 +20,12 @@ public class Field extends JPanel {
 
     setLayout(new BorderLayout());
 
-    JLabel text = new JLabel(message, JLabel.CENTER);
-    text.setFont(new Font("Arial", Font.BOLD, 16));
-    add(text, BorderLayout.CENTER);
+    // Add text only if the field is on
+    if (isOn) {
+      JLabel text = new JLabel(message, JLabel.CENTER);
+      text.setFont(new Font("Arial", Font.BOLD, 16));
+      add(text, BorderLayout.CENTER);
+    }
 
     // Load image
     try {

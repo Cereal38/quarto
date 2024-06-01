@@ -2,9 +2,10 @@ package src.views.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import src.views.game.board.GameOverDialog;
-import src.views.game.history.Move;
+import src.views.game.history.MovePanel;
 import src.views.listeners.GameStatusListener;
 
 public class GameStatusHandler {
@@ -13,7 +14,7 @@ public class GameStatusHandler {
   private static final List<GameStatusListener> listeners = new ArrayList<>();
 
   // Keep the history of moves
-  private static List<Move> moveComponents = new ArrayList<>();
+  private static List<MovePanel> moveComponents = new ArrayList<>();
 
   private static boolean isPaused = false;
 
@@ -54,11 +55,6 @@ public class GameStatusHandler {
    */
   private static void aiPlay() {
     if (EventsHandler.getController().isCurrentPlayerAI()) {
-      try {
-        Thread.sleep(1500);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
       // We call methods with bullshit data because it's decided by the AI in the
       // model
       if (EventsHandler.getController().isPlayPhase()) {
@@ -123,12 +119,6 @@ public class GameStatusHandler {
    */
   private static boolean checkGameOver() {
     if (EventsHandler.getController().isGameOver()) {
-      // Wait for the last shot to be displayed
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
       // Set winner to null if it's a draw
       String winner;
       if (EventsHandler.getController().isGameWon()) {
@@ -156,8 +146,8 @@ public class GameStatusHandler {
     actionPerformed();
   }
 
-  public static void addMove(String move) {
-    Move newMove = new Move(move);
+  public static void addMove(String move, ImageIcon icon) {
+    MovePanel newMove = new MovePanel(move, icon);
     moveComponents.add(newMove);
   }
 
@@ -165,11 +155,15 @@ public class GameStatusHandler {
     moveComponents.clear();
   }
 
-  public static List<Move> getMoveComponents() {
+  public static List<MovePanel> getMoveComponents() {
     return moveComponents;
   }
 
   public static void pauseGame() {
+    // Can't pause in PvP mode
+    if (isPvP()) {
+      return;
+    }
     isPaused = true;
     informListeners();
   }
@@ -185,6 +179,15 @@ public class GameStatusHandler {
 
   public static boolean isPaused() {
     return isPaused;
+  }
+
+  /**
+   * Return true if both players are humans
+   * 
+   * @return
+   */
+  public static boolean isPvP() {
+    return !EventsHandler.getController().isPlayer1AI() && !EventsHandler.getController().isPlayer2AI();
   }
 
 }

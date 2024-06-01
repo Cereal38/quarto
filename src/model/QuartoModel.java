@@ -38,7 +38,8 @@ public class QuartoModel {
   }
 
   // Constructor with heuristics (for MiniMax AI players)
-  public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName, Heuristics heuristic1, Heuristics heuristic2) {
+  public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName,
+      Heuristics heuristic1, Heuristics heuristic2) {
     this.heuristic1 = heuristic1;
     this.heuristic2 = heuristic2;
     newTable(firstPlayerType, secondPlayerType);
@@ -113,6 +114,15 @@ public class QuartoModel {
   }
 
   public void selectPawn(int indexPawn) {
+    if (getCurrentPlayerType() == 0) {
+      if (pawnAvailable[indexPawn] != null) {
+        selectPawnHuman(indexPawn);
+      }
+      return;
+    }
+
+    // Add 1 second delay when AI is selecting a pawn
+    delay(1000);
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.selectPawn(this);
     } else if (getCurrentPlayerType() == 2) {
@@ -157,6 +167,12 @@ public class QuartoModel {
   }
 
   public void playShot(int line, int column) {
+    if (getCurrentPlayerType() == 0) {
+      playShotHuman(line, column);
+      return;
+    }
+    // Add 1 second delay when AI is playing
+    delay(1000);
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.playShot(this);
     } else if (getCurrentPlayerType() == 2) {
@@ -257,10 +273,12 @@ public class QuartoModel {
     boolean afterSave = false;
     while (!afterSave) {
       if (copy.state == 0) {
-        selectedPawn = pawnAvailable[copy.getIndexPawn()];
+        setSelectedPawn(pawnAvailable[copy.getIndexPawn()]);
         pawnAvailable[copy.getIndexPawn()] = null;
       } else if (copy.state == 1) {
         setTable(copy.getLine(), copy.getColumn(), getSelectedPawn());
+        winSituation(copy.getLine(), copy.getColumn());
+        setSelectedPawn(null);
       }
       if (copy.equals(file.getSave())) {
         afterSave = true;
@@ -337,6 +355,14 @@ public class QuartoModel {
     return secondPlayerName;
   }
 
+  public int getPlayer1Type() {
+    return playerType[0];
+  }
+
+  public int getPlayer2Type() {
+    return playerType[1];
+  }
+
   public int stateOfGame() {
     return (file.getState() == 0) ? 1 : 0;
   }
@@ -393,5 +419,20 @@ public class QuartoModel {
     }
 
     return diagonals;
+  }
+
+  public List<int[]> getWinLine() {
+    return win.getWinLine();
+  }
+
+  /**
+   * Artificial delay.
+   */
+  public void delay(int ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }
