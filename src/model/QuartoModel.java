@@ -2,6 +2,8 @@ package src.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import src.structures.SlotFile;
 
 public class QuartoModel {
   private QuartoPawn[][] table;
@@ -36,7 +38,8 @@ public class QuartoModel {
   }
 
   // Constructor with heuristics (for MiniMax AI players)
-  public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName, Heuristics heuristic1, Heuristics heuristic2) {
+  public QuartoModel(int firstPlayerType, int secondPlayerType, String firstPlayerName, String secondPlayerName,
+      Heuristics heuristic1, Heuristics heuristic2) {
     this.heuristic1 = heuristic1;
     this.heuristic2 = heuristic2;
     newTable(firstPlayerType, secondPlayerType);
@@ -111,6 +114,15 @@ public class QuartoModel {
   }
 
   public void selectPawn(int indexPawn) {
+    if (getCurrentPlayerType() == 0) {
+      if (pawnAvailable[indexPawn] != null) {
+        selectPawnHuman(indexPawn);
+      }
+      return;
+    }
+
+    // Add 1 second delay when AI is selecting a pawn
+    delay(1000);
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.selectPawn(this);
     } else if (getCurrentPlayerType() == 2) {
@@ -131,7 +143,7 @@ public class QuartoModel {
   }
 
   public void selectPawnHuman(int indexPawn) {
-    if(getSelectedPawn() == null) {
+    if (getSelectedPawn() == null) {
       setSelectedPawn(pawnAvailable[indexPawn]);
       // Add a new history because we chose what pawn the next player will play.
       file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave(), getNameOfTheCurrentPlayer(), currentPlayer));
@@ -155,6 +167,12 @@ public class QuartoModel {
   }
 
   public void playShot(int line, int column) {
+    if (getCurrentPlayerType() == 0) {
+      playShotHuman(line, column);
+      return;
+    }
+    // Add 1 second delay when AI is playing
+    delay(1000);
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.playShot(this);
     } else if (getCurrentPlayerType() == 2) {
@@ -200,38 +218,51 @@ public class QuartoModel {
   public boolean checkInfoPlayer(int index) {
     int countUndo = 0;
     manager.loadFromDirectory();
+    List<SlotFile> slotFiles = manager.getSlotFiles();
+    if (index < 0 || index >= slotFiles.size()) {
+      System.err.println("Invalid index: " + index);
+      return false;
+    }
+
+    SlotFile slotFile = slotFiles.get(index);
+    String fileName = slotFile.getFilename();
+
     while (file.canUndo()) {
       undo();
       countUndo++;
     }
-    System.out.println("nb files =" + manager.getSlotFileDates().size());
-    if (manager.isSlotFileEmpty(index)) {
-      System.err.println("l'index: " + index + " contient "
-          + manager.getSlotFileDates().keySet().toArray(new String[0])[index] + " un fichier vide");
+    System.out.println("Number of files = " + slotFiles.size());
+
+    if (manager.isSlotFileEmpty(slotFile.getId())) {
+      System.err.println("Index " + index + " contains a empty file: " + fileName);
       redoLoop(countUndo);
       return false;
     }
-    String[] infoPlayer = file.chargeFile(manager.getSlotFileDates().keySet().toArray(new String[0])[index]);
+
+    String[] infoPlayer = file.chargeFile(fileName);
     if (infoPlayer == null) {
       redoLoop(countUndo);
       return false;
     }
+
     String[] nameAndType = infoPlayer[0].split(" ");
     if (nameAndType.length != 2) {
-      System.err.println("il manque une information pour le joueur 1");
+      System.err.println("Missing information for player 1");
       redoLoop(countUndo);
       return false;
     }
     firstPlayerName = nameAndType[0];
     playerType[0] = Integer.parseInt(nameAndType[1]);
+
     nameAndType = infoPlayer[1].split(" ");
     if (nameAndType.length != 2) {
-      System.err.println("il manque une information pour le joueur 2");
+      System.err.println("Missing information for player 2");
       redoLoop(countUndo);
       return false;
     }
     secondPlayerName = nameAndType[0];
     playerType[1] = Integer.parseInt(nameAndType[1]);
+
     return true;
   }
 
@@ -242,10 +273,12 @@ public class QuartoModel {
     boolean afterSave = false;
     while (!afterSave) {
       if (copy.state == 0) {
-        selectedPawn = pawnAvailable[copy.getIndexPawn()];
+        setSelectedPawn(pawnAvailable[copy.getIndexPawn()]);
         pawnAvailable[copy.getIndexPawn()] = null;
       } else if (copy.state == 1) {
         setTable(copy.getLine(), copy.getColumn(), getSelectedPawn());
+        winSituation(copy.getLine(), copy.getColumn());
+        setSelectedPawn(null);
       }
       if (copy.equals(file.getSave())) {
         afterSave = true;
@@ -269,11 +302,9 @@ public class QuartoModel {
     return table[line][column];
   }
 
-  public void saveFile(int index) throws IOException {
-    manager.loadFromDirectory();
-    manager.renameSlotFile(index, firstPlayerName, secondPlayerName);
-    String fileName = firstPlayerName + "_vs_" + secondPlayerName + ".txt";
+  public void saveFile(String fileName) throws IOException {
     String filePath = "slots" + File.separator + fileName;
+    manager.createNewFile(fileName);
     file.saveFile(filePath, firstPlayerName, secondPlayerName, playerType);
   }
 
@@ -316,6 +347,22 @@ public class QuartoModel {
     return (currentPlayer == 1) ? firstPlayerName : secondPlayerName;
   }
 
+  public String getPlayer1Name() {
+    return firstPlayerName;
+  }
+
+  public String getPlayer2Name() {
+    return secondPlayerName;
+  }
+
+  public int getPlayer1Type() {
+    return playerType[0];
+  }
+
+  public int getPlayer2Type() {
+    return playerType[1];
+  }
+
   public int stateOfGame() {
     return (file.getState() == 0) ? 1 : 0;
   }
@@ -329,9 +376,9 @@ public class QuartoModel {
   }
 
   public boolean hasAWinner() {
-      return gameOver;
+    return gameOver;
   }
-  
+
   public boolean isATie() {
     return (selectedPawn == null && isPawnListEmpty());
   }
@@ -372,5 +419,20 @@ public class QuartoModel {
     }
 
     return diagonals;
+  }
+
+  public List<int[]> getWinLine() {
+    return win.getWinLine();
+  }
+
+  /**
+   * Artificial delay.
+   */
+  public void delay(int ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }

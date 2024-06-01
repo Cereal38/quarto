@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 
 public class PawnsBarSlot extends JPanel {
 
@@ -64,6 +65,11 @@ public class PawnsBarSlot extends JPanel {
       e.printStackTrace();
     }
 
+    // Set cursor pointer if selection phase and not paused
+    if (EventsHandler.getController().isSelectionPhase() && !GameStatusHandler.isPaused()) {
+      setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }
+
     // Repaint on mouse enter && mouse exit to trigger visual hover effect
     MouseListener mouseListener = new MouseAdapter() {
       @Override
@@ -87,7 +93,8 @@ public class PawnsBarSlot extends JPanel {
       g.drawImage(bgImageSelected, 0, 0, getWidth(), getHeight(), this);
       // If the pawn is hovered and the game is in the selection phase, display the
       // hovered image
-    } else if ((pawn != null && pawn.isHovered()) && EventsHandler.getController().isSelectionPhase()) {
+    } else if ((pawn != null && pawn.isHovered()) && EventsHandler.getController().isSelectionPhase()
+        && !GameStatusHandler.isPaused()) {
       g.drawImage(bgImageHovered, 0, 0, getWidth(), getHeight(), this);
     } else {
       g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);

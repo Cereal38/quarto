@@ -23,8 +23,8 @@ public class PlayerFields extends JPanel {
 
   private CustomizedButton btnSwitchPlayer1 = new CustomizedButton("switch-to-ai");
   private CustomizedButton btnSwitchPlayer2 = new CustomizedButton("switch-to-ai");
-  private CustomizedTextField namePlayer1 = new CustomizedTextField();
-  private CustomizedTextField namePlayer2 = new CustomizedTextField();
+  private CustomizedTextField namePlayer1 = new CustomizedTextField("Player 1");
+  private CustomizedTextField namePlayer2 = new CustomizedTextField("Player 2");
   private CustomizedButton btnStartGame = new CustomizedButton("start");
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;
@@ -153,8 +153,8 @@ public class PlayerFields extends JPanel {
       EventsHandler.navigate("GameBoard");
     });
 
-    // Initially disable the start button
-    btnStartGame.setEnabled(false);
+    // Initially enable the start button
+    btnStartGame.setEnabled(true);
 
     // Add DocumentListener to namePlayer1 to enable/disable the start button
     namePlayer1.getDocument().addDocumentListener(new DocumentListener() {

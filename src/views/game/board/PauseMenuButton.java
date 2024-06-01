@@ -5,6 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.components.TranslatedString;
+import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 
 public class PauseMenuButton extends JButton {
@@ -25,6 +26,8 @@ public class PauseMenuButton extends JButton {
     setContentAreaFilled(false);
 
     addActionListener(e -> {
+      // Pause the game
+      GameStatusHandler.pauseGame();
     });
 
     tooltip = new TranslatedString("menuButtonTooltip", this, true);

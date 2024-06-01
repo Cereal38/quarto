@@ -2,7 +2,9 @@ package src.views.game.board;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import src.views.utils.EventsHandler;
 
 public class TopBarGameBoard extends JPanel {
 

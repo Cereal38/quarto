@@ -1,6 +1,5 @@
 package src.views.components;
 
-import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -38,7 +37,7 @@ public class Pawn extends JButton {
     setIcon(image);
     setContentAreaFilled(false);
     setBorder(BorderFactory.createEmptyBorder());
-    setCursor(new Cursor(Cursor.HAND_CURSOR));
+    // setCursor(new Cursor(Cursor.HAND_CURSOR));
 
     if (state == SELECTED) {
       setBorder(BorderFactory.createLineBorder(java.awt.Color.RED, 2));
@@ -46,12 +45,7 @@ public class Pawn extends JButton {
 
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
-        // Only allow the player to select a pawn during the select phase
-        if (canSelect()) {
-          GameStatusHandler.selectPawn(code);
-        } else {
-          System.err.println("Error: Can't select a pawn right now.");
-        }
+        GameStatusHandler.selectPawn(code);
       }
 
       public void mouseEntered(MouseEvent evt) {

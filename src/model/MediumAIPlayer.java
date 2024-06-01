@@ -97,26 +97,10 @@ public class MediumAIPlayer implements Player{
                 continue;
             }
             // Checks characteristics
-            if (pawn.isRound()) {
-                characteristics[1]++; // round
-            } else {
-                characteristics[0]++; // square
-            }
-            if (pawn.isWhite()) {
-                characteristics[3]++; // white
-            } else {
-                characteristics[2]++; // black
-            }
-            if (pawn.isLittle()) {
-                characteristics[5]++; // little
-            } else {
-                characteristics[4]++; // big
-            }
-            if (pawn.isHollow()) {
-                characteristics[7]++; // hollow
-            } else {
-                characteristics[6]++; // full
-            }
+            characteristics[pawn.isRound()? 1 : 0]++; // round or square
+            characteristics[pawn.isWhite()? 3 : 2]++; // white or black
+            characteristics[pawn.isLittle()? 5 : 4]++; // little or big
+            characteristics[pawn.isHollow()? 7 : 6]++; // hollow or full
         }
     }
 
@@ -180,29 +164,10 @@ public class MediumAIPlayer implements Player{
             }
             else {
                 // Calculate the score for the current pawn based on its characteristics
-                if (pawn.isRound()) {
-                    score += currentCharacteristics[1];
-                } else {
-                    score += currentCharacteristics[0];
-                }
-
-                if (pawn.isWhite()) {
-                    score += currentCharacteristics[3];
-                } else {
-                    score += currentCharacteristics[2];
-                }
-
-                if (pawn.isLittle()) {
-                    score += currentCharacteristics[5];
-                } else {
-                    score += currentCharacteristics[4];
-                }
-
-                if (pawn.isHollow()) {
-                    score += currentCharacteristics[7];
-                } else {
-                    score += currentCharacteristics[6];
-                }
+                score += currentCharacteristics[pawn.isRound()? 1 : 0];
+                score += currentCharacteristics[pawn.isWhite()? 3 : 2];
+                score += currentCharacteristics[pawn.isLittle()? 5 : 4];
+                score += currentCharacteristics[pawn.isHollow()? 7 : 6];
 
                 if(isWinningPawn(quartoModel, pawn)){
                     score += 1000;
