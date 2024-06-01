@@ -68,26 +68,10 @@ public class EasyAIPlayer implements Player{
                 continue;
             }
             // Checks characteristics
-            if (pawn.isRound()) {
-                characteristics[1]++; // round
-            } else {
-                characteristics[0]++; // square
-            }
-            if (pawn.isWhite()) {
-                characteristics[3]++; // white
-            } else {
-                characteristics[2]++; // black
-            }
-            if (pawn.isLittle()) {
-                characteristics[5]++; // little
-            } else {
-                characteristics[4]++; // big
-            }
-            if (pawn.isHollow()) {
-                characteristics[7]++; // hollow
-            } else {
-                characteristics[6]++; // full
-            }
+            characteristics[pawn.isRound()? 1 : 0]++;//round or square
+            characteristics[pawn.isWhite()? 3 : 2]++;//white or black
+            characteristics[pawn.isLittle()? 5 : 4]++;//little or big
+            characteristics[pawn.isHollow()? 7 : 6]++;//hollow or full
         }
     }
 
@@ -168,7 +152,6 @@ public class EasyAIPlayer implements Player{
         return score;
     }
 
-    //if several pawns have the same score, takes the first found and not a random one
     @Override
     public void selectPawn(QuartoModel quartoModel) {
         int[] pawnScores = calculateAvailablePawnsScores(quartoModel);
