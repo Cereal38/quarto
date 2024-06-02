@@ -57,6 +57,8 @@ public class ImageLibrary {
     loadImage("redo.png");
     loadImage("menu.png");
     loadImage("history.png");
+    loadImage("resume.png");
+    loadImage("pause.png");
   }
 
   private static void loadImage(String name) {
