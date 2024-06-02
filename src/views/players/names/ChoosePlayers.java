@@ -4,22 +4,26 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.io.File;
 import java.util.Objects;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import src.views.components.GoBackButton;
+import src.views.components.ImageThemed;
 import src.views.components.TranslatedLabel;
+import src.views.listeners.ThemeListener;
 import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class ChoosePlayers extends JPanel {
-  private Image bgImage;
+public class ChoosePlayers extends JPanel implements ThemeListener {
+  private ImageThemed bgImage = new ImageThemed("bg-board.png");
   private Image woodTexture;
 
   public ChoosePlayers() {
+    ThemeUtils.addThemeListener(this);
+
     woodTexture = Objects.requireNonNull(ImageUtils.loadImage("wood.jpeg", 50, 50)).getImage();
 
     setLayout(new BorderLayout());
@@ -62,16 +66,17 @@ public class ChoosePlayers extends JPanel {
     // Add components
     add(fieldsWrapper, BorderLayout.CENTER);
 
-    try {
-      bgImage = ImageIO.read(new File("assets/images/bg-board.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    Graphics2D g2d = (Graphics2D) g;
+    g2d.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 }
