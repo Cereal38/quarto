@@ -44,4 +44,9 @@ public class ImageThemed implements ThemeListener {
     return ThemeUtils.getTheme() == ThemeUtils.LIGHT ? imageLight : imageDark;
   }
 
+  public void setSize(int width, int height) {
+    imageLight = imageLight.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    imageDark = imageDark.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+  }
+
 }
