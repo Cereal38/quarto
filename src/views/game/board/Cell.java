@@ -1,12 +1,14 @@
 package src.views.game.board;
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import src.views.components.Pawn;
 import src.views.utils.DimensionUtils;
@@ -20,6 +22,7 @@ public class Cell extends JPanel {
   private Pawn ghostPawn;
   private boolean hovered;
   private boolean highlighted;
+  private Image highlightImage;
 
   public Cell(Pawn pawn, int line, int column, boolean highlighted) {
     setOpaque(false);
@@ -60,6 +63,12 @@ public class Cell extends JPanel {
         repaint();
       }
     });
+
+    try {
+      highlightImage = ImageIO.read(new File("assets/images/highlight.png"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -75,9 +84,7 @@ public class Cell extends JPanel {
     }
 
     if (highlighted) {
-      // Draw a border around the cell
-      g.setColor(Color.YELLOW);
-      g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+      g.drawImage(highlightImage, 0, 0, getWidth(), getHeight(), this);
     }
   }
 
