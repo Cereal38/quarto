@@ -16,6 +16,7 @@ import src.views.players.names.ChoosePlayers;
 import src.views.rules.RulesPage;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
+import src.views.utils.ImageLibrary;
 import src.views.utils.PawnUtils;
 
 public class MainFrame extends JFrame {
@@ -46,6 +47,9 @@ public class MainFrame extends JFrame {
         EventsHandler.closeApp();
       }
     });
+
+    // Load all images
+    ImageLibrary.loadImages();
 
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);

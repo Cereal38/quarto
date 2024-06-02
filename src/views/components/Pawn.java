@@ -6,11 +6,13 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class Pawn extends JButton {
+public class Pawn extends JButton implements ThemeListener {
 
   // Constants
   public static final int NOT_PLAYED = 0;
@@ -22,8 +24,11 @@ public class Pawn extends JButton {
   private int width;
   private int height;
   private boolean hovered;
+  private ImageThemed image;
 
   public Pawn(String code, int state, int width, int height) {
+
+    ThemeUtils.addThemeListener(this);
 
     this.code = code;
     this.state = state;
@@ -31,10 +36,13 @@ public class Pawn extends JButton {
     this.height = height;
 
     // Load image
-    ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
+    // ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
+    image = new ImageThemed(code + ".png");
+    image.setSize(width, height);
+    ImageIcon imageIcon = new ImageIcon(image.getImage());
 
     // Set image
-    setIcon(image);
+    setIcon(imageIcon);
     setContentAreaFilled(false);
     setBorder(BorderFactory.createEmptyBorder());
     // setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -109,5 +117,12 @@ public class Pawn extends JButton {
 
   public Image getImage() {
     return ((ImageIcon) getIcon()).getImage();
+  }
+
+  @Override
+  public void updatedTheme() {
+    // Reload image
+    ImageIcon imageIcon = new ImageIcon(image.getImage());
+    setIcon(imageIcon);
   }
 }
