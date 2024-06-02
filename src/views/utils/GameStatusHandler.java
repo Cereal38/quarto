@@ -124,6 +124,11 @@ public class GameStatusHandler {
       String winner;
       if (EventsHandler.getController().isGameWon()) {
         winner = EventsHandler.getController().getCurrentPlayerName();
+        List<int[]> winLine = EventsHandler.getController().getWinLine();
+        // Display the winning line
+        for (int[] axis : winLine) {
+          System.out.println("Winning line: " + axis[0] + " " + axis[1]);
+        }
       } else {
         winner = null;
       }

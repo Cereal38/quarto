@@ -18,13 +18,15 @@ public class Cell extends JPanel {
   private int column;
   private Pawn ghostPawn;
   private boolean hovered;
+  private boolean highlighted;
 
-  public Cell(Pawn pawn, int line, int column) {
+  public Cell(Pawn pawn, int line, int column, boolean highlighted) {
     setOpaque(false);
 
     this.line = line;
     this.column = column;
     this.pawn = pawn;
+    this.highlighted = highlighted;
 
     if (!hasPawn() && canPlay() && !GameStatusHandler.isPaused()) {
       setCursor(new Cursor(Cursor.HAND_CURSOR));

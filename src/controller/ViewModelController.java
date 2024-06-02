@@ -105,7 +105,7 @@ public class ViewModelController implements ViewModelListener {
         if (pawns[i][j] != null) {
           pawn = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i][j].getPawn()), Pawn.PLAYED, size, size);
         }
-        tableCells[i][j] = new Cell(pawn, i, j);
+        tableCells[i][j] = new Cell(pawn, i, j, false);
       }
     }
     return tableCells;
@@ -272,6 +272,10 @@ public class ViewModelController implements ViewModelListener {
    */
   public boolean isGameOver() {
     return isGameDraw() || isGameWon();
+  }
+
+  public List<int[]> getWinLine() {
+    return quartoModel.getWinLine();
   }
 
 }
