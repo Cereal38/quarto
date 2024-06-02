@@ -1,7 +1,6 @@
 package src.views.components;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import java.io.File;
@@ -11,23 +10,22 @@ import javax.swing.JPanel;
 
 public class Field extends JPanel {
 
-  private String message;
+  private JLabel textLbl;
   private Image bgImageOn;
   private Image bgImageOff;
   private boolean isOn;
 
   public Field(String message, boolean isOn) {
 
-    this.message = message;
     this.isOn = isOn;
 
     setLayout(new BorderLayout());
 
     // Add text only if the field is on
-    JLabel text = new JLabel(message, JLabel.CENTER);
-    text.setFont(new Font("Arial", Font.BOLD, 16));
-    add(text, BorderLayout.CENTER);
-    text.setVisible(isOn);
+    textLbl = new JLabel(message, JLabel.CENTER);
+    textLbl.setFont(new Font("Arial", Font.BOLD, 16));
+    add(textLbl, BorderLayout.CENTER);
+    textLbl.setVisible(isOn);
 
     // Load image
     try {
@@ -42,11 +40,13 @@ public class Field extends JPanel {
     this.isOn = isOn;
 
     // Show or hide text
-    for (Component component : getComponents()) {
-      component.setVisible(isOn);
-    }
+    textLbl.setVisible(isOn);
 
     repaint();
+  }
+
+  public void setText(String text) {
+    textLbl.setText(text);
   }
 
   @Override

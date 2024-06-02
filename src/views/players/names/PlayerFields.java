@@ -288,6 +288,8 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
   public void updateText() {
     namePlayer1.setText(playerStr + "1");
     namePlayer2.setText(playerStr + "2");
+    startingPlayer1.setText(startingPlayer.getText());
+    startingPlayer2.setText(startingPlayer.getText());
   }
 
 }
