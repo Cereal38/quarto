@@ -16,14 +16,16 @@ public class ImageLibrary {
 
   // Load all images and store them in the imageMap
   public void loadImages() {
-    loadImage("light", "main-menu.jpg");
-    loadImage("dark", "main-menu.jpg");
+    loadImage("main-menu.jpg");
+    loadImage("quarto.png");
   }
 
-  private static void loadImage(String theme, String name) {
+  private static void loadImage(String name) {
     try {
-      Image img = ImageIO.read(new File("assets/images/" + theme + "/" + name));
-      imageMap.put(theme + name, img);
+      Image imgLight = ImageIO.read(new File("assets/images/light/" + name));
+      Image imgDark = ImageIO.read(new File("assets/images/dark/" + name));
+      imageMap.put("light" + name, imgLight);
+      imageMap.put("dark" + name, imgDark);
     } catch (IOException e) {
       e.printStackTrace();
     }
