@@ -26,6 +26,22 @@ public class ImageLibrary {
     loadImage("field-on.png");
     loadImage("field-off.png");
     loadImage("text-field.png");
+    loadImage("0000.png");
+    loadImage("0001.png");
+    loadImage("0010.png");
+    loadImage("0011.png");
+    loadImage("0100.png");
+    loadImage("0101.png");
+    loadImage("0110.png");
+    loadImage("0111.png");
+    loadImage("1000.png");
+    loadImage("1001.png");
+    loadImage("1010.png");
+    loadImage("1011.png");
+    loadImage("1100.png");
+    loadImage("1101.png");
+    loadImage("1110.png");
+    loadImage("1111.png");
   }
 
   private static void loadImage(String name) {
