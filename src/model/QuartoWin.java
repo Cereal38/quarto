@@ -1,10 +1,11 @@
 package src.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuartoWin {
 
-  private List<int[]> winLine;
+  private List<int[]> winLine = new ArrayList<>();
 
   public List<int[]> getWinLine() {
     return winLine;
