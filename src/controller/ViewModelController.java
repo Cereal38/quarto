@@ -96,6 +96,7 @@ public class ViewModelController implements ViewModelListener {
     if (quartoModel == null) {
       return new Cell[4][4];
     }
+    List<int[]> winLine = quartoModel.getWinLine();
     QuartoPawn[][] pawns = quartoModel.getTable();
     Cell[][] tableCells = new Cell[4][4];
     int size = DimensionUtils.getBoardCellSize();
@@ -105,7 +106,14 @@ public class ViewModelController implements ViewModelListener {
         if (pawns[i][j] != null) {
           pawn = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i][j].getPawn()), Pawn.PLAYED, size, size);
         }
-        tableCells[i][j] = new Cell(pawn, i, j, false);
+        boolean isWinningCell = false;
+        for (int[] win : winLine) {
+          if (win[0] == i && win[1] == j) {
+            isWinningCell = true;
+            break;
+          }
+        }
+        tableCells[i][j] = new Cell(pawn, i, j, isWinningCell);
       }
     }
     return tableCells;
@@ -272,10 +280,6 @@ public class ViewModelController implements ViewModelListener {
    */
   public boolean isGameOver() {
     return isGameDraw() || isGameWon();
-  }
-
-  public List<int[]> getWinLine() {
-    return quartoModel.getWinLine();
   }
 
 }

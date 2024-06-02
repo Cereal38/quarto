@@ -1,6 +1,7 @@
 package src.views.game.board;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -71,6 +72,12 @@ public class Cell extends JPanel {
       // Draw the ghost pawn with 50% opacity
       g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
       g2d.drawImage(ghostPawn.getImage(), 22, 5, null);
+    }
+
+    if (highlighted) {
+      // Draw a border around the cell
+      g.setColor(Color.YELLOW);
+      g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
     }
   }
 
