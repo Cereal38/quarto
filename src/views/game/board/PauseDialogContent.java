@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
 import src.views.rules.RulesPage;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
 
 public class PauseDialogContent extends JPanel {
   private static final int MARGIN = 20;
@@ -27,6 +28,17 @@ public class PauseDialogContent extends JPanel {
     btnMainMenu.addActionListener(e -> {
       // Navigate to the main menu
       EventsHandler.navigate("MainMenu");
+      EventsHandler.hideDialog();
+    });
+
+    btnRestart.addActionListener(e -> {
+      // Restart the game
+      int typeP1 = EventsHandler.getController().getPlayer1Type();
+      int typeP2 = EventsHandler.getController().getPlayer2Type();
+      String nameP1 = EventsHandler.getController().getPlayer1Name();
+      String nameP2 = EventsHandler.getController().getPlayer2Name();
+      EventsHandler.getController().createModel(typeP1, typeP2, nameP1, nameP2);
+      GameStatusHandler.startGame();
       EventsHandler.hideDialog();
     });
 
