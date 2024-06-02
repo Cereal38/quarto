@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -48,6 +50,16 @@ public class CustomizedTextField extends JTextField {
     // Set the font and font size
     Font font = new Font("Arial", Font.PLAIN, 16); // Change "Arial" to the desired font and 16 to the desired font size
     setFont(font);
+
+    // Add a key listener to prevent the user from typing spaces
+    addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        if (e.getKeyChar() == ' ') {
+          e.consume();
+        }
+      }
+    });
   }
 
   @Override
