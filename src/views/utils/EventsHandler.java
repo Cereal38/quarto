@@ -199,8 +199,8 @@ public class EventsHandler {
   }
 
   public static void closeApp() {
-    int response = JOptionPane.showConfirmDialog(null, new TranslatedString("close-confirm"),
-        new TranslatedString("close-title").getText(), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+    int response = JOptionPane.showConfirmDialog(mainPanel, new TranslatedString("close-confirm"),
+        new TranslatedString("close-title").getText(), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
 
     if (response == JOptionPane.YES_OPTION) {
       System.exit(0); // Exit the application
