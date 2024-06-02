@@ -9,8 +9,8 @@ import src.views.listeners.ThemeListener;
  */
 public class ThemeUtil {
 
-  private static final int LIGHT = 0;
-  private static final int DARK = 1;
+  public static final int LIGHT = 0;
+  public static final int DARK = 1;
   private static int theme = LIGHT;
 
   /**
@@ -31,7 +31,6 @@ public class ThemeUtil {
     for (ThemeListener listener : listeners) {
       listener.updatedTheme();
     }
-    System.out.println("Theme updated to " + (theme == LIGHT ? "light" : "dark"));
   }
 
   public static void toggleTheme() {

@@ -3,7 +3,6 @@ package src.views.components;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import src.views.utils.EventsHandler;
 import src.views.utils.ImageUtils;
 import src.views.utils.ThemeUtil;
 
@@ -13,7 +12,7 @@ public class ThemeButton extends JButton {
   private TranslatedString tooltip;
 
   public ThemeButton() {
-    isLightTheme = true;
+    isLightTheme = ThemeUtil.getTheme() == ThemeUtil.LIGHT;
 
     // Load icons
     ImageIcon darkImg = ImageUtils.loadImage("dark.png", 30, 30);
@@ -36,7 +35,6 @@ public class ThemeButton extends JButton {
         setIcon(darkImg);
       }
       isLightTheme = !isLightTheme;
-      EventsHandler.toggleTheme();
       ThemeUtil.toggleTheme();
     });
 
