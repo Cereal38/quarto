@@ -18,11 +18,11 @@ public class ThemeUtils {
    */
   private static final List<ThemeListener> listeners = new ArrayList<>();
 
-  public static void addLanguageChangeListener(ThemeListener listener) {
+  public static void addThemeListener(ThemeListener listener) {
     listeners.add(listener);
   }
 
-  public static void removeLanguageChangeListener(ThemeListener listener) {
+  public static void removeThemeListener(ThemeListener listener) {
     listeners.remove(listener);
   }
 

@@ -22,7 +22,7 @@ public class ImageThemed implements ThemeListener {
     this.imageLight = ImageLibrary.getImage("light", name);
     this.imageDark = ImageLibrary.getImage("dark", name);
 
-    ThemeUtils.addLanguageChangeListener(this);
+    ThemeUtils.addThemeListener(this);
     listeners.add(this);
     updatedTheme();
   }

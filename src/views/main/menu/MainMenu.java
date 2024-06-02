@@ -20,7 +20,7 @@ public class MainMenu extends JPanel implements ThemeListener {
   private JLabel logo;
 
   public MainMenu() {
-    ThemeUtils.addLanguageChangeListener(this);
+    ThemeUtils.addThemeListener(this);
     EventsHandler.setMainMenu(this);
 
     setLayout(new BorderLayout());
