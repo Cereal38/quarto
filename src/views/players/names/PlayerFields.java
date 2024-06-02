@@ -212,7 +212,7 @@ public class PlayerFields extends JPanel {
       return 2;
     case 1: // Medium
       return 3;
-    case 3: // Hard
+    case 2: // Hard
       return 4;
     default: // Player
       return 0;
@@ -222,14 +222,18 @@ public class PlayerFields extends JPanel {
   private String getAIName(int level) {
     switch (level) {
     case 2:
-      return "Easy-AI";
+      return capitalizeFirstLetter(easyStr.getText()) + "-AI";
     case 3:
-      return "Medium-AI";
+      return capitalizeFirstLetter(mediumStr.getText()) + "-AI";
     case 4:
-      return "Hard-AI";
+      return capitalizeFirstLetter(hardStr.getText()) + "-AI";
     default:
       return "Player";
     }
+  }
+
+  private String capitalizeFirstLetter(String str) {
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
   private void updateStartButtonState() {
