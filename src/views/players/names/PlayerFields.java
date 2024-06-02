@@ -13,18 +13,18 @@ import javax.swing.event.DocumentListener;
 import src.views.components.CustomizedButton;
 import src.views.components.CustomizedTextField;
 import src.views.components.TranslatedString;
+import src.views.listeners.LanguageChangeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.LangUtils;
 
 /**
  * Component containing the fields to setup a player.
  */
-public class PlayerFields extends JPanel {
+public class PlayerFields extends JPanel implements LanguageChangeListener {
 
   private CustomizedButton btnSwitchPlayer1 = new CustomizedButton("switch-to-ai");
   private CustomizedButton btnSwitchPlayer2 = new CustomizedButton("switch-to-ai");
-  private CustomizedTextField namePlayer1 = new CustomizedTextField("Player1");
-  private CustomizedTextField namePlayer2 = new CustomizedTextField("Player2");
   private CustomizedButton btnStartGame = new CustomizedButton("start");
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;
@@ -32,12 +32,17 @@ public class PlayerFields extends JPanel {
   private TranslatedString mediumStr = new TranslatedString("medium");
   private TranslatedString hardStr = new TranslatedString("hard");
   private TranslatedString aiStr = new TranslatedString("ai");
+  private TranslatedString playerStr = new TranslatedString("player");
+  private CustomizedTextField namePlayer1 = new CustomizedTextField(playerStr + "1");
+  private CustomizedTextField namePlayer2 = new CustomizedTextField(playerStr + "2");
   private JComboBox<TranslatedString> aiLevelPlayer1 = new JComboBox<>(
       new TranslatedString[] { easyStr, mediumStr, hardStr });
   private JComboBox<TranslatedString> aiLevelPlayer2 = new JComboBox<>(
       new TranslatedString[] { easyStr, mediumStr, hardStr });
 
   public PlayerFields() {
+
+    LangUtils.addLanguageChangeListener(this);
 
     setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
     setOpaque(false);
@@ -229,7 +234,7 @@ public class PlayerFields extends JPanel {
     case 4:
       return capitalizeFirstLetter(hardStr.getText()) + aiStr;
     default:
-      return "Player";
+      return playerStr.getText();
     }
   }
 
@@ -243,6 +248,12 @@ public class PlayerFields extends JPanel {
     } else {
       btnStartGame.setEnabled(true);
     }
+  }
+
+  @Override
+  public void updateText() {
+    namePlayer1.setText(playerStr + "1");
+    namePlayer2.setText(playerStr + "2");
   }
 
 }
