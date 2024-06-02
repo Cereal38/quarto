@@ -1,27 +1,58 @@
 package src.views.players.names;
 
-import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
 import src.views.components.CustomizedButton;
 import src.views.components.CustomizedTextField;
+import src.views.components.Field;
+import src.views.components.TranslatedString;
+import src.views.listeners.LanguageChangeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
+import src.views.utils.LangUtils;
 
-public class PlayerFields extends JPanel {
+/**
+ * Component containing the fields to setup a player.
+ */
+public class PlayerFields extends JPanel implements LanguageChangeListener {
+
   private CustomizedButton btnSwitchPlayer1 = new CustomizedButton("switch-to-ai");
   private CustomizedButton btnSwitchPlayer2 = new CustomizedButton("switch-to-ai");
-  private CustomizedTextField namePlayer1 = new CustomizedTextField("Player1");
-  private CustomizedTextField namePlayer2 = new CustomizedTextField("Player2");
   private CustomizedButton btnStartGame = new CustomizedButton("start");
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;
-  private JComboBox<String> aiLevelPlayer1 = new JComboBox<>(new String[]{"easy", "medium", "hard"});
-  private JComboBox<String> aiLevelPlayer2 = new JComboBox<>(new String[]{"easy", "medium", "hard"});
+  private TranslatedString easyStr = new TranslatedString("easy");
+  private TranslatedString mediumStr = new TranslatedString("medium");
+  private TranslatedString hardStr = new TranslatedString("hard");
+  private TranslatedString aiStr = new TranslatedString("ai");
+  private TranslatedString playerStr = new TranslatedString("player");
+  private TranslatedString startingPlayer = new TranslatedString("starting-player");
+  private boolean player1starts = true;
+  private Field startingPlayer1;
+  private Field startingPlayer2;
+  private CustomizedTextField namePlayer1 = new CustomizedTextField(playerStr + "1");
+  private CustomizedTextField namePlayer2 = new CustomizedTextField(playerStr + "2");
+  private JComboBox<TranslatedString> aiLevelPlayer1 = new JComboBox<>(
+      new TranslatedString[] { easyStr, mediumStr, hardStr });
+  private JComboBox<TranslatedString> aiLevelPlayer2 = new JComboBox<>(
+      new TranslatedString[] { easyStr, mediumStr, hardStr });
 
   public PlayerFields() {
+
+    LangUtils.addLanguageChangeListener(this);
+
     setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
     setOpaque(false);
 
@@ -30,10 +61,33 @@ public class PlayerFields extends JPanel {
     int spacing = 10;
     int vsLabelWidth = 100;
     int startButtonWidth = 2 * componentWidth + vsLabelWidth;
+    int arrowSize = 32;
 
     JPanel playerFieldsWrapper = new JPanel();
     playerFieldsWrapper.setOpaque(false);
     playerFieldsWrapper.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+
+    // Starting player
+    JPanel startingPlayerPanel = new JPanel();
+    startingPlayerPanel.setOpaque(false);
+    startingPlayerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+    startingPlayerPanel.setPreferredSize(new Dimension(componentWidth, componentHeight));
+    startingPlayer1 = new Field(startingPlayer.getText(), player1starts);
+    startingPlayer2 = new Field(startingPlayer.getText(), !player1starts);
+    startingPlayer1.setPreferredSize(new Dimension(componentWidth, componentHeight));
+    startingPlayer2.setPreferredSize(new Dimension(componentWidth, componentHeight));
+    ImageIcon doubleArrow = ImageUtils.loadImage("double-sided-arrow.png", arrowSize, arrowSize);
+    JButton switchButton = ImageUtils.createButtonFromImage(doubleArrow);
+    switchButton.setBorder(
+        BorderFactory.createEmptyBorder(0, vsLabelWidth / 2 - arrowSize / 2, 0, vsLabelWidth / 2 - arrowSize / 2));
+    switchButton.addActionListener(e -> {
+      player1starts = !player1starts;
+      startingPlayer1.setOn(player1starts);
+      startingPlayer2.setOn(!player1starts);
+    });
+    startingPlayerPanel.add(startingPlayer1);
+    startingPlayerPanel.add(switchButton);
+    startingPlayerPanel.add(startingPlayer2);
 
     // First player
     JPanel player1Panel = new JPanel();
@@ -46,20 +100,8 @@ public class PlayerFields extends JPanel {
     // VS
     JPanel vsPanel = new JPanel();
     vsPanel.setOpaque(false);
-    vsPanel.setPreferredSize(new Dimension(vsLabelWidth, componentHeight));
-    vsPanel.setLayout(new BoxLayout(vsPanel, BoxLayout.Y_AXIS));
-    vsPanel.add(Box.createVerticalGlue());
-    vsPanel.add(new JLabel("VS", SwingConstants.CENTER));
-    vsPanel.add(Box.createVerticalGlue());
-
-    // Arrow button to switch players
-    ImageIcon doubleArrow = ImageUtils.loadImage("double-sided-arrow.png", 50, 50);
-    JButton switchButton = ImageUtils.createButtonFromImage(doubleArrow);
-    switchButton.addActionListener(e -> switchPlayers());
-    JPanel arrowPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    arrowPanel.setOpaque(false);
-    arrowPanel.add(switchButton);
-    vsPanel.add(arrowPanel, 0); // Add arrow panel at the top
+    vsPanel.setPreferredSize(new Dimension(vsLabelWidth, vsLabelWidth));
+    vsPanel.add(new JLabel("VS"));
 
     // Second player
     JPanel player2Panel = new JPanel();
@@ -84,19 +126,24 @@ public class PlayerFields extends JPanel {
     startButtonWrapper.add(startButtonPanel);
     startButtonPanel.add(btnStartGame);
 
+    add(startingPlayerPanel);
+    add(Box.createRigidArea(new Dimension(0, spacing))); // Divider
     add(playerFieldsWrapper);
     add(Box.createRigidArea(new Dimension(0, spacing))); // Divider
     add(startButtonWrapper);
 
     // Setup buttons
     btnSwitchPlayer1.addActionListener(e -> {
+      // Toggle the flag
+      // Switch components
+      // Change text
       player1IsAI = !player1IsAI;
       if (player1IsAI) {
-        btnSwitchPlayer1.setKey("switch-to-player");
+        btnSwitchPlayer1.setKey("switch-to-player"); // Change the text
         player1Panel.remove(namePlayer1);
         player1Panel.add(aiLevelPlayer1, 0);
       } else {
-        btnSwitchPlayer1.setKey("switch-to-ai");
+        btnSwitchPlayer1.setKey("switch-to-ai"); // Change the text
         player1Panel.remove(aiLevelPlayer1);
         player1Panel.add(namePlayer1, 0);
       }
@@ -106,13 +153,16 @@ public class PlayerFields extends JPanel {
     });
 
     btnSwitchPlayer2.addActionListener(e -> {
+      // Toggle the flag
+      // Switch components
+      // Change text
       player2IsAI = !player2IsAI;
       if (player2IsAI) {
-        btnSwitchPlayer2.setKey("switch-to-player");
+        btnSwitchPlayer2.setKey("switch-to-player"); // Change the text
         player2Panel.remove(namePlayer2);
         player2Panel.add(aiLevelPlayer2, 0);
       } else {
-        btnSwitchPlayer2.setKey("switch-to-ai");
+        btnSwitchPlayer2.setKey("switch-to-ai"); // Change the text
         player2Panel.remove(aiLevelPlayer2);
         player2Panel.add(namePlayer2, 0);
       }
@@ -121,10 +171,15 @@ public class PlayerFields extends JPanel {
       repaint();
     });
 
+    // Create Start button (initially hidden)
     btnStartGame.addActionListener(e -> {
+
       int player1 = player1IsAI ? getAIPlayerLevel(aiLevelPlayer1) : 0;
       int player2 = player2IsAI ? getAIPlayerLevel(aiLevelPlayer2) : 0;
-
+      // For humans players, use the name entered in the text field
+      // For AI players, use the name corresponding to the level
+      // If both players are differents AI, also add a suffix number to differentiate
+      // them
       if (player1 == 0) {
         namePlayer1.setText(namePlayer1.getText());
       } else {
@@ -142,14 +197,23 @@ public class PlayerFields extends JPanel {
         namePlayer2.setText(namePlayer2.getText() + " 2");
       }
 
-      EventsHandler.getController().createModel(player1, player2, namePlayer1.getText(), namePlayer2.getText());
+      // Set fields order according to the starting player
+      if (player1starts) {
+        EventsHandler.getController().createModel(player1, player2, namePlayer1.getText(), namePlayer2.getText());
+      } else {
+        EventsHandler.getController().createModel(player2, player1, namePlayer2.getText(), namePlayer1.getText());
+      }
 
+      // Start the game
       GameStatusHandler.startGame();
+
       EventsHandler.navigate("GameBoard");
     });
 
+    // Initially enable the start button
     btnStartGame.setEnabled(true);
 
+    // Add DocumentListener to namePlayer1 to enable/disable the start button
     namePlayer1.getDocument().addDocumentListener(new DocumentListener() {
       @Override
       public void insertUpdate(DocumentEvent e) {
@@ -167,6 +231,7 @@ public class PlayerFields extends JPanel {
       }
     });
 
+    // Add DocumentListener to namePlayer2 to enable/disable the start button
     namePlayer2.getDocument().addDocumentListener(new DocumentListener() {
       @Override
       public void insertUpdate(DocumentEvent e) {
@@ -183,52 +248,53 @@ public class PlayerFields extends JPanel {
         updateStartButtonState();
       }
     });
+
   }
 
-  private void switchPlayers() {
-    String tempName = namePlayer1.getText();
-    namePlayer1.setText(namePlayer2.getText());
-    namePlayer2.setText(tempName);
-
-    boolean tempAIStatus = player1IsAI;
-    player1IsAI = player2IsAI;
-    player2IsAI = tempAIStatus;
-
-    JComboBox<String> tempAILevel = aiLevelPlayer1;
-    aiLevelPlayer1 = aiLevelPlayer2;
-    aiLevelPlayer2 = tempAILevel;
-
-    revalidate();
-    repaint();
-  }
-
-  private int getAIPlayerLevel(JComboBox<String> levelList) {
-    switch ((String) levelList.getSelectedItem()) {
-      case "easy":
-        return 1;
-      case "medium":
-        return 2;
-      case "hard":
-        return 3;
+  private int getAIPlayerLevel(JComboBox<TranslatedString> aiLevel) {
+    switch (aiLevel.getSelectedIndex()) {
+    case 0: // Easy
+      return 2;
+    case 1: // Medium
+      return 3;
+    case 2: // Hard
+      return 4;
+    default: // Player
+      return 0;
     }
-    return 0;
   }
 
-  private String getAIName(int ai) {
-    switch (ai) {
-      case 1:
-        return "EasyAI";
-      case 2:
-        return "MediumAI";
-      case 3:
-        return "HardAI";
+  private String getAIName(int level) {
+    switch (level) {
+    case 2:
+      return capitalizeFirstLetter(easyStr.getText()) + aiStr;
+    case 3:
+      return capitalizeFirstLetter(mediumStr.getText()) + aiStr;
+    case 4:
+      return capitalizeFirstLetter(hardStr.getText()) + aiStr;
+    default:
+      return playerStr.getText();
     }
-    return "Player";
+  }
+
+  private String capitalizeFirstLetter(String str) {
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
   private void updateStartButtonState() {
-    boolean enabled = namePlayer1.getText().trim().length() > 0 &&
-            namePlayer2.getText().trim().length() > 0;
-    btnStartGame.setEnabled(enabled);
+    if ((!player1IsAI && namePlayer1.getText().isEmpty()) || (!player2IsAI && namePlayer2.getText().isEmpty())) {
+      btnStartGame.setEnabled(false);
+    } else {
+      btnStartGame.setEnabled(true);
+    }
   }
+
+  @Override
+  public void updateText() {
+    namePlayer1.setText(playerStr + "1");
+    namePlayer2.setText(playerStr + "2");
+    startingPlayer1.setText(startingPlayer.getText());
+    startingPlayer2.setText(startingPlayer.getText());
+  }
+
 }
