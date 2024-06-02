@@ -7,6 +7,10 @@ public class QuartoWin {
 
   private List<int[]> winLine = new ArrayList<>();
 
+  public QuartoWin() {
+    this.winLine = new ArrayList<>(); // initializing winline
+  }
+
   public List<int[]> getWinLine() {
     return winLine;
   }
