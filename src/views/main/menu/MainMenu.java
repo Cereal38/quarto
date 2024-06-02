@@ -1,8 +1,8 @@
 package src.views.main.menu;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
@@ -16,6 +16,8 @@ public class MainMenu extends JPanel implements ThemeListener {
   private CustomizedButton btnNewGame = new CustomizedButton("new-game");
   private CustomizedButton btnLoad = new CustomizedButton("load");
   private ImageThemed backgroundImage = new ImageThemed("main-menu.jpg");
+  private ImageThemed logoImage = new ImageThemed("quarto.png");
+  private JLabel logo;
 
   public MainMenu() {
     ThemeUtils.addLanguageChangeListener(this);
@@ -44,10 +46,9 @@ public class MainMenu extends JPanel implements ThemeListener {
     // Display menu items as a list
     menu.setLayout(new GridLayout(4, 1, 0, 5));
     menu.setOpaque(false);
-    JLabel titleLabel = new JLabel("Quarto");
-    titleLabel.setHorizontalAlignment(JLabel.CENTER);
-    titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-    menu.add(titleLabel);
+
+    logo = new JLabel(new ImageIcon(logoImage.getImage()));
+    menu.add(logo);
     menu.add(btnNewGame);
     menu.add(btnLoad);
 
@@ -61,6 +62,7 @@ public class MainMenu extends JPanel implements ThemeListener {
 
   @Override
   public void updatedTheme() {
+    logo.setIcon(new ImageIcon(logoImage.getImage()));
     repaint();
   }
 }
