@@ -2,20 +2,20 @@ package src.views.components;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import src.views.listeners.ThemeListener;
+import src.views.utils.ThemeUtils;
 
-public class Field extends JPanel {
+public class Field extends JPanel implements ThemeListener {
 
   private JLabel textLbl;
-  private Image bgImageOn;
-  private Image bgImageOff;
+  private ImageThemed bgImageOn = new ImageThemed("field-on.png");
+  private ImageThemed bgImageOff = new ImageThemed("field-off.png");
   private boolean isOn;
 
   public Field(String message, boolean isOn) {
+    ThemeUtils.addThemeListener(this);
 
     this.isOn = isOn;
 
@@ -26,14 +26,6 @@ public class Field extends JPanel {
     textLbl.setFont(new Font("Arial", Font.BOLD, 16));
     add(textLbl, BorderLayout.CENTER);
     textLbl.setVisible(isOn);
-
-    // Load image
-    try {
-      bgImageOn = ImageIO.read(new File("assets/images/field-on.png"));
-      bgImageOff = ImageIO.read(new File("assets/images/field-off.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   public void setOn(boolean isOn) {
@@ -54,9 +46,14 @@ public class Field extends JPanel {
     super.paintComponent(g);
     // Draw background image
     if (isOn) {
-      g.drawImage(bgImageOn, 0, 0, getWidth(), getHeight(), this);
+      g.drawImage(bgImageOn.getImage(), 0, 0, getWidth(), getHeight(), this);
     } else {
-      g.drawImage(bgImageOff, 0, 0, getWidth(), getHeight(), this);
+      g.drawImage(bgImageOff.getImage(), 0, 0, getWidth(), getHeight(), this);
     }
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 }
