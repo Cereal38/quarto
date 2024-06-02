@@ -188,6 +188,20 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getPlayer2Name();
   }
 
+  public int getPlayer1Type() {
+    if (quartoModel == null) {
+      return 0;
+    }
+    return quartoModel.getPlayer1Type();
+  }
+
+  public int getPlayer2Type() {
+    if (quartoModel == null) {
+      return 0;
+    }
+    return quartoModel.getPlayer2Type();
+  }
+
   public boolean isPlayer1AI() {
     if (quartoModel == null) {
       return false;
