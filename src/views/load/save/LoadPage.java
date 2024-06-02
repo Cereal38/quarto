@@ -76,4 +76,8 @@ public class LoadPage extends JPanel {
         revalidate();
         repaint();
     }
+
+    public Image getWoodTexture() {
+        return helper.getWoodTexture();
+    }
 }
