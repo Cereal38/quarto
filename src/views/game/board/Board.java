@@ -35,7 +35,6 @@ public class Board extends JPanel {
     }
 
     try {
-      // TODO: Load board only once
       bgImage = ImageIO.read(new File("assets/images/board.png"));
       backGroundImage = new ImageIcon(getClass().getResource("/assets/images/bg-board.png")).getImage();
     } catch (Exception e) {
