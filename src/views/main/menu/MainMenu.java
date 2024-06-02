@@ -15,7 +15,7 @@ import src.views.utils.ThemeUtils;
 public class MainMenu extends JPanel implements ThemeListener {
   private CustomizedButton btnNewGame = new CustomizedButton("new-game");
   private CustomizedButton btnLoad = new CustomizedButton("load");
-  private ImageThemed backgroundImage = new ImageThemed("menu-bg.jpg");
+  private ImageThemed backgroundImage = new ImageThemed("main-menu.jpg");
 
   public MainMenu() {
     ThemeUtils.addLanguageChangeListener(this);
