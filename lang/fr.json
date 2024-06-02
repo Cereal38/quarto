@@ -58,5 +58,7 @@
   "selected-the-pawn": "a sélectionné le pion",
   "placed-it-at": "l'a placé en",
   "close-confirm": "Êtes-vous sûr de vouloir quitter ?",
-  "close-title": "Quitter"
+  "close-title": "Quitter",
+  "delete-confirm": "Êtes-vous sûr de vouloir supprimer cette sauvegarde ?",
+  "delete-title": "Supprimer"
 }

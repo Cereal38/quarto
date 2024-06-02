@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -101,11 +100,12 @@ public class LoadHelper {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int response = JOptionPane.showConfirmDialog(
-                        null,
-                        "Are you sure you want to clear this slot?",
-                        "Confirm Clear Slot",
+                        EventsHandler.getMainPanel(),
+                        new TranslatedString("delete-confirm"),
+                        new TranslatedString("delete-title").getText(),
                         JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE
+                        JOptionPane.WARNING_MESSAGE,
+                        null
                 );
 
                 if (response == JOptionPane.YES_OPTION) {
