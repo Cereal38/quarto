@@ -2,6 +2,8 @@ package src.views;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import src.views.components.DialogPanel;
@@ -34,9 +36,16 @@ public class MainFrame extends JFrame {
 
   public MainFrame() {
     setTitle("Quarto Game");
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setMinimumSize(new Dimension(1000, 800));
     setLocationRelativeTo(null);
+
+    // Show a confirmation dialog when the user tries to close the window
+    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e) {
+        EventsHandler.closeApp();
+      }
+    });
 
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
@@ -95,7 +104,7 @@ public class MainFrame extends JFrame {
     setVisible(true);
   }
 
-  public static LoadPage getLoadPage (){
+  public static LoadPage getLoadPage() {
     return loadPage;
   }
 

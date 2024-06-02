@@ -26,7 +26,7 @@
   "saved-date": "Saved date",
   "load-game": "Load Game",
   "save-game": "Save Game",
-  "clear-slot": "Clear Slot",
+  "clear-slot": "Delete",
   "musicButtonTooltip": "Toggle music on/off",
   "quitButtonToolTip": "Quit game",
   "languageButtonTooltip": "Change language",
@@ -53,5 +53,14 @@
   "hard": "Hard",
   "ai": "AI",
   "player": "Player",
-  "starting-player": "Starts"
+  "starting-player": "Starts",
+  "enter-name": "Enter name :",
+  "selected-the-pawn": "selected the pawn",
+  "placed-it-at": "placed it at",
+  "close-confirm": "Are you sure you want to quit the game?",
+  "close-title": "Quit game",
+  "delete-confirm": "Are you sure you want to delete this save?",
+  "delete-title": "Delete save",
+  "yes": "Yes",
+  "no": "No"
 }
