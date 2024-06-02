@@ -54,5 +54,7 @@
   "ai": "AI",
   "player": "Player",
   "starting-player": "Starts",
-  "enter-name": "Enter name :"
+  "enter-name": "Enter name :",
+  "selected-the-pawn": "selected the pawn",
+  "placed-it-at": "placed it at"
 }

@@ -54,5 +54,7 @@
   "ai": "IA",
   "player": "Joueur",
   "starting-player": "Commence",
-  "enter-name": "Entrer le nom :"
+  "enter-name": "Entrer le nom :",
+  "selected-the-pawn": "a sélectionné le pion",
+  "placed-it-at": "l'a placé en"
 }
