@@ -53,6 +53,7 @@ public class ImageLibrary {
     loadImage("gameboard-center-top-bar.png");
     loadImage("squared-background.png");
     loadImage("crown.png");
+    loadImage("undo.png");
   }
 
   private static void loadImage(String name) {
