@@ -18,6 +18,9 @@ public class ImageLibrary {
   public static void loadImages() {
     loadImage("main-menu.jpg");
     loadImage("quarto.png");
+    loadImage("text-button.png");
+    loadImage("text-button-hovered.png");
+    loadImage("text-button-clicked.png");
   }
 
   private static void loadImage(String name) {
