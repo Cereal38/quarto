@@ -39,7 +39,7 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
   private TranslatedString aiStr = new TranslatedString("ai");
   private TranslatedString playerStr = new TranslatedString("player");
   private TranslatedString startingPlayer = new TranslatedString("starting-player");
-  private boolean player1starts = false;
+  private boolean player1starts = true;
   private Field startingPlayer1;
   private Field startingPlayer2;
   private CustomizedTextField namePlayer1 = new CustomizedTextField(playerStr + "1");
@@ -80,6 +80,11 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     JButton switchButton = ImageUtils.createButtonFromImage(doubleArrow);
     switchButton.setBorder(
         BorderFactory.createEmptyBorder(0, vsLabelWidth / 2 - arrowSize / 2, 0, vsLabelWidth / 2 - arrowSize / 2));
+    switchButton.addActionListener(e -> {
+      player1starts = !player1starts;
+      startingPlayer1.setOn(player1starts);
+      startingPlayer2.setOn(!player1starts);
+    });
     startingPlayerPanel.add(startingPlayer1);
     startingPlayerPanel.add(switchButton);
     startingPlayerPanel.add(startingPlayer2);
