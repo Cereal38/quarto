@@ -6,33 +6,29 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
+import src.views.components.ImageThemed;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class GameOverDialog extends JPanel {
+public class GameOverDialog extends JPanel implements ThemeListener {
   private CustomizedButton btnBack = new CustomizedButton("back-to-game");
   private CustomizedButton btnMenu = new CustomizedButton("main-menu");
-  private Image bgImage;
+  private ImageThemed bgImage = new ImageThemed("squared-background.png");
 
   public GameOverDialog(String winner) {
-    setLayout(new BorderLayout());
+    ThemeUtils.addThemeListener(this);
 
-    try {
-      bgImage = ImageIO.read(new File("assets/images/squared-background.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    setLayout(new BorderLayout());
 
     btnMenu.addActionListener(new ActionListener() {
       @Override
@@ -111,6 +107,11 @@ public class GameOverDialog extends JPanel {
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 }
