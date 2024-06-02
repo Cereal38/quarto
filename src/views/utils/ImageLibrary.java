@@ -48,6 +48,10 @@ public class ImageLibrary {
     loadImage("pawns-bar-right-slot.png");
     loadImage("pawns-bar-right-slot-hovered.png");
     loadImage("pawns-bar-right-slot-selected.png");
+    loadImage("gameboard-left-top-bar.png");
+    loadImage("gameboard-right-top-bar.png");
+    loadImage("gameboard-center-top-bar.png");
+    loadImage("squared-background.png");
   }
 
   private static void loadImage(String name) {

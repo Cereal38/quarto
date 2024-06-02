@@ -53,7 +53,6 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
     }
 
     try {
-      // TODO: Load bg only once
       if (position == LEFT) {
         bgImage = new ImageThemed("pawns-bar-left-slot.png");
         bgImageHovered = new ImageThemed("pawns-bar-left-slot-hovered.png");
