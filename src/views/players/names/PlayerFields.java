@@ -23,8 +23,8 @@ public class PlayerFields extends JPanel {
 
   private CustomizedButton btnSwitchPlayer1 = new CustomizedButton("switch-to-ai");
   private CustomizedButton btnSwitchPlayer2 = new CustomizedButton("switch-to-ai");
-  private CustomizedTextField namePlayer1 = new CustomizedTextField("Player 1");
-  private CustomizedTextField namePlayer2 = new CustomizedTextField("Player 2");
+  private CustomizedTextField namePlayer1 = new CustomizedTextField("Player1");
+  private CustomizedTextField namePlayer2 = new CustomizedTextField("Player2");
   private CustomizedButton btnStartGame = new CustomizedButton("start");
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;
@@ -34,6 +34,7 @@ public class PlayerFields extends JPanel {
   public PlayerFields() {
 
     setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+    setOpaque(false);
 
     int componentHeight = 45;
     int componentWidth = 200;
@@ -42,10 +43,12 @@ public class PlayerFields extends JPanel {
     int startButtonWidth = 2 * componentWidth + vsLabelWidth;
 
     JPanel playerFieldsWrapper = new JPanel();
+    playerFieldsWrapper.setOpaque(false);
     playerFieldsWrapper.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
     // First player
     JPanel player1Panel = new JPanel();
+    player1Panel.setOpaque(false);
     player1Panel.setLayout(new GridLayout(2, 1, 0, spacing));
     player1Panel.setPreferredSize(new Dimension(componentWidth, componentHeight * 2 + spacing));
     player1Panel.add(namePlayer1);
@@ -53,11 +56,13 @@ public class PlayerFields extends JPanel {
 
     // VS
     JPanel vsPanel = new JPanel();
+    vsPanel.setOpaque(false);
     vsPanel.setPreferredSize(new Dimension(vsLabelWidth, componentHeight));
     vsPanel.add(new JLabel("VS"));
 
     // Second player
     JPanel player2Panel = new JPanel();
+    player2Panel.setOpaque(false);
     player2Panel.setLayout(new GridLayout(2, 1, 0, spacing));
     player2Panel.setPreferredSize(new Dimension(componentWidth, componentHeight * 2 + spacing));
     player2Panel.add(namePlayer2);
@@ -69,8 +74,10 @@ public class PlayerFields extends JPanel {
 
     // Start button
     JPanel startButtonWrapper = new JPanel();
+    startButtonWrapper.setOpaque(false);
     startButtonWrapper.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
     JPanel startButtonPanel = new JPanel();
+    startButtonPanel.setOpaque(false);
     startButtonPanel.setLayout(new GridLayout(1, 1));
     startButtonPanel.setPreferredSize(new Dimension(startButtonWidth, componentHeight));
     startButtonWrapper.add(startButtonPanel);
@@ -221,15 +228,15 @@ public class PlayerFields extends JPanel {
   private String getAIName(int level) {
     switch (level) {
     case 1:
-      return "Random AI";
+      return "Random-AI";
     case 2:
-      return "Easy AI";
+      return "Easy-AI";
     case 3:
-      return "Medium AI";
+      return "Medium-AI";
     case 4:
-      return "Hard AI";
+      return "Hard-AI";
     default:
-      return "Random AI";
+      return "Random-AI";
     }
   }
 

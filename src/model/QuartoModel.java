@@ -89,6 +89,7 @@ public class QuartoModel {
       } else if (file.getNextState() == 1) { // choice of place
         setTable(file.getNextLine(), file.getNextColumn(), getSelectedPawn());
         setSelectedPawn(null);
+        winSituation(file.getNextLine(), file.getNextColumn());
       }
       file.setSave(file.getSave().getNext());
     }
@@ -96,6 +97,7 @@ public class QuartoModel {
 
   public void undo() {
     if (file.canUndo()) {
+      win.clearWinLine();
       if (file.getPreviousState() == 0) {// we remove a placed pawn
         setSelectedPawn(getPawnAtPosition(file.getLine(), file.getColumn()));
         setTable(file.getLine(), file.getColumn(), null);

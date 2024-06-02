@@ -4,11 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.TranslatedLabel;
 
 public class ChoosePlayers extends JPanel {
+
+  private Image bgImage;
 
   public ChoosePlayers() {
 
@@ -16,6 +21,7 @@ public class ChoosePlayers extends JPanel {
 
     // Setup title bar
     JPanel titleWrapper = new JPanel();
+    titleWrapper.setOpaque(false);
     titleWrapper.setLayout(new BorderLayout());
     TranslatedLabel titleLabel = new TranslatedLabel("enter-players-names");
     titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -24,6 +30,7 @@ public class ChoosePlayers extends JPanel {
 
     // Setup fields
     JPanel fieldsWrapper = new JPanel();
+    fieldsWrapper.setOpaque(false);
     fieldsWrapper.setLayout(new GridBagLayout());
     fieldsWrapper.add(new PlayerFields());
 
@@ -31,5 +38,17 @@ public class ChoosePlayers extends JPanel {
     add(titleWrapper);
     add(fieldsWrapper);
 
+    try {
+      bgImage = ImageIO.read(new File("assets/images/bg-board.png"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  @Override
+  protected void paintComponent(java.awt.Graphics g) {
+    super.paintComponent(g);
+    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
   }
 }
