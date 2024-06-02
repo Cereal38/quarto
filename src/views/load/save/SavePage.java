@@ -1,21 +1,30 @@
 package src.views.load.save;
 
-import src.views.components.CustomizedTextField;
-import src.views.components.TranslatedLabel;
-import src.views.load.save.LoadPage;
-import src.views.utils.EventsHandler;
-import src.views.utils.ImageUtils;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import src.views.components.CustomizedTextField;
+import src.views.components.TranslatedButton;
+import src.views.components.TranslatedLabel;
+import src.views.utils.EventsHandler;
 
 public class SavePage extends JPanel {
 
     private CustomizedTextField nameField;
-    private JButton saveButton;
+    private TranslatedButton saveButton;
     private JLabel messageLabel;
     private LoadPage loadSavePage;
     private Image backGroundImage;
@@ -57,7 +66,7 @@ public class SavePage extends JPanel {
 
         nameField = new CustomizedTextField(20);
         nameField.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // Modern font
-        saveButton = new JButton("Save");
+        saveButton = new TranslatedButton("save");
         saveButton.setFont(new Font("Segoe UI", Font.BOLD, 16)); // Modern font
         saveButton.setForeground(Color.WHITE);
         saveButton.setBackground(new Color(30, 144, 255)); // Dodger Blue color
@@ -91,7 +100,7 @@ public class SavePage extends JPanel {
         // Add components to the input panel
         gbc.gridx = 0;
         gbc.gridy = 0;
-        inputPanel.add(new JLabel("Enter Name:"), gbc);
+        inputPanel.add(new TranslatedLabel("enter-name"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;

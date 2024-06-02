@@ -1,20 +1,32 @@
 package src.views.load.save;
 
-import src.structures.SlotFile;
-import src.views.components.RoundBorder;
-import src.views.components.TranslatedString;
-import src.views.utils.EventsHandler;
-import src.views.utils.GameStatusHandler;
-import src.views.utils.ImageUtils;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import src.structures.SlotFile;
+import src.views.components.RoundBorder;
+import src.views.components.TranslatedButton;
+import src.views.components.TranslatedString;
+import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
+import src.views.utils.ImageUtils;
 
 public class LoadHelper {
     JPanel slotsPanel;
@@ -68,8 +80,7 @@ public class LoadHelper {
         buttonPanel.setOpaque(false); // Ensure button panel is transparent
 
         // Load Game button (colored green)
-        TranslatedString loadTranslate = new TranslatedString("load-game");
-        JButton loadGameButton = new JButton(loadTranslate.getText());
+        TranslatedButton loadGameButton = new TranslatedButton("load-game");
         loadGameButton.setBackground(Color.GREEN); // Set background color to green
         loadGameButton.addActionListener(new ActionListener() {
             @Override
@@ -83,8 +94,7 @@ public class LoadHelper {
         buttonPanel.add(loadGameButton);
 
         // Clear Slot button (colored red)
-        TranslatedString clearTranslate = new TranslatedString("clear-slot");
-        JButton clearSlotButton = new JButton(clearTranslate.getText());
+        TranslatedButton clearSlotButton = new TranslatedButton("clear-slot");
         clearSlotButton.setBackground(Color.RED); // Set background color to red
         clearSlotButton.setForeground(Color.WHITE);
         clearSlotButton.addActionListener(new ActionListener() {
