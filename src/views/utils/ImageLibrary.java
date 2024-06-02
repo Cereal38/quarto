@@ -25,6 +25,7 @@ public class ImageLibrary {
     loadImage("board.png");
     loadImage("field-on.png");
     loadImage("field-off.png");
+    loadImage("text-field.png");
   }
 
   private static void loadImage(String name) {
