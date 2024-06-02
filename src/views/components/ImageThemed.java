@@ -1,64 +1,47 @@
 package src.views.components;
 
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
+import javax.swing.JComponent;
 import src.views.listeners.ThemeListener;
-import src.views.utils.ThemeUtil;
+import src.views.utils.ThemeUtils;
 
-public class ImageThemed extends Image implements ThemeListener {
+public class ImageThemed implements ThemeListener {
 
   private String name;
-  private Image image;
+  private Image imageLight;
+  private Image imageDark;
+  private static final List<ThemeListener> listeners = new ArrayList<>();
 
   public ImageThemed(String name) {
     this.name = name;
     try {
-      String theme = ThemeUtil.getThemeName();
-      this.image = ImageIO.read(new File("assets/images/" + theme + "/" + name));
-    } catch (Exception e) {
+      this.imageLight = ImageIO.read(new File("assets/images/light/" + name));
+      this.imageDark = ImageIO.read(new File("assets/images/dark/" + name));
+    } catch (IOException e) {
       e.printStackTrace();
     }
+    ThemeUtils.addLanguageChangeListener(this);
+    listeners.add(this);
     updatedTheme();
-    ThemeUtil.addLanguageChangeListener(this);
   }
 
   @Override
   public void updatedTheme() {
-    // TODO Auto-generated method stub
+    // Call repaint() on all registered ThemeListener components
+    for (ThemeListener listener : listeners) {
+      if (listener instanceof JComponent) {
+        ((JComponent) listener).repaint();
+      }
+    }
   }
 
-  @Override
-  public int getWidth(ImageObserver observer) {
-    // Your implementation here
-    return 0;
-  }
-
-  @Override
-  public int getHeight(ImageObserver observer) {
-    // Your implementation here
-    return 0;
-  }
-
-  @Override
-  public Object getProperty(String name, ImageObserver observer) {
-    // Your implementation here
-    return null;
-  }
-
-  @Override
-  public Graphics getGraphics() {
-    // Your implementation here
-    return null;
-  }
-
-  @Override
-  public ImageProducer getSource() {
-    // Your implementation here
-    return null;
+  public Image getImage() {
+    return ThemeUtils.getTheme() == ThemeUtils.LIGHT ? imageLight : imageDark;
   }
 
 }

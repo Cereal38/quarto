@@ -7,7 +7,7 @@ import src.views.listeners.ThemeListener;
 /**
  * This class allow to change the theme of the application.
  */
-public class ThemeUtil {
+public class ThemeUtils {
 
   public static final int LIGHT = 0;
   public static final int DARK = 1;
@@ -27,7 +27,7 @@ public class ThemeUtil {
   }
 
   private static void setTheme(int theme) {
-    ThemeUtil.theme = theme;
+    ThemeUtils.theme = theme;
     for (ThemeListener listener : listeners) {
       listener.updatedTheme();
     }

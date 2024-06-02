@@ -3,29 +3,25 @@ package src.views.main.menu;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
 import src.views.components.GridCenterPanel;
 import src.views.components.ImageThemed;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
+import src.views.utils.ThemeUtils;
 
-public class MainMenu extends JPanel {
+public class MainMenu extends JPanel implements ThemeListener {
   private CustomizedButton btnNewGame = new CustomizedButton("new-game");
   private CustomizedButton btnLoad = new CustomizedButton("load");
-  private ImageThemed backgroundImage;
-  private Image backgroundImageDark;
-
-  private boolean isLightTheme = true;
+  private ImageThemed backgroundImage = new ImageThemed("menu-bg.jpg");
 
   public MainMenu() {
-
+    ThemeUtils.addLanguageChangeListener(this);
     EventsHandler.setMainMenu(this);
 
     setLayout(new BorderLayout());
-    backgroundImage = new ImageThemed("menu-bg.jpg");
-    backgroundImageDark = new javax.swing.ImageIcon(getClass().getResource("/assets/images/MenuBg.jpg")).getImage();
 
     JPanel navbar = new TopBarMainMenu();
     add(navbar, BorderLayout.NORTH);
@@ -60,16 +56,11 @@ public class MainMenu extends JPanel {
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
-    if (isLightTheme)
-      g.drawImage(backgroundImageDark, 0, 0, this.getWidth(), this.getHeight(), this);
-    else
-      g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+    g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
   }
 
-  public void UpdateBackground(boolean isLightTheme) {
-    isLightTheme = isLightTheme;
+  @Override
+  public void updatedTheme() {
     repaint();
-    System.out.println("Background updated");
-    System.out.println(isLightTheme);
   }
 }

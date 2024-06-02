@@ -4,7 +4,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.utils.ImageUtils;
-import src.views.utils.ThemeUtil;
+import src.views.utils.ThemeUtils;
 
 public class ThemeButton extends JButton {
 
@@ -12,7 +12,7 @@ public class ThemeButton extends JButton {
   private TranslatedString tooltip;
 
   public ThemeButton() {
-    isLightTheme = ThemeUtil.getTheme() == ThemeUtil.LIGHT;
+    isLightTheme = ThemeUtils.getTheme() == ThemeUtils.LIGHT;
 
     // Load icons
     ImageIcon darkImg = ImageUtils.loadImage("dark.png", 30, 30);
@@ -35,7 +35,7 @@ public class ThemeButton extends JButton {
         setIcon(darkImg);
       }
       isLightTheme = !isLightTheme;
-      ThemeUtil.toggleTheme();
+      ThemeUtils.toggleTheme();
     });
 
     // Add tooltip
