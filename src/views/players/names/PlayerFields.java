@@ -12,6 +12,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import src.views.components.CustomizedButton;
 import src.views.components.CustomizedTextField;
+import src.views.components.TranslatedLabel;
 import src.views.components.TranslatedString;
 import src.views.listeners.LanguageChangeListener;
 import src.views.utils.EventsHandler;
@@ -33,6 +34,8 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
   private TranslatedString hardStr = new TranslatedString("hard");
   private TranslatedString aiStr = new TranslatedString("ai");
   private TranslatedString playerStr = new TranslatedString("player");
+  private TranslatedLabel startingPlayer = new TranslatedLabel("starting-player");
+  private TranslatedLabel startingPlayer2 = new TranslatedLabel("starting-player");
   private CustomizedTextField namePlayer1 = new CustomizedTextField(playerStr + "1");
   private CustomizedTextField namePlayer2 = new CustomizedTextField(playerStr + "2");
   private JComboBox<TranslatedString> aiLevelPlayer1 = new JComboBox<>(
@@ -56,6 +59,14 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     JPanel playerFieldsWrapper = new JPanel();
     playerFieldsWrapper.setOpaque(false);
     playerFieldsWrapper.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+
+    // Starting player
+    JPanel startingPlayerPanel = new JPanel();
+    startingPlayerPanel.setOpaque(false);
+    startingPlayerPanel.setLayout(new GridLayout(1, 3));
+    startingPlayerPanel.setPreferredSize(new Dimension(componentWidth, componentHeight));
+    startingPlayerPanel.add(startingPlayer);
+    startingPlayerPanel.add(startingPlayer2);
 
     // First player
     JPanel player1Panel = new JPanel();
@@ -94,6 +105,7 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     startButtonWrapper.add(startButtonPanel);
     startButtonPanel.add(btnStartGame);
 
+    add(startingPlayerPanel);
     add(playerFieldsWrapper);
     add(Box.createRigidArea(new Dimension(0, spacing))); // Divider
     add(startButtonWrapper);

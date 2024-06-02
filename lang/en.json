@@ -52,5 +52,6 @@
   "medium": "Medium",
   "hard": "Hard",
   "ai": "AI",
-  "player": "Player"
+  "player": "Player",
+  "starting-player": "Starts"
 }

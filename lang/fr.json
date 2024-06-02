@@ -52,5 +52,6 @@
   "medium": "Moyen",
   "hard": "Difficile",
   "ai": "IA",
-  "player": "Joueur"
+  "player": "Joueur",
+  "starting-player": "Commence"
 }
