@@ -31,6 +31,7 @@ public class PlayerFields extends JPanel {
   private TranslatedString easyStr = new TranslatedString("easy");
   private TranslatedString mediumStr = new TranslatedString("medium");
   private TranslatedString hardStr = new TranslatedString("hard");
+  private TranslatedString aiStr = new TranslatedString("ai");
   private JComboBox<TranslatedString> aiLevelPlayer1 = new JComboBox<>(
       new TranslatedString[] { easyStr, mediumStr, hardStr });
   private JComboBox<TranslatedString> aiLevelPlayer2 = new JComboBox<>(
@@ -222,11 +223,11 @@ public class PlayerFields extends JPanel {
   private String getAIName(int level) {
     switch (level) {
     case 2:
-      return capitalizeFirstLetter(easyStr.getText()) + "-AI";
+      return capitalizeFirstLetter(easyStr.getText()) + aiStr;
     case 3:
-      return capitalizeFirstLetter(mediumStr.getText()) + "-AI";
+      return capitalizeFirstLetter(mediumStr.getText()) + aiStr;
     case 4:
-      return capitalizeFirstLetter(hardStr.getText()) + "-AI";
+      return capitalizeFirstLetter(hardStr.getText()) + aiStr;
     default:
       return "Player";
     }

@@ -50,5 +50,6 @@
   "cant-select-pawn": "You can't select a pawn right now",
   "easy": "Easy",
   "medium": "Medium",
-  "hard": "Hard"
+  "hard": "Hard",
+  "ai": "AI"
 }

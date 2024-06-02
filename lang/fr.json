@@ -50,5 +50,6 @@
   "cant-select-pawn": "Impossible de sélectionner un pion maintenant",
   "easy": "Facile",
   "medium": "Moyen",
-  "hard": "Difficile"
+  "hard": "Difficile",
+  "ai": "IA"
 }
