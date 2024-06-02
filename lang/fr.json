@@ -56,5 +56,11 @@
   "starting-player": "Commence",
   "enter-name": "Entrer le nom :",
   "selected-the-pawn": "a sélectionné le pion",
-  "placed-it-at": "l'a placé en"
+  "placed-it-at": "l'a placé en",
+  "close-confirm": "Êtes-vous sûr de vouloir quitter ?",
+  "close-title": "Quitter",
+  "delete-confirm": "Êtes-vous sûr de vouloir supprimer cette sauvegarde ?",
+  "delete-title": "Supprimer",
+  "yes": "Oui",
+  "no": "Non"
 }
