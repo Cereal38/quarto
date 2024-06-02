@@ -2,6 +2,7 @@ package src.views.components;
 
 import java.awt.AlphaComposite;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -37,6 +38,9 @@ public class CustomizedButton extends JButton implements ThemeListener {
 
     // Add styles
     setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+    // Increase buttons font size
+    setFont(new Font(getFont().getFontName(), getFont().getStyle(), 16));
   }
 
   @Override
