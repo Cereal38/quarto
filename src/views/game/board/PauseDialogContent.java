@@ -6,7 +6,9 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import src.views.MainFrame;
 import src.views.components.CustomizedButton;
+import src.views.load.save.SavePage;
 import src.views.rules.RulesPage;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
@@ -43,8 +45,9 @@ public class PauseDialogContent extends JPanel {
     });
 
     btnSave.addActionListener(e -> {
-      EventsHandler.navigate("SavePage");
+      // EventsHandler.navigate("SavePage");
       EventsHandler.hideDialog();
+      EventsHandler.showDialog(new SavePage(MainFrame.getLoadPage()), true);
     });
 
     btnRules.addActionListener(e -> {

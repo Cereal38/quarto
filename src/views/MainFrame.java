@@ -26,10 +26,11 @@ public class MainFrame extends JFrame {
   private DialogPanel dialog;
   private DialogPanel rules;
   private DialogPanel about;
-  private LoadPage loadPage;
+  private static LoadPage loadPage;
   private SavePage savePage;
   private RulesPage rulesPage;
   private RulesPage aboutPage;
+  private DialogPanel save;
 
   public MainFrame() {
     setTitle("Quarto Game");
@@ -69,12 +70,15 @@ public class MainFrame extends JFrame {
     dialog = new DialogPanel(this);
     rules = new DialogPanel(this);
     about = new DialogPanel(this);
+    save = new DialogPanel(this);
     dialog.setVisible(false);
     rules.setVisible(false);
     about.setVisible(false);
+    save.setVisible(false);
     getLayeredPane().add(dialog, -1);
     getLayeredPane().add(rules, -1);
     getLayeredPane().add(about, -1);
+    getLayeredPane().add(save, -1);
 
     // Setup the EventsHandler
     EventsHandler.setCardLayout(cardLayout);
@@ -83,11 +87,16 @@ public class MainFrame extends JFrame {
     EventsHandler.setDialog(dialog);
     EventsHandler.setDialog(rules);
     EventsHandler.setDialog(about);
+    EventsHandler.setDialog(save);
 
     // Load all pawns
     PawnUtils.initPawns();
 
     setVisible(true);
+  }
+
+  public static LoadPage getLoadPage (){
+    return loadPage;
   }
 
 }
