@@ -5,40 +5,26 @@ import java.awt.Cursor;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.listeners.ThemeListener;
+import src.views.utils.ThemeUtils;
 
 /**
  * A button with a skin.
  */
-public class CustomizedButton extends JButton {
+public class CustomizedButton extends JButton implements ThemeListener {
 
   TranslatedString translatedString;
-  private static ImageIcon buttonImage;
-  private static ImageIcon buttonImageHover;
-  private static ImageIcon buttonImageClicked;
-
-  // Load the button images only once
-  static {
-    try {
-      Image img = ImageIO.read(new File("assets/images/text-button.png"));
-      buttonImage = new ImageIcon(img);
-
-      img = ImageIO.read(new File("assets/images/text-button-hovered.png"));
-      buttonImageHover = new ImageIcon(img);
-
-      img = ImageIO.read(new File("assets/images/text-button-clicked.png"));
-      buttonImageClicked = new ImageIcon(img);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
+  // private static ImageIcon buttonImage;
+  // private static ImageIcon buttonImageHover;
+  // private static ImageIcon buttonImageClicked;
+  private ImageThemed buttonImage = new ImageThemed("text-button.png");
+  private ImageThemed buttonImageHover = new ImageThemed("text-button-hovered.png");
+  private ImageThemed buttonImageClicked = new ImageThemed("text-button-clicked.png");
 
   public CustomizedButton(String key) {
     super();
+    ThemeUtils.addThemeListener(this);
 
     translatedString = new TranslatedString(key, this);
 
@@ -91,6 +77,11 @@ public class CustomizedButton extends JButton {
 
   public void setKey(String key) {
     translatedString.setKey(key);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 
 }
