@@ -3,8 +3,11 @@ package src.views.players.names;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,11 +15,12 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import src.views.components.CustomizedButton;
 import src.views.components.CustomizedTextField;
-import src.views.components.TranslatedLabel;
+import src.views.components.Field;
 import src.views.components.TranslatedString;
 import src.views.listeners.LanguageChangeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.ImageUtils;
 import src.views.utils.LangUtils;
 
 /**
@@ -34,8 +38,9 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
   private TranslatedString hardStr = new TranslatedString("hard");
   private TranslatedString aiStr = new TranslatedString("ai");
   private TranslatedString playerStr = new TranslatedString("player");
-  private TranslatedLabel startingPlayer = new TranslatedLabel("starting-player");
-  private TranslatedLabel startingPlayer2 = new TranslatedLabel("starting-player");
+  private TranslatedString startingPlayer = new TranslatedString("starting-player");
+  private Field startingPlayer1 = new Field(startingPlayer.getText(), true);
+  private Field startingPlayer2 = new Field(startingPlayer.getText(), false);
   private CustomizedTextField namePlayer1 = new CustomizedTextField(playerStr + "1");
   private CustomizedTextField namePlayer2 = new CustomizedTextField(playerStr + "2");
   private JComboBox<TranslatedString> aiLevelPlayer1 = new JComboBox<>(
@@ -55,6 +60,7 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     int spacing = 10;
     int vsLabelWidth = 100;
     int startButtonWidth = 2 * componentWidth + vsLabelWidth;
+    int arrowSize = 32;
 
     JPanel playerFieldsWrapper = new JPanel();
     playerFieldsWrapper.setOpaque(false);
@@ -63,9 +69,16 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     // Starting player
     JPanel startingPlayerPanel = new JPanel();
     startingPlayerPanel.setOpaque(false);
-    startingPlayerPanel.setLayout(new GridLayout(1, 3));
+    startingPlayerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
     startingPlayerPanel.setPreferredSize(new Dimension(componentWidth, componentHeight));
-    startingPlayerPanel.add(startingPlayer);
+    startingPlayer1.setPreferredSize(new Dimension(componentWidth, componentHeight));
+    startingPlayer2.setPreferredSize(new Dimension(componentWidth, componentHeight));
+    ImageIcon doubleArrow = ImageUtils.loadImage("double-sided-arrow.png", arrowSize, arrowSize);
+    JButton switchButton = ImageUtils.createButtonFromImage(doubleArrow);
+    switchButton.setBorder(
+        BorderFactory.createEmptyBorder(0, vsLabelWidth / 2 - arrowSize / 2, 0, vsLabelWidth / 2 - arrowSize / 2));
+    startingPlayerPanel.add(startingPlayer1);
+    startingPlayerPanel.add(switchButton);
     startingPlayerPanel.add(startingPlayer2);
 
     // First player
@@ -79,7 +92,7 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     // VS
     JPanel vsPanel = new JPanel();
     vsPanel.setOpaque(false);
-    vsPanel.setPreferredSize(new Dimension(vsLabelWidth, componentHeight));
+    vsPanel.setPreferredSize(new Dimension(vsLabelWidth, vsLabelWidth));
     vsPanel.add(new JLabel("VS"));
 
     // Second player
@@ -106,6 +119,7 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     startButtonPanel.add(btnStartGame);
 
     add(startingPlayerPanel);
+    add(Box.createRigidArea(new Dimension(0, spacing))); // Divider
     add(playerFieldsWrapper);
     add(Box.createRigidArea(new Dimension(0, spacing))); // Divider
     add(startButtonWrapper);
