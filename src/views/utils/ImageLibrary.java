@@ -23,6 +23,8 @@ public class ImageLibrary {
     loadImage("text-button-clicked.png");
     loadImage("bg-board.png");
     loadImage("board.png");
+    loadImage("field-on.png");
+    loadImage("field-off.png");
   }
 
   private static void loadImage(String name) {
