@@ -41,7 +41,7 @@ public class QuartoWin {
     boolean win = checkWin(table[line]);
     if (win) {
       int[] axis;
-      winLine.clear();
+      clearWinLine();
       for (int column = 0; column < 4; column++) {
         axis = new int[2];
         axis[0] = line;
@@ -60,7 +60,7 @@ public class QuartoWin {
     boolean win = checkWin(columnArray);
     if (win) {
       int[] axis;
-      winLine.clear();
+      clearWinLine();
       for (int line = 0; line < 4; line++) {
         axis = new int[2];
         axis[0] = line;
@@ -80,7 +80,7 @@ public class QuartoWin {
       boolean win = checkWin(diagonalArray);
       if (win) {
         int[] axis;
-        winLine.clear();
+        clearWinLine();
         for (int i = 0; i < 4; i++) {
           axis = new int[2];
           axis[0] = i;
@@ -91,5 +91,9 @@ public class QuartoWin {
       return win;
     }
     return false;
+  }
+
+  public void clearWinLine() {
+    winLine.clear();
   }
 }
