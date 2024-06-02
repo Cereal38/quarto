@@ -48,6 +48,9 @@ public class MainFrame extends JFrame {
       }
     });
 
+    // Load all images
+    ImageLibrary.loadImages();
+
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
     choosePlayers = new ChoosePlayers();
@@ -101,9 +104,6 @@ public class MainFrame extends JFrame {
 
     // Load all pawns
     PawnUtils.initPawns();
-
-    // Load all images
-    ImageLibrary.loadImages();
 
     setVisible(true);
   }

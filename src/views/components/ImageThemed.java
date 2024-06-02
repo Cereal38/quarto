@@ -1,13 +1,11 @@
 package src.views.components;
 
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import src.views.listeners.ThemeListener;
+import src.views.utils.ImageLibrary;
 import src.views.utils.ThemeUtils;
 
 public class ImageThemed implements ThemeListener {
@@ -19,12 +17,11 @@ public class ImageThemed implements ThemeListener {
 
   public ImageThemed(String name) {
     this.name = name;
-    try {
-      this.imageLight = ImageIO.read(new File("assets/images/light/" + name));
-      this.imageDark = ImageIO.read(new File("assets/images/dark/" + name));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+
+    // Get the image from the library
+    this.imageLight = ImageLibrary.getImage("light", name);
+    this.imageDark = ImageLibrary.getImage("dark", name);
+
     ThemeUtils.addLanguageChangeListener(this);
     listeners.add(this);
     updatedTheme();
@@ -45,6 +42,9 @@ public class ImageThemed implements ThemeListener {
   }
 
   public void setSize(int width, int height) {
+    if (imageLight == null || imageDark == null) {
+      return;
+    }
     imageLight = imageLight.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     imageDark = imageDark.getScaledInstance(width, height, Image.SCALE_SMOOTH);
   }
