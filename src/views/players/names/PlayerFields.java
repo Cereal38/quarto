@@ -1,11 +1,21 @@
 package src.views.players.names;
 
-import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
 import src.views.components.CustomizedButton;
 import src.views.components.CustomizedTextField;
+import src.views.components.TranslatedString;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
@@ -18,8 +28,13 @@ public class PlayerFields extends JPanel {
   private CustomizedButton btnStartGame = new CustomizedButton("start");
   private boolean player1IsAI = false;
   private boolean player2IsAI = false;
-  private JComboBox<String> aiLevelPlayer1 = new JComboBox<>(new String[]{"easy", "medium", "hard"});
-  private JComboBox<String> aiLevelPlayer2 = new JComboBox<>(new String[]{"easy", "medium", "hard"});
+  private TranslatedString easyString = new TranslatedString("easy");
+  private TranslatedString mediumString = new TranslatedString("medium");
+  private TranslatedString hardString = new TranslatedString("hard");
+  private JComboBox<TranslatedString> aiLevelPlayer1 = new JComboBox<>(
+      new TranslatedString[] { easyString, mediumString, hardString });
+  private JComboBox<TranslatedString> aiLevelPlayer2 = new JComboBox<>(
+      new TranslatedString[] { easyString, mediumString, hardString });
 
   public PlayerFields() {
     setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -122,8 +137,10 @@ public class PlayerFields extends JPanel {
     });
 
     btnStartGame.addActionListener(e -> {
-      int player1 = player1IsAI ? getAIPlayerLevel(aiLevelPlayer1) : 0;
-      int player2 = player2IsAI ? getAIPlayerLevel(aiLevelPlayer2) : 0;
+      // int player1 = player1IsAI ? getAIPlayerLevel(aiLevelPlayer1) : 0; // TODO:
+      // Fix this
+      int player1 = 0;
+      int player2 = 0;
 
       if (player1 == 0) {
         namePlayer1.setText(namePlayer1.getText());
@@ -204,31 +221,30 @@ public class PlayerFields extends JPanel {
 
   private int getAIPlayerLevel(JComboBox<String> levelList) {
     switch ((String) levelList.getSelectedItem()) {
-      case "easy":
-        return 1;
-      case "medium":
-        return 2;
-      case "hard":
-        return 3;
+    case "easy":
+      return 1;
+    case "medium":
+      return 2;
+    case "hard":
+      return 3;
     }
     return 0;
   }
 
   private String getAIName(int ai) {
     switch (ai) {
-      case 1:
-        return "EasyAI";
-      case 2:
-        return "MediumAI";
-      case 3:
-        return "HardAI";
+    case 1:
+      return "EasyAI";
+    case 2:
+      return "MediumAI";
+    case 3:
+      return "HardAI";
     }
     return "Player";
   }
 
   private void updateStartButtonState() {
-    boolean enabled = namePlayer1.getText().trim().length() > 0 &&
-            namePlayer2.getText().trim().length() > 0;
+    boolean enabled = namePlayer1.getText().trim().length() > 0 && namePlayer2.getText().trim().length() > 0;
     btnStartGame.setEnabled(enabled);
   }
 }
