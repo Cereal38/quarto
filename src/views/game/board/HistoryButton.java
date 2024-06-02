@@ -4,25 +4,28 @@ import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
-import src.views.utils.ImageUtils;
+import src.views.listeners.ThemeListener;
+import src.views.utils.ThemeUtils;
 
-public class HistoryButton extends JButton {
+public class HistoryButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
-  private boolean isLightTheme = true;
-  // Load icon
-  ImageIcon HistoryImg = ImageUtils.loadImage("history.png", 32, 32);
-  ImageIcon HistoryWhiteImg = ImageUtils.loadImage("history.png", 32, 32);
+  private ImageThemed image = new ImageThemed("history.png");
 
   public HistoryButton() {
+    ThemeUtils.addThemeListener(this);
 
     // cursor : pointer
     setCursor(new Cursor(Cursor.HAND_CURSOR));
 
     // Add style
-    setIcon(HistoryImg);
+    image.setSize(32, 32);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
+    ;
 
     addActionListener(e -> {
     });
@@ -30,8 +33,9 @@ public class HistoryButton extends JButton {
     tooltip = new TranslatedString("historyButton", this, true);
   }
 
-  public void updateIcon(boolean isLightTheme) {
-    this.isLightTheme = isLightTheme;
-    setIcon(isLightTheme ? HistoryImg : HistoryWhiteImg);
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
   }
 }
