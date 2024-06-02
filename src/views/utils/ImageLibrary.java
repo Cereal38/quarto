@@ -54,6 +54,7 @@ public class ImageLibrary {
     loadImage("squared-background.png");
     loadImage("crown.png");
     loadImage("undo.png");
+    loadImage("redo.png");
   }
 
   private static void loadImage(String name) {
