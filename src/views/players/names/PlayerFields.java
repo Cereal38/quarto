@@ -197,7 +197,12 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
         namePlayer2.setText(namePlayer2.getText() + " 2");
       }
 
-      EventsHandler.getController().createModel(player1, player2, namePlayer1.getText(), namePlayer2.getText());
+      // Set fields order according to the starting player
+      if (player1starts) {
+        EventsHandler.getController().createModel(player1, player2, namePlayer1.getText(), namePlayer2.getText());
+      } else {
+        EventsHandler.getController().createModel(player2, player1, namePlayer2.getText(), namePlayer1.getText());
+      }
 
       // Start the game
       GameStatusHandler.startGame();
