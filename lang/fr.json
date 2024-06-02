@@ -53,5 +53,6 @@
   "hard": "Difficile",
   "ai": "IA",
   "player": "Joueur",
-  "starting-player": "Commence"
+  "starting-player": "Commence",
+  "enter-name": "Entrer le nom :"
 }

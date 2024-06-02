@@ -53,5 +53,6 @@
   "hard": "Hard",
   "ai": "AI",
   "player": "Player",
-  "starting-player": "Starts"
+  "starting-player": "Starts",
+  "enter-name": "Enter name :"
 }
