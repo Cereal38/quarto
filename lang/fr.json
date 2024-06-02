@@ -60,5 +60,7 @@
   "close-confirm": "Êtes-vous sûr de vouloir quitter ?",
   "close-title": "Quitter",
   "delete-confirm": "Êtes-vous sûr de vouloir supprimer cette sauvegarde ?",
-  "delete-title": "Supprimer"
+  "delete-title": "Supprimer",
+  "yes": "Oui",
+  "no": "Non"
 }

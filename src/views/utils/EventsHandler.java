@@ -199,10 +199,12 @@ public class EventsHandler {
   }
 
   public static void closeApp() {
-    int response = JOptionPane.showConfirmDialog(mainPanel, new TranslatedString("close-confirm"),
-        new TranslatedString("close-title").getText(), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
+    Object[] options = { new TranslatedString("yes"), new TranslatedString("no") };
+    int response = JOptionPane.showOptionDialog(mainPanel, new TranslatedString("close-confirm"),
+        new TranslatedString("close-title").getText(), JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
+        options, options[0]);
 
-    if (response == JOptionPane.YES_OPTION) {
+    if (response == 0) {
       System.exit(0); // Exit the application
     }
   }
