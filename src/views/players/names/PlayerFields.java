@@ -137,10 +137,8 @@ public class PlayerFields extends JPanel {
     });
 
     btnStartGame.addActionListener(e -> {
-      // int player1 = player1IsAI ? getAIPlayerLevel(aiLevelPlayer1) : 0; // TODO:
-      // Fix this
-      int player1 = 0;
-      int player2 = 0;
+      int player1 = player1IsAI ? getAIPlayerLevel(aiLevelPlayer1) : 0;
+      int player2 = player2IsAI ? getAIPlayerLevel(aiLevelPlayer2) : 0;
 
       if (player1 == 0) {
         namePlayer1.setText(namePlayer1.getText());
@@ -219,7 +217,7 @@ public class PlayerFields extends JPanel {
     repaint();
   }
 
-  private int getAIPlayerLevel(JComboBox<String> levelList) {
+  private int getAIPlayerLevel(JComboBox<TranslatedString> levelList) {
     switch ((String) levelList.getSelectedItem()) {
     case "easy":
       return 1;
@@ -234,11 +232,11 @@ public class PlayerFields extends JPanel {
   private String getAIName(int ai) {
     switch (ai) {
     case 1:
-      return "EasyAI";
+      return easyString + "AI";
     case 2:
-      return "MediumAI";
+      return mediumString + "AI";
     case 3:
-      return "HardAI";
+      return hardString + "AI";
     }
     return "Player";
   }
