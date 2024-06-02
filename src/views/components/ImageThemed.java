@@ -4,9 +4,27 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
+import java.io.File;
+import javax.imageio.ImageIO;
 import src.views.listeners.ThemeListener;
+import src.views.utils.ThemeUtil;
 
 public class ImageThemed extends Image implements ThemeListener {
+
+  private String name;
+  private Image image;
+
+  public ImageThemed(String name) {
+    this.name = name;
+    try {
+      String theme = ThemeUtil.getThemeName();
+      this.image = ImageIO.read(new File("assets/images/" + theme + "/" + name));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    updatedTheme();
+    ThemeUtil.addLanguageChangeListener(this);
+  }
 
   @Override
   public void updatedTheme() {

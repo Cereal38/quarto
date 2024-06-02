@@ -8,24 +8,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
 import src.views.components.GridCenterPanel;
+import src.views.components.ImageThemed;
 import src.views.utils.EventsHandler;
 
 public class MainMenu extends JPanel {
   private CustomizedButton btnNewGame = new CustomizedButton("new-game");
   private CustomizedButton btnLoad = new CustomizedButton("load");
-    private Image backgroundImage;
-    private Image backgroundImageDark;
+  private ImageThemed backgroundImage;
+  private Image backgroundImageDark;
 
-    private boolean isLightTheme = true;
-
-
+  private boolean isLightTheme = true;
 
   public MainMenu() {
 
     EventsHandler.setMainMenu(this);
 
     setLayout(new BorderLayout());
-    backgroundImage = new javax.swing.ImageIcon(getClass().getResource("/assets/images/MenuBgDark.jpg")).getImage();
+    backgroundImage = new ImageThemed("menu-bg.jpg");
     backgroundImageDark = new javax.swing.ImageIcon(getClass().getResource("/assets/images/MenuBg.jpg")).getImage();
 
     JPanel navbar = new TopBarMainMenu();
@@ -56,22 +55,21 @@ public class MainMenu extends JPanel {
     menu.add(btnNewGame);
     menu.add(btnLoad);
 
-
   }
 
-    @Override
-    protected void paintComponent(java.awt.Graphics g) {
-        super.paintComponent(g);
-        if( isLightTheme )
-            g.drawImage(backgroundImageDark, 0, 0, this.getWidth(), this.getHeight(), this);
-        else
-        g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
-    }
+  @Override
+  protected void paintComponent(java.awt.Graphics g) {
+    super.paintComponent(g);
+    if (isLightTheme)
+      g.drawImage(backgroundImageDark, 0, 0, this.getWidth(), this.getHeight(), this);
+    else
+      g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+  }
 
-    public void UpdateBackground(boolean isLightTheme) {
-        isLightTheme = isLightTheme;
-        repaint();
-        System.out.println("Background updated");
-        System.out.println(isLightTheme);
-    }
+  public void UpdateBackground(boolean isLightTheme) {
+    isLightTheme = isLightTheme;
+    repaint();
+    System.out.println("Background updated");
+    System.out.println(isLightTheme);
+  }
 }

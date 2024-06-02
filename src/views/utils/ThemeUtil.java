@@ -42,4 +42,8 @@ public class ThemeUtil {
     return theme;
   }
 
+  public static String getThemeName() {
+    return theme == LIGHT ? "light" : "dark";
+  }
+
 }
