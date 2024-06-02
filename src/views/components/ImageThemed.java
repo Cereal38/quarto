@@ -6,12 +6,10 @@ import src.views.utils.ThemeUtils;
 
 public class ImageThemed {
 
-  private String name;
   private Image imageLight;
   private Image imageDark;
 
   public ImageThemed(String name) {
-    this.name = name;
 
     // Get the image from the library
     this.imageLight = ImageLibrary.getImage("light", name);
