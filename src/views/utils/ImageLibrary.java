@@ -42,6 +42,12 @@ public class ImageLibrary {
     loadImage("1101.png");
     loadImage("1110.png");
     loadImage("1111.png");
+    loadImage("pawns-bar-left-slot.png");
+    loadImage("pawns-bar-left-slot-hovered.png");
+    loadImage("pawns-bar-left-slot-selected.png");
+    loadImage("pawns-bar-right-slot.png");
+    loadImage("pawns-bar-right-slot-hovered.png");
+    loadImage("pawns-bar-right-slot-selected.png");
   }
 
   private static void loadImage(String name) {
