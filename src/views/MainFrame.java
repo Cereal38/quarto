@@ -16,6 +16,7 @@ import src.views.players.names.ChoosePlayers;
 import src.views.rules.RulesPage;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
+import src.views.utils.ImageLibrary;
 import src.views.utils.PawnUtils;
 
 public class MainFrame extends JFrame {
@@ -100,6 +101,9 @@ public class MainFrame extends JFrame {
 
     // Load all pawns
     PawnUtils.initPawns();
+
+    // Load all images
+    ImageLibrary.loadImages();
 
     setVisible(true);
   }

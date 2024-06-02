@@ -15,7 +15,7 @@ public class ImageLibrary {
   private static java.util.Map<String, Image> imageMap = new HashMap<>();
 
   // Load all images and store them in the imageMap
-  public void loadImages() {
+  public static void loadImages() {
     loadImage("main-menu.jpg");
     loadImage("quarto.png");
   }
