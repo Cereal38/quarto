@@ -192,10 +192,6 @@ public class EventsHandler {
     if (pauseMenuButton != null) {
       pauseMenuButton.updateIcon(theme == 0);
     }
-
-    if (mainMenu != null) {
-      mainMenu.UpdateBackground(theme == 0);
-    }
   }
 
   public static void closeApp() {
