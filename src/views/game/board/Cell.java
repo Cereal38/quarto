@@ -84,7 +84,7 @@ public class Cell extends JPanel {
     }
 
     if (highlighted) {
-      g.drawImage(highlightImage, 0, 0, getWidth(), getHeight(), this);
+      g.drawImage(highlightImage, 15, 15, getWidth() - 30, getHeight() - 30, this);
     }
   }
 
