@@ -26,11 +26,17 @@ public class ThemeUtil {
     listeners.remove(listener);
   }
 
-  public static void setTheme(int theme) {
+  private static void setTheme(int theme) {
     ThemeUtil.theme = theme;
     for (ThemeListener listener : listeners) {
       listener.updatedTheme();
     }
+    System.out.println("Theme updated to " + (theme == LIGHT ? "light" : "dark"));
+  }
+
+  public static void toggleTheme() {
+    int newTheme = theme == LIGHT ? DARK : LIGHT;
+    setTheme(newTheme);
   }
 
   public static int getTheme() {
