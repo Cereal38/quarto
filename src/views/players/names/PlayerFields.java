@@ -39,8 +39,9 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
   private TranslatedString aiStr = new TranslatedString("ai");
   private TranslatedString playerStr = new TranslatedString("player");
   private TranslatedString startingPlayer = new TranslatedString("starting-player");
-  private Field startingPlayer1 = new Field(startingPlayer.getText(), true);
-  private Field startingPlayer2 = new Field(startingPlayer.getText(), false);
+  private boolean player1starts = false;
+  private Field startingPlayer1;
+  private Field startingPlayer2;
   private CustomizedTextField namePlayer1 = new CustomizedTextField(playerStr + "1");
   private CustomizedTextField namePlayer2 = new CustomizedTextField(playerStr + "2");
   private JComboBox<TranslatedString> aiLevelPlayer1 = new JComboBox<>(
@@ -71,6 +72,8 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     startingPlayerPanel.setOpaque(false);
     startingPlayerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
     startingPlayerPanel.setPreferredSize(new Dimension(componentWidth, componentHeight));
+    startingPlayer1 = new Field(startingPlayer.getText(), player1starts);
+    startingPlayer2 = new Field(startingPlayer.getText(), !player1starts);
     startingPlayer1.setPreferredSize(new Dimension(componentWidth, componentHeight));
     startingPlayer2.setPreferredSize(new Dimension(componentWidth, componentHeight));
     ImageIcon doubleArrow = ImageUtils.loadImage("double-sided-arrow.png", arrowSize, arrowSize);
