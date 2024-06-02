@@ -2,21 +2,23 @@ package src.views.game.board;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import src.views.components.ImageThemed;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
+import src.views.utils.ThemeUtils;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements ThemeListener {
 
   private Cell[][] cells = new Cell[4][4];
-  private Image bgImage;
-  private Image backGroundImage;
+  private ImageThemed boardImage = new ImageThemed("board.png");
 
   public Board(int width, int height, int cellSize) {
+
+    ThemeUtils.addThemeListener(this);
+
+    setOpaque(false);
 
     setLayout(new GridLayout(4, 4));
     setPreferredSize(new Dimension(width, height));
@@ -34,20 +36,18 @@ public class Board extends JPanel {
       }
     }
 
-    try {
-      bgImage = ImageIO.read(new File("assets/images/board.png"));
-      backGroundImage = new ImageIcon(getClass().getResource("/assets/images/bg-board.png")).getImage();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
     // Draw background image
-    g.drawImage(backGroundImage, 0, 0, getWidth(), getHeight(), this);
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(boardImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 
 }

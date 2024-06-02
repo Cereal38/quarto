@@ -21,6 +21,8 @@ public class ImageLibrary {
     loadImage("text-button.png");
     loadImage("text-button-hovered.png");
     loadImage("text-button-clicked.png");
+    loadImage("bg-board.png");
+    loadImage("board.png");
   }
 
   private static void loadImage(String name) {
