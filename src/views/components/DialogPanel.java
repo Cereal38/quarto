@@ -1,3 +1,7 @@
+/**
+ * A custom JPanel class that represents a dialog panel. This panel is used to
+ * display a custom dialog on top of the main frame.
+ */
 package src.views.components;
 
 import java.awt.BorderLayout;
@@ -11,10 +15,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
- * A custom JPanel class that represents a dialog panel. This panel is used to
- * display a custom dialog on top of the main frame.
- */
 public class DialogPanel extends JPanel {
 
   private JPanel dialog;
