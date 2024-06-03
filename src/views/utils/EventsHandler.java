@@ -24,34 +24,75 @@ public class EventsHandler {
   private static MainMenu mainMenu;
   private static MovesHistory movesHistory;
 
+  /**
+   * Sets the main menu of the application.
+   *
+   * @param mainMenu The main menu panel.
+   */
   public static void setMainMenu(MainMenu mainMenu) {
     EventsHandler.mainMenu = mainMenu;
   }
 
+  /**
+   * Sets the moves history panel of the application.
+   *
+   * @param movesHistory The moves history panel.
+   */
   public static void setMovesHistory(MovesHistory movesHistory) {
     EventsHandler.movesHistory = movesHistory;
   }
 
+  /**
+   * Sets the card layout of the main panel.
+   *
+   * @param cardLayout The card layout.
+   */
   public static void setCardLayout(CardLayout cardLayout) {
     EventsHandler.cardLayout = cardLayout;
   }
 
+  /**
+   * Sets the main panel of the application.
+   *
+   * @param mainPanel The main panel.
+   */
   public static void setMainPanel(JPanel mainPanel) {
     EventsHandler.mainPanel = mainPanel;
   }
 
+  /**
+   * Gets the main panel of the application.
+   *
+   * @return The main panel.
+   */
   public static JPanel getMainPanel() {
     return mainPanel;
   }
 
+
+  /**
+   * Sets the dialog panel for displaying dialogs.
+   *
+   * @param dialog The dialog panel.
+   */
   public static void setDialog(DialogPanel dialog) {
     EventsHandler.dialog = dialog;
   }
 
+  /**
+   * Sets the snackbar panel for displaying notifications.
+   *
+   * @param snackbar The snackbar panel.
+   */
   public static void setSnackbar(SnackbarPanel snackbar) {
     EventsHandler.snackbar = snackbar;
   }
 
+  /**
+   * Gets the controller for managing the view model.
+   *
+   * @return The view model controller.
+   */
   public static ViewModelController getController() {
     return controller;
   }
@@ -78,6 +119,11 @@ public class EventsHandler {
     dialog.setCloseable(closeable);
   }
 
+  /**
+   * Displays a snackbar notification with the specified message.
+   *
+   * @param message The message to be displayed in the snackbar.
+   */
   public static void showSnackbar(String message) {
     snackbar.setMessage(message);
     snackbar.setVisible(true);
@@ -90,6 +136,9 @@ public class EventsHandler {
     dialog.setVisible(false);
   }
 
+  /**
+   * Closes the application after confirming with the user.
+   */
   public static void closeApp() {
     Object[] options = { new TranslatedString("yes"), new TranslatedString("no") };
     int response = JOptionPane.showOptionDialog(mainPanel, new TranslatedString("close-confirm"),

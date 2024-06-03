@@ -11,8 +11,9 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.ThemeUtils;
 
 /**
- * A button with a skin.
+ * A button with a customized appearance.
  */
+
 public class CustomizedButton extends JButton implements ThemeListener {
 
   TranslatedString translatedString;
@@ -23,6 +24,11 @@ public class CustomizedButton extends JButton implements ThemeListener {
   private ImageThemed buttonImageHover = new ImageThemed("text-button-hovered.png");
   private ImageThemed buttonImageClicked = new ImageThemed("text-button-clicked.png");
 
+  /**
+   * Constructs a CustomizedButton with the specified key.
+   *
+   * @param key the translation key for the button text
+   */
   public CustomizedButton(String key) {
     super();
     ThemeUtils.addThemeListener(this);
@@ -79,6 +85,11 @@ public class CustomizedButton extends JButton implements ThemeListener {
     }
   }
 
+  /**
+   * Sets the translation key for the button text.
+   *
+   * @param key the translation key for the button text
+   */
   public void setKey(String key) {
     translatedString.setKey(key);
   }

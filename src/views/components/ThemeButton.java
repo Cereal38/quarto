@@ -6,11 +6,17 @@ import javax.swing.JButton;
 import src.views.utils.ImageUtils;
 import src.views.utils.ThemeUtils;
 
+/**
+ * A button to toggle between light and dark themes.
+ */
 public class ThemeButton extends JButton {
 
   private boolean isLightTheme;
   private TranslatedString tooltip;
 
+  /**
+   * Constructs a new ThemeButton.
+   */
   public ThemeButton() {
     isLightTheme = ThemeUtils.getTheme() == ThemeUtils.LIGHT;
 

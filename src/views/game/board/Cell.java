@@ -15,6 +15,9 @@ import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
+/**
+ * Represents a cell on the game board.
+ */
 public class Cell extends JPanel {
   private Pawn pawn;
   private int line;
@@ -24,6 +27,14 @@ public class Cell extends JPanel {
   private boolean highlighted;
   private Image highlightImage;
 
+  /**
+   * Constructs a cell with the specified pawn, line, column, and highlighted state.
+   *
+   * @param pawn       the pawn associated with this cell
+   * @param line       the line index of the cell
+   * @param column     the column index of the cell
+   * @param highlighted true if the cell is highlighted, false otherwise
+   */
   public Cell(Pawn pawn, int line, int column, boolean highlighted) {
     setOpaque(false);
 
@@ -88,18 +99,23 @@ public class Cell extends JPanel {
     }
   }
 
+  /**
+   * Checks if this cell has a pawn.
+   *
+   * @return true if the cell has a pawn, false otherwise
+   */
   public boolean hasPawn() {
     return pawn != null;
   }
 
   /**
    * Checks if a player can play a pawn in this cell.
-   * 
-   * @return true if it's possible.
+   *
+   * @return true if a pawn can be played, false otherwise
    */
   private boolean canPlay() {
     return EventsHandler.getController().isPlayPhase() && !hasPawn()
-        && !EventsHandler.getController().isCurrentPlayerAI();
+            && !EventsHandler.getController().isCurrentPlayerAI();
   }
 
 }

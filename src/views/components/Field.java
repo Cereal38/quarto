@@ -7,6 +7,14 @@ import javax.swing.JPanel;
 import src.views.listeners.ThemeListener;
 import src.views.utils.ThemeUtils;
 
+/**
+ * A customizable field component.
+ * <p>
+ * This component provides a customizable field that can display text messages.
+ * It supports changing the appearance based on the current theme and toggling
+ * the visibility of the text message.
+ */
+
 public class Field extends JPanel implements ThemeListener {
 
   private JLabel textLbl;
@@ -14,6 +22,12 @@ public class Field extends JPanel implements ThemeListener {
   private ImageThemed bgImageOff = new ImageThemed("field-off.png");
   private boolean isOn;
 
+  /**
+   * Constructs a new Field with the specified message and initial visibility state.
+   *
+   * @param message the message to display in the field
+   * @param isOn    a boolean indicating whether the field is initially visible
+   */
   public Field(String message, boolean isOn) {
     ThemeUtils.addThemeListener(this);
 
@@ -28,6 +42,11 @@ public class Field extends JPanel implements ThemeListener {
     textLbl.setVisible(isOn);
   }
 
+  /**
+   * Sets the visibility state of the field.
+   *
+   * @param isOn a boolean indicating whether the field should be visible
+   */
   public void setOn(boolean isOn) {
     this.isOn = isOn;
 
@@ -37,6 +56,11 @@ public class Field extends JPanel implements ThemeListener {
     repaint();
   }
 
+  /**
+   * Sets the text message to display in the field.
+   *
+   * @param text the text message to display
+   */
   public void setText(String text) {
     textLbl.setText(text);
   }

@@ -19,6 +19,10 @@ import src.views.utils.EventsHandler;
 import src.views.utils.ImageLibrary;
 import src.views.utils.PawnUtils;
 
+/**
+ * The main frame of the Quarto game application.
+ */
+
 public class MainFrame extends JFrame {
   private CardLayout cardLayout;
   private JPanel mainPanel;
@@ -35,6 +39,9 @@ public class MainFrame extends JFrame {
   private RulesPage aboutPage;
   private DialogPanel save;
 
+  /**
+   * Constructs the main frame of the Quarto game application.
+   */
   public MainFrame() {
     setTitle("Quarto Game");
     setMinimumSize(new Dimension(1000, 800));
@@ -108,6 +115,11 @@ public class MainFrame extends JFrame {
     setVisible(true);
   }
 
+  /**
+   * Retrieves the load page of the application.
+   *
+   * @return the load page
+   */
   public static LoadPage getLoadPage() {
     return loadPage;
   }

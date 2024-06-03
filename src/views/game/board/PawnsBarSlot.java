@@ -14,6 +14,10 @@ import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents a slot in the pawns bar.
+ */
+
 public class PawnsBarSlot extends JPanel implements ThemeListener {
 
   public static final int LEFT = 0;
@@ -26,8 +30,8 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
   /**
    * Constructor.
    *
-   * @param pawn
-   * @param position: PawnsBarSlot.LEFT or PawnsBarSlot.RIGHT
+   * @param pawn     The pawn associated with this slot.
+   * @param position The position of the slot (PawnsBarSlot.LEFT or PawnsBarSlot.RIGHT).
    */
   public PawnsBarSlot(Pawn pawn, int position) {
 

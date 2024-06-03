@@ -20,6 +20,10 @@ import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 
+/**
+ * Represents a scrollable panel displaying the moves history.
+ */
+
 public class MovesHistory extends JScrollPane {
 
   private JPanel movesContainer;
@@ -29,6 +33,9 @@ public class MovesHistory extends JScrollPane {
   private TranslatedString placedItAtStr = new TranslatedString("placed-it-at");
   private TranslatedString selectedThePawnStr = new TranslatedString("selected-the-pawn");
 
+  /**
+   * Constructs a MovesHistory panel.
+   */
   public MovesHistory() {
     // Load the background image
     try {
@@ -55,16 +62,27 @@ public class MovesHistory extends JScrollPane {
     updateHistory();
   }
 
+  /**
+   * Adds a move with the specified text and icon to the history.
+   * @param move The text describing the move.
+   * @param icon The icon representing the move.
+   */
   public void addMove(String move, ImageIcon icon) {
     GameStatusHandler.addMove(move, icon);
     updateMovesContainer();
   }
 
+  /**
+   * Clears the moves history.
+   */
   public void clear() {
     GameStatusHandler.clearMoves();
     updateMovesContainer();
   }
 
+  /**
+   * Updates the moves container with the latest moves.
+   */
   private void updateMovesContainer() {
     movesContainer.removeAll();
 
@@ -97,6 +115,9 @@ public class MovesHistory extends JScrollPane {
     getVerticalScrollBar().setValue(0);
   }
 
+  /**
+   * Updates the history based on the game's state.
+   */
   public void updateHistory() {
     if (EventsHandler.getController().getModel() == null) {
       return;
@@ -130,6 +151,12 @@ public class MovesHistory extends JScrollPane {
 
   // to load the pawn images we need to turn the pawn number into a string ( 0 ->
   // "0000.png" , 1 -> "0001.png" , "2" -> "0010.png" to "15" -> "1111.png")
+  /**
+   * Converts a pawn number to a binary string representation.
+   *
+   * @param pawn The pawn number to convert.
+   * @return The binary string representation of the pawn number.
+   */
   private String pawnNumberToString(int pawn) {
     String binary = Integer.toBinaryString(pawn);
     while (binary.length() < 4) {

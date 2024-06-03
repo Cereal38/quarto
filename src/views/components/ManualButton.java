@@ -7,6 +7,9 @@ import src.views.rules.RulesPage;
 import src.views.utils.EventsHandler;
 import src.views.utils.ImageUtils;
 
+/**
+ * A button to open the manual or rules page.
+ */
 public class ManualButton extends JButton {
   private TranslatedString tooltip;
   private boolean isLightTheme = true;
@@ -15,6 +18,9 @@ public class ManualButton extends JButton {
   ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
   ImageIcon bookWhiteImg = ImageUtils.loadImage("book-white.png", 30, 30);
 
+  /**
+   * Constructs a new ManualButton.
+   */
   public ManualButton() {
 
     // Add style
@@ -33,6 +39,11 @@ public class ManualButton extends JButton {
     tooltip = new TranslatedString("manualButtonTooltip", this, true);
   }
 
+  /**
+   * Updates the icon of the button based on the theme.
+   *
+   * @param isLightTheme true if the theme is light, false otherwise
+   */
   public void updateIcon(boolean isLightTheme) {
     this.isLightTheme = isLightTheme;
     if (isLightTheme) {
