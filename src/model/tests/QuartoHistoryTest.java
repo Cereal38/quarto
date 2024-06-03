@@ -14,6 +14,7 @@ public class QuartoHistoryTest {
         Assertions.assertFalse(game.canRedo()); // redo cant be possible at start
 
         // playing a shot
+        game.selectPawn(1);
         game.playShot(0, 0);
         Assertions.assertFalse(game.canRedo()); // After a shot played, redo still cannot be possible
 
@@ -53,6 +54,7 @@ public class QuartoHistoryTest {
         Assertions.assertFalse(game.canUndo()); // undo should not be possible at start
 
         // playing a shot
+        game.selectPawn(1);
         game.playShot(0, 0);
         Assertions.assertTrue(game.canUndo()); // After a shot played, undo should be possible
     }
