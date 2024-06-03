@@ -92,7 +92,7 @@ public class Cell extends JPanel implements ThemeListener {
       g2d.drawImage(ghostPawn.getImage(), 22, 5, null);
     }
 
-    if (highlighted) {
+    if (highlighted && GameStatusHandler.isHintClicked()) {
       g.drawImage(highlightImage.getImage(), 15, 15, getWidth() - 30, getHeight() - 30, this);
     }
   }

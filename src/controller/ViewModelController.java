@@ -171,6 +171,8 @@ public class ViewModelController implements ViewModelListener {
       return new Cell[4][4];
     }
     List<int[]> winLine = quartoModel.getWinLine();
+
+    int[] hint = playShotHint();
     QuartoPawn[][] pawns = quartoModel.getTable();
     Cell[][] tableCells = new Cell[4][4];
     int size = DimensionUtils.getBoardCellSize();
@@ -181,13 +183,17 @@ public class ViewModelController implements ViewModelListener {
           pawn = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i][j].getPawn()), Pawn.PLAYED, size, size);
         }
         boolean isWinningCell = false;
+        boolean isHint = false;
         for (int[] win : winLine) {
           if (win[0] == i && win[1] == j) {
             isWinningCell = true;
             break;
           }
         }
-        tableCells[i][j] = new Cell(pawn, i, j, isWinningCell);
+        if (hint != null && (hint[0] == i && hint[1]==j)){
+          isHint = true;
+        }
+        tableCells[i][j] = new Cell(pawn, i, j, isWinningCell || isHint);
       }
     }
     return tableCells;
@@ -434,7 +440,9 @@ public class ViewModelController implements ViewModelListener {
    *         the second element is the column.
    */
   public int[] playShotHint() {
-    return aiPlayer.getBestMove(this.quartoModel);
+    if (isPlayPhase())
+      return aiPlayer.getBestMove(this.quartoModel);
+    return null;
   }
 
   /**
@@ -443,6 +451,7 @@ public class ViewModelController implements ViewModelListener {
    * @return the index of the best pawn to select.
    */
   public int selectPawnHint() {
+
     return aiPlayer.getBestPawn(this.quartoModel);
   }
 }

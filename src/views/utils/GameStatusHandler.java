@@ -18,6 +18,8 @@ public class GameStatusHandler {
 
   private static boolean isPaused = false;
 
+  private static boolean hint = false;
+
   // ================== Game Status Listeners ==================
 
   /**
@@ -78,6 +80,7 @@ public class GameStatusHandler {
    * needs to take an action.
    */
   private static void actionPerformed() {
+    hint = false;
     informListeners();
     // Using invokeLater to let the UI update before the AI plays
     SwingUtilities.invokeLater(() -> aiPlay());
@@ -256,5 +259,15 @@ public class GameStatusHandler {
   public static boolean isPvP() {
     return !EventsHandler.getController().isPlayer1AI() && !EventsHandler.getController().isPlayer2AI();
   }
+
+  public static void hintClicked(){
+    hint = true;
+    informListeners();
+  }
+
+  public static boolean isHintClicked(){
+    return hint;
+  }
+
 
 }

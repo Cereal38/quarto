@@ -36,19 +36,7 @@ public class HintButton extends JButton implements ThemeListener {
 
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         addActionListener(e -> {
-            try {
-                if (EventsHandler.getController().isPlayPhase()){
-                    int[] hint = EventsHandler.getController().playShotHint();
-                    int row = hint[0];
-                    int col = hint[1];
-                    EventsHandler.showSnackbar("Hint: Consider playing at (" + row + ", " + col + ")");
-                } else {
-                    int hint = EventsHandler.getController().selectPawnHint();
-                    EventsHandler.showSnackbar("Hint : " + hint);
-                }
-                } catch (Exception ex) {
-                    EventsHandler.showSnackbar("Cannot provide hint: " + ex.getMessage());
-            }
+            GameStatusHandler.hintClicked();
         });
 
         tooltip = new TranslatedString("redoButtonTooltip", this, true);
