@@ -3,22 +3,22 @@ package src.views.components;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.listeners.ThemeListener;
 import src.views.rules.RulesPage;
 import src.views.utils.EventsHandler;
-import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class ManualButton extends JButton {
+public class ManualButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
-  private boolean isLightTheme = true;
-
-  // Load icon
-  ImageIcon bookImg = ImageUtils.loadImage("book.png", 30, 30);
-  ImageIcon bookWhiteImg = ImageUtils.loadImage("book-white.png", 30, 30);
+  private ImageThemed image = new ImageThemed("book.png");
 
   public ManualButton() {
+    ThemeUtils.addThemeListener(this);
 
     // Add style
-    setIcon(bookImg);
+    image.setSize(32, 32);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
     setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -33,13 +33,10 @@ public class ManualButton extends JButton {
     tooltip = new TranslatedString("manualButtonTooltip", this, true);
   }
 
-  public void updateIcon(boolean isLightTheme) {
-    this.isLightTheme = isLightTheme;
-    if (isLightTheme) {
-      setIcon(bookImg);
-    } else {
-      setIcon(bookWhiteImg);
-    }
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
   }
 
 }

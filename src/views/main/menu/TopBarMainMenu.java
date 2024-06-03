@@ -9,21 +9,19 @@ import src.views.components.ExitButton;
 import src.views.components.ImageThemed;
 import src.views.components.LanguageButton;
 import src.views.components.ManualButton;
-import src.views.components.MusicButton;
 import src.views.components.ThemeButton;
 import src.views.listeners.ThemeListener;
 import src.views.utils.ThemeUtils;
 
 public class TopBarMainMenu extends JPanel implements ThemeListener {
 
-  private JButton musicButton, langButton, modeButton, exitButton, bookButton;
+  private JButton langButton, modeButton, exitButton, bookButton;
   private ImageThemed topbarImage = new ImageThemed("flat.png");
 
   public TopBarMainMenu() {
     ThemeUtils.addThemeListener(this);
 
     // Create buttons
-    musicButton = new MusicButton();
     modeButton = new ThemeButton();
     langButton = new LanguageButton();
     exitButton = new ExitButton();
@@ -33,7 +31,6 @@ public class TopBarMainMenu extends JPanel implements ThemeListener {
     JPanel leftPanel = new JPanel();
     leftPanel.setOpaque(false);
     leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
-    leftPanel.add(musicButton);
     leftPanel.add(modeButton);
     leftPanel.add(langButton);
 
