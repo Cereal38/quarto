@@ -101,7 +101,7 @@ public class QuartoModel {
   public void playShotHuman(int line, int column) {
     if (board.isTableEmpty(line, column) && board.getSelectedPawn() != null && !hasAWinner() && !isATie()) {
       board.setTable(line, column, board.getSelectedPawn());
-      board.winSituation(line, column);
+      gameOver = board.winSituation(line, column);
       board.setSelectedPawn(null);
       file.getSave().setNext(new QuartoHistory(line, column, file.getSave(), playerManager.getNameOfTheCurrentPlayer(), playerManager.getCurrentPlayer()));
       file.getSave().getNext().setPrevious(file.getSave());
