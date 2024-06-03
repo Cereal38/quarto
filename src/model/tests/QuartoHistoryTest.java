@@ -59,6 +59,8 @@ public class QuartoHistoryTest {
         Assertions.assertTrue(game.canUndo()); // After a shot played, undo should be possible
 
         game.undo();
+        Assertions.assertTrue(game.canUndo());
+        game.undo();
         Assertions.assertFalse(game.canUndo());
     }
 
