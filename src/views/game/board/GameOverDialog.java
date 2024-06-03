@@ -17,13 +17,14 @@ import src.views.components.CustomizedButton;
 import src.views.components.ImageThemed;
 import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
-import src.views.utils.ImageUtils;
 import src.views.utils.ThemeUtils;
 
 public class GameOverDialog extends JPanel implements ThemeListener {
   private CustomizedButton btnBack = new CustomizedButton("back-to-game");
   private CustomizedButton btnMenu = new CustomizedButton("main-menu");
   private ImageThemed bgImage = new ImageThemed("squared-background.png");
+  private ImageThemed crown = new ImageThemed("crown.png");
+  private ImageIcon crownIcon;
 
   public GameOverDialog(String winner) {
     ThemeUtils.addThemeListener(this);
@@ -56,8 +57,10 @@ public class GameOverDialog extends JPanel implements ThemeListener {
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
     // Load and add crown image
-    ImageIcon scaledCrownImage = ImageUtils.loadImage("crown.png", 100, 100);
-    JLabel crownLabel = new JLabel(scaledCrownImage);
+    crown.setSize(100, 100);
+    crownIcon = new ImageIcon(crown.getImage());
+    crown.setSize(100, 100);
+    JLabel crownLabel = new JLabel(crownIcon);
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
     gridBagConstraints.anchor = GridBagConstraints.CENTER;
@@ -112,6 +115,7 @@ public class GameOverDialog extends JPanel implements ThemeListener {
 
   @Override
   public void updatedTheme() {
+    crownIcon = new ImageIcon(crown.getImage());
     repaint();
   }
 }
