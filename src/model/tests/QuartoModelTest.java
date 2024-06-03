@@ -371,4 +371,26 @@ public class QuartoModelTest {
     Assertions.assertFalse(quartoModel.winSituation(3, 3));
 
   }
+
+  @Test
+  public void testHasAWinner(){
+    QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
+    Assertions.assertFalse(quartoModel.hasAWinner());
+    quartoModel.selectPawn(0);
+    Assertions.assertFalse(quartoModel.hasAWinner());
+    quartoModel.playShot(0, 0);
+    Assertions.assertFalse(quartoModel.hasAWinner());
+    quartoModel.selectPawn(1);
+    Assertions.assertFalse(quartoModel.hasAWinner());
+    quartoModel.playShot(1, 1);
+    Assertions.assertFalse(quartoModel.hasAWinner());
+    quartoModel.selectPawn(2);
+    Assertions.assertFalse(quartoModel.hasAWinner());
+    quartoModel.playShot(2, 2);
+    Assertions.assertFalse(quartoModel.hasAWinner());
+    quartoModel.selectPawn(3);
+    Assertions.assertFalse(quartoModel.hasAWinner());
+    quartoModel.playShot(3, 3);
+    Assertions.assertTrue(quartoModel.hasAWinner());
+  }
 }
