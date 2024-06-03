@@ -67,6 +67,7 @@ public class ImageLibrary {
     loadImage("fr.png");
     loadImage("back.png");
     loadImage("highlight.png");
+    loadImage("double-arrow.png");
   }
 
   private static void loadImage(String name) {
