@@ -20,10 +20,13 @@ public class QuartoModelTest {
   public void testTableFull() {
     QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
     // Completely filling the table with pawns
+    int index = 0;
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
-        quartoModel.setSelectedPawn(new QuartoPawn((byte) 15));
+        Assertions.assertTrue(quartoModel.isTableEmpty(i, j));
+        quartoModel.selectPawn(index);
         quartoModel.playShot(i, j);
+        index++;
       }
     }
     // Check if all the table is not empty
