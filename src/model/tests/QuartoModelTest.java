@@ -37,8 +37,12 @@ public class QuartoModelTest {
   @Test
   public void testSelectPawn() {
     QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
+    Assertions.assertNull(quartoModel.getSelectedPawn());
     quartoModel.selectPawn(0);
     Assertions.assertNotNull(quartoModel.getSelectedPawn());
+    Assertions.assertEquals(quartoModel.getSelectedPawn().getPawn(), 0);
+    quartoModel.playShot(0, 0);
+    Assertions.assertNull(quartoModel.getSelectedPawn());
   }
 
 
