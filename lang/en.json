@@ -62,5 +62,7 @@
   "delete-title": "Delete save",
   "yes": "Yes",
   "no": "No",
-  "error-text": "Name cannot be empty."
+  "error-text": "Name cannot be empty.",
+  "overwrite-confirm": "Are you sure you want to over write the existing saved game with this name? ",
+  "overwrite-title" : "Over write the existing game"
 }

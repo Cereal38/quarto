@@ -12,6 +12,7 @@ import src.model.ai.Heuristics;
 import src.structures.SlotFile;
 
 public class QuartoModel {
+
   /** The game board for the Quarto game. */
   private QuartoBoard board;
 
@@ -285,16 +286,35 @@ public class QuartoModel {
   }
 
   /**
-   * Saves the current game state to a file with the specified name.
+   * Saves the game to a file with the provided file name in the Quarto game.
+   * If the file already exists, it throws an IOException.
    *
-   * @param fileName The name of the file to save the game state to.
-   * @throws IOException If an I/O error occurs while saving the file.
+   * @param fileName the name of the file to save
+   * @throws IOException if an I/O error occurs or if the file already exists
    */
   public void saveFile(String fileName) throws IOException {
     String filePath = "slots" + File.separator + fileName;
-    manager.createNewFile(fileName);
+    try {
+      manager.createNewFile(fileName);
+      file.saveFile(filePath, playerManager.getPlayer1Name(), playerManager.getPlayer2Name(), playerManager.getPlayerType());
+    } catch (IOException e) {
+      throw e;
+    }
+  }
+
+
+  /**
+   * Overwrites an existing file with the provided file name in the Quarto game.
+   *
+   * @param fileName the name of the file to overwrite
+   * @throws IOException if an I/O error occurs
+   */
+  public void overWriteFile(String fileName) throws IOException {
+    String filePath = "slots" + File.separator + fileName;
     file.saveFile(filePath, playerManager.getPlayer1Name(), playerManager.getPlayer2Name(), playerManager.getPlayerType());
   }
+
+
 
   /**
    * Checks if the game has a winner.
@@ -578,4 +598,6 @@ public class QuartoModel {
   public QuartoHistory getSave() {
     return file.getSave();
   }
+
+
 }
