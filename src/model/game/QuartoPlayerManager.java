@@ -131,4 +131,12 @@ public class QuartoPlayerManager {
     public int[] getPlayerType() {
         return playerType;
     }
+
+    public void setPlayer2Name(String s) {
+        this.secondPlayerName = s;
+    }
+
+    public void setPlayer2Type(int i) {
+        this.playerType[1] = i;
+    }
 }
