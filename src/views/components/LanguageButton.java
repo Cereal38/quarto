@@ -5,6 +5,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.utils.LangUtils;
 
+/**
+ * A button to switch between languages.
+ */
 public class LanguageButton extends JButton {
   private static final int LANG_EN = 0;
   private static final int LANG_FR = 1;
@@ -14,6 +17,9 @@ public class LanguageButton extends JButton {
   private ImageThemed enImage = new ImageThemed("en.png");
   private ImageThemed frImage = new ImageThemed("fr.png");
 
+  /**
+   * Constructs a new LanguageButton.
+   */
   public LanguageButton() {
     // Set the default icon based on the current theme
     updateIcon(isLightTheme);
@@ -36,6 +42,11 @@ public class LanguageButton extends JButton {
     updateIcon(isLightTheme);
   }
 
+  /**
+   * Updates the icon of the button based on the theme.
+   *
+   * @param isLightTheme true if the theme is light, false otherwise
+   */
   public void updateIcon(boolean isLightTheme) {
     this.isLightTheme = isLightTheme;
 
@@ -50,6 +61,11 @@ public class LanguageButton extends JButton {
     }
   }
 
+  /**
+   * Changes the theme of the button.
+   *
+   * @param isLightTheme true if the theme is light, false otherwise
+   */
   public void changeTheme(boolean isLightTheme) {
     this.isLightTheme = isLightTheme;
     updateIcon(isLightTheme);

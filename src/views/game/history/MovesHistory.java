@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import src.model.QuartoHistory;
+import src.model.game.QuartoHistory;
 import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
 import src.views.listeners.ThemeListener;
@@ -18,6 +18,9 @@ import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents a scrollable panel displaying the moves history.
+ */
 public class MovesHistory extends JScrollPane implements ThemeListener {
 
   private JPanel movesContainer;
@@ -27,6 +30,9 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
   private TranslatedString selectedThePawnStr = new TranslatedString("selected-the-pawn");
   private ImageThemed bgImage = new ImageThemed("squared-background.png");
 
+  /**
+   * Constructs a MovesHistory panel.
+   */
   public MovesHistory() {
     ThemeUtils.addThemeListener(this);
 
@@ -49,16 +55,28 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
     updateHistory();
   }
 
+  /**
+   * Adds a move with the specified text and icon to the history.
+   * 
+   * @param move The text describing the move.
+   * @param icon The icon representing the move.
+   */
   public void addMove(String move, ImageIcon icon) {
     GameStatusHandler.addMove(move, icon);
     updateMovesContainer();
   }
 
+  /**
+   * Clears the moves history.
+   */
   public void clear() {
     GameStatusHandler.clearMoves();
     updateMovesContainer();
   }
 
+  /**
+   * Updates the moves container with the latest moves.
+   */
   private void updateMovesContainer() {
     movesContainer.removeAll();
 
@@ -91,6 +109,9 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
     getVerticalScrollBar().setValue(0);
   }
 
+  /**
+   * Updates the history based on the game's state.
+   */
   public void updateHistory() {
     if (EventsHandler.getController().getModel() == null) {
       return;
@@ -126,6 +147,12 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
 
   // to load the pawn images we need to turn the pawn number into a string ( 0 ->
   // "0000.png" , 1 -> "0001.png" , "2" -> "0010.png" to "15" -> "1111.png")
+  /**
+   * Converts a pawn number to a binary string representation.
+   *
+   * @param pawn The pawn number to convert.
+   * @return The binary string representation of the pawn number.
+   */
   private String pawnNumberToString(int pawn) {
     String binary = Integer.toBinaryString(pawn);
     while (binary.length() < 4) {

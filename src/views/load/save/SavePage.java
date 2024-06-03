@@ -23,6 +23,10 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * JPanel representing the save page, where users can save a game in a slot.
+ */
+
 public class SavePage extends JPanel implements ThemeListener {
 
   private CustomizedTextField nameField;
@@ -32,6 +36,11 @@ public class SavePage extends JPanel implements ThemeListener {
   private ImageThemed bgImage = new ImageThemed("squared-background.png");
   private ImageThemed topbarImage = new ImageThemed("flat.png");
 
+  /**
+   * Constructs a SavePage object.
+   *
+   * @param l The LoadPage object.
+   */
   public SavePage(LoadPage l) {
     ThemeUtils.addThemeListener(this);
 
@@ -124,21 +133,6 @@ public class SavePage extends JPanel implements ThemeListener {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-  }
-
-  public static void main(String[] args) {
-    // Create the frame
-    JFrame frame = new JFrame("Save Page");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(400, 200);
-    frame.setLocationRelativeTo(null);
-
-    // Create and add the SavePage panel
-    SavePage savePage = new SavePage(new LoadPage());
-    frame.add(savePage);
-
-    // Make the frame visible
-    frame.setVisible(true);
   }
 
   @Override

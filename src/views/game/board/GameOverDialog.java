@@ -20,6 +20,10 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents the dialog displayed when the game is over.
+ */
+
 public class GameOverDialog extends JPanel implements ThemeListener {
   private CustomizedButton btnBack = new CustomizedButton("back-to-game");
   private CustomizedButton btnMenu = new CustomizedButton("main-menu");
@@ -27,6 +31,11 @@ public class GameOverDialog extends JPanel implements ThemeListener {
   private ImageThemed crown = new ImageThemed("crown.png");
   private ImageIcon crownIcon;
 
+  /**
+   * Constructs a GameOverDialog object.
+   *
+   * @param winner the winner of the game
+   */
   public GameOverDialog(String winner) {
     ThemeUtils.addThemeListener(this);
 

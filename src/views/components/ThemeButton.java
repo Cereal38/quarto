@@ -7,11 +7,17 @@ import javax.swing.JButton;
 import src.views.listeners.ThemeListener;
 import src.views.utils.ThemeUtils;
 
+/**
+ * A button to toggle between light and dark themes.
+ */
 public class ThemeButton extends JButton implements ThemeListener {
 
   private TranslatedString tooltip;
   private ImageThemed image = new ImageThemed("brush.png");
 
+  /**
+   * Constructs a new ThemeButton.
+   */
   public ThemeButton() {
     ThemeUtils.addThemeListener(this);
 

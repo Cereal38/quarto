@@ -13,11 +13,26 @@ import src.views.components.ThemeButton;
 import src.views.listeners.ThemeListener;
 import src.views.utils.ThemeUtils;
 
+/**
+ * The TopBarMainMenu class represents the top bar of the main menu,
+ * containing buttons for music control, theme change, language change,
+ * opening the manual, and exiting the application.
+ *
+ * <p>The class extends the JPanel class and implements the ThemeListener interface
+ * to listen for theme change events.</p>
+ */
+
 public class TopBarMainMenu extends JPanel implements ThemeListener {
 
   private JButton langButton, modeButton, exitButton, bookButton;
   private ImageThemed topbarImage = new ImageThemed("flat.png");
 
+
+  /**
+   * Constructs a TopBarMainMenu object.
+   * Initializes the buttons for music control, theme change, language change,
+   * opening the manual, and exiting the application.
+   */
   public TopBarMainMenu() {
     ThemeUtils.addThemeListener(this);
 

@@ -9,11 +9,21 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * The game board panel containing cells.
+ */
 public class Board extends JPanel implements ThemeListener {
 
   private Cell[][] cells = new Cell[4][4];
   private ImageThemed boardImage = new ImageThemed("board.png");
 
+  /**
+   * Constructs a new Board with the specified dimensions and cell size.
+   *
+   * @param width    the width of the board
+   * @param height   the height of the board
+   * @param cellSize the size of each cell
+   */
   public Board(int width, int height, int cellSize) {
 
     ThemeUtils.addThemeListener(this);

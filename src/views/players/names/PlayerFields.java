@@ -25,8 +25,13 @@ import src.views.utils.ImageUtils;
 import src.views.utils.LangUtils;
 
 /**
- * Component containing the fields to setup a player.
+ * The PlayerFields class represents a component containing the fields to set up a player.
+ * It allows users to enter player names and select AI levels.
+ *
+ * <p>The class extends the JPanel class and implements the LanguageChangeListener interface
+ * to listen for language change events.</p>
  */
+
 public class PlayerFields extends JPanel implements LanguageChangeListener {
 
   private CustomizedButton btnSwitchPlayer1 = new CustomizedButton("switch-to-ai");
@@ -50,6 +55,10 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
   private JComboBox<TranslatedString> aiLevelPlayer2 = new JComboBox<>(
       new TranslatedString[] { easyStr, mediumStr, hardStr });
 
+  /**
+   * Constructs a PlayerFields panel.
+   * Sets up the layout and components for player name input and AI level selection.
+   */
   public PlayerFields() {
 
     LangUtils.addLanguageChangeListener(this);
@@ -254,6 +263,12 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
 
   }
 
+  /**
+   * Retrieves the AI player level based on the selected index in the JComboBox.
+   *
+   * @param aiLevel The JComboBox containing AI level options.
+   * @return The AI player level.
+   */
   private int getAIPlayerLevel(JComboBox<TranslatedString> aiLevel) {
     switch (aiLevel.getSelectedIndex()) {
     case 0: // Easy
@@ -267,6 +282,12 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     }
   }
 
+  /**
+   * Generates the name of an AI player based on the selected level.
+   *
+   * @param level The level of the AI player.
+   * @return The name of the AI player.
+   */
   private String getAIName(int level) {
     switch (level) {
     case 2:
@@ -280,10 +301,19 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     }
   }
 
+  /**
+   * Capitalizes the first letter of a string.
+   *
+   * @param str The string to be capitalized.
+   * @return The string with the first letter capitalized.
+   */
   private String capitalizeFirstLetter(String str) {
     return str.substring(0, 1).toUpperCase() + str.substring(1);
   }
 
+  /**
+   * Updates the state of the start game button based on player input.
+   */
   private void updateStartButtonState() {
     if ((!player1IsAI && namePlayer1.getText().isEmpty()) || (!player2IsAI && namePlayer2.getText().isEmpty())) {
       btnStartGame.setEnabled(false);

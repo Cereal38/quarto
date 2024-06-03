@@ -1,4 +1,7 @@
-package src.model;
+package src.model.tests;
+
+import src.model.ai.Heuristics;
+import src.model.game.QuartoModel;
 
 import java.io.IOException;
 import java.util.Scanner;

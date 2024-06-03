@@ -5,6 +5,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.utils.ImageUtils;
 
+/**
+ * A button to toggle music on or off.
+ */
 public class MusicButton extends JButton {
 
     private boolean isMusicOn;
@@ -20,6 +23,9 @@ public class MusicButton extends JButton {
     ImageIcon musicOnWhiteImg = ImageUtils.loadImage("music-on-white.png", 30, 30);
     ImageIcon musicOffWhiteImg = ImageUtils.loadImage("music-off-white.png", 30, 30);
 
+    /**
+     * Constructs a new MusicButton.
+     */
     public MusicButton() {
         isMusicOn = true;
 
@@ -41,6 +47,11 @@ public class MusicButton extends JButton {
         setToolTipText(tooltip.getText());
     }
 
+    /**
+     * Updates the icon of the button based on the theme.
+     *
+     * @param isLightTheme true if the theme is light, false otherwise
+     */
     public void updateIcon(boolean isLightTheme) {
         this.isLightTheme = isLightTheme;
         if (isMusicOn) {

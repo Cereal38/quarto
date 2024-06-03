@@ -12,11 +12,17 @@ import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents a button for undoing the last action.
+ */
 public class UndoButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
   private ImageThemed image = new ImageThemed("undo.png");
   ImageIcon icon;
 
+  /**
+   * Constructs an UndoButton.
+   */
   public UndoButton() {
     ThemeUtils.addThemeListener(this);
 
@@ -36,7 +42,6 @@ public class UndoButton extends JButton implements ThemeListener {
 
     addActionListener(e -> {
       GameStatusHandler.undo();
-
     });
 
     tooltip = new TranslatedString("undoButtonTooltip", this, true);
@@ -47,5 +52,4 @@ public class UndoButton extends JButton implements ThemeListener {
     ImageIcon icon = new ImageIcon(image.getImage());
     setIcon(icon);
   }
-
 }

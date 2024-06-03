@@ -8,10 +8,16 @@ import src.views.rules.RulesPage;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * A button to open the manual or rules page.
+ */
 public class ManualButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
   private ImageThemed image = new ImageThemed("book.png");
 
+  /**
+   * Constructs a new ManualButton.
+   */
   public ManualButton() {
     ThemeUtils.addThemeListener(this);
 
@@ -33,6 +39,9 @@ public class ManualButton extends JButton implements ThemeListener {
     tooltip = new TranslatedString("manualButtonTooltip", this, true);
   }
 
+  /**
+   * Updates the icon of the button based on the theme.
+   */
   @Override
   public void updatedTheme() {
     ImageIcon icon = new ImageIcon(image.getImage());

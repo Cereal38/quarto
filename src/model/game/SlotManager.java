@@ -1,4 +1,10 @@
-package src.model;
+/**
+ * The SlotManager class manages the slot files used for saving and loading game states.
+ * It provides methods to interact with the slot files, such as clearing a slot file, loading slot files
+ * from the designated directory, getting the list of slot files, finding a slot file by ID,
+ * and creating a new slot file.
+ */
+package src.model.game;
 
 import src.structures.SlotFile;
 
@@ -10,48 +16,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SlotManager {
+    /**  List to store SlotFile objects representing saved game slots*/
     private List<SlotFile> slotFiles;
-    public static final String SLOTS_DIRECTORY = "slots";
 
+    /** Constant representing the directory where slot files are stored*/
+    public final String SLOTS_DIRECTORY = "slots";
+
+    /**
+     * Constructs a new SlotManager object.
+     * Initializes the list of slot files.
+     */
     public SlotManager() {
         this.slotFiles = new ArrayList<>();
     }
 
-    public void renameSlotFile(int id, String newFileName) {
-        SlotFile slotFile = findSlotFileById(id);
-        if (slotFile == null) {
-            throw new IllegalArgumentException("Invalid id " + id);
-        }
-
-        String oldFileName = slotFile.getFilename();
-        String oldFilePath = SLOTS_DIRECTORY + File.separator + oldFileName;
-        String newFilePath = SLOTS_DIRECTORY + File.separator + newFileName;
-
-        File oldFile = new File(oldFilePath);
-        File newFile = new File(newFilePath);
-
-        if (oldFile.renameTo(newFile)) {
-            slotFile.setFilename(newFileName);
-            slotFile.setLastModified(newFile.lastModified());
-            System.out.println("File renamed successfully.");
-        } else {
-            System.err.println("Failed to rename file.");
-        }
-    }
-
-
-    public boolean isSlotFileEmpty(int id) {
-        SlotFile slotFile = findSlotFileById(id);
-        if (slotFile == null) {
-            throw new IllegalArgumentException("Invalid id " + id);
-        }
-
-        String filePath = SLOTS_DIRECTORY + File.separator + slotFile.getFilename();
-        File file = new File(filePath);
-        return file.length() == 0;
-    }
-
-
+    /**
+     * Clears the slot file with the specified ID.
+     *
+     * @param id The ID of the slot file to clear.
+     * @return The filename of the cleared slot file, or null if the file couldn't be deleted.
+     */
     public String clearSlotFile(int id) {
         SlotFile slotFile = findSlotFileById(id);
         if (slotFile == null) {
@@ -79,7 +63,9 @@ public class SlotManager {
         return fileToDelete.exists() ? slotFile.getFilename() : null;
     }
 
-
+    /**
+     * Loads slot files from the slots directory.
+     */
     public void loadFromDirectory() {
         File directory = new File(SLOTS_DIRECTORY);
 
@@ -92,6 +78,11 @@ public class SlotManager {
         traverseDirectory(directory);
     }
 
+    /**
+     * Traverses the given directory and adds slot files to the list.
+     *
+     * @param directory The directory to traverse.
+     */
     private void traverseDirectory(File directory) {
         File[] files = directory.listFiles();
         int id = slotFiles.size(); // Initialize id based on the size of slotFiles list
@@ -112,21 +103,32 @@ public class SlotManager {
         }
     }
 
-
-    public void renameSlotFile(int id, String playerName1, String playerName2) {
-        String newFileName = playerName1 + "_vs_" + playerName2 + ".txt";
-        renameSlotFile(id, newFileName);
-    }
-
+    /**
+     * Gets the list of slot files.
+     *
+     * @return The list of slot files.
+     */
     public List<SlotFile> getSlotFiles() {
         loadFromDirectory();
         return slotFiles;
     }
 
+    /**
+     * Finds a slot file in the list by its ID.
+     *
+     * @param id The ID of the slot file to find.
+     * @return The SlotFile object with the specified ID, or null if not found.
+     */
     private SlotFile findSlotFileById(int id) {
         return slotFiles.stream().filter(slotFile -> slotFile.getId() == id).findFirst().orElse(null);
     }
 
+    /**
+     * Creates a new file with the specified filename in the slots directory.
+     *
+     * @param fileName The filename of the new file to create.
+     * @throws IOException if an I/O error occurs while creating the file.
+     */
     public void createNewFile(String fileName) throws IOException {
         File file = new File(SLOTS_DIRECTORY + File.separator + fileName);
         if (!file.exists()) {
@@ -136,17 +138,4 @@ public class SlotManager {
             }
         }
     }
-//  public static void main(String[] args) {
-//    SlotManager slotManager = new SlotManager();
-//    slotManager.loadFromDirectory();
-//
-//    System.out.println("Slot Files:");
-//
-//    slotManager.renameSlotFile(2, "adam", "rymav2");
-//    //slotManager.clearSlotFile(0);
-//    for (SlotFile slotFile : slotManager.getSlotFiles()) {
-//      System.out.println("ID: " + slotFile.getId() + ", Filename: " + slotFile.getFilename() + ", Last Modified: " + slotFile.getLastModified());
-//    }
-//  }
-
 }

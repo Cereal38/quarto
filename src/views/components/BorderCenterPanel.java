@@ -1,3 +1,6 @@
+/**
+ * A JPanel subclass that allows centering the content within a border layout with customizable margins.
+ */
 package src.views.components;
 
 import java.awt.BorderLayout;
@@ -18,6 +21,15 @@ public class BorderCenterPanel extends JPanel {
   int bottom;
   int right;
 
+  /**
+   * Constructs a BorderCenterPanel with the specified content panel and margins.
+   *
+   * @param content      the content panel to be centered
+   * @param marginTop    the top margin
+   * @param marginLeft   the left margin
+   * @param marginBottom the bottom margin
+   * @param marginRight  the right margin
+   */
   public BorderCenterPanel(JPanel content, int marginTop, int marginLeft, int marginBottom, int marginRight) {
 
     this.top = marginTop;
@@ -73,6 +85,15 @@ public class BorderCenterPanel extends JPanel {
     });
   }
 
+  /**
+   * Constructs a BorderCenterPanel with the specified content scroll pane and margins.
+   *
+   * @param content      the content scroll pane to be centered
+   * @param marginTop    the top margin
+   * @param marginLeft   the left margin
+   * @param marginBottom the bottom margin
+   * @param marginRight  the right margin
+   */
   public BorderCenterPanel(JScrollPane content, int marginTop, int marginLeft, int marginBottom, int marginRight) {
 
     this.top = marginTop;
@@ -126,6 +147,14 @@ public class BorderCenterPanel extends JPanel {
     });
   }
 
+  /**
+   * Sets the margins for this BorderCenterPanel.
+   *
+   * @param marginTop    the top margin
+   * @param marginLeft   the left margin
+   * @param marginBottom the bottom margin
+   * @param marginRight  the right margin
+   */
   public void setMargins(int marginTop, int marginLeft, int marginBottom, int marginRight) {
     this.top = marginTop;
     this.left = marginLeft;
