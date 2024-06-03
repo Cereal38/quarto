@@ -14,10 +14,8 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import src.views.components.CustomizedTextField;
-import src.views.components.ImageThemed;
-import src.views.components.TranslatedButton;
-import src.views.components.TranslatedLabel;
+
+import src.views.components.*;
 import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
@@ -88,7 +86,8 @@ public class SavePage extends JPanel implements ThemeListener {
           }
 
         } else {
-          messageLabel.setText("Name cannot be empty.");
+            TranslatedString errorText = new TranslatedString("error-text");
+            messageLabel.setText(String.valueOf(errorText));
         }
       }
     });

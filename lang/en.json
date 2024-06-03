@@ -23,7 +23,7 @@
   "make-ai": "Make AI",
   "load-page": "Load a previous game",
   "save-page": "Save Page",
-  "saved-date": "Saved date",
+  "saved-date": "Saved date : ",
   "load-game": "Load Game",
   "save-game": "Save Game",
   "clear-slot": "Delete",
@@ -62,5 +62,6 @@
   "delete-confirm": "Are you sure you want to delete this save?",
   "delete-title": "Delete save",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "error-text": "Name cannot be empty."
 }
