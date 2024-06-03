@@ -12,11 +12,20 @@ import src.model.ai.Heuristics;
 import src.structures.SlotFile;
 
 public class QuartoModel {
+  /** The game board for the Quarto game. */
   private QuartoBoard board;
+
+  /** The player manager for handling player interactions. */
   private QuartoPlayerManager playerManager;
+
+  /** The file manager for saving and loading game states. */
   private QuartoFile file;
+
+  /** The slot manager for managing game slots. */
   private SlotManager manager;
-  private boolean gameOver = false; // true if end game
+
+  /** Indicates whether the game is over. */
+  private boolean gameOver = false;
 
   /**
    * Constructs a new QuartoModel instance with the specified index.
