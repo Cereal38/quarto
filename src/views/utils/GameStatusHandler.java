@@ -87,6 +87,7 @@ public class GameStatusHandler {
     if (EventsHandler.getController().isGameOver()) {
       return;
     }
+
     EventsHandler.getController().selectPawn(code);
     actionPerformed();
   }
@@ -126,7 +127,17 @@ public class GameStatusHandler {
       } else {
         winner = null;
       }
-      SwingUtilities.invokeLater(() -> EventsHandler.showDialog(new GameOverDialog(winner), false));
+
+      // Add a delay before showing the dialog to let the last move be displayed
+      SwingUtilities.invokeLater(() -> {
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> EventsHandler.showDialog(new GameOverDialog(winner), false));
+      });
+
       // Pause the game
       pauseGame();
       return true;
@@ -160,6 +171,10 @@ public class GameStatusHandler {
   }
 
   public static void pauseGame() {
+    // Can't pause in PvP mode
+    if (isPvP()) {
+      return;
+    }
     isPaused = true;
     informListeners();
   }
@@ -175,6 +190,15 @@ public class GameStatusHandler {
 
   public static boolean isPaused() {
     return isPaused;
+  }
+
+  /**
+   * Return true if both players are humans
+   * 
+   * @return
+   */
+  public static boolean isPvP() {
+    return !EventsHandler.getController().isPlayer1AI() && !EventsHandler.getController().isPlayer2AI();
   }
 
 }

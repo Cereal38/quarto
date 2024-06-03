@@ -3,24 +3,25 @@ package src.views.game.board;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
+import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class UndoButton extends JButton {
+public class UndoButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
-  private boolean isLightTheme = true;
-
-  // Load icon
-  ImageIcon undoImg = ImageUtils.loadImage("undo-wood.png", 32, 32);
-  ImageIcon undoWhiteImg = ImageUtils.loadImage("undo-wood.png", 32, 32);
+  private ImageThemed image = new ImageThemed("undo.png");
 
   public UndoButton() {
+    ThemeUtils.addThemeListener(this);
 
     setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
     // Add style
-    setIcon(undoImg);
+    image.setSize(32, 32);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
 
@@ -32,8 +33,10 @@ public class UndoButton extends JButton {
     tooltip = new TranslatedString("undoButtonTooltip", this, true);
   }
 
-  public void updateIcon(boolean isLightTheme) {
-    this.isLightTheme = isLightTheme;
-    setIcon(isLightTheme ? undoImg : undoWhiteImg);
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
   }
+
 }

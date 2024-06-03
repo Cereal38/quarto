@@ -1,6 +1,5 @@
 package src.views.utils;
 
-import java.awt.Image;
 import src.views.components.Pawn;
 
 /**

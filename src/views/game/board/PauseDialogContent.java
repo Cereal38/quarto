@@ -1,20 +1,32 @@
 package src.views.game.board;
 
 import java.awt.GridLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import src.views.components.TranslatedButton;
+import src.views.MainFrame;
+import src.views.components.CustomizedButton;
+import src.views.components.ImageThemed;
+import src.views.listeners.ThemeListener;
+import src.views.load.save.SavePage;
 import src.views.rules.RulesPage;
 import src.views.utils.EventsHandler;
+import src.views.utils.GameStatusHandler;
+import src.views.utils.ThemeUtils;
 
-public class PauseDialogContent extends JPanel {
-  private TranslatedButton btnAbandon = new TranslatedButton("abandon");
-  private TranslatedButton btnRestart = new TranslatedButton("restart");
-  private TranslatedButton btnSave = new TranslatedButton("save");
-  private TranslatedButton btnRules = new TranslatedButton("rules");
-  private TranslatedButton btnMainMenu = new TranslatedButton("main-menu");
+public class PauseDialogContent extends JPanel implements ThemeListener {
+  private static final int MARGIN = 20;
+
+  private CustomizedButton btnSave = new CustomizedButton("save");
+  private CustomizedButton btnRestart = new CustomizedButton("restart");
+  private CustomizedButton btnRules = new CustomizedButton("rules");
+  private CustomizedButton btnMainMenu = new CustomizedButton("main-menu");
+  private ImageThemed bgImage = new ImageThemed("squared-background.png");
 
   public PauseDialogContent() {
-    setLayout(new GridLayout(0, 1));
+    ThemeUtils.addThemeListener(this);
+
+    setLayout(new GridLayout(0, 1, 0, 10));
+    setBorder(BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN));
 
     // Add action listeners to the buttons
     btnMainMenu.addActionListener(e -> {
@@ -23,9 +35,21 @@ public class PauseDialogContent extends JPanel {
       EventsHandler.hideDialog();
     });
 
-    btnSave.addActionListener(e -> {
-      EventsHandler.navigate("SavePage");
+    btnRestart.addActionListener(e -> {
+      // Restart the game
+      int typeP1 = EventsHandler.getController().getPlayer1Type();
+      int typeP2 = EventsHandler.getController().getPlayer2Type();
+      String nameP1 = EventsHandler.getController().getPlayer1Name();
+      String nameP2 = EventsHandler.getController().getPlayer2Name();
+      EventsHandler.getController().createModel(typeP1, typeP2, nameP1, nameP2);
+      GameStatusHandler.startGame();
       EventsHandler.hideDialog();
+    });
+
+    btnSave.addActionListener(e -> {
+      // EventsHandler.navigate("SavePage");
+      EventsHandler.hideDialog();
+      EventsHandler.showDialog(new SavePage(MainFrame.getLoadPage()), true);
     });
 
     btnRules.addActionListener(e -> {
@@ -33,10 +57,22 @@ public class PauseDialogContent extends JPanel {
       EventsHandler.showDialog(new RulesPage(false), true);
     });
 
-    add(btnAbandon);
-    add(btnRestart);
     add(btnSave);
+    add(btnRestart);
     add(btnRules);
     add(btnMainMenu);
+
+  }
+
+  @Override
+  protected void paintComponent(java.awt.Graphics g) {
+    super.paintComponent(g);
+    // Draw background image
+    g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 }

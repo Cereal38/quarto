@@ -96,6 +96,7 @@ public class ViewModelController implements ViewModelListener {
     if (quartoModel == null) {
       return new Cell[4][4];
     }
+    List<int[]> winLine = quartoModel.getWinLine();
     QuartoPawn[][] pawns = quartoModel.getTable();
     Cell[][] tableCells = new Cell[4][4];
     int size = DimensionUtils.getBoardCellSize();
@@ -105,7 +106,14 @@ public class ViewModelController implements ViewModelListener {
         if (pawns[i][j] != null) {
           pawn = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i][j].getPawn()), Pawn.PLAYED, size, size);
         }
-        tableCells[i][j] = new Cell(pawn, i, j);
+        boolean isWinningCell = false;
+        for (int[] win : winLine) {
+          if (win[0] == i && win[1] == j) {
+            isWinningCell = true;
+            break;
+          }
+        }
+        tableCells[i][j] = new Cell(pawn, i, j, isWinningCell);
       }
     }
     return tableCells;
@@ -186,6 +194,34 @@ public class ViewModelController implements ViewModelListener {
       return null;
     }
     return quartoModel.getPlayer2Name();
+  }
+
+  public int getPlayer1Type() {
+    if (quartoModel == null) {
+      return 0;
+    }
+    return quartoModel.getPlayer1Type();
+  }
+
+  public int getPlayer2Type() {
+    if (quartoModel == null) {
+      return 0;
+    }
+    return quartoModel.getPlayer2Type();
+  }
+
+  public boolean isPlayer1AI() {
+    if (quartoModel == null) {
+      return false;
+    }
+    return quartoModel.getPlayer1Type() != 0;
+  }
+
+  public boolean isPlayer2AI() {
+    if (quartoModel == null) {
+      return false;
+    }
+    return quartoModel.getPlayer2Type() != 0;
   }
 
   public boolean isSelectionPhase() {

@@ -4,24 +4,26 @@ import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
+import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class PauseMenuButton extends JButton {
+public class PauseMenuButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
-  private boolean isLightTheme = true;
-  // Load icon
-  ImageIcon MenuImg = ImageUtils.loadImage("menu-wood.png", 32, 32);
-  ImageIcon MenuWhiteImg = ImageUtils.loadImage("menu-wood.png", 32, 32);
+  private ImageThemed image = new ImageThemed("menu.png");
 
   public PauseMenuButton() {
+    ThemeUtils.addThemeListener(this);
 
     // cursor : pointer
     setCursor(new Cursor(Cursor.HAND_CURSOR));
 
     // Add style
-    setIcon(MenuImg);
+    image.setSize(32, 32);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
 
@@ -33,8 +35,10 @@ public class PauseMenuButton extends JButton {
     tooltip = new TranslatedString("menuButtonTooltip", this, true);
   }
 
-  public void updateIcon(boolean isLightTheme) {
-    this.isLightTheme = isLightTheme;
-    setIcon(isLightTheme ? MenuImg : MenuWhiteImg);
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
   }
+
 }
