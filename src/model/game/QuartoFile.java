@@ -13,7 +13,11 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class QuartoFile {
-    private QuartoHistory save, head;
+    /** The head of the game history. */
+    private QuartoHistory head;
+
+    /** The current save state of the game. */
+    private QuartoHistory save;
 
     /**
      * Initializes a new QuartoFile instance.
