@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -80,21 +81,18 @@ public class MovesHistory extends JScrollPane {
     // Add moves to container with separators in between
     for (int i = GameStatusHandler.getMoveComponents().size() - 1; i >= 0; i--) {
       moveConstraints.gridy = 2 * i; // Move
-      // Add move number label
-      JLabel moveNumberLabel = new JLabel(moveNumber + " .");
-      movesContainer.add(moveNumberLabel, moveConstraints);
-      moveConstraints.gridx = 1;
-      movesContainer.add(GameStatusHandler.getMoveComponents().get(i), moveConstraints);
-      moveConstraints.gridx = 0;
-        // Add separator that spans across both columns
-        moveConstraints.gridy = 2 * (GameStatusHandler.getMoveComponents().size() - 1 - i) + 1; // Separator
-        moveConstraints.gridwidth = 2; // Span across two columns
-        movesContainer.add(new JSeparator(JSeparator.HORIZONTAL), moveConstraints);
-        moveConstraints.gridwidth = 1; // Reset grid width
-        // set color of the separator to black
-        movesContainer.getComponent(movesContainer.getComponentCount() - 1).setForeground(java.awt.Color.BLACK);
+      moveConstraints.insets = new Insets(0,70,0,70); // Set insets to reduce space
 
-      moveNumber++; // Increment the move number for the next iteration
+
+      movesContainer.add(GameStatusHandler.getMoveComponents().get(i), moveConstraints);
+
+      // Add separator
+      moveConstraints.gridy++;
+      moveConstraints.gridwidth = 2;
+      JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
+      movesContainer.add(separator, moveConstraints);
+
+      moveConstraints.gridwidth = 1;
     }
 
     movesContainer.revalidate();
@@ -116,7 +114,6 @@ public class MovesHistory extends JScrollPane {
       int y = save.getColumn();
       String moveDescription;
       ImageIcon pawnIcon = null;
-      System.out.println(save.getState());
       if (name != null) {
         // y 0 is a, y 1 is b, etc.
         char column = (char) (y + 97);
