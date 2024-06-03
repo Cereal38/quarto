@@ -116,6 +116,8 @@ public class QuartoModel {
   }
 
   public boolean checkInfoPlayer(int index) {
+    if (playerManager == null)
+      playerManager = new QuartoPlayerManager(0,0,"a", "b", new Heuristics(),new Heuristics());
     int countUndo = 0;
     manager.loadFromDirectory();
     List<SlotFile> slotFiles = manager.getSlotFiles();
@@ -127,17 +129,12 @@ public class QuartoModel {
     SlotFile slotFile = slotFiles.get(index);
     String fileName = slotFile.getFilename();
 
-    while (file.canUndo()) {
+    while (canUndo()) {
       undo();
       countUndo++;
     }
     System.out.println("Number of files = " + slotFiles.size());
 
-    if (manager.isSlotFileEmpty(slotFile.getId())) {
-      System.err.println("Index " + index + " contains a empty file: " + fileName);
-      redoLoop(countUndo);
-      return false;
-    }
 
     String[] infoPlayer = file.chargeFile(fileName);
     if (infoPlayer == null) {
@@ -154,19 +151,20 @@ public class QuartoModel {
     playerManager.setPlayer1Name(nameAndType[0]);
     playerManager.setPlayer1Type(Integer.parseInt(nameAndType[1]));
 
-
     nameAndType = infoPlayer[1].split(" ");
     if (nameAndType.length != 2) {
       System.err.println("Missing information for player 2");
       redoLoop(countUndo);
       return false;
     }
-    playerManager.setPlayer1Name(nameAndType[0]);
-    playerManager.setPlayer1Type(Integer.parseInt(nameAndType[1]));
+    playerManager.setPlayer2Name(nameAndType[0]);
+    playerManager.setPlayer2Type(Integer.parseInt(nameAndType[1]));
+
 
 
     return true;
   }
+
 
   public void chargeGame(int index) {
     if (!checkInfoPlayer(index))
