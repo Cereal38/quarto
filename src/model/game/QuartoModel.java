@@ -118,7 +118,7 @@ public class QuartoModel {
 
   public boolean checkInfoPlayer(int index) {
     if (playerManager == null)
-      playerManager = new QuartoPlayerManager(0,0,"a", "b", new Heuristics(),new Heuristics());
+      playerManager = new QuartoPlayerManager();
     int countUndo = 0;
     manager.loadFromDirectory();
     List<SlotFile> slotFiles = manager.getSlotFiles();
