@@ -124,7 +124,7 @@ public class QuartoModel {
     }
 
     // Add 1 second delay when AI is selecting a pawn
-    //delay(1000);
+    // delay(1000);
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.selectPawn(this);
     } else if (getCurrentPlayerType() == 2) {
@@ -174,7 +174,7 @@ public class QuartoModel {
       return;
     }
     // Add 1 second delay when AI is playing
-    //delay(1000);
+    // delay(1000);
     if (getCurrentPlayerType() == 1) {
       randomAIPlayer.playShot(this);
     } else if (getCurrentPlayerType() == 2) {
@@ -436,5 +436,13 @@ public class QuartoModel {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  public boolean canUndo() {
+    return file.canUndo();
+  }
+
+  public boolean canRedo() {
+    return file.canRedo();
   }
 }
