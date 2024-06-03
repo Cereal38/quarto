@@ -19,8 +19,6 @@ public class RightPanelTopBar extends JPanel implements ThemeListener {
 
     PauseMenuButton btnPause = new PauseMenuButton();
 
-    EventsHandler.setPauseMenuButton(btnPause);
-
     // Add action listeners to the buttons
     btnPause.addActionListener(e -> {
       EventsHandler.showDialog(new PauseDialogContent(), true);

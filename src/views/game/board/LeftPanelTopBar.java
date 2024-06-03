@@ -4,7 +4,6 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import src.views.components.ImageThemed;
 import src.views.listeners.ThemeListener;
-import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
@@ -19,9 +18,6 @@ public class LeftPanelTopBar extends JPanel implements ThemeListener {
 
     UndoButton btnUndo = new UndoButton();
     RedoButton btnRedo = new RedoButton();
-
-    EventsHandler.setUndoButton(btnUndo);
-    EventsHandler.setRedoButton(btnRedo);
 
     add(btnUndo);
     add(btnRedo);
