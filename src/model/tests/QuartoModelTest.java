@@ -338,16 +338,16 @@ public class QuartoModelTest {
     Assertions.assertFalse(quartoModel.winSituation(0, 0));
     Assertions.assertFalse(quartoModel.winSituation(0, 1));
     Assertions.assertTrue(quartoModel.winSituation(0, 2));
-    Assertions.assertTrue(quartoModel.winSituation(0, 3));
+    Assertions.assertFalse(quartoModel.winSituation(0, 3));//win but the column win is detected first
     Assertions.assertFalse(quartoModel.winSituation(1, 0));
     Assertions.assertFalse(quartoModel.winSituation(1, 1));
     Assertions.assertTrue(quartoModel.winSituation(1, 2));
     Assertions.assertFalse(quartoModel.winSituation(1, 3));
     Assertions.assertFalse(quartoModel.winSituation(2, 0));//win BUT another win was detected before so the last pawn wasn't placed
-    Assertions.assertTrue(quartoModel.winSituation(2, 1));
+    Assertions.assertFalse(quartoModel.winSituation(2, 1));//win but the column win is detected first
     Assertions.assertTrue(quartoModel.winSituation(2, 2));
     Assertions.assertFalse(quartoModel.winSituation(2, 3));//win but another win was detected before and this pawn placement was ignored
-    Assertions.assertTrue(quartoModel.winSituation(3, 0));
+    Assertions.assertFalse(quartoModel.winSituation(3, 0));//win but the column win is detected first
     Assertions.assertFalse(quartoModel.winSituation(3, 1));
     Assertions.assertTrue(quartoModel.winSituation(3, 2));
     Assertions.assertFalse(quartoModel.winSituation(3, 3));
