@@ -1,6 +1,9 @@
 package src.views.utils;
 
-import java.awt.*;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.RGBImageFilter;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -31,6 +34,33 @@ public class ImageUtils {
     button.setContentAreaFilled(false);
     button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     return button;
+  }
+
+  public static Image darkenImage(Image image) {
+    // Create an RGBImageFilter that darkens the image by 50%
+    RGBImageFilter rgbImageFilter = new RGBImageFilter() {
+      @Override
+      public int filterRGB(int x, int y, int rgb) {
+        int a = rgb & 0xFF000000;
+        int r = (rgb & 0x00FF0000) >> 16;
+        int g = (rgb & 0x0000FF00) >> 8;
+        int b = rgb & 0x000000FF;
+
+        // Darken the color by 50%
+        r = (int) (r * 0.5);
+        g = (int) (g * 0.5);
+        b = (int) (b * 0.5);
+
+        return a | (r << 16) | (g << 8) | b;
+      }
+    };
+
+    // Create a FilteredImageSource that applies the RGBImageFilter
+    FilteredImageSource filteredImageSource = new FilteredImageSource(image.getSource(), rgbImageFilter);
+
+    // Create a new Image from the FilteredImageSource using the default Toolkit
+    // instance
+    return Toolkit.getDefaultToolkit().createImage(filteredImageSource);
   }
 
   public static String getPawn(int code) {
@@ -71,4 +101,5 @@ public class ImageUtils {
     }
     return null;
   }
+
 }

@@ -1,5 +1,6 @@
 package src.views.game.board;
 
+import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -7,6 +8,7 @@ import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
 import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.ImageUtils;
 import src.views.utils.ThemeUtils;
 
 public class UndoButton extends JButton implements ThemeListener {
@@ -16,11 +18,11 @@ public class UndoButton extends JButton implements ThemeListener {
   public UndoButton() {
     ThemeUtils.addThemeListener(this);
 
-    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    setCursor(new Cursor(Cursor.HAND_CURSOR));
 
     // Add style
     image.setSize(32, 32);
-    ImageIcon icon = new ImageIcon(image.getImage());
+    ImageIcon icon = new ImageIcon(ImageUtils.darkenImage(image.getImage()));
     setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
