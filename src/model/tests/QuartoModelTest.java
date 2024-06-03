@@ -53,6 +53,7 @@ public class QuartoModelTest {
     for(int i = 0; i < 4; i++){
       for(int j = 0; j < 4; j++) {
         Assertions.assertFalse(quartoModel.isPawnListEmpty());
+        System.out.println(((i+1) * (j+1)) -1);
         quartoModel.selectPawn(((i+1) * (j+1)) -1);
         quartoModel.playShot(i, j);
       }
