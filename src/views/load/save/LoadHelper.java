@@ -24,6 +24,10 @@ import src.views.components.TranslatedString;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 
+/**
+ * Helper class for creating and rendering slots in the LoadPage.
+ */
+
 public class LoadHelper {
   JPanel slotsPanel;
   List<SlotFile> slotFiles;
@@ -35,6 +39,13 @@ public class LoadHelper {
     loadSavePage = l;
   }
 
+  /**
+   * Creates a panel for a slot with the specified title, date, and ID.
+   * @param slotTitle The title of the slot.
+   * @param savedDate The date when the slot was saved.
+   * @param id The ID of the slot.
+   * @return The JPanel representing the slot.
+   */
   public JPanel createSlotPanel(String slotTitle, Date savedDate, int id) {
     JPanel slotPanel = new JPanel(new BorderLayout()) {
       @Override
@@ -119,6 +130,11 @@ public class LoadHelper {
     return slotPanel;
   }
 
+  /**
+   * Renders the slots panel with the given list of slot files.
+   * @param slotsPanel The panel containing the slots.
+   * @param slotFiles The list of slot files.
+   */
   public void renderSlots(JPanel slotsPanel, List<SlotFile> slotFiles) {
     slotsPanel.removeAll();
 
