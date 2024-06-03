@@ -16,7 +16,7 @@ public class ThemeButton extends JButton implements ThemeListener {
     ThemeUtils.addThemeListener(this);
 
     // Add style
-    image.setSize(32, 32);
+    image.setSize(28, 28);
     ImageIcon icon = new ImageIcon(image.getImage());
     setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
