@@ -1,6 +1,3 @@
-/**
- * A button with a customized appearance.
- */
 package src.views.components;
 
 import java.awt.AlphaComposite;
@@ -12,6 +9,10 @@ import java.awt.Graphics2D;
 import javax.swing.JButton;
 import src.views.listeners.ThemeListener;
 import src.views.utils.ThemeUtils;
+
+/**
+ * A button with a customized appearance.
+ */
 
 public class CustomizedButton extends JButton implements ThemeListener {
 

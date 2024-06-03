@@ -1,6 +1,3 @@
-/**
- * A text field with a customized appearance.
- */
 package src.views.components;
 
 import java.awt.Color;
@@ -13,6 +10,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import src.views.listeners.ThemeListener;
 import src.views.utils.ThemeUtils;
+
+/**
+ * A text field with a customized appearance.
+ */
 
 public class CustomizedTextField extends JTextField implements ThemeListener {
 
