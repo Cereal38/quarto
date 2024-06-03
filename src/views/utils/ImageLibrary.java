@@ -60,8 +60,21 @@ public class ImageLibrary {
     loadImage("resume.png");
     loadImage("pause.png");
     loadImage("flat.png");
+    loadImage("exit.png");
+    loadImage("book.png");
+    loadImage("brush.png");
+    loadImage("en.png");
+    loadImage("fr.png");
+    loadImage("back.png");
+    loadImage("highlight.png");
+    loadImage("double-arrow.png");
   }
 
+  /**
+   * Loads an image for both light and dark themes and stores them in the image map.
+   *
+   * @param name the name of the image file
+   */
   private static void loadImage(String name) {
     try {
       Image imgLight = ImageIO.read(new File("assets/images/light/" + name));
@@ -73,7 +86,15 @@ public class ImageLibrary {
     }
   }
 
+  /**
+   * Retrieves the image corresponding to the specified theme and name from the image map.
+   *
+   * @param theme the theme of the image (e.g., "light" or "dark")
+   * @param name  the name of the image file
+   * @return the image corresponding to the theme and name
+   */
   public static Image getImage(String theme, String name) {
     return imageMap.get(theme + name);
   }
+
 }

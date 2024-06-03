@@ -12,6 +12,15 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * The MainMenu class represents the main menu of the game application.
+ * It provides options for starting a new game and loading a saved game.
+ * This menu is displayed when the game application starts.
+ *
+ * <p>The MainMenu class extends the JPanel class and implements the ThemeListener interface
+ * to listen for theme change events.</p>
+ */
+
 public class MainMenu extends JPanel implements ThemeListener {
   private CustomizedButton btnNewGame = new CustomizedButton("new-game");
   private CustomizedButton btnLoad = new CustomizedButton("load");
@@ -19,6 +28,9 @@ public class MainMenu extends JPanel implements ThemeListener {
   private ImageThemed logoImage = new ImageThemed("quarto.png");
   private JLabel logo;
 
+  /**
+   * Constructs a MainMenu object.
+   */
   public MainMenu() {
     ThemeUtils.addThemeListener(this);
     EventsHandler.setMainMenu(this);

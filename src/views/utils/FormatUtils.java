@@ -1,6 +1,6 @@
 package src.views.utils;
 
-import src.model.QuartoPawn;
+import src.model.game.QuartoPawn;
 
 /**
  * This class contains all the methods used to format the data.

@@ -14,12 +14,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+/**
+ * A panel to display snackbar messages at the bottom of a frame.
+ */
 public class SnackbarPanel extends JPanel {
 
   private JPanel snackbar;
   private TranslatedLabel messageLabel;
   private Timer timer;
 
+  /**
+   * Constructs a new SnackbarPanel with the specified main frame.
+   *
+   * @param main the main JFrame to which the snackbar is attached
+   */
   public SnackbarPanel(JFrame main) {
 
     // Setup the background component (main component)
@@ -71,7 +79,6 @@ public class SnackbarPanel extends JPanel {
       @Override
       public void componentResized(ComponentEvent e) {
         setBounds(0, 0, main.getWidth(), main.getHeight());
-
       }
     });
   }
@@ -79,7 +86,7 @@ public class SnackbarPanel extends JPanel {
   /**
    * Sets the message of the snackbar panel and starts the timer.
    *
-   * @param message the string representing the message of the snackbar
+   * @param key the key representing the message of the snackbar
    */
   public void setMessage(String key) {
     messageLabel.setKey(key);

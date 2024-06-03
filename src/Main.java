@@ -5,17 +5,22 @@ import javax.swing.SwingUtilities;
 import src.views.MainFrame;
 
 /**
- * This is the Main class.
+ * The main class of the Quarto game application.
  */
 public class Main {
 
+  /**
+   * The entry point of the application.
+   *
+   * @param args the command line arguments
+   */
   public static void main(String[] args) {
-    // Utilisation de SwingUtilities.invokeLater pour assurer que l'interface est
-    // créée sur le fil d'événements
+    // Using SwingUtilities.invokeLater to ensure that the interface is
+    // created on the event dispatch thread
     SwingUtilities.invokeLater(new Runnable() {
       @Override
       public void run() {
-        new MainFrame(); // Crée et affiche la fenêtre principale
+        new MainFrame(); // Create and display the main window
       }
     });
   }

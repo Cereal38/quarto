@@ -11,12 +11,24 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * A utility class for handling image-related operations.
+ */
+
 public class ImageUtils {
 
-  public static ImageIcon loadImage(String nom, int width, int height) {
+  /**
+   * Loads an image with the specified name and resizes it to the given width and height.
+   *
+   * @param name   the name of the image file
+   * @param width  the desired width of the image
+   * @param height the desired height of the image
+   * @return the loaded and resized ImageIcon
+   */
+  public static ImageIcon loadImage(String name, int width, int height) {
     try {
       // print ls
-      String path = "assets/images/" + nom;
+      String path = "assets/images/" + name;
       ImageIcon icon = new ImageIcon(ImageIO.read(new File(path)));
       Image newIcon = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
       icon = new ImageIcon(newIcon);
@@ -28,6 +40,12 @@ public class ImageUtils {
     }
   }
 
+  /**
+   * Creates a JButton with the specified ImageIcon as its icon.
+   *
+   * @param icon the ImageIcon to set as the button's icon
+   * @return the created JButton
+   */
   public static JButton createButtonFromImage(ImageIcon icon) {
     JButton button = new JButton(icon);
     button.setBorder(BorderFactory.createEmptyBorder());
@@ -36,6 +54,12 @@ public class ImageUtils {
     return button;
   }
 
+  /**
+   * Darkens the given image by reducing its RGB values by 50%.
+   *
+   * @param image the image to darken
+   * @return the darkened image
+   */
   public static Image darkenImage(Image image) {
     // Create an RGBImageFilter that darkens the image by 50%
     RGBImageFilter rgbImageFilter = new RGBImageFilter() {
@@ -63,6 +87,12 @@ public class ImageUtils {
     return Toolkit.getDefaultToolkit().createImage(filteredImageSource);
   }
 
+  /**
+   * Converts the pawn code to its binary representation.
+   *
+   * @param code the code of the pawn (0-15)
+   * @return the binary representation of the pawn code
+   */
   public static String getPawn(int code) {
     // turn code (0-15) to byte (0000-1111) smartly
     switch (code) {

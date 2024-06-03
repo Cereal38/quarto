@@ -5,8 +5,18 @@ import src.views.components.TranslatedString;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The RulesPage class represents a panel displaying rules or information about the game.
+ * It contains HTML-formatted content loaded from resource files and styled with CSS.
+ */
 
 public class RulesPage extends JPanel {
+
+    /**
+     * Constructs a RulesPage panel.
+     *
+     * @param isAboutGame Specifies whether the page is about the game or its rules.
+     */
     public RulesPage(boolean isAboutGame) {
         setLayout(new BorderLayout());
 
@@ -46,22 +56,4 @@ public class RulesPage extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    public static void main(String[] args) {
-        // Create a JFrame to display the RulesPage
-        JFrame frame = new JFrame("Quarto Rules");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Create a RulesPage panel and add it to the frame
-        RulesPage rulesPage = new RulesPage(false);
-        frame.add(rulesPage);
-
-        // Set the size of the frame
-        frame.setSize(800, 600);
-
-        // Center the frame on the screen
-        frame.setLocationRelativeTo(null);
-
-        // Display the frame
-        frame.setVisible(true);
-    }
 }

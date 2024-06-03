@@ -12,17 +12,22 @@ import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents a button for redoing an action.
+ */
 public class RedoButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
   private ImageThemed image = new ImageThemed("redo.png");
   ImageIcon icon;
 
+  /**
+   * Constructs a RedoButton.
+   */
   public RedoButton() {
     ThemeUtils.addThemeListener(this);
 
     image.setSize(32, 32);
 
-    // Change style if can or can't redo
     if (EventsHandler.getController().canRedo()) {
       setCursor(new Cursor(Cursor.HAND_CURSOR));
       icon = new ImageIcon(image.getImage());

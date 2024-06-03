@@ -8,10 +8,16 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents the top bar on the right side of the game board.
+ */
 public class RightPanelTopBar extends JPanel implements ThemeListener {
 
   private ImageThemed bgImage = new ImageThemed("gameboard-right-top-bar.png");
 
+  /**
+   * Constructs a RightPanelTopBar.
+   */
   public RightPanelTopBar() {
     ThemeUtils.addThemeListener(this);
 

@@ -14,11 +14,18 @@ import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents the game board.
+ */
+
 public class GameBoard extends JPanel implements GameStatusListener, ThemeListener {
 
   private static final int HEIGHT_TOP_BAR = 60;
   private ImageThemed bgImage = new ImageThemed("bg-board.png");
 
+  /**
+   * Constructs a GameBoard object.
+   */
   public GameBoard() {
     ThemeUtils.addThemeListener(this);
 

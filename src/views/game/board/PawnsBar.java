@@ -7,8 +7,18 @@ import javax.swing.JPanel;
 import src.views.components.Pawn;
 import src.views.utils.EventsHandler;
 
+/**
+ * Represents the panel that displays the available pawns.
+ */
+
 public class PawnsBar extends JPanel {
 
+  /**
+   * Constructs a PawnsBar with the specified width and height.
+   *
+   * @param width  The width of the pawns bar.
+   * @param height The height of the pawns bar.
+   */
   public PawnsBar(int width, int height) {
     setLayout(new GridLayout(8, 2));
 
