@@ -8,12 +8,17 @@ import src.views.components.TranslatedString;
 import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
 
+/**
+ * Represents a button for resuming the game.
+ */
 public class ResumeButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
   private ImageThemed image = new ImageThemed("resume.png");
 
+  /**
+   * Constructs a ResumeButton.
+   */
   public ResumeButton() {
-
     setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
     // Add style
