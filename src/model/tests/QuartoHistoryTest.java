@@ -57,6 +57,9 @@ public class QuartoHistoryTest {
         game.selectPawn(1);
         game.playShot(0, 0);
         Assertions.assertTrue(game.canUndo()); // After a shot played, undo should be possible
+
+        game.undo();
+        Assertions.assertFalse(game.canUndo());
     }
 
     @Test
@@ -66,10 +69,18 @@ public class QuartoHistoryTest {
         // saving actual state
         QuartoHistory save = game.getSave();
 
+        //selecting a pawn
+        game.selectPawn(5);
+
         // playing a shot
         game.playShot(0, 0);
 
-        // Undo the movement
+        // Undo the shot
+        game.undo();
+
+        Assertions.assertNotEquals(save, game.getSave());
+
+        // Undo the selection
         game.undo();
 
         // next saved element must be equal to the previous saved state
