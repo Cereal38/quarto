@@ -63,6 +63,8 @@ public class ImageLibrary {
     loadImage("exit.png");
     loadImage("book.png");
     loadImage("brush.png");
+    loadImage("en.png");
+    loadImage("fr.png");
   }
 
   private static void loadImage(String name) {
