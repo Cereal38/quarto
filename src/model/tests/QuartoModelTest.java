@@ -330,7 +330,7 @@ public class QuartoModelTest {
     quartoModel.playShot(1, 3);
     quartoModel.setSelectedPawn(new QuartoPawn((byte) 9));
     quartoModel.playShot(0, 3);// diagonal win
-    quartoModel.setSelectedPawn(new QuartoPawn((byte) 0));
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 3));
     quartoModel.playShot(1, 2);// diagonal win and column win
     quartoModel.setSelectedPawn(new QuartoPawn((byte) 11));
     quartoModel.playShot(2, 3);// line win
@@ -343,10 +343,10 @@ public class QuartoModelTest {
     Assertions.assertFalse(quartoModel.winSituation(1, 1));
     Assertions.assertTrue(quartoModel.winSituation(1, 2));
     Assertions.assertFalse(quartoModel.winSituation(1, 3));
-    //Assertions.assertTrue(quartoModel.winSituation(2, 0));
+    Assertions.assertTrue(quartoModel.winSituation(2, 0));
     Assertions.assertTrue(quartoModel.winSituation(2, 1));
     Assertions.assertTrue(quartoModel.winSituation(2, 2));
-    //Assertions.assertTrue(quartoModel.winSituation(2, 3));
+    Assertions.assertTrue(quartoModel.winSituation(2, 3));
     Assertions.assertTrue(quartoModel.winSituation(3, 0));
     Assertions.assertFalse(quartoModel.winSituation(3, 1));
     Assertions.assertTrue(quartoModel.winSituation(3, 2));
