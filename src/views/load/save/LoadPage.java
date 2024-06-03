@@ -16,6 +16,10 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * JPanel representing the load page, where users can load saved game slots.
+ */
+
 public class LoadPage extends JPanel implements ThemeListener {
   private LoadHelper helper;
   JPanel slotsPanel;
