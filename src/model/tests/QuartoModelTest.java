@@ -50,6 +50,14 @@ public class QuartoModelTest {
   public void testIsPawnListEmpty() {
     QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
     Assertions.assertFalse(quartoModel.isPawnListEmpty());
+    for(int i = 0; i < 4; i++){
+      for(int j = 0; j < 4; j++) {
+        Assertions.assertFalse(quartoModel.isPawnListEmpty());
+        quartoModel.selectPawn(i + j);
+        quartoModel.playShot(i, j);
+      }
+    }
+    Assertions.assertTrue(quartoModel.isPawnListEmpty());
   }
 
   @Test
@@ -70,8 +78,11 @@ public class QuartoModelTest {
   public void testPlayShot() {
     QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
     quartoModel.setSelectedPawn(new QuartoPawn((byte) 10));
+    Assertions.assertTrue(quartoModel.isTableEmpty(1, 1));
     quartoModel.playShot(1, 1);
     Assertions.assertFalse(quartoModel.isTableEmpty(1, 1));
+    Assertions.assertEquals(quartoModel.getPawnAtPosition(1, 1).getPawn(), 10);
+    Assertions.assertNull(quartoModel.getSelectedPawn());
   }
 
   @Test
@@ -92,6 +103,7 @@ public class QuartoModelTest {
     quartoModel.playShot(line, column);
 
     Assertions.assertSame(quartoModel.getPawnAtPosition(1, 1), pawn1);
+    Assertions.assertEquals(quartoModel.getSelectedPawn(), pawn2);
   }
 
   @Test
