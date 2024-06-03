@@ -14,10 +14,22 @@ import src.views.components.TranslatedLabel;
 import src.views.listeners.ThemeListener;
 import src.views.utils.ThemeUtils;
 
+/**
+ * The ChoosePlayers class represents the panel for choosing player names.
+ * It allows users to enter the names of the players who will participate in the game.
+ *
+ * <p>The class extends the JPanel class and implements the ThemeListener interface
+ * to listen for theme change events.</p>
+ */
+
 public class ChoosePlayers extends JPanel implements ThemeListener {
   private ImageThemed bgImage = new ImageThemed("bg-board.png");
   private ImageThemed topbarImage = new ImageThemed("flat.png");
 
+  /**
+   * Constructs a ChoosePlayers panel.
+   * Sets up the layout and components for choosing player names.
+   */
   public ChoosePlayers() {
     ThemeUtils.addThemeListener(this);
 
