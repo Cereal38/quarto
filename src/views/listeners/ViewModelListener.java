@@ -13,7 +13,6 @@ public interface ViewModelListener {
     public void saveGame(String fileName) throws IOException ;
 
     public void loadGame(int index);
-    public boolean isSlotFileEmpty(int index);
 
     List<SlotFile> getSlotFiles();
 
