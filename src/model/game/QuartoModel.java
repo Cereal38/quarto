@@ -74,6 +74,7 @@ public class QuartoModel {
       } else { // before the first move
         board.getPawnAvailable()[file.getIndexPawn()] = board.getSelectedPawn();
         board.setSelectedPawn(null);
+        playerManager.switchPlayer();//the first player starts
       }
       file.setSave(file.getSave().getPrevious());
     }
