@@ -8,9 +8,16 @@ package src.model.game;
 import java.util.List;
 
 public class QuartoBoard {
+    /** The 2D array representing the game board, where each cell holds a QuartoPawn object. */
     private QuartoPawn[][] table;
+
+    /** An array containing the available pawns that can be placed on the game board. */
     private QuartoPawn[] pawnAvailable;
+
+    /** The currently selected pawn to be placed on the game board. */
     private QuartoPawn selectedPawn;
+
+    /** The QuartoWin object responsible for managing win conditions on the game board. */
     private QuartoWin win;
 
     /**
