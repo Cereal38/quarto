@@ -15,13 +15,11 @@ public class ExitButton extends JButton implements ThemeListener {
     ThemeUtils.addThemeListener(this);
 
     // Add style
-    // Add style
     image.setSize(32, 32);
     ImageIcon icon = new ImageIcon(image.getImage());
     setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
-    ;
 
     // Add action
     setActionCommand("Quit");
