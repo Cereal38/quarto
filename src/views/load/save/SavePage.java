@@ -29,6 +29,7 @@ public class SavePage extends JPanel implements ThemeListener {
   private JLabel messageLabel;
   private LoadPage loadSavePage;
   private ImageThemed bgImage = new ImageThemed("squared-background.png");
+  private ImageThemed topbarImage = new ImageThemed("topbar.png");
 
   public SavePage(LoadPage l) {
     ThemeUtils.addThemeListener(this);
@@ -125,7 +126,7 @@ public class SavePage extends JPanel implements ThemeListener {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g.drawImage(loadSavePage.getWoodTexture(), 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
   }
 
   public static void main(String[] args) {
