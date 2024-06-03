@@ -181,17 +181,6 @@ public class EventsHandler {
       exitButton.updateIcon(theme == 0);
     }
 
-    if (undoButton != null) {
-      undoButton.updateIcon(theme == 0);
-    }
-
-    if (redoButton != null) {
-      redoButton.updateIcon(theme == 0);
-    }
-
-    if (pauseMenuButton != null) {
-      pauseMenuButton.updateIcon(theme == 0);
-    }
   }
 
   public static void closeApp() {
