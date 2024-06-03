@@ -1,10 +1,14 @@
-package src.model;
+package src.model.ai;
+
+import src.model.game.QuartoModel;
+import src.model.game.QuartoPawn;
+import src.model.game.QuartoWin;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MediumAIPlayer implements Player{
+public class MediumAIPlayer implements Player {
 
     private final Random random;
     private final QuartoWin quartoWin;

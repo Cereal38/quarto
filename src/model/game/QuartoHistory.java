@@ -1,4 +1,4 @@
-package src.model;
+package src.model.game;
 
 public class QuartoHistory {
     int state; // If we have to select a pawn for the other player state = 0, if we have to

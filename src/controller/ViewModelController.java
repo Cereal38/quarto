@@ -2,9 +2,9 @@ package src.controller;
 
 import java.io.IOException;
 import java.util.List;
-import src.model.QuartoModel;
-import src.model.QuartoPawn;
-import src.model.SlotManager;
+import src.model.game.QuartoModel;
+import src.model.game.QuartoPawn;
+import src.model.game.SlotManager;
 import src.structures.SlotFile;
 import src.views.components.Pawn;
 import src.views.game.board.Cell;

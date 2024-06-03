@@ -1,4 +1,4 @@
-package src.model;
+package src.model.ai;
 
 // Class to represent heuristic values for evaluating the board in a Quarto game
 public class Heuristics {
@@ -9,7 +9,7 @@ public class Heuristics {
     int riskValue;            // Heuristic value for assessing risk on the board
 
     // Constructor to initialize heuristic values with default values
-    Heuristics (){
+    public Heuristics(){
         this.winStateValue = 1000;
         this.sameCharValue = 10;
         this.lineOfThreeValue = 20;
@@ -18,32 +18,32 @@ public class Heuristics {
     }
 
     // Getter for winStateValue
-    int getWinStateValue(){
+    public int getWinStateValue(){
         return winStateValue;
     }
 
     // Getter for sameCharValue
-    int getSameCharValue(){
+    public int getSameCharValue(){
         return sameCharValue;
     }
 
     // Getter for lineOfThreeValue
-    int getLineOfThreeValue(){
+    public int getLineOfThreeValue(){
         return lineOfThreeValue;
     }
 
     // Getter for commonCharValue
-    int getCommonCharValue(){
+    public int getCommonCharValue(){
         return commonCharValue;
     }
 
     // Getter for riskValue
-    int getRiskValue(){
+    public int getRiskValue(){
         return riskValue;
     }
 
     // Setter for winStateValue
-    void setWinStateValue(int winStateValue){
+    public void setWinStateValue(int winStateValue){
         this.winStateValue = winStateValue;
     }
 

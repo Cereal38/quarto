@@ -1,7 +1,9 @@
-package src.model;
+package src.model.tests;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import src.model.game.QuartoModel;
+import src.model.game.QuartoPawn;
 
 public class QuartoModelTest {
   @Test

@@ -1,4 +1,6 @@
-package src.model;
+package src.model.game;
+
+import src.model.ai.*;
 
 public class QuartoPlayerManager {
     private int currentPlayer; // 1 for Player 1 and 2 for Player 2

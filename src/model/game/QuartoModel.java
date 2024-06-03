@@ -1,8 +1,10 @@
-package src.model;
+package src.model.game;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import src.model.ai.Heuristics;
 import src.structures.SlotFile;
 
 public class QuartoModel {

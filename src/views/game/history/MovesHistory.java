@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import src.model.QuartoHistory;
+import src.model.game.QuartoHistory;
 import src.views.components.TranslatedString;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;

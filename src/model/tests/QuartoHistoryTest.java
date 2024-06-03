@@ -1,7 +1,10 @@
-package src.model;
+package src.model.tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import src.model.game.QuartoHistory;
+import src.model.game.QuartoModel;
+import src.model.game.QuartoPawn;
 
 public class QuartoHistoryTest {
     //Before executing these tests, make sure the tests of the model all pass

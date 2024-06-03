@@ -1,4 +1,6 @@
-package src.model;
+package src.model.game;
+
+import src.model.game.QuartoPawn;
 
 import java.util.ArrayList;
 import java.util.List;
