@@ -3,6 +3,8 @@ package src.views.game.board;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import src.views.components.HintButton;
 import src.views.components.ImageThemed;
 import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
@@ -20,6 +22,10 @@ public class RightPanelTopBar extends JPanel implements ThemeListener {
    */
   public RightPanelTopBar() {
     ThemeUtils.addThemeListener(this);
+    HintButton btnHint = new HintButton();
+
+
+    add(btnHint);
 
     setLayout(new FlowLayout(FlowLayout.LEFT, 12, 14));
 
@@ -35,8 +41,11 @@ public class RightPanelTopBar extends JPanel implements ThemeListener {
       // Show the history panel
       EventsHandler.showDialog(new MovesHistoryDialog(), true);
     });
+    add(btnHint);
     add(historyButton);
     add(btnPause);
+    btnHint.setVisible(!EventsHandler.getController().isCurrentPlayerAI());
+
 
   }
 

@@ -29,10 +29,7 @@ public class LeftPanelTopBar extends JPanel implements ThemeListener {
 
     UndoButton btnUndo = new UndoButton();
     RedoButton btnRedo = new RedoButton();
-    HintButton btnHint = new HintButton();
 
-
-    add(btnHint);
     add(btnUndo);
     add(btnRedo);
 
@@ -46,7 +43,6 @@ public class LeftPanelTopBar extends JPanel implements ThemeListener {
       }
     }
 
-    btnHint.setVisible(!EventsHandler.getController().isCurrentPlayerAI());
   }
 
   /**
