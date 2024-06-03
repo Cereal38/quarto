@@ -62,7 +62,7 @@ public class GameStatusHandler {
    */
   private static void aiPlay() {
     if (EventsHandler.getController().isCurrentPlayerAI()) {
-      // We call methods with bullshit data because it's decided by the AI in the
+      // We call methods with random data because it's decided by the AI in the
       // model
       if (EventsHandler.getController().isPlayPhase()) {
         playShot(0, 0);
@@ -71,6 +71,7 @@ public class GameStatusHandler {
       }
     }
   }
+
 
   /**
    * Everytime an action is performed, we inform the listeners and check if the AI

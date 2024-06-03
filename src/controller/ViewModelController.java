@@ -8,6 +8,9 @@ package src.controller;
 
 import java.io.IOException;
 import java.util.List;
+
+import src.model.ai.Heuristics;
+import src.model.ai.MiniMaxAIPlayer;
 import src.model.game.QuartoModel;
 import src.model.game.QuartoPawn;
 import src.model.game.SlotManager;
@@ -26,6 +29,9 @@ public class ViewModelController implements ViewModelListener {
   /** Manages slot files for saving and loading game states */
   private SlotManager slotManager;
 
+  /** Used to give the player a hint */
+  private MiniMaxAIPlayer aiPlayer;
+
   // TODO: Get it from the model
 
   /**  Constants representing game states */
@@ -37,6 +43,7 @@ public class ViewModelController implements ViewModelListener {
    * Initializes the slot manager and loads slot files from the directory.
    */
   public ViewModelController() {
+    aiPlayer = new MiniMaxAIPlayer(2, new Heuristics());
     this.slotManager = new SlotManager();
     this.slotManager.loadFromDirectory();
   }
@@ -420,5 +427,22 @@ public class ViewModelController implements ViewModelListener {
     quartoModel.overWriteFile(fileName);
   }
 
+  /**
+   * Provides a hint for playing the next shot by utilizing the AI to determine the best move.
+   *
+   * @return an array with the coordinates of the best move, where the first element is the row and
+   *         the second element is the column.
+   */
+  public int[] playShotHint() {
+    return aiPlayer.getBestMove(this.quartoModel);
+  }
 
+  /**
+   * Provides a hint for selecting the next pawn by utilizing the AI to determine the best pawn to select.
+   *
+   * @return the index of the best pawn to select.
+   */
+  public int selectPawnHint() {
+    return aiPlayer.getBestPawn(this.quartoModel);
+  }
 }
