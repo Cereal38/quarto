@@ -16,7 +16,6 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ImageUtils;
 import src.views.utils.ThemeUtils;
 
 public class MovesHistory extends JScrollPane implements ThemeListener {
@@ -110,7 +109,9 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
         char column = (char) (y + 97);
         if (save.getState() == 0) {
           String pawnIconString = pawnNumberToString(pawn);
-          pawnIcon = ImageUtils.loadImage(pawnIconString + ".png", 40, 40);
+          ImageThemed pawnImage = new ImageThemed(pawnIconString + ".png");
+          pawnImage.setSize(40, 40);
+          pawnIcon = new ImageIcon(pawnImage.getImage());
           moveDescription = "<html><font color='white'>" + name + "</font> " + selectedThePawnStr + " ";
         } else {
           moveDescription = "<html><font color='white'>" + name + "</font> " + placedItAtStr + " " + x + " - " + column;
