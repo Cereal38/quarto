@@ -12,7 +12,6 @@ import src.views.components.ManualButton;
 import src.views.components.MusicButton;
 import src.views.components.ThemeButton;
 import src.views.listeners.ThemeListener;
-import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
 public class TopBarMainMenu extends JPanel implements ThemeListener {
@@ -29,12 +28,6 @@ public class TopBarMainMenu extends JPanel implements ThemeListener {
     langButton = new LanguageButton();
     exitButton = new ExitButton();
     bookButton = new ManualButton();
-
-    // Set listeners to the buttons
-    EventsHandler.setMusicButton((MusicButton) musicButton);
-    EventsHandler.setLanguageButton((LanguageButton) langButton);
-    EventsHandler.setManualButton((ManualButton) bookButton);
-    EventsHandler.setExitButton((ExitButton) exitButton);
 
     // Buttons aligned on the left
     JPanel leftPanel = new JPanel();
