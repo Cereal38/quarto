@@ -3,7 +3,6 @@ package src.views.components;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import src.views.utils.ImageUtils;
 import src.views.utils.LangUtils;
 
 /**
@@ -15,12 +14,8 @@ public class LanguageButton extends JButton {
   private int lang = LANG_EN;
   private boolean isLightTheme = true;
   private TranslatedString tooltip;
-
-  // Load icons for light and dark themes
-  private ImageIcon frImg = ImageUtils.loadImage("fr.png", 40, 30);
-  private ImageIcon enImg = ImageUtils.loadImage("en.png", 35, 30);
-  private ImageIcon frWhiteImg = ImageUtils.loadImage("fr-white.png", 40, 30);
-  private ImageIcon enWhiteImg = ImageUtils.loadImage("en-white.png", 35, 30);
+  private ImageThemed enImage = new ImageThemed("en.png");
+  private ImageThemed frImage = new ImageThemed("fr.png");
 
   /**
    * Constructs a new LanguageButton.
@@ -56,9 +51,13 @@ public class LanguageButton extends JButton {
     this.isLightTheme = isLightTheme;
 
     if (lang == LANG_EN) {
-      setIcon(isLightTheme ? frImg : frWhiteImg);
+      frImage.setSize(32, 32);
+      ImageIcon icon = new ImageIcon(frImage.getImage());
+      setIcon(icon);
     } else {
-      setIcon(isLightTheme ? enImg : enWhiteImg);
+      enImage.setSize(32, 32);
+      ImageIcon icon = new ImageIcon(enImage.getImage());
+      setIcon(icon);
     }
   }
 

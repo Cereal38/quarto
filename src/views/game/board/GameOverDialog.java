@@ -1,6 +1,7 @@
 package src.views.game.board;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -96,6 +97,7 @@ public class GameOverDialog extends JPanel implements ThemeListener {
     }
     Font font = winnerLabel.getFont().deriveFont(Font.BOLD, 24); // set font to bold and 24-point size
     winnerLabel.setFont(font);
+    winnerLabel.setForeground(ThemeUtils.getTheme() == ThemeUtils.LIGHT ? Color.BLACK : Color.WHITE);
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 2;
     gridBagConstraints.anchor = GridBagConstraints.CENTER;

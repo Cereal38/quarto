@@ -16,6 +16,7 @@ import javax.swing.event.DocumentListener;
 import src.views.components.CustomizedButton;
 import src.views.components.CustomizedTextField;
 import src.views.components.Field;
+import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
 import src.views.listeners.LanguageChangeListener;
 import src.views.utils.EventsHandler;
@@ -85,7 +86,9 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
     startingPlayer2 = new Field(startingPlayer.getText(), !player1starts);
     startingPlayer1.setPreferredSize(new Dimension(componentWidth, componentHeight));
     startingPlayer2.setPreferredSize(new Dimension(componentWidth, componentHeight));
-    ImageIcon doubleArrow = ImageUtils.loadImage("double-sided-arrow.png", arrowSize, arrowSize);
+    ImageThemed doubleArrowImage = new ImageThemed("double-arrow.png");
+    doubleArrowImage.setSize(arrowSize, arrowSize);
+    ImageIcon doubleArrow = new ImageIcon(doubleArrowImage.getImage());
     JButton switchButton = ImageUtils.createButtonFromImage(doubleArrow);
     switchButton.setBorder(
         BorderFactory.createEmptyBorder(0, vsLabelWidth / 2 - arrowSize / 2, 0, vsLabelWidth / 2 - arrowSize / 2));

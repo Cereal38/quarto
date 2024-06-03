@@ -14,8 +14,11 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import src.views.components.*;
+import src.views.components.CustomizedTextField;
+import src.views.components.ImageThemed;
+import src.views.components.TranslatedButton;
+import src.views.components.TranslatedLabel;
+import src.views.components.TranslatedString;
 import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
@@ -95,8 +98,8 @@ public class SavePage extends JPanel implements ThemeListener {
           }
 
         } else {
-            TranslatedString errorText = new TranslatedString("error-text");
-            messageLabel.setText(String.valueOf(errorText));
+          TranslatedString errorText = new TranslatedString("error-text");
+          messageLabel.setText(String.valueOf(errorText));
         }
       }
     });
@@ -104,7 +107,9 @@ public class SavePage extends JPanel implements ThemeListener {
     // Add components to the input panel
     gbc.gridx = 0;
     gbc.gridy = 0;
-    inputPanel.add(new TranslatedLabel("enter-name"), gbc);
+    TranslatedLabel enterName = new TranslatedLabel("enter-name");
+    enterName.setForeground(ThemeUtils.getTheme() == ThemeUtils.LIGHT ? Color.BLACK : Color.WHITE);
+    inputPanel.add(enterName, gbc);
 
     gbc.gridx = 1;
     gbc.gridy = 0;

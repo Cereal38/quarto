@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ImageUtils;
 import src.views.utils.ThemeUtils;
 
 /**
@@ -28,6 +27,7 @@ public class Pawn extends JButton implements ThemeListener {
   private int height;
   private boolean hovered;
   private ImageThemed image;
+  private ImageIcon imageIcon;
 
   /**
    * Constructs a new Pawn with the specified code, state, width, and height.
@@ -49,7 +49,7 @@ public class Pawn extends JButton implements ThemeListener {
     // Load image
     image = new ImageThemed(code + ".png");
     image.setSize(width, height);
-    ImageIcon imageIcon = new ImageIcon(image.getImage());
+    imageIcon = new ImageIcon(image.getImage());
 
     // Set image
     setIcon(imageIcon);
@@ -115,8 +115,10 @@ public class Pawn extends JButton implements ThemeListener {
     else {
       this.width = width;
       this.height = height;
-      ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
-      setIcon(image);
+      image = new ImageThemed(code + ".png");
+      image.setSize(width, height);
+      imageIcon = new ImageIcon(image.getImage());
+      setIcon(imageIcon);
     }
   }
 

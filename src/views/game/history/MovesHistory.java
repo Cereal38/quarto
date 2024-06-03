@@ -4,45 +4,38 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import src.model.game.QuartoHistory;
+import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
+import src.views.listeners.ThemeListener;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
 /**
  * Represents a scrollable panel displaying the moves history.
  */
-
-public class MovesHistory extends JScrollPane {
+public class MovesHistory extends JScrollPane implements ThemeListener {
 
   private JPanel movesContainer;
   private int maxDisplayedMoves = 10; // Maximum displayed moves
-  private Image bgImage;
   int isSelectedCounter = 0;
   private TranslatedString placedItAtStr = new TranslatedString("placed-it-at");
   private TranslatedString selectedThePawnStr = new TranslatedString("selected-the-pawn");
+  private ImageThemed bgImage = new ImageThemed("squared-background.png");
 
   /**
    * Constructs a MovesHistory panel.
    */
   public MovesHistory() {
-    // Load the background image
-    try {
-      bgImage = ImageIO.read(new File("assets/images/pawns-bar.png"));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    ThemeUtils.addThemeListener(this);
+
     setPreferredSize(new Dimension(00, DimensionUtils.getMainFrameHeight()));
 
     movesContainer = new JPanel() {
@@ -50,7 +43,7 @@ public class MovesHistory extends JScrollPane {
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (bgImage != null) {
-          g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+          g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
         }
       }
     };
@@ -64,6 +57,7 @@ public class MovesHistory extends JScrollPane {
 
   /**
    * Adds a move with the specified text and icon to the history.
+   * 
    * @param move The text describing the move.
    * @param icon The icon representing the move.
    */
@@ -136,7 +130,9 @@ public class MovesHistory extends JScrollPane {
         char column = (char) (y + 97);
         if (save.getState() == 0) {
           String pawnIconString = pawnNumberToString(pawn);
-          pawnIcon = ImageUtils.loadImage(pawnIconString + ".png", 40, 40);
+          ImageThemed pawnImage = new ImageThemed(pawnIconString + ".png");
+          pawnImage.setSize(40, 40);
+          pawnIcon = new ImageIcon(pawnImage.getImage());
           moveDescription = "<html><font color='white'>" + name + "</font> " + selectedThePawnStr + " ";
         } else {
           moveDescription = "<html><font color='white'>" + name + "</font> " + placedItAtStr + " " + x + " - " + column;
@@ -163,5 +159,10 @@ public class MovesHistory extends JScrollPane {
       binary = "0" + binary;
     }
     return binary;
+  }
+
+  @Override
+  public void updatedTheme() {
+    movesContainer.repaint();
   }
 }

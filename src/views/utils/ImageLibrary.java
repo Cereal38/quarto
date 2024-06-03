@@ -60,6 +60,14 @@ public class ImageLibrary {
     loadImage("resume.png");
     loadImage("pause.png");
     loadImage("flat.png");
+    loadImage("exit.png");
+    loadImage("book.png");
+    loadImage("brush.png");
+    loadImage("en.png");
+    loadImage("fr.png");
+    loadImage("back.png");
+    loadImage("highlight.png");
+    loadImage("double-arrow.png");
   }
 
   /**

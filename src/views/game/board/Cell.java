@@ -4,38 +4,41 @@ import java.awt.AlphaComposite;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import src.views.components.ImageThemed;
 import src.views.components.Pawn;
+import src.views.listeners.ThemeListener;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.ThemeUtils;
 
 /**
  * Represents a cell on the game board.
  */
-public class Cell extends JPanel {
+public class Cell extends JPanel implements ThemeListener {
   private Pawn pawn;
   private int line;
   private int column;
   private Pawn ghostPawn;
   private boolean hovered;
   private boolean highlighted;
-  private Image highlightImage;
+  private ImageThemed highlightImage = new ImageThemed("highlight.png");
 
   /**
-   * Constructs a cell with the specified pawn, line, column, and highlighted state.
+   * Constructs a cell with the specified pawn, line, column, and highlighted
+   * state.
    *
-   * @param pawn       the pawn associated with this cell
-   * @param line       the line index of the cell
-   * @param column     the column index of the cell
+   * @param pawn        the pawn associated with this cell
+   * @param line        the line index of the cell
+   * @param column      the column index of the cell
    * @param highlighted true if the cell is highlighted, false otherwise
    */
   public Cell(Pawn pawn, int line, int column, boolean highlighted) {
+    ThemeUtils.addThemeListener(this);
+
     setOpaque(false);
 
     this.line = line;
@@ -75,11 +78,6 @@ public class Cell extends JPanel {
       }
     });
 
-    try {
-      highlightImage = ImageIO.read(new File("assets/images/highlight.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Override
@@ -95,7 +93,7 @@ public class Cell extends JPanel {
     }
 
     if (highlighted) {
-      g.drawImage(highlightImage, 15, 15, getWidth() - 30, getHeight() - 30, this);
+      g.drawImage(highlightImage.getImage(), 15, 15, getWidth() - 30, getHeight() - 30, this);
     }
   }
 
@@ -115,7 +113,12 @@ public class Cell extends JPanel {
    */
   private boolean canPlay() {
     return EventsHandler.getController().isPlayPhase() && !hasPawn()
-            && !EventsHandler.getController().isCurrentPlayerAI();
+        && !EventsHandler.getController().isCurrentPlayerAI();
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 
 }
