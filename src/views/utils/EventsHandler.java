@@ -10,15 +10,8 @@ import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 import src.controller.ViewModelController;
 import src.views.components.DialogPanel;
-import src.views.components.ExitButton;
-import src.views.components.LanguageButton;
-import src.views.components.ManualButton;
-import src.views.components.MusicButton;
 import src.views.components.SnackbarPanel;
 import src.views.components.TranslatedString;
-import src.views.game.board.PauseMenuButton;
-import src.views.game.board.RedoButton;
-import src.views.game.board.UndoButton;
 import src.views.game.history.MovesHistory;
 import src.views.main.menu.MainMenu;
 
@@ -33,15 +26,7 @@ public class EventsHandler {
   private static DialogPanel dialog;
   private static SnackbarPanel snackbar;
   private static int theme = 0; // 0: light, 1: dark
-  private static MusicButton musicButton;
-  private static LanguageButton languageButton;
-  private static ManualButton manualButton;
-  private static ExitButton exitButton;
-  private static UndoButton undoButton;
-  private static RedoButton redoButton;
-  private static PauseMenuButton pauseMenuButton;
   private static MainMenu mainMenu;
-
   private static MovesHistory movesHistory;
 
   public static void setMainMenu(MainMenu mainMenu) {
@@ -74,34 +59,6 @@ public class EventsHandler {
 
   public static ViewModelController getController() {
     return controller;
-  }
-
-  public static void setMusicButton(MusicButton mb) {
-    musicButton = mb;
-  }
-
-  public static void setLanguageButton(LanguageButton lb) {
-    languageButton = lb;
-  }
-
-  public static void setManualButton(ManualButton mb) {
-    manualButton = mb;
-  }
-
-  public static void setExitButton(ExitButton eb) {
-    exitButton = eb;
-  }
-
-  public static void setUndoButton(UndoButton ub) {
-    undoButton = ub;
-  }
-
-  public static void setRedoButton(RedoButton rb) {
-    redoButton = rb;
-  }
-
-  public static void setPauseMenuButton(PauseMenuButton pm) {
-    pauseMenuButton = pm;
   }
 
   /**
@@ -163,23 +120,6 @@ public class EventsHandler {
     }
     // Update the interface after changing the theme
     SwingUtilities.updateComponentTreeUI(mainPanel);
-
-    // Update all buttons
-    if (musicButton != null) {
-      musicButton.updateIcon(theme == 0);
-    }
-
-    if (languageButton != null) {
-      languageButton.updateIcon(theme == 0);
-    }
-
-    if (manualButton != null) {
-      manualButton.updateIcon(theme == 0);
-    }
-
-    if (exitButton != null) {
-      exitButton.updateIcon(theme == 0);
-    }
 
   }
 
