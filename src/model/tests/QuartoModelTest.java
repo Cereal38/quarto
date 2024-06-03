@@ -272,6 +272,58 @@ public class QuartoModelTest {
   }
 
   @Test
+  public void testLooseSituationColumn() {
+    QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 8));
+    quartoModel.playShot(0, 1);
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 0));
+    quartoModel.playShot(2, 1);
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 3));
+    quartoModel.playShot(1, 1);
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 5));
+    quartoModel.playShot(3, 1);
+
+    for (int i = 0; i < 4; i++) {
+      Assertions.assertFalse(quartoModel.winSituation(i, 2));
+    }
+  }
+
+  @Test
+  public void testLooseSituationDiagonal1() {
+    QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 5));
+    quartoModel.playShot(1, 1);
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 2));
+    quartoModel.playShot(2, 2);
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 12));
+    quartoModel.playShot(0, 0);
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 15));
+    quartoModel.playShot(3, 3);
+
+    for (int i = 0; i < 4; i++) {
+      Assertions.assertFalse(quartoModel.winSituation(i, i));
+    }
+  }
+
+  @Test
+  public void testLooseSituationDiagonal2() {
+    QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 1));
+    quartoModel.playShot(2, 1);
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 12));
+    quartoModel.playShot(1, 2);
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 3));
+    quartoModel.playShot(3, 0);
+    quartoModel.setSelectedPawn(new QuartoPawn((byte) 14));
+    quartoModel.playShot(0, 3);
+
+    Assertions.assertFalse(quartoModel.winSituation(0, 3));
+    Assertions.assertFalse(quartoModel.winSituation(1, 2));
+    Assertions.assertFalse(quartoModel.winSituation(2, 1));
+    Assertions.assertFalse(quartoModel.winSituation(3, 0));
+  }
+
+  @Test
   public void testRealisticMultipleWinSituation() {
     QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
     quartoModel.setSelectedPawn(new QuartoPawn((byte) 1));
