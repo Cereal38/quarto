@@ -101,8 +101,7 @@ public class Cell extends JPanel implements ThemeListener {
 
   @Override
   public void updatedTheme() {
-    highlight.setSize(100, 100);
-    highlightImage = highlight.getImage();
+    repaint();
   }
 
 }
