@@ -101,7 +101,7 @@ public class QuartoModel {
   public void playShotHuman(int line, int column) {
     if (board.isTableEmpty(line, column) && board.getSelectedPawn() != null && !hasAWinner() && !isATie()) {
       board.setTable(line, column, board.getSelectedPawn());
-      gameOver = board.winSituation(line, column);
+      gameOver = winSituation(line, column);
       board.setSelectedPawn(null);
       file.getSave().setNext(new QuartoHistory(line, column, file.getSave(), playerManager.getNameOfTheCurrentPlayer(), playerManager.getCurrentPlayer()));
       file.getSave().getNext().setPrevious(file.getSave());
@@ -198,7 +198,7 @@ public class QuartoModel {
   }
 
   public boolean isATie() {
-    return (board.getSelectedPawn() == null && board.isPawnListEmpty());
+    return (board.getSelectedPawn() == null && board.isPawnListEmpty() && !hasAWinner());
   }
 
   public QuartoPawn getPawn(int pawnIndex) {
