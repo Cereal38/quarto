@@ -60,6 +60,7 @@ public class ImageLibrary {
     loadImage("resume.png");
     loadImage("pause.png");
     loadImage("flat.png");
+    loadImage("exit.png");
   }
 
   private static void loadImage(String name) {

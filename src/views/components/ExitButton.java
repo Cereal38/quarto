@@ -3,24 +3,25 @@ package src.views.components;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
-import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class ExitButton extends JButton {
+public class ExitButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
-
-  // Load
-  ImageIcon exitImg = ImageUtils.loadImage("exit.png", 30, 30);
-  ImageIcon exitWhiteImg = ImageUtils.loadImage("exit-white.png", 30, 30);
-
-  private boolean isLightTheme = true;
+  private ImageThemed image = new ImageThemed("exit.png");
 
   public ExitButton() {
+    ThemeUtils.addThemeListener(this);
 
     // Add style
-    setIcon(exitImg);
+    // Add style
+    image.setSize(32, 32);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
+    ;
 
     // Add action
     setActionCommand("Quit");
@@ -35,8 +36,10 @@ public class ExitButton extends JButton {
 
   }
 
-  public void updateIcon(boolean isLightTheme) {
-    this.isLightTheme = isLightTheme;
-    setIcon(isLightTheme ? exitImg : exitWhiteImg);
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
   }
+
 }
