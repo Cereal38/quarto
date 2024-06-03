@@ -59,6 +59,8 @@ public class ImageLibrary {
     loadImage("history.png");
     loadImage("resume.png");
     loadImage("pause.png");
+    loadImage("topbar.png");
+    loadImage("topbar-slot.png");
   }
 
   private static void loadImage(String name) {
