@@ -2,6 +2,7 @@ package src.model.game;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import src.model.ai.Heuristics;
@@ -133,8 +134,6 @@ public class QuartoModel {
       undo();
       countUndo++;
     }
-    System.out.println("Number of files = " + slotFiles.size());
-
 
     String[] infoPlayer = file.chargeFile(fileName);
     if (infoPlayer == null) {
@@ -160,6 +159,7 @@ public class QuartoModel {
     playerManager.setPlayer2Name(nameAndType[0]);
     playerManager.setPlayer2Type(Integer.parseInt(nameAndType[1]));
 
+    playerManager.initializeAIPlayers();
 
 
     return true;

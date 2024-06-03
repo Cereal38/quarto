@@ -21,7 +21,7 @@ public class QuartoPlayerManager {
         initializeAIPlayers();
     }
 
-    private void initializeAIPlayers() {
+    public void initializeAIPlayers() {
         if (playerType[0] == 1 || playerType[1] == 1) {
             randomAIPlayer = new RandomAIPlayer();
         }
@@ -48,7 +48,7 @@ public class QuartoPlayerManager {
     }
 
     public int getCurrentPlayerType() {
-        return playerType[getCurrentPlayer() - 1];
+        return playerType[getCurrentPlayer()-1];
     }
 
     public void selectPawn(QuartoModel model, int indexPawn) {
