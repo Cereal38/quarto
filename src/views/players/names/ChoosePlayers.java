@@ -16,7 +16,7 @@ import src.views.utils.ThemeUtils;
 
 public class ChoosePlayers extends JPanel implements ThemeListener {
   private ImageThemed bgImage = new ImageThemed("bg-board.png");
-  private ImageThemed topbarImage = new ImageThemed("topbar.png");
+  private ImageThemed topbarImage = new ImageThemed("flat.png");
 
   public ChoosePlayers() {
     ThemeUtils.addThemeListener(this);

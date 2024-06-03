@@ -18,7 +18,7 @@ import src.views.utils.ThemeUtils;
 public class TopBarMainMenu extends JPanel implements ThemeListener {
 
   private JButton musicButton, langButton, modeButton, exitButton, bookButton;
-  private ImageThemed topbarImage = new ImageThemed("topbar.png");
+  private ImageThemed topbarImage = new ImageThemed("flat.png");
 
   public TopBarMainMenu() {
     ThemeUtils.addThemeListener(this);

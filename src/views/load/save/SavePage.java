@@ -29,7 +29,7 @@ public class SavePage extends JPanel implements ThemeListener {
   private JLabel messageLabel;
   private LoadPage loadSavePage;
   private ImageThemed bgImage = new ImageThemed("squared-background.png");
-  private ImageThemed topbarImage = new ImageThemed("topbar.png");
+  private ImageThemed topbarImage = new ImageThemed("flat.png");
 
   public SavePage(LoadPage l) {
     ThemeUtils.addThemeListener(this);

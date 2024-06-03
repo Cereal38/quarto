@@ -28,7 +28,7 @@ public class LoadHelper {
   JPanel slotsPanel;
   List<SlotFile> slotFiles;
   LoadPage loadSavePage;
-  private ImageThemed slotImage = new ImageThemed("topbar.png");
+  private ImageThemed slotImage = new ImageThemed("flat.png");
 
   public LoadHelper(LoadPage l) {
     this.slotFiles = EventsHandler.getController().getSlotFiles();

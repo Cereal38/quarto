@@ -20,7 +20,7 @@ public class LoadPage extends JPanel implements ThemeListener {
   private LoadHelper helper;
   JPanel slotsPanel;
   private ImageThemed bgImage = new ImageThemed("bg-board.png");
-  private ImageThemed topbarImage = new ImageThemed("topbar.png");
+  private ImageThemed topbarImage = new ImageThemed("flat.png");
 
   public LoadPage() {
     ThemeUtils.addThemeListener(this);
