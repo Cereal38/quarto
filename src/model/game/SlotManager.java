@@ -125,14 +125,15 @@ public class SlotManager {
     }
 
     /**
-     * Creates a new file with the specified filename in the slots directory.
+     * Creates a new file with the provided file name in the specified directory.
+     * If a file with the same name already exists, it throws an IOException.
      *
-     * @param fileName The filename of the new file to create.
-     * @throws IOException if an I/O error occurs while creating the file.
+     * @param fileName the name of the file to create
+     * @throws IOException if an I/O error occurs or if a file with the same name already exists
      */
     public void createNewFile(String fileName) throws IOException {
         File file = new File(SLOTS_DIRECTORY + File.separator + fileName);
-        if (file.exists()){
+        if (file.exists()) {
             throw new IOException("File already exists: " + fileName);
         }
         file.getParentFile().mkdirs(); // Ensure the directory exists
@@ -140,4 +141,5 @@ public class SlotManager {
             throw new IOException("Failed to create new file: " + fileName);
         }
     }
+
 }

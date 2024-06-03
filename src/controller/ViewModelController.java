@@ -410,4 +410,15 @@ public class ViewModelController implements ViewModelListener {
     return isGameDraw() || isGameWon();
   }
 
+  /**
+   * Overwrites an existing file with the provided file name in the Quarto game.
+   *
+   * @param fileName the name of the file to overwrite
+   * @throws IOException if an I/O error occurs
+   */
+  public void overWriteFile(String fileName) throws IOException {
+    quartoModel.overWriteFile(fileName);
+  }
+
+
 }
