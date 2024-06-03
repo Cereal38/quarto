@@ -2,6 +2,8 @@ package src.views;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import src.views.components.DialogPanel;
@@ -26,16 +28,24 @@ public class MainFrame extends JFrame {
   private DialogPanel dialog;
   private DialogPanel rules;
   private DialogPanel about;
-  private LoadPage loadPage;
+  private static LoadPage loadPage;
   private SavePage savePage;
   private RulesPage rulesPage;
   private RulesPage aboutPage;
+  private DialogPanel save;
 
   public MainFrame() {
     setTitle("Quarto Game");
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setMinimumSize(new Dimension(1000, 800));
     setLocationRelativeTo(null);
+
+    // Show a confirmation dialog when the user tries to close the window
+    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e) {
+        EventsHandler.closeApp();
+      }
+    });
 
     cardLayout = new CardLayout();
     mainPanel = new JPanel(cardLayout);
@@ -69,12 +79,15 @@ public class MainFrame extends JFrame {
     dialog = new DialogPanel(this);
     rules = new DialogPanel(this);
     about = new DialogPanel(this);
+    save = new DialogPanel(this);
     dialog.setVisible(false);
     rules.setVisible(false);
     about.setVisible(false);
+    save.setVisible(false);
     getLayeredPane().add(dialog, -1);
     getLayeredPane().add(rules, -1);
     getLayeredPane().add(about, -1);
+    getLayeredPane().add(save, -1);
 
     // Setup the EventsHandler
     EventsHandler.setCardLayout(cardLayout);
@@ -83,11 +96,16 @@ public class MainFrame extends JFrame {
     EventsHandler.setDialog(dialog);
     EventsHandler.setDialog(rules);
     EventsHandler.setDialog(about);
+    EventsHandler.setDialog(save);
 
     // Load all pawns
     PawnUtils.initPawns();
 
     setVisible(true);
+  }
+
+  public static LoadPage getLoadPage() {
+    return loadPage;
   }
 
 }

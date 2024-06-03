@@ -1,16 +1,24 @@
 package src.views.game.history;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import src.model.QuartoHistory;
+import src.views.components.TranslatedString;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ImageUtils;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class MovesHistory extends JScrollPane {
 
@@ -18,6 +26,8 @@ public class MovesHistory extends JScrollPane {
   private int maxDisplayedMoves = 10; // Maximum displayed moves
   private Image bgImage;
   int isSelectedCounter = 0;
+  private TranslatedString placedItAtStr = new TranslatedString("placed-it-at");
+  private TranslatedString selectedThePawnStr = new TranslatedString("selected-the-pawn");
 
   public MovesHistory() {
     // Load the background image
@@ -110,9 +120,9 @@ public class MovesHistory extends JScrollPane {
         if (save.getState() == 0) {
             String pawnIconString = pawnNumberToString(pawn);
             pawnIcon = ImageUtils.loadImage(pawnIconString + ".png", 40, 40);
-            moveDescription = "<html><font color='white'>" + name + "</font> selected the pawn ";
+            moveDescription = "<html><font color='white'>" + name + "</font> " + selectedThePawnStr + " ";
         } else {
-            moveDescription = "<html><font color='white'>" + name + "</font> placed it at " + x + " - " + column;
+            moveDescription = "<html><font color='white'>" + name + "</font> " + placedItAtStr + " " + x + " - " + column;
         }
         // Add the move to the history at the top
         addMove(moveDescription, pawnIcon);

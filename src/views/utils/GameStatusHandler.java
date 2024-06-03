@@ -127,7 +127,17 @@ public class GameStatusHandler {
       } else {
         winner = null;
       }
-      SwingUtilities.invokeLater(() -> EventsHandler.showDialog(new GameOverDialog(winner), false));
+
+      // Add a delay before showing the dialog to let the last move be displayed
+      SwingUtilities.invokeLater(() -> {
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> EventsHandler.showDialog(new GameOverDialog(winner), false));
+      });
+
       // Pause the game
       pauseGame();
       return true;

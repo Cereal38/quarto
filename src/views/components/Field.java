@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 public class Field extends JPanel {
 
+  private JLabel textLbl;
   private Image bgImageOn;
   private Image bgImageOff;
   private boolean isOn;
@@ -21,11 +22,10 @@ public class Field extends JPanel {
     setLayout(new BorderLayout());
 
     // Add text only if the field is on
-    if (isOn) {
-      JLabel text = new JLabel(message, JLabel.CENTER);
-      text.setFont(new Font("Arial", Font.BOLD, 16));
-      add(text, BorderLayout.CENTER);
-    }
+    textLbl = new JLabel(message, JLabel.CENTER);
+    textLbl.setFont(new Font("Arial", Font.BOLD, 16));
+    add(textLbl, BorderLayout.CENTER);
+    textLbl.setVisible(isOn);
 
     // Load image
     try {
@@ -34,6 +34,19 @@ public class Field extends JPanel {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public void setOn(boolean isOn) {
+    this.isOn = isOn;
+
+    // Show or hide text
+    textLbl.setVisible(isOn);
+
+    repaint();
+  }
+
+  public void setText(String text) {
+    textLbl.setText(text);
   }
 
   @Override
