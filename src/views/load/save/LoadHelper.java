@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import src.structures.SlotFile;
+import src.views.components.ImageThemed;
 import src.views.components.RoundBorder;
 import src.views.components.TranslatedButton;
 import src.views.components.TranslatedString;
@@ -27,6 +28,7 @@ public class LoadHelper {
   JPanel slotsPanel;
   List<SlotFile> slotFiles;
   LoadPage loadSavePage;
+  private ImageThemed slotImage = new ImageThemed("topbar.png");
 
   public LoadHelper(LoadPage l) {
     this.slotFiles = EventsHandler.getController().getSlotFiles();
@@ -34,7 +36,14 @@ public class LoadHelper {
   }
 
   public JPanel createSlotPanel(String slotTitle, Date savedDate, int id) {
-    JPanel slotPanel = new JPanel(new BorderLayout());
+    JPanel slotPanel = new JPanel(new BorderLayout()) {
+      @Override
+      protected void paintComponent(java.awt.Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(slotImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+      }
+
+    };
     slotPanel.setOpaque(false);
 
     // Set rounded border for the main content panel
@@ -122,7 +131,7 @@ public class LoadHelper {
     gbc.gridy = GridBagConstraints.RELATIVE;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.weightx = 1.0;
-    gbc.insets = new Insets(0, 0, 0, 0); // Remove any insets (spacing) between slots
+    gbc.insets = new Insets(0, 0, 10, 0);
 
     for (SlotFile slotFile : slotFiles) {
       JPanel slotPanel = createSlotPanel(slotFile.getFilename(), new Date(slotFile.getLastModified()),

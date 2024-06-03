@@ -58,13 +58,7 @@ public class LoadPage extends JPanel implements ThemeListener {
     topPanel.add(labelPanel, BorderLayout.CENTER);
 
     // Initialize the slots panel with GridLayout
-    this.slotsPanel = new JPanel(new GridLayout(10, 1, 10, 10)) {
-      @Override
-      protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-      }
-    };
+    this.slotsPanel = new JPanel(new GridLayout(10, 1, 10, 10));
 
     // Render slots initially
     renderSlots();
