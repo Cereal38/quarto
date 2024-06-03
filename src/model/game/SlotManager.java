@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SlotManager {
     private List<SlotFile> slotFiles;
-    public static final String SLOTS_DIRECTORY = "slots";
+    public final String SLOTS_DIRECTORY = "slots";
 
     public SlotManager() {
         this.slotFiles = new ArrayList<>();
