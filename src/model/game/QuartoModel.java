@@ -12,6 +12,7 @@ import src.model.ai.Heuristics;
 import src.structures.SlotFile;
 
 public class QuartoModel {
+
   /** The game board for the Quarto game. */
   private QuartoBoard board;
 
@@ -292,9 +293,21 @@ public class QuartoModel {
    */
   public void saveFile(String fileName) throws IOException {
     String filePath = "slots" + File.separator + fileName;
-    manager.createNewFile(fileName);
+    try {
+      manager.createNewFile(fileName);
+      file.saveFile(filePath, playerManager.getPlayer1Name(), playerManager.getPlayer2Name(), playerManager.getPlayerType());
+    } catch (IOException e) {
+      throw e;
+    }
+
+  }
+
+  public void overWriteFile(String fileName) throws IOException {
+    String filePath = "slots" + File.separator + fileName;
     file.saveFile(filePath, playerManager.getPlayer1Name(), playerManager.getPlayer2Name(), playerManager.getPlayerType());
   }
+
+
 
   /**
    * Checks if the game has a winner.
@@ -578,4 +591,6 @@ public class QuartoModel {
   public QuartoHistory getSave() {
     return file.getSave();
   }
+
+
 }
