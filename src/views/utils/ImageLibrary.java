@@ -65,6 +65,7 @@ public class ImageLibrary {
     loadImage("brush.png");
     loadImage("en.png");
     loadImage("fr.png");
+    loadImage("back.png");
   }
 
   private static void loadImage(String name) {
