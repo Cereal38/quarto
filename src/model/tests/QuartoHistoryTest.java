@@ -6,6 +6,10 @@ import src.model.game.QuartoHistory;
 import src.model.game.QuartoModel;
 import src.model.game.QuartoPawn;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 public class QuartoHistoryTest {
     //Before executing these tests, make sure the tests of the model all pass
     @Test
@@ -207,5 +211,70 @@ public class QuartoHistoryTest {
         Assertions.assertNull(game.getPawnAtPosition(0, 3));//still null
         Assertions.assertEquals(game.getPawnAtPosition(3, 3), pion3);
 
+    }
+
+    @Test
+    public void testSaveFile() throws IOException {
+        QuartoModel game = new QuartoModel(0, 0, "", "");
+
+        // Playing some shots
+        game.selectPawn(1);
+        game.playShot(0, 0);
+        game.selectPawn(2);
+        game.playShot(0, 1);
+
+        // Saving game state
+        String fileName = "testSave";
+        game.saveFile(fileName);
+
+        // Checking if file was created
+        File file = new File("slots" + File.separator + fileName);
+        Assertions.assertTrue(file.exists(), "Save file not found.");
+
+        // Checking if file is not empty
+        Assertions.assertTrue(file.length() > 0, "Save file is empty.");
+
+        // Deleting file after test
+        Files.delete(file.toPath());
+    }
+
+    @Test
+    public void testChargeGame() {
+        // Playing some shots
+        QuartoModel game = new QuartoModel(0, 0, "", "");
+        game.selectPawn(1);
+        game.playShot(0, 0);
+        game.selectPawn(2);
+        game.playShot(0, 1);
+
+        // Saving game state
+        String fileName = "testCharge";
+        try {
+            game.saveFile(fileName);
+        } catch (IOException e) {
+            Assertions.fail("Error when saving game : " + e.getMessage());
+        }
+
+        // Charging game state from file
+        QuartoModel loadedGame = new QuartoModel(0);
+        loadedGame.chargeGame(0);
+
+        // Checking game state after charging
+        QuartoPawn[][] table = loadedGame.getTable();
+        Assertions.assertNotNull(table[0][0], "Pawn at position (0, 0) is missing.");
+        Assertions.assertNotNull(table[0][1], "Pawn at position (0, 1) is missing.");
+        Assertions.assertNull(table[0][2], "There shouldn't be any pawn at position (0, 2).");
+
+        // Checking if the pawns are good
+        Assertions.assertEquals(1, loadedGame.getPawnAtPosition(0, 0).getPawn(), "Pawn at position (0, 0) is not correct.");
+        Assertions.assertEquals(2, loadedGame.getPawnAtPosition(0, 1).getPawn(), "Pawn at position (0, 1) is not correct.");
+
+        // Deleting file after test
+        File file = new File("slots" + File.separator + fileName);
+        try {
+            Files.delete(file.toPath());
+        } catch (IOException e) {
+            Assertions.fail("Error when deleting test file : " + e.getMessage());
+        }
     }
 }
