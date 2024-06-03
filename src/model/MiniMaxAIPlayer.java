@@ -11,6 +11,8 @@ public class MiniMaxAIPlayer implements Player {
     private int actualPawnScore; // Score of the currently selected pawn
     private Heuristics heuristics; // Heuristic values for evaluating the board
 
+    private int countMoves = 0;
+
     // Constructor to initialize the AI player with a specified max depth and heuristics
     public MiniMaxAIPlayer(int maxDepth, Heuristics heuristics) {
         this.maxDepth = maxDepth;
@@ -18,9 +20,23 @@ public class MiniMaxAIPlayer implements Player {
         this.heuristics = heuristics;
     }
 
+    private void adjustMaxDepth(QuartoModel quartoModel) {
+        if (countMoves < 10){
+            maxDepth = 2;
+        } else if (countMoves < 15){
+            maxDepth = 3;
+        } else if (countMoves < 20){
+            maxDepth = 4;
+        } else if (countMoves < 30){
+            maxDepth = 5;
+        } else { maxDepth = 6; }
+    }
+
+
     // Method to select the best pawn using minimax algorithm
     @Override
     public void selectPawn(QuartoModel quartoModel) {
+        adjustMaxDepth(quartoModel);
         int bestPawnIndex = getBestPawn(quartoModel);
         quartoModel.selectPawnHuman(bestPawnIndex);
         System.out.println("Pawn chosen by Minimax AI is " + bestPawnIndex + ".");
@@ -29,6 +45,7 @@ public class MiniMaxAIPlayer implements Player {
     // Method to play the best move using minimax algorithm
     @Override
     public void playShot(QuartoModel quartoModel) {
+        adjustMaxDepth(quartoModel);
         int[] bestMove = getBestMove(quartoModel);
         while (!quartoModel.isTableEmpty(bestMove[0], bestMove[1])) {
             bestMove = getBestMove(quartoModel);
@@ -86,6 +103,7 @@ public class MiniMaxAIPlayer implements Player {
                 }
             }
         }
+        countMoves += 2;
 
         // Randomly choose among the best pawns
         return bestPawns.get(random.nextInt(bestPawns.size()));
@@ -123,6 +141,7 @@ public class MiniMaxAIPlayer implements Player {
                 }
             }
         }
+        countMoves += 2;
 
         // Randomly choose among the best moves
         int len = bestMovesAxis.size() / 2;
