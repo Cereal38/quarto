@@ -50,12 +50,13 @@ public class QuartoModelTest {
   public void testIsPawnListEmpty() {
     QuartoModel quartoModel = new QuartoModel(0, 0, "", "");
     Assertions.assertFalse(quartoModel.isPawnListEmpty());
+    int index = 0;
     for(int i = 0; i < 4; i++){
       for(int j = 0; j < 4; j++) {
         Assertions.assertFalse(quartoModel.isPawnListEmpty());
-        System.out.println(((i+1) * (j+1)) -1);
-        quartoModel.selectPawn(((i+1) * (j+1)) -1);
+        quartoModel.selectPawn(index);
         quartoModel.playShot(i, j);
+        index++;
       }
     }
     Assertions.assertTrue(quartoModel.isPawnListEmpty());
