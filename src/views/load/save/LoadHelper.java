@@ -59,8 +59,7 @@ public class LoadHelper {
     JLabel titleLabel = new JLabel(slotTitle);
     titleLabel.setFont(titleLabel.getFont().deriveFont(20f));
     leftPanel.add(titleLabel);
-    TranslatedString date = new TranslatedString("saved-date");
-    JLabel dateLabel = new JLabel(date.getText() + savedDate.toString());
+    JLabel dateLabel = new JLabel(savedDate.toString());
     leftPanel.add(dateLabel);
     contentPanel.add(leftPanel, BorderLayout.WEST);
 
@@ -138,7 +137,6 @@ public class LoadHelper {
           slotFile.getId());
       slotsPanel.add(slotPanel, gbc);
     }
-
     slotsPanel.revalidate();
     slotsPanel.repaint();
   }
