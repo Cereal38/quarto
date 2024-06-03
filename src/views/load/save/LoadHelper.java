@@ -32,13 +32,11 @@ public class LoadHelper {
   List<SlotFile> slotFiles;
   LoadPage loadSavePage;
   Image woodTexture;
-  Image differentWood;
 
   public LoadHelper(LoadPage l) {
     this.slotFiles = EventsHandler.getController().getSlotFiles();
     loadSavePage = l;
     woodTexture = Objects.requireNonNull(ImageUtils.loadImage("wood.jpeg", 50, 50)).getImage();
-    differentWood = Objects.requireNonNull(ImageUtils.loadImage("woodSlots.png", 50, 50)).getImage();
   }
 
   public JPanel createSlotPanel(String slotTitle, Date savedDate, int id) {
@@ -148,11 +146,4 @@ public class LoadHelper {
     slotsPanel.repaint();
   }
 
-  public Image getWoodTexture() {
-    return woodTexture;
-  }
-
-  public Image getDifferentWood() {
-    return differentWood;
-  }
 }

@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -93,10 +92,6 @@ public class LoadPage extends JPanel implements ThemeListener {
     // Revalidate and repaint the panel
     revalidate();
     repaint();
-  }
-
-  public Image getWoodTexture() {
-    return helper.getWoodTexture();
   }
 
   @Override
