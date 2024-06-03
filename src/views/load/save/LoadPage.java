@@ -21,6 +21,7 @@ public class LoadPage extends JPanel implements ThemeListener {
   private LoadHelper helper;
   JPanel slotsPanel;
   private ImageThemed bgImage = new ImageThemed("bg-board.png");
+  private ImageThemed topbarImage = new ImageThemed("topbar.png");
 
   public LoadPage() {
     ThemeUtils.addThemeListener(this);
@@ -35,7 +36,7 @@ public class LoadPage extends JPanel implements ThemeListener {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(helper.getDifferentWood(), 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
       }
     };
     topPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
@@ -51,7 +52,7 @@ public class LoadPage extends JPanel implements ThemeListener {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(helper.getWoodTexture(), 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
       }
     };
     labelPanel.add(titleLabel);

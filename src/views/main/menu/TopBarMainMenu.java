@@ -37,14 +37,16 @@ public class TopBarMainMenu extends JPanel implements ThemeListener {
     EventsHandler.setExitButton((ExitButton) exitButton);
 
     // Buttons aligned on the left
-    JPanel leftPanel = new LeftPanel();
+    JPanel leftPanel = new JPanel();
+    leftPanel.setOpaque(false);
     leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
     leftPanel.add(musicButton);
     leftPanel.add(modeButton);
     leftPanel.add(langButton);
 
     // Buttons aligned on the right
-    JPanel rightPanel = new RightPanel();
+    JPanel rightPanel = new JPanel();
+    rightPanel.setOpaque(false);
     rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 12, 10));
     rightPanel.add(bookButton);
     rightPanel.add(exitButton);
