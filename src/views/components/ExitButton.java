@@ -1,5 +1,6 @@
 package src.views.components;
 
+import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,7 +26,7 @@ public class ExitButton extends JButton implements ThemeListener {
     setActionCommand("Quit");
 
     // set all buttons on cursor : pointer
-    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    setCursor(new Cursor(Cursor.HAND_CURSOR));
     addActionListener(e -> {
       EventsHandler.closeApp();
     });

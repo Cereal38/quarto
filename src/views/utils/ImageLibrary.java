@@ -62,6 +62,7 @@ public class ImageLibrary {
     loadImage("flat.png");
     loadImage("exit.png");
     loadImage("book.png");
+    loadImage("brush.png");
   }
 
   private static void loadImage(String name) {
