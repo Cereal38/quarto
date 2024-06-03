@@ -11,9 +11,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+
 import src.views.components.CustomizedTextField;
 import src.views.components.ImageThemed;
 import src.views.components.TranslatedButton;
@@ -94,7 +93,27 @@ public class SavePage extends JPanel implements ThemeListener {
             EventsHandler.hideDialog();
             EventsHandler.navigate("MainMenu");
           } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            if (ex.getMessage().contains("File already exists")) {
+
+              Object[] options = { new TranslatedString("yes"), new TranslatedString("no") };
+              int response = JOptionPane.showOptionDialog(EventsHandler.getMainPanel(),
+                      new TranslatedString("overwrite-confirm"), new TranslatedString("overwrite-title").getText(),
+                      JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+
+              if (response == JOptionPane.YES_OPTION) {
+                  try {
+                    EventsHandler.getController().overWriteFile(name);
+                    loadSavePage.refreshPage();
+                    EventsHandler.hideDialog();
+                    EventsHandler.navigate("MainMenu");
+                  } catch (IOException exc) {
+                      throw new RuntimeException(exc);
+                  }
+
+              }
+            } else {
+              throw new RuntimeException(ex);
+            }
           }
 
         } else {
