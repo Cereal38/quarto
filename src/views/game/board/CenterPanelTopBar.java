@@ -9,6 +9,9 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents the top bar of the center panel in the game board.
+ */
 public class CenterPanelTopBar extends JPanel implements ThemeListener {
 
   private ImageThemed bgImage = new ImageThemed("gameboard-center-top-bar.png");
@@ -17,6 +20,9 @@ public class CenterPanelTopBar extends JPanel implements ThemeListener {
   private Field selectionPhase;
   private Field playPhase;
 
+  /**
+   * Constructs a CenterPanelTopBar object.
+   */
   public CenterPanelTopBar() {
     ThemeUtils.addThemeListener(this);
 
@@ -25,9 +31,9 @@ public class CenterPanelTopBar extends JPanel implements ThemeListener {
     String selectionPhaseStr = new TranslatedString("select-pawn").getText();
     String playPhaseStr = new TranslatedString("play-pawn").getText();
     player1Name = new Field(EventsHandler.getController().getPlayer1Name(),
-        EventsHandler.getController().getCurrentPlayer() == 1);
+            EventsHandler.getController().getCurrentPlayer() == 1);
     player2Name = new Field(EventsHandler.getController().getPlayer2Name(),
-        EventsHandler.getController().getCurrentPlayer() == 2);
+            EventsHandler.getController().getCurrentPlayer() == 2);
     selectionPhase = new Field(selectionPhaseStr, EventsHandler.getController().isSelectionPhase());
     playPhase = new Field(playPhaseStr, EventsHandler.getController().isPlayPhase());
 
@@ -35,7 +41,6 @@ public class CenterPanelTopBar extends JPanel implements ThemeListener {
     add(player2Name);
     add(selectionPhase);
     add(playPhase);
-
   }
 
   @Override

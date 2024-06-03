@@ -21,9 +21,8 @@
   "ai-2": "AI 2",
   "make-player": "Make Player",
   "make-ai": "Make AI",
-  "load-page": "Load Page",
+  "load-page": "Load a previous game",
   "save-page": "Save Page",
-  "saved-date": "Saved date",
   "load-game": "Load Game",
   "save-game": "Save Game",
   "clear-slot": "Delete",
@@ -62,5 +61,8 @@
   "delete-confirm": "Are you sure you want to delete this save?",
   "delete-title": "Delete save",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "error-text": "Name cannot be empty.",
+  "overwrite-confirm": "Are you sure you want to over write the existing saved game with this name? ",
+  "overwrite-title" : "Over write the existing game"
 }

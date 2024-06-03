@@ -4,27 +4,41 @@ import java.awt.AlphaComposite;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import src.views.components.ImageThemed;
 import src.views.components.Pawn;
+import src.views.listeners.ThemeListener;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.ThemeUtils;
 
-public class Cell extends JPanel {
+/**
+ * Represents a cell on the game board.
+ */
+public class Cell extends JPanel implements ThemeListener {
   private Pawn pawn;
   private int line;
   private int column;
   private Pawn ghostPawn;
   private boolean hovered;
   private boolean highlighted;
-  private Image highlightImage;
+  private ImageThemed highlightImage = new ImageThemed("highlight.png");
 
+  /**
+   * Constructs a cell with the specified pawn, line, column, and highlighted
+   * state.
+   *
+   * @param pawn        the pawn associated with this cell
+   * @param line        the line index of the cell
+   * @param column      the column index of the cell
+   * @param highlighted true if the cell is highlighted, false otherwise
+   */
   public Cell(Pawn pawn, int line, int column, boolean highlighted) {
+    ThemeUtils.addThemeListener(this);
+
     setOpaque(false);
 
     this.line = line;
@@ -64,11 +78,6 @@ public class Cell extends JPanel {
       }
     });
 
-    try {
-      highlightImage = ImageIO.read(new File("assets/images/highlight.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Override
@@ -84,22 +93,32 @@ public class Cell extends JPanel {
     }
 
     if (highlighted) {
-      g.drawImage(highlightImage, 15, 15, getWidth() - 30, getHeight() - 30, this);
+      g.drawImage(highlightImage.getImage(), 15, 15, getWidth() - 30, getHeight() - 30, this);
     }
   }
 
+  /**
+   * Checks if this cell has a pawn.
+   *
+   * @return true if the cell has a pawn, false otherwise
+   */
   public boolean hasPawn() {
     return pawn != null;
   }
 
   /**
    * Checks if a player can play a pawn in this cell.
-   * 
-   * @return true if it's possible.
+   *
+   * @return true if a pawn can be played, false otherwise
    */
   private boolean canPlay() {
     return EventsHandler.getController().isPlayPhase() && !hasPawn()
         && !EventsHandler.getController().isCurrentPlayerAI();
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 
 }

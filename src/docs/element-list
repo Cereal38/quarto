@@ -1,0 +1,15 @@
+src
+src.controller
+src.model.ai
+src.model.game
+src.structures
+src.views
+src.views.components
+src.views.game.board
+src.views.game.history
+src.views.listeners
+src.views.load.save
+src.views.main.menu
+src.views.players.names
+src.views.rules
+src.views.utils

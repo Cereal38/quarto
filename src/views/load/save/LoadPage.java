@@ -16,12 +16,19 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * JPanel representing the load page, where users can load saved game slots.
+ */
+
 public class LoadPage extends JPanel implements ThemeListener {
   private LoadHelper helper;
   JPanel slotsPanel;
   private ImageThemed bgImage = new ImageThemed("bg-board.png");
   private ImageThemed topbarImage = new ImageThemed("flat.png");
 
+  /**
+   * Constructor for LoadPage.
+   */
   public LoadPage() {
     ThemeUtils.addThemeListener(this);
     this.helper = new LoadHelper(this);
@@ -76,14 +83,24 @@ public class LoadPage extends JPanel implements ThemeListener {
     add(scrollPane, BorderLayout.CENTER);
   }
 
+  /**
+   * Renders the slots on the panel.
+   */
   public void renderSlots() {
     helper.renderSlots(slotsPanel, EventsHandler.getController().getSlotFiles());
   }
 
+  /**
+   * Retrieves the LoadHelper object associated with this LoadPage.
+   * @return The LoadHelper object.
+   */
   public LoadHelper getHelper() {
     return helper;
   }
 
+  /**
+   * Refreshes the page by clearing and rendering slots again.
+   */
   public void refreshPage() {
     // Clear existing slotsPanel content
     slotsPanel.removeAll();

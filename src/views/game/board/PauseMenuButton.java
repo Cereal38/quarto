@@ -10,10 +10,16 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents a button used to open the pause menu.
+ */
 public class PauseMenuButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
   private ImageThemed image = new ImageThemed("menu.png");
 
+  /**
+   * Constructs a PauseMenuButton.
+   */
   public PauseMenuButton() {
     ThemeUtils.addThemeListener(this);
 
@@ -35,6 +41,9 @@ public class PauseMenuButton extends JButton implements ThemeListener {
     tooltip = new TranslatedString("menuButtonTooltip", this, true);
   }
 
+  /**
+   * Updates the theme of the button.
+   */
   @Override
   public void updatedTheme() {
     ImageIcon icon = new ImageIcon(image.getImage());

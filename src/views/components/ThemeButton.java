@@ -1,44 +1,48 @@
 package src.views.components;
 
+import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import src.views.utils.ImageUtils;
+import src.views.listeners.ThemeListener;
 import src.views.utils.ThemeUtils;
 
-public class ThemeButton extends JButton {
+/**
+ * A button to toggle between light and dark themes.
+ */
+public class ThemeButton extends JButton implements ThemeListener {
 
-  private boolean isLightTheme;
   private TranslatedString tooltip;
+  private ImageThemed image = new ImageThemed("brush.png");
 
+  /**
+   * Constructs a new ThemeButton.
+   */
   public ThemeButton() {
-    isLightTheme = ThemeUtils.getTheme() == ThemeUtils.LIGHT;
-
-    // Load icons
-    ImageIcon darkImg = ImageUtils.loadImage("dark.png", 30, 30);
-    ImageIcon lightImg = ImageUtils.loadImage("light.png", 30, 30);
+    ThemeUtils.addThemeListener(this);
 
     // Add style
-    setIcon(darkImg);
+    image.setSize(28, 28);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
-    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    setCursor(new Cursor(Cursor.HAND_CURSOR));
 
     // Add action
     setActionCommand("DarkMode");
 
     addActionListener(e -> {
-      // Change icon
-      if (isLightTheme) {
-        setIcon(lightImg);
-      } else {
-        setIcon(darkImg);
-      }
-      isLightTheme = !isLightTheme;
       ThemeUtils.toggleTheme();
     });
 
     // Add tooltip
     tooltip = new TranslatedString("themeButtonTooltip", this, true);
+  }
+
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
   }
 }

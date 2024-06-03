@@ -7,10 +7,16 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents the top bar on the left side of the game board.
+ */
 public class LeftPanelTopBar extends JPanel implements ThemeListener {
 
   private ImageThemed bgImage = new ImageThemed("gameboard-left-top-bar.png");
 
+  /**
+   * Constructs a LeftPanelTopBar object.
+   */
   public LeftPanelTopBar() {
     ThemeUtils.addThemeListener(this);
 
@@ -33,6 +39,11 @@ public class LeftPanelTopBar extends JPanel implements ThemeListener {
     }
   }
 
+  /**
+   * Paints the component with its background image.
+   *
+   * @param g the graphics context
+   */
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
@@ -40,9 +51,11 @@ public class LeftPanelTopBar extends JPanel implements ThemeListener {
     g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
   }
 
+  /**
+   * Handles theme updates for the left panel top bar.
+   */
   @Override
   public void updatedTheme() {
     repaint();
   }
-
 }

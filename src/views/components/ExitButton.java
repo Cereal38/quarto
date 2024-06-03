@@ -1,24 +1,38 @@
 package src.views.components;
 
+import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
-import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class ExitButton extends JButton {
+/**
+ * A button used for exiting an application.
+ * <p>
+ * This button provides functionality for exiting the application when clicked.
+ * It displays an exit icon and sets a tooltip for indicating its purpose.
+ */
+
+public class ExitButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
+  private ImageThemed image = new ImageThemed("exit.png");
 
-  // Load
-  ImageIcon exitImg = ImageUtils.loadImage("exit.png", 30, 30);
-  ImageIcon exitWhiteImg = ImageUtils.loadImage("exit-white.png", 30, 30);
-
-  private boolean isLightTheme = true;
-
+  /**
+   * Constructs a new ExitButton.
+   * <p>
+   * This constructor initializes the button with the exit icon, sets its
+   * appearance, adds an action listener to handle the exit action, and sets a
+   * tooltip to indicate its purpose.
+   */
   public ExitButton() {
+    ThemeUtils.addThemeListener(this);
 
     // Add style
-    setIcon(exitImg);
+    image.setSize(32, 32);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
 
@@ -26,7 +40,7 @@ public class ExitButton extends JButton {
     setActionCommand("Quit");
 
     // set all buttons on cursor : pointer
-    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    setCursor(new Cursor(Cursor.HAND_CURSOR));
     addActionListener(e -> {
       EventsHandler.closeApp();
     });
@@ -35,8 +49,13 @@ public class ExitButton extends JButton {
 
   }
 
-  public void updateIcon(boolean isLightTheme) {
-    this.isLightTheme = isLightTheme;
-    setIcon(isLightTheme ? exitImg : exitWhiteImg);
+  /**
+   * Updates the icon of the button based on the theme.
+   */
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
   }
+
 }
