@@ -4,16 +4,14 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.utils.ImageUtils;
+import src.views.utils.AudioUtils;
 
-/**
- * A button to toggle music on or off.
- */
 public class MusicButton extends JButton {
 
     private boolean isMusicOn;
-    private TranslatedString tooltip;
-
     private boolean isLightTheme = true;
+
+    private AudioUtils audioUtils;
 
     // Load icons
     ImageIcon musicOnImg = ImageUtils.loadImage("music-on.png", 30, 30);
@@ -23,11 +21,10 @@ public class MusicButton extends JButton {
     ImageIcon musicOnWhiteImg = ImageUtils.loadImage("music-on-white.png", 30, 30);
     ImageIcon musicOffWhiteImg = ImageUtils.loadImage("music-off-white.png", 30, 30);
 
-    /**
-     * Constructs a new MusicButton.
-     */
     public MusicButton() {
         isMusicOn = true;
+        audioUtils = new AudioUtils();
+        audioUtils.loadAudio("assets/music/bg-music.wav"); // Chemin de votre fichier audio
 
         // Add style
         setIcon(musicOnImg);
@@ -40,18 +37,20 @@ public class MusicButton extends JButton {
         addActionListener(e -> {
             isMusicOn = !isMusicOn;
             updateIcon(isLightTheme);
+            if (isMusicOn) {
+                audioUtils.play();
+            } else {
+                audioUtils.stop();
+            }
         });
 
         // Add tooltip
-        tooltip = new TranslatedString("musicButtonTooltip", this, true);
-        setToolTipText(tooltip.getText());
+        setToolTipText("Toggle Music"); // Vous pouvez utiliser votre TranslatedString ici
+
+        // Start music
+        audioUtils.play();
     }
 
-    /**
-     * Updates the icon of the button based on the theme.
-     *
-     * @param isLightTheme true if the theme is light, false otherwise
-     */
     public void updateIcon(boolean isLightTheme) {
         this.isLightTheme = isLightTheme;
         if (isMusicOn) {
@@ -60,5 +59,4 @@ public class MusicButton extends JButton {
             setIcon(isLightTheme ? musicOffImg : musicOffWhiteImg);
         }
     }
-
 }
