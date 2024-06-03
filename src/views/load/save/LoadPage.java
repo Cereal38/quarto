@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,6 +20,7 @@ public class LoadPage extends JPanel implements ThemeListener {
   private LoadHelper helper;
   JPanel slotsPanel;
   private ImageThemed bgImage = new ImageThemed("bg-board.png");
+  private ImageThemed topbarImage = new ImageThemed("flat.png");
 
   public LoadPage() {
     ThemeUtils.addThemeListener(this);
@@ -35,7 +35,7 @@ public class LoadPage extends JPanel implements ThemeListener {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(helper.getDifferentWood(), 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
       }
     };
     topPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
@@ -51,7 +51,7 @@ public class LoadPage extends JPanel implements ThemeListener {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(helper.getWoodTexture(), 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
       }
     };
     labelPanel.add(titleLabel);
@@ -92,10 +92,6 @@ public class LoadPage extends JPanel implements ThemeListener {
     // Revalidate and repaint the panel
     revalidate();
     repaint();
-  }
-
-  public Image getWoodTexture() {
-    return helper.getWoodTexture();
   }
 
   @Override

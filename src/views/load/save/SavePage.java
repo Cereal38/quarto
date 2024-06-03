@@ -29,6 +29,7 @@ public class SavePage extends JPanel implements ThemeListener {
   private JLabel messageLabel;
   private LoadPage loadSavePage;
   private ImageThemed bgImage = new ImageThemed("squared-background.png");
+  private ImageThemed topbarImage = new ImageThemed("flat.png");
 
   public SavePage(LoadPage l) {
     ThemeUtils.addThemeListener(this);
@@ -44,13 +45,6 @@ public class SavePage extends JPanel implements ThemeListener {
         super.paintComponent(g);
         // Draw background gradient
         Graphics2D g2d = (Graphics2D) g.create();
-        // GradientPaint gradient = new GradientPaint(0, 0, new Color(230, 255, 230), 0,
-        // getHeight(), new Color(200, 255, 200));
-        // g2d.setPaint(gradient);
-        // g2d.fillRect(0, 0, getWidth(), getHeight());
-        // // Draw background image with transparency
-        // g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
-        // // Adjust transparency as needed
         g2d.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
         g2d.dispose();
       }
@@ -125,7 +119,7 @@ public class SavePage extends JPanel implements ThemeListener {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g.drawImage(loadSavePage.getWoodTexture(), 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
   }
 
   public static void main(String[] args) {

@@ -59,6 +59,7 @@ public class ImageLibrary {
     loadImage("history.png");
     loadImage("resume.png");
     loadImage("pause.png");
+    loadImage("flat.png");
   }
 
   private static void loadImage(String name) {
