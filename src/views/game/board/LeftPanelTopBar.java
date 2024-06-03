@@ -1,18 +1,20 @@
 package src.views.game.board;
 
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import src.views.components.ImageThemed;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.ThemeUtils;
 
-public class LeftPanelTopBar extends JPanel {
+public class LeftPanelTopBar extends JPanel implements ThemeListener {
 
-  private Image bgImage;
+  private ImageThemed bgImage = new ImageThemed("gameboard-left-top-bar.png");
 
   public LeftPanelTopBar() {
+    ThemeUtils.addThemeListener(this);
+
     setLayout(new FlowLayout(FlowLayout.LEFT, 12, 14));
 
     UndoButton btnUndo = new UndoButton();
@@ -24,18 +26,14 @@ public class LeftPanelTopBar extends JPanel {
     add(btnUndo);
     add(btnRedo);
 
-    // Choose if display pause or resume button
-    if (GameStatusHandler.isPaused()) {
-      add(new ResumeButton());
-    } else {
-      add(new PauseButton());
-    }
-
-    // Load background image
-    try {
-      bgImage = ImageIO.read(new File("assets/images/gameboard-left-top-bar.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
+    // Only add pause button if not PvP
+    if (!GameStatusHandler.isPvP()) {
+      // Choose if display pause or resume button
+      if (GameStatusHandler.isPaused()) {
+        add(new ResumeButton());
+      } else {
+        add(new PauseButton());
+      }
     }
   }
 
@@ -43,7 +41,12 @@ public class LeftPanelTopBar extends JPanel {
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
     // Draw background image
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 
 }

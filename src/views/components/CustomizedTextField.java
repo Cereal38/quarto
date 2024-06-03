@@ -4,13 +4,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import src.views.listeners.ThemeListener;
+import src.views.utils.ThemeUtils;
 
-public class CustomizedTextField extends JTextField {
+public class CustomizedTextField extends JTextField implements ThemeListener {
 
-  private ImageIcon backgroundImage;
+  private ImageThemed bgImage = new ImageThemed("text-field.png");
 
   public CustomizedTextField() {
     super();
@@ -33,8 +36,7 @@ public class CustomizedTextField extends JTextField {
   }
 
   private void init() {
-    // Load the background image
-    backgroundImage = new ImageIcon("assets/images/text-field.png");
+    ThemeUtils.addThemeListener(this);
 
     // Set the text field to be opaque
     setOpaque(false);
@@ -48,12 +50,22 @@ public class CustomizedTextField extends JTextField {
     // Set the font and font size
     Font font = new Font("Arial", Font.PLAIN, 16); // Change "Arial" to the desired font and 16 to the desired font size
     setFont(font);
+
+    // Add a key listener to prevent the user from typing spaces
+    addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        if (e.getKeyChar() == ' ') {
+          e.consume();
+        }
+      }
+    });
   }
 
   @Override
   protected void paintComponent(Graphics g) {
     // Draw the background image
-    g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
 
     // Draw the text
     super.paintComponent(g);
@@ -63,6 +75,11 @@ public class CustomizedTextField extends JTextField {
   public Insets getInsets() {
     // Add some padding to the text field
     return new Insets(0, 10, 0, 0);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 
 }

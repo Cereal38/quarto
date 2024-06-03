@@ -3,6 +3,7 @@ package src.views.utils;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -14,6 +15,7 @@ import src.views.components.LanguageButton;
 import src.views.components.ManualButton;
 import src.views.components.MusicButton;
 import src.views.components.SnackbarPanel;
+import src.views.components.TranslatedString;
 import src.views.game.board.PauseMenuButton;
 import src.views.game.board.RedoButton;
 import src.views.game.board.UndoButton;
@@ -190,9 +192,16 @@ public class EventsHandler {
     if (pauseMenuButton != null) {
       pauseMenuButton.updateIcon(theme == 0);
     }
+  }
 
-    if (mainMenu != null) {
-      mainMenu.UpdateBackground(theme == 0);
+  public static void closeApp() {
+    Object[] options = { new TranslatedString("yes"), new TranslatedString("no") };
+    int response = JOptionPane.showOptionDialog(mainPanel, new TranslatedString("close-confirm"),
+        new TranslatedString("close-title").getText(), JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
+        options, options[0]);
+
+    if (response == 0) {
+      System.exit(0); // Exit the application
     }
   }
 

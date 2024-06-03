@@ -1,6 +1,6 @@
 package src.views.utils;
 
-import java.awt.Image;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -29,7 +29,7 @@ public class ImageUtils {
     JButton button = new JButton(icon);
     button.setBorder(BorderFactory.createEmptyBorder());
     button.setContentAreaFilled(false);
-
+    button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     return button;
   }
 
