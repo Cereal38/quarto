@@ -220,15 +220,21 @@ public class ViewModelController implements ViewModelListener {
     if (quartoModel == null) {
       return result;
     }
+    int hint = selectPawnHint();
     QuartoPawn[] pawns = quartoModel.getPawnAvailable();
     int size = DimensionUtils.getBarCellSize();
     for (int i = 0; i < pawns.length; i++) {
       if (pawns[i] != null) {
         int index = FormatUtils.byteToIndex(pawns[i].getPawn());
-        result[index] = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, size, size);
+        if (hint != -1 && hint == i){
+          result[index] = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.HINT, size, size);
+        } else {
+          result[index] = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, size, size);
+        }
       } else {
         result[i] = null;
       }
+
     }
     // Add the selected pawn
     if (getSelectedPawn() != null) {
@@ -451,7 +457,8 @@ public class ViewModelController implements ViewModelListener {
    * @return the index of the best pawn to select.
    */
   public int selectPawnHint() {
-
-    return aiPlayer.getBestPawn(this.quartoModel);
+    if (isSelectionPhase())
+      return aiPlayer.getBestPawn(this.quartoModel);
+    return -1;
   }
 }

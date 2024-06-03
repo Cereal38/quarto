@@ -101,6 +101,8 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
     } else if ((pawn != null && pawn.isHovered()) && EventsHandler.getController().isSelectionPhase()
         && !GameStatusHandler.isPaused()) {
       g.drawImage(bgImageHovered.getImage(), 0, 0, getWidth(), getHeight(), this);
+    }else if (pawn!= null && pawn.isHint() && GameStatusHandler.isHintClicked()){
+      g.drawImage(bgImageHovered.getImage(), 0, 0, getWidth(), getHeight(), this);
     } else {
       g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
     }
