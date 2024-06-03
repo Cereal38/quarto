@@ -11,46 +11,11 @@ import java.util.List;
 
 public class SlotManager {
     private List<SlotFile> slotFiles;
-    public static final String SLOTS_DIRECTORY = "slots";
+    public final String SLOTS_DIRECTORY = "slots";
 
     public SlotManager() {
         this.slotFiles = new ArrayList<>();
     }
-
-    public void renameSlotFile(int id, String newFileName) {
-        SlotFile slotFile = findSlotFileById(id);
-        if (slotFile == null) {
-            throw new IllegalArgumentException("Invalid id " + id);
-        }
-
-        String oldFileName = slotFile.getFilename();
-        String oldFilePath = SLOTS_DIRECTORY + File.separator + oldFileName;
-        String newFilePath = SLOTS_DIRECTORY + File.separator + newFileName;
-
-        File oldFile = new File(oldFilePath);
-        File newFile = new File(newFilePath);
-
-        if (oldFile.renameTo(newFile)) {
-            slotFile.setFilename(newFileName);
-            slotFile.setLastModified(newFile.lastModified());
-            System.out.println("File renamed successfully.");
-        } else {
-            System.err.println("Failed to rename file.");
-        }
-    }
-
-
-    public boolean isSlotFileEmpty(int id) {
-        SlotFile slotFile = findSlotFileById(id);
-        if (slotFile == null) {
-            throw new IllegalArgumentException("Invalid id " + id);
-        }
-
-        String filePath = SLOTS_DIRECTORY + File.separator + slotFile.getFilename();
-        File file = new File(filePath);
-        return file.length() == 0;
-    }
-
 
     public String clearSlotFile(int id) {
         SlotFile slotFile = findSlotFileById(id);
@@ -113,11 +78,6 @@ public class SlotManager {
     }
 
 
-    public void renameSlotFile(int id, String playerName1, String playerName2) {
-        String newFileName = playerName1 + "_vs_" + playerName2 + ".txt";
-        renameSlotFile(id, newFileName);
-    }
-
     public List<SlotFile> getSlotFiles() {
         loadFromDirectory();
         return slotFiles;
@@ -136,17 +96,4 @@ public class SlotManager {
             }
         }
     }
-//  public static void main(String[] args) {
-//    SlotManager slotManager = new SlotManager();
-//    slotManager.loadFromDirectory();
-//
-//    System.out.println("Slot Files:");
-//
-//    slotManager.renameSlotFile(2, "adam", "rymav2");
-//    //slotManager.clearSlotFile(0);
-//    for (SlotFile slotFile : slotManager.getSlotFiles()) {
-//      System.out.println("ID: " + slotFile.getId() + ", Filename: " + slotFile.getFilename() + ", Last Modified: " + slotFile.getLastModified());
-//    }
-//  }
-
 }

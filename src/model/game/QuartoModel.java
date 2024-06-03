@@ -2,6 +2,7 @@ package src.model.game;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import src.model.ai.Heuristics;
@@ -73,6 +74,7 @@ public class QuartoModel {
       } else { // before the first move
         board.getPawnAvailable()[file.getIndexPawn()] = board.getSelectedPawn();
         board.setSelectedPawn(null);
+        playerManager.switchPlayer();//the first player starts
       }
       file.setSave(file.getSave().getPrevious());
     }
@@ -83,7 +85,7 @@ public class QuartoModel {
   }
 
   public void selectPawnHuman(int indexPawn) {
-    if (board.getSelectedPawn() == null) {
+    if (board.getSelectedPawn() == null && !hasAWinner() && !isATie()) {
       board.setSelectedPawn(board.getPawnAvailable()[indexPawn]);
       file.getSave().setNext(new QuartoHistory(indexPawn, file.getSave(), playerManager.getNameOfTheCurrentPlayer(), playerManager.getCurrentPlayer()));
       file.getSave().getNext().setPrevious(file.getSave());
@@ -98,9 +100,9 @@ public class QuartoModel {
   }
 
   public void playShotHuman(int line, int column) {
-    if (board.isTableEmpty(line, column) && board.getSelectedPawn() != null) {
+    if (board.isTableEmpty(line, column) && board.getSelectedPawn() != null && !hasAWinner() && !isATie()) {
       board.setTable(line, column, board.getSelectedPawn());
-      board.winSituation(line, column);
+      gameOver = winSituation(line, column);
       board.setSelectedPawn(null);
       file.getSave().setNext(new QuartoHistory(line, column, file.getSave(), playerManager.getNameOfTheCurrentPlayer(), playerManager.getCurrentPlayer()));
       file.getSave().getNext().setPrevious(file.getSave());
@@ -116,6 +118,8 @@ public class QuartoModel {
   }
 
   public boolean checkInfoPlayer(int index) {
+    if (playerManager == null)
+      playerManager = new QuartoPlayerManager();
     int countUndo = 0;
     manager.loadFromDirectory();
     List<SlotFile> slotFiles = manager.getSlotFiles();
@@ -127,16 +131,9 @@ public class QuartoModel {
     SlotFile slotFile = slotFiles.get(index);
     String fileName = slotFile.getFilename();
 
-    while (file.canUndo()) {
+    while (canUndo()) {
       undo();
       countUndo++;
-    }
-    System.out.println("Number of files = " + slotFiles.size());
-
-    if (manager.isSlotFileEmpty(slotFile.getId())) {
-      System.err.println("Index " + index + " contains a empty file: " + fileName);
-      redoLoop(countUndo);
-      return false;
     }
 
     String[] infoPlayer = file.chargeFile(fileName);
@@ -154,19 +151,21 @@ public class QuartoModel {
     playerManager.setPlayer1Name(nameAndType[0]);
     playerManager.setPlayer1Type(Integer.parseInt(nameAndType[1]));
 
-
     nameAndType = infoPlayer[1].split(" ");
     if (nameAndType.length != 2) {
       System.err.println("Missing information for player 2");
       redoLoop(countUndo);
       return false;
     }
-    playerManager.setPlayer1Name(nameAndType[0]);
-    playerManager.setPlayer1Type(Integer.parseInt(nameAndType[1]));
+    playerManager.setPlayer2Name(nameAndType[0]);
+    playerManager.setPlayer2Type(Integer.parseInt(nameAndType[1]));
+
+    playerManager.initializeAIPlayers();
 
 
     return true;
   }
+
 
   public void chargeGame(int index) {
     if (!checkInfoPlayer(index))
@@ -200,7 +199,7 @@ public class QuartoModel {
   }
 
   public boolean isATie() {
-    return (board.getSelectedPawn() == null && board.isPawnListEmpty());
+    return (board.getSelectedPawn() == null && board.isPawnListEmpty() && !hasAWinner());
   }
 
   public QuartoPawn getPawn(int pawnIndex) {

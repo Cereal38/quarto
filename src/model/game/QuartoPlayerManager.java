@@ -20,8 +20,18 @@ public class QuartoPlayerManager {
         this.secondPlayerName = secondPlayerName;
         initializeAIPlayers();
     }
+    //dummy
+    public QuartoPlayerManager() {
+        this.heuristic1 = new Heuristics();
+        this.heuristic2 = new Heuristics();
+        currentPlayer = 1;
+        playerType[0] = 0;
+        playerType[1] = 0;
+        this.firstPlayerName = "a";
+        this.secondPlayerName = "b";
+    }
 
-    private void initializeAIPlayers() {
+    public void initializeAIPlayers() {
         if (playerType[0] == 1 || playerType[1] == 1) {
             randomAIPlayer = new RandomAIPlayer();
         }
@@ -48,7 +58,7 @@ public class QuartoPlayerManager {
     }
 
     public int getCurrentPlayerType() {
-        return playerType[getCurrentPlayer() - 1];
+        return playerType[getCurrentPlayer()-1];
     }
 
     public void selectPawn(QuartoModel model, int indexPawn) {
@@ -130,5 +140,13 @@ public class QuartoPlayerManager {
 
     public int[] getPlayerType() {
         return playerType;
+    }
+
+    public void setPlayer2Name(String s) {
+        this.secondPlayerName = s;
+    }
+
+    public void setPlayer2Type(int i) {
+        this.playerType[1] = i;
     }
 }

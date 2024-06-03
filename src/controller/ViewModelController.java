@@ -44,9 +44,6 @@ public class ViewModelController implements ViewModelListener {
     this.quartoModel = new QuartoModel(index);
   }
 
-  public boolean isSlotFileEmpty(int index) {
-    return slotManager.isSlotFileEmpty(index);
-  }
 
   @Override
   public List<SlotFile> getSlotFiles() {
