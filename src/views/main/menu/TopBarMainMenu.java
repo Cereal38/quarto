@@ -33,7 +33,6 @@ public class TopBarMainMenu extends JPanel implements ThemeListener {
     JPanel leftPanel = new JPanel();
     leftPanel.setOpaque(false);
     leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
-    leftPanel.add(musicButton);
     leftPanel.add(modeButton);
     leftPanel.add(langButton);
 
