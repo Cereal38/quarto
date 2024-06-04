@@ -1,28 +1,36 @@
 package src.views.game.board;
 
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import src.views.MainFrame;
 import src.views.components.CustomizedButton;
+import src.views.components.ImageThemed;
+import src.views.listeners.ThemeListener;
 import src.views.load.save.SavePage;
 import src.views.rules.RulesPage;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.ThemeUtils;
 
-public class PauseDialogContent extends JPanel {
+/**
+ * Represents the content of the pause dialog.
+ */
+public class PauseDialogContent extends JPanel implements ThemeListener {
   private static final int MARGIN = 20;
 
   private CustomizedButton btnSave = new CustomizedButton("save");
   private CustomizedButton btnRestart = new CustomizedButton("restart");
   private CustomizedButton btnRules = new CustomizedButton("rules");
   private CustomizedButton btnMainMenu = new CustomizedButton("main-menu");
-  private Image bgImage;
+  private ImageThemed bgImage = new ImageThemed("squared-background.png");
 
+  /**
+   * Constructs a PauseDialogContent object.
+   */
   public PauseDialogContent() {
+    ThemeUtils.addThemeListener(this);
+
     setLayout(new GridLayout(0, 1, 0, 10));
     setBorder(BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN));
 
@@ -59,18 +67,23 @@ public class PauseDialogContent extends JPanel {
     add(btnRestart);
     add(btnRules);
     add(btnMainMenu);
-
-    try {
-      bgImage = ImageIO.read(new File("assets/images/squared-background.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
+  /**
+   * Paints the background image of the dialog content.
+   */
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
     // Draw background image
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  /**
+   * Updates the theme of the dialog content.
+   */
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 }

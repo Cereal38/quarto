@@ -1,32 +1,41 @@
 package src.views.main.menu;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
 import src.views.components.GridCenterPanel;
+import src.views.components.ImageThemed;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
+import src.views.utils.ThemeUtils;
 
-public class MainMenu extends JPanel {
+/**
+ * The MainMenu class represents the main menu of the game application.
+ * It provides options for starting a new game and loading a saved game.
+ * This menu is displayed when the game application starts.
+ *
+ * <p>The MainMenu class extends the JPanel class and implements the ThemeListener interface
+ * to listen for theme change events.</p>
+ */
+
+public class MainMenu extends JPanel implements ThemeListener {
   private CustomizedButton btnNewGame = new CustomizedButton("new-game");
   private CustomizedButton btnLoad = new CustomizedButton("load");
-    private Image backgroundImage;
-    private Image backgroundImageDark;
+  private ImageThemed backgroundImage = new ImageThemed("main-menu.jpg");
+  private ImageThemed logoImage = new ImageThemed("quarto.png");
+  private JLabel logo;
 
-    private boolean isLightTheme = true;
-
-
-
+  /**
+   * Constructs a MainMenu object.
+   */
   public MainMenu() {
-
+    ThemeUtils.addThemeListener(this);
     EventsHandler.setMainMenu(this);
 
     setLayout(new BorderLayout());
-    backgroundImage = new javax.swing.ImageIcon(getClass().getResource("/assets/images/MenuBgDark.jpg")).getImage();
-    backgroundImageDark = new javax.swing.ImageIcon(getClass().getResource("/assets/images/MenuBg.jpg")).getImage();
 
     JPanel navbar = new TopBarMainMenu();
     add(navbar, BorderLayout.NORTH);
@@ -49,29 +58,25 @@ public class MainMenu extends JPanel {
     // Display menu items as a list
     menu.setLayout(new GridLayout(4, 1, 0, 5));
     menu.setOpaque(false);
-    JLabel titleLabel = new JLabel("Quarto");
-    titleLabel.setHorizontalAlignment(JLabel.CENTER);
-    titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-    menu.add(titleLabel);
+
+    logoImage.setSize(200, 75);
+    logo = new JLabel(new ImageIcon(logoImage.getImage()));
+    menu.add(logo);
+    menu.add(new JLabel()); // Divider
     menu.add(btnNewGame);
     menu.add(btnLoad);
 
-
   }
 
-    @Override
-    protected void paintComponent(java.awt.Graphics g) {
-        super.paintComponent(g);
-        if( isLightTheme )
-            g.drawImage(backgroundImageDark, 0, 0, this.getWidth(), this.getHeight(), this);
-        else
-        g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
-    }
+  @Override
+  protected void paintComponent(java.awt.Graphics g) {
+    super.paintComponent(g);
+    g.drawImage(backgroundImage.getImage(), 0, 0, this.getWidth(), this.getHeight(), this);
+  }
 
-    public void UpdateBackground(boolean isLightTheme) {
-        isLightTheme = isLightTheme;
-        repaint();
-        System.out.println("Background updated");
-        System.out.println(isLightTheme);
-    }
+  @Override
+  public void updatedTheme() {
+    logo.setIcon(new ImageIcon(logoImage.getImage()));
+    repaint();
+  }
 }

@@ -1,22 +1,33 @@
 package src.views.game.board;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JPanel;
 import src.views.components.BorderCenterPanel;
+import src.views.components.ImageThemed;
 import src.views.game.history.MovesHistory;
 import src.views.listeners.GameStatusListener;
+import src.views.listeners.ThemeListener;
 import src.views.utils.DimensionUtils;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.ThemeUtils;
 
-public class GameBoard extends JPanel implements GameStatusListener {
+/**
+ * Represents the game board.
+ */
+
+public class GameBoard extends JPanel implements GameStatusListener, ThemeListener {
 
   private static final int HEIGHT_TOP_BAR = 60;
+  private ImageThemed bgImage = new ImageThemed("bg-board.png");
 
+  /**
+   * Constructs a GameBoard object.
+   */
   public GameBoard() {
+    ThemeUtils.addThemeListener(this);
 
     // Register this class as a game status listener
     // update() will be called when informListeners() is called
@@ -76,7 +87,7 @@ public class GameBoard extends JPanel implements GameStatusListener {
         new Board(widthBoardWrapper, heightBoardWrapper, boardCellSize), verticalMarginBoard, horizontalMarginBoard,
         verticalMarginBoard, horizontalMarginBoard);
 
-    //Setup history
+    // Setup history
     MovesHistory movesHistory = new MovesHistory();
     EventsHandler.setMovesHistory(movesHistory);
 
@@ -86,6 +97,17 @@ public class GameBoard extends JPanel implements GameStatusListener {
     add(pawnsBar, BorderLayout.EAST);
     // add(movesHistory, BorderLayout.EAST);
     revalidate();
+    repaint();
+  }
+
+  @Override
+  protected void paintComponent(java.awt.Graphics g) {
+    super.paintComponent(g);
+    g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  @Override
+  public void updatedTheme() {
     repaint();
   }
 }

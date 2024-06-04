@@ -3,24 +3,28 @@ package src.views.game.board;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
+import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ImageUtils;
 
-public class PauseButton extends JButton {
+/**
+ * Represents a button used to pause the game.
+ */
+public class PauseButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
-  private boolean isLightTheme = true;
+  private ImageThemed image = new ImageThemed("pause.png");
 
-  // Load icon
-  ImageIcon pauseImg = ImageUtils.loadImage("pause.png", 32, 32);
-  ImageIcon pauseWhiteImg = ImageUtils.loadImage("pause.png", 32, 32);
-
+  /**
+   * Constructs a PauseButton object.
+   */
   public PauseButton() {
-
     setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
     // Add style
-    setIcon(pauseImg);
+    image.setSize(32, 32);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
 
@@ -31,8 +35,12 @@ public class PauseButton extends JButton {
     tooltip = new TranslatedString("pause-tooltip", this, true);
   }
 
-  public void updateIcon(boolean isLightTheme) {
-    this.isLightTheme = isLightTheme;
-    setIcon(isLightTheme ? pauseImg : pauseWhiteImg);
+  /**
+   * Updates the theme of the button.
+   */
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
   }
 }

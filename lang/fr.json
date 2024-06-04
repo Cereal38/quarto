@@ -21,9 +21,8 @@
   "ai-2": "IA 2",
   "make-player": "Rendre Joueur",
   "make-ai": "Rendre Joueur",
-  "load-page": "Page de chargement",
+  "load-page": "Charger une ancienne partie",
   "save-page": "Page de sauvegarde",
-  "saved-date": "Date de sauvegarde",
   "load-game": "Charger le jeu",
   "save-game": "Sauvegarder le jeu",
   "clear-slot": "Supprimer",
@@ -62,5 +61,8 @@
   "delete-confirm": "Êtes-vous sûr de vouloir supprimer cette sauvegarde ?",
   "delete-title": "Supprimer",
   "yes": "Oui",
-  "no": "Non"
+  "no": "Non",
+  "error-text": "Le nom ne peut pas etre vide",
+  "overwrite-confirm": "Êtes-vous sûr de vouloir écraser la partie enregistrée existante portant ce nom ?",
+  "overwrite-title" : "Écraser le jeu existant"
 }

@@ -1,38 +1,45 @@
 package src.views.game.board;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
+import src.views.components.ImageThemed;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
-import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class GameOverDialog extends JPanel {
+/**
+ * Represents the dialog displayed when the game is over.
+ */
+
+public class GameOverDialog extends JPanel implements ThemeListener {
   private CustomizedButton btnBack = new CustomizedButton("back-to-game");
   private CustomizedButton btnMenu = new CustomizedButton("main-menu");
-  private Image bgImage;
+  private ImageThemed bgImage = new ImageThemed("squared-background.png");
+  private ImageThemed crown = new ImageThemed("crown.png");
+  private ImageIcon crownIcon;
 
+  /**
+   * Constructs a GameOverDialog object.
+   *
+   * @param winner the winner of the game
+   */
   public GameOverDialog(String winner) {
-    setLayout(new BorderLayout());
+    ThemeUtils.addThemeListener(this);
 
-    try {
-      bgImage = ImageIO.read(new File("assets/images/squared-background.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    setLayout(new BorderLayout());
 
     btnMenu.addActionListener(new ActionListener() {
       @Override
@@ -60,8 +67,10 @@ public class GameOverDialog extends JPanel {
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
     // Load and add crown image
-    ImageIcon scaledCrownImage = ImageUtils.loadImage("crown.png", 100, 100);
-    JLabel crownLabel = new JLabel(scaledCrownImage);
+    crown.setSize(100, 100);
+    crownIcon = new ImageIcon(crown.getImage());
+    crown.setSize(100, 100);
+    JLabel crownLabel = new JLabel(crownIcon);
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
     gridBagConstraints.anchor = GridBagConstraints.CENTER;
@@ -88,6 +97,7 @@ public class GameOverDialog extends JPanel {
     }
     Font font = winnerLabel.getFont().deriveFont(Font.BOLD, 24); // set font to bold and 24-point size
     winnerLabel.setFont(font);
+    winnerLabel.setForeground(ThemeUtils.getTheme() == ThemeUtils.LIGHT ? Color.BLACK : Color.WHITE);
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 2;
     gridBagConstraints.anchor = GridBagConstraints.CENTER;
@@ -111,6 +121,12 @@ public class GameOverDialog extends JPanel {
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  @Override
+  public void updatedTheme() {
+    crownIcon = new ImageIcon(crown.getImage());
+    repaint();
   }
 }

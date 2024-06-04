@@ -1,25 +1,29 @@
 package src.views.game.board;
 
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import src.views.utils.EventsHandler;
+import src.views.components.ImageThemed;
+import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
+import src.views.utils.ThemeUtils;
 
-public class LeftPanelTopBar extends JPanel {
+/**
+ * Represents the top bar on the left side of the game board.
+ */
+public class LeftPanelTopBar extends JPanel implements ThemeListener {
 
-  private Image bgImage;
+  private ImageThemed bgImage = new ImageThemed("gameboard-left-top-bar.png");
 
+  /**
+   * Constructs a LeftPanelTopBar object.
+   */
   public LeftPanelTopBar() {
+    ThemeUtils.addThemeListener(this);
+
     setLayout(new FlowLayout(FlowLayout.LEFT, 12, 14));
 
     UndoButton btnUndo = new UndoButton();
     RedoButton btnRedo = new RedoButton();
-
-    EventsHandler.setUndoButton(btnUndo);
-    EventsHandler.setRedoButton(btnRedo);
 
     add(btnUndo);
     add(btnRedo);
@@ -33,20 +37,25 @@ public class LeftPanelTopBar extends JPanel {
         add(new PauseButton());
       }
     }
-
-    // Load background image
-    try {
-      bgImage = ImageIO.read(new File("assets/images/gameboard-left-top-bar.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
+  /**
+   * Paints the component with its background image.
+   *
+   * @param g the graphics context
+   */
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
     // Draw background image
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
   }
 
+  /**
+   * Handles theme updates for the left panel top bar.
+   */
+  @Override
+  public void updatedTheme() {
+    repaint();
+  }
 }

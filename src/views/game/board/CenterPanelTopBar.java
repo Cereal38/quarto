@@ -1,31 +1,39 @@
 package src.views.game.board;
 
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import src.views.components.Field;
+import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
+import src.views.utils.ThemeUtils;
 
-public class CenterPanelTopBar extends JPanel {
+/**
+ * Represents the top bar of the center panel in the game board.
+ */
+public class CenterPanelTopBar extends JPanel implements ThemeListener {
 
-  private Image bgImage;
+  private ImageThemed bgImage = new ImageThemed("gameboard-center-top-bar.png");
   private Field player1Name;
   private Field player2Name;
   private Field selectionPhase;
   private Field playPhase;
 
+  /**
+   * Constructs a CenterPanelTopBar object.
+   */
   public CenterPanelTopBar() {
+    ThemeUtils.addThemeListener(this);
+
     setLayout(new GridLayout(1, 4));
 
     String selectionPhaseStr = new TranslatedString("select-pawn").getText();
     String playPhaseStr = new TranslatedString("play-pawn").getText();
     player1Name = new Field(EventsHandler.getController().getPlayer1Name(),
-        EventsHandler.getController().getCurrentPlayer() == 1);
+            EventsHandler.getController().getCurrentPlayer() == 1);
     player2Name = new Field(EventsHandler.getController().getPlayer2Name(),
-        EventsHandler.getController().getCurrentPlayer() == 2);
+            EventsHandler.getController().getCurrentPlayer() == 2);
     selectionPhase = new Field(selectionPhaseStr, EventsHandler.getController().isSelectionPhase());
     playPhase = new Field(playPhaseStr, EventsHandler.getController().isPlayPhase());
 
@@ -33,20 +41,18 @@ public class CenterPanelTopBar extends JPanel {
     add(player2Name);
     add(selectionPhase);
     add(playPhase);
-
-    // Load background image
-    try {
-      bgImage = ImageIO.read(new File("assets/images/gameboard-center-top-bar.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
     // Draw background image
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 
 }

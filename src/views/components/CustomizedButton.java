@@ -2,43 +2,36 @@ package src.views.components;
 
 import java.awt.AlphaComposite;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.listeners.ThemeListener;
+import src.views.utils.ThemeUtils;
 
 /**
- * A button with a skin.
+ * A button with a customized appearance.
  */
-public class CustomizedButton extends JButton {
+
+public class CustomizedButton extends JButton implements ThemeListener {
 
   TranslatedString translatedString;
-  private static ImageIcon buttonImage;
-  private static ImageIcon buttonImageHover;
-  private static ImageIcon buttonImageClicked;
+  // private static ImageIcon buttonImage;
+  // private static ImageIcon buttonImageHover;
+  // private static ImageIcon buttonImageClicked;
+  private ImageThemed buttonImage = new ImageThemed("text-button.png");
+  private ImageThemed buttonImageHover = new ImageThemed("text-button-hovered.png");
+  private ImageThemed buttonImageClicked = new ImageThemed("text-button-clicked.png");
 
-  // Load the button images only once
-  static {
-    try {
-      Image img = ImageIO.read(new File("assets/images/text-button.png"));
-      buttonImage = new ImageIcon(img);
-
-      img = ImageIO.read(new File("assets/images/text-button-hovered.png"));
-      buttonImageHover = new ImageIcon(img);
-
-      img = ImageIO.read(new File("assets/images/text-button-clicked.png"));
-      buttonImageClicked = new ImageIcon(img);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
+  /**
+   * Constructs a CustomizedButton with the specified key.
+   *
+   * @param key the translation key for the button text
+   */
   public CustomizedButton(String key) {
     super();
+    ThemeUtils.addThemeListener(this);
 
     translatedString = new TranslatedString(key, this);
 
@@ -51,6 +44,9 @@ public class CustomizedButton extends JButton {
 
     // Add styles
     setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+    // Increase buttons font size
+    setFont(new Font(getFont().getFontName(), getFont().getStyle(), 16));
   }
 
   @Override
@@ -89,8 +85,18 @@ public class CustomizedButton extends JButton {
     }
   }
 
+  /**
+   * Sets the translation key for the button text.
+   *
+   * @param key the translation key for the button text
+   */
   public void setKey(String key) {
     translatedString.setKey(key);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 
 }

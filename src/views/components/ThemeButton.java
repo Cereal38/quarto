@@ -1,44 +1,48 @@
 package src.views.components;
 
+import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import src.views.utils.EventsHandler;
-import src.views.utils.ImageUtils;
+import src.views.listeners.ThemeListener;
+import src.views.utils.ThemeUtils;
 
-public class ThemeButton extends JButton {
+/**
+ * A button to toggle between light and dark themes.
+ */
+public class ThemeButton extends JButton implements ThemeListener {
 
-    private boolean isLightTheme;
-    private TranslatedString tooltip;
+  private TranslatedString tooltip;
+  private ImageThemed image = new ImageThemed("brush.png");
 
-    public ThemeButton() {
-        isLightTheme = true;
+  /**
+   * Constructs a new ThemeButton.
+   */
+  public ThemeButton() {
+    ThemeUtils.addThemeListener(this);
 
-        // Load icons
-        ImageIcon darkImg = ImageUtils.loadImage("dark.png", 30, 30);
-        ImageIcon lightImg = ImageUtils.loadImage("light.png", 30, 30);
+    // Add style
+    image.setSize(28, 28);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
+    setBorder(BorderFactory.createEmptyBorder());
+    setContentAreaFilled(false);
+    setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Add style
-        setIcon(darkImg);
-        setBorder(BorderFactory.createEmptyBorder());
-        setContentAreaFilled(false);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    // Add action
+    setActionCommand("DarkMode");
 
-        // Add action
-        setActionCommand("DarkMode");
+    addActionListener(e -> {
+      ThemeUtils.toggleTheme();
+    });
 
-        addActionListener(e -> {
-            // Change icon
-            if (isLightTheme) {
-                setIcon(lightImg);
-            } else {
-                setIcon(darkImg);
-            }
-            isLightTheme = !isLightTheme;
-            EventsHandler.toggleTheme();
-        });
+    // Add tooltip
+    tooltip = new TranslatedString("themeButtonTooltip", this, true);
+  }
 
-        // Add tooltip
-        tooltip = new TranslatedString("themeButtonTooltip", this, true);
-    }
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
+  }
 }

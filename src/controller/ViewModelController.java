@@ -1,11 +1,16 @@
+/**
+ * The ViewModelController class serves as the controller in the Model-View-Controller (MVC) architecture
+ * for managing the game state and interactions between the game model and the user interface.
+ * It provides methods for creating, saving, and loading game states, as well as handling user actions
+ * such as playing shots, selecting pawns, and checking for game-winning conditions.
+ */
 package src.controller;
 
 import java.io.IOException;
 import java.util.List;
-import src.model.QuartoFile;
-import src.model.QuartoModel;
-import src.model.QuartoPawn;
-import src.model.SlotManager;
+import src.model.game.QuartoModel;
+import src.model.game.QuartoPawn;
+import src.model.game.SlotManager;
 import src.structures.SlotFile;
 import src.views.components.Pawn;
 import src.views.game.board.Cell;
@@ -15,50 +20,89 @@ import src.views.utils.FormatUtils;
 import src.views.utils.PawnUtils;
 
 public class ViewModelController implements ViewModelListener {
+  /** The game model instance */
   QuartoModel quartoModel;
-  QuartoFile quartoFile;
+
+  /** Manages slot files for saving and loading game states */
   private SlotManager slotManager;
 
   // TODO: Get it from the model
-  // Game states
+
+  /**  Constants representing game states */
   public static final int SELECT = 0;
   public static final int PLAY = 1;
 
+  /**
+   * Constructs a new ViewModelController object.
+   * Initializes the slot manager and loads slot files from the directory.
+   */
   public ViewModelController() {
     this.slotManager = new SlotManager();
     this.slotManager.loadFromDirectory();
   }
 
+  /**
+   * Creates a new game model with the specified player types and names.
+   *
+   * @param type1  The type of player 1 (human or AI).
+   * @param type2  The type of player 2 (human or AI).
+   * @param name1  The name of player 1.
+   * @param name2  The name of player 2.
+   */
   @Override
   public void createModel(int type1, int type2, String name1, String name2) {
     this.quartoModel = new QuartoModel(type1, type2, name1, name2);
   }
 
+  /**
+   * Retrieves the current game model.
+   *
+   * @return The QuartoModel instance representing the current game state.
+   */
   public QuartoModel getModel() {
     return this.quartoModel;
   }
 
+  /**
+   * Saves the current game state to a file with the specified name.
+   *
+   * @param fileName The name of the file to save the game state to.
+   * @throws IOException If an I/O error occurs while saving the file.
+   */
   public void saveGame(String fileName) throws IOException {
     quartoModel.saveFile(fileName);
   }
 
+  /**
+   * Loads a game state from the slot file with the specified index.
+   *
+   * @param index The index of the slot file to load.
+   */
   public void loadGame(int index) {
     this.quartoModel = new QuartoModel(index);
   }
 
-  public boolean isSlotFileEmpty(int index) {
-    return slotManager.isSlotFileEmpty(index);
-  }
 
+  /**
+   * Retrieves the list of slot files available for saving and loading game states.
+   *
+   * @return A list of SlotFile objects representing the slot files.
+   */
   @Override
   public List<SlotFile> getSlotFiles() {
     return slotManager.getSlotFiles();
   }
 
+  /**
+   * Clears the slot file with the specified ID.
+   *
+   * @param id The ID of the slot file to clear.
+   */
   @Override
   public void clearSlot(int id) {
     slotManager.clearSlotFile(id);
   }
+
 
   /**
    * Plays a shot on the specified line and column.
@@ -70,21 +114,44 @@ public class ViewModelController implements ViewModelListener {
     quartoModel.playShot(line, column);
   }
 
+  /**
+   * Undoes the last move in the game.
+   */
   public void undo() {
     quartoModel.undo();
   }
 
+  /**
+   * Redoes the previously undone move in the game.
+   */
   public void redo() {
     quartoModel.redo();
   }
 
+  /**
+   * Checks if it's possible to redo a move in the game.
+   *
+   * @return true if redo is possible, false otherwise.
+   */
   public boolean canRedo() {
-    return quartoFile.canRedo();
+    if (quartoModel == null) {
+      return false;
+    }
+    return quartoModel.canRedo();
   }
 
+  /**
+   * Checks if it's possible to undo a move in the game.
+   *
+   * @return true if undo is possible, false otherwise.
+   */
   public boolean canUndo() {
-    return quartoFile.canUndo();
+    if (quartoModel == null) {
+      return false;
+    }
+    return quartoModel.canUndo();
   }
+
 
   /**
    * Get the current state of the board.
@@ -119,6 +186,11 @@ public class ViewModelController implements ViewModelListener {
     return tableCells;
   }
 
+  /**
+   * Selects a pawn based on the provided pawn string representation.
+   *
+   * @param pawnStr The string representation of the pawn to select.
+   */
   public void selectPawn(String pawnStr) {
     quartoModel.selectPawn(FormatUtils.stringToIndex(pawnStr));
   }
@@ -154,16 +226,27 @@ public class ViewModelController implements ViewModelListener {
     return result;
   }
 
+  /**
+   * Retrieves the currently selected pawn from the game model.
+   *
+   * @return The currently selected QuartoPawn.
+   */
   private QuartoPawn getSelectedPawn() {
     return quartoModel.getSelectedPawn();
   }
 
+  /**
+   * Retrieves the string representation of the currently selected pawn.
+   *
+   * @return The string representation of the selected pawn, or null if no pawn is selected.
+   */
   public String getSelectedPawnStr() {
     if (getSelectedPawn() == null) {
       return null;
     }
     return FormatUtils.byteToString(getSelectedPawn().getPawn());
   }
+
 
   /**
    * Get the current player. 1 for player 1, 2 for player 2.
@@ -175,6 +258,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getCurrentPlayer();
   }
 
+  /**
+   * Retrieves the name of the current player.
+   *
+   * @return The name of the current player, or null if the model is not initialized.
+   */
   public String getCurrentPlayerName() {
     if (quartoModel == null) {
       return null;
@@ -182,6 +270,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getNameOfTheCurrentPlayer();
   }
 
+  /**
+   * Retrieves the name of player 1.
+   *
+   * @return The name of player 1, or null if the model is not initialized.
+   */
   public String getPlayer1Name() {
     if (quartoModel == null) {
       return null;
@@ -189,6 +282,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getPlayer1Name();
   }
 
+  /**
+   * Retrieves the name of player 2.
+   *
+   * @return The name of player 2, or null if the model is not initialized.
+   */
   public String getPlayer2Name() {
     if (quartoModel == null) {
       return null;
@@ -196,6 +294,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getPlayer2Name();
   }
 
+  /**
+   * Retrieves the type of player 1.
+   *
+   * @return The type of player 1, or 0 if the model is not initialized.
+   */
   public int getPlayer1Type() {
     if (quartoModel == null) {
       return 0;
@@ -203,6 +306,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getPlayer1Type();
   }
 
+  /**
+   * Retrieves the type of player 2.
+   *
+   * @return The type of player 2, or 0 if the model is not initialized.
+   */
   public int getPlayer2Type() {
     if (quartoModel == null) {
       return 0;
@@ -210,6 +318,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getPlayer2Type();
   }
 
+  /**
+   * Checks if player 1 is controlled by an AI.
+   *
+   * @return true if player 1 is an AI, false otherwise.
+   */
   public boolean isPlayer1AI() {
     if (quartoModel == null) {
       return false;
@@ -217,6 +330,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getPlayer1Type() != 0;
   }
 
+  /**
+   * Checks if player 2 is controlled by an AI.
+   *
+   * @return true if player 2 is an AI, false otherwise.
+   */
   public boolean isPlayer2AI() {
     if (quartoModel == null) {
       return false;
@@ -224,6 +342,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.getPlayer2Type() != 0;
   }
 
+  /**
+   * Checks if the game is in the selection phase.
+   *
+   * @return true if the game is in the selection phase, false otherwise.
+   */
   public boolean isSelectionPhase() {
     if (quartoModel == null) {
       return false;
@@ -231,6 +354,11 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.stateOfGame() == SELECT;
   }
 
+  /**
+   * Checks if the game is in the play phase.
+   *
+   * @return true if the game is in the play phase, false otherwise.
+   */
   public boolean isPlayPhase() {
     if (quartoModel == null) {
       return false;
@@ -281,5 +409,16 @@ public class ViewModelController implements ViewModelListener {
   public boolean isGameOver() {
     return isGameDraw() || isGameWon();
   }
+
+  /**
+   * Overwrites an existing file with the provided file name in the Quarto game.
+   *
+   * @param fileName the name of the file to overwrite
+   * @throws IOException if an I/O error occurs
+   */
+  public void overWriteFile(String fileName) throws IOException {
+    quartoModel.overWriteFile(fileName);
+  }
+
 
 }

@@ -6,11 +6,15 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class Pawn extends JButton {
+/**
+ * A graphical representation of a pawn on the game board.
+ */
+public class Pawn extends JButton implements ThemeListener {
 
   // Constants
   public static final int NOT_PLAYED = 0;
@@ -22,8 +26,20 @@ public class Pawn extends JButton {
   private int width;
   private int height;
   private boolean hovered;
+  private ImageThemed image;
+  private ImageIcon imageIcon;
 
+  /**
+   * Constructs a new Pawn with the specified code, state, width, and height.
+   *
+   * @param code   the code identifying the pawn
+   * @param state  the initial state of the pawn
+   * @param width  the width of the pawn image
+   * @param height the height of the pawn image
+   */
   public Pawn(String code, int state, int width, int height) {
+
+    ThemeUtils.addThemeListener(this);
 
     this.code = code;
     this.state = state;
@@ -31,18 +47,16 @@ public class Pawn extends JButton {
     this.height = height;
 
     // Load image
-    ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
+    image = new ImageThemed(code + ".png");
+    image.setSize(width, height);
+    imageIcon = new ImageIcon(image.getImage());
 
     // Set image
-    setIcon(image);
+    setIcon(imageIcon);
     setContentAreaFilled(false);
     setBorder(BorderFactory.createEmptyBorder());
-    // setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-    if (state == SELECTED) {
-      setBorder(BorderFactory.createLineBorder(java.awt.Color.RED, 2));
-    }
-
+    // Add mouse listener
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent evt) {
         GameStatusHandler.selectPawn(code);
@@ -62,13 +76,20 @@ public class Pawn extends JButton {
 
   /**
    * Checks if the pawn can be selected.
-   * 
+   *
    * @return true if the pawn can be selected, false otherwise.
    */
   private boolean canSelect() {
     return EventsHandler.getController().isSelectionPhase() && !EventsHandler.getController().isCurrentPlayerAI();
   }
 
+  /**
+   * Updates the state, width, and height of the pawn.
+   *
+   * @param state  the new state of the pawn
+   * @param width  the new width of the pawn image
+   * @param height the new height of the pawn image
+   */
   public void update(int state, int width, int height) {
 
     this.state = state;
@@ -94,20 +115,44 @@ public class Pawn extends JButton {
     else {
       this.width = width;
       this.height = height;
-      ImageIcon image = ImageUtils.loadImage(code + ".png", width, height);
-      setIcon(image);
+      image = new ImageThemed(code + ".png");
+      image.setSize(width, height);
+      imageIcon = new ImageIcon(image.getImage());
+      setIcon(imageIcon);
     }
   }
 
+  /**
+   * Checks if the pawn is currently selected.
+   *
+   * @return true if the pawn is selected, false otherwise
+   */
   public boolean isSelected() {
     return state == SELECTED;
   }
 
+  /**
+   * Checks if the mouse is currently hovering over the pawn.
+   *
+   * @return true if the mouse is hovering over the pawn, false otherwise
+   */
   public boolean isHovered() {
     return hovered;
   }
 
+  /**
+   * Retrieves the image of the pawn.
+   *
+   * @return the image of the pawn
+   */
   public Image getImage() {
     return ((ImageIcon) getIcon()).getImage();
+  }
+
+  @Override
+  public void updatedTheme() {
+    // Reload image
+    ImageIcon imageIcon = new ImageIcon(image.getImage());
+    setIcon(imageIcon);
   }
 }

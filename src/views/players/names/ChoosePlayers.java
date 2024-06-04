@@ -4,23 +4,34 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.io.File;
-import java.util.Objects;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import src.views.components.GoBackButton;
+import src.views.components.ImageThemed;
 import src.views.components.TranslatedLabel;
-import src.views.utils.ImageUtils;
+import src.views.listeners.ThemeListener;
+import src.views.utils.ThemeUtils;
 
-public class ChoosePlayers extends JPanel {
-  private Image bgImage;
-  private Image woodTexture;
+/**
+ * The ChoosePlayers class represents the panel for choosing player names.
+ * It allows users to enter the names of the players who will participate in the game.
+ *
+ * <p>The class extends the JPanel class and implements the ThemeListener interface
+ * to listen for theme change events.</p>
+ */
 
+public class ChoosePlayers extends JPanel implements ThemeListener {
+  private ImageThemed bgImage = new ImageThemed("bg-board.png");
+  private ImageThemed topbarImage = new ImageThemed("flat.png");
+
+  /**
+   * Constructs a ChoosePlayers panel.
+   * Sets up the layout and components for choosing player names.
+   */
   public ChoosePlayers() {
-    woodTexture = Objects.requireNonNull(ImageUtils.loadImage("wood.jpeg", 50, 50)).getImage();
+    ThemeUtils.addThemeListener(this);
 
     setLayout(new BorderLayout());
 
@@ -31,7 +42,7 @@ public class ChoosePlayers extends JPanel {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(woodTexture, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
       }
     };
     topPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
@@ -47,7 +58,7 @@ public class ChoosePlayers extends JPanel {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(woodTexture, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
       }
     };
     labelPanel.add(titleLabel);
@@ -62,16 +73,17 @@ public class ChoosePlayers extends JPanel {
     // Add components
     add(fieldsWrapper, BorderLayout.CENTER);
 
-    try {
-      bgImage = ImageIO.read(new File("assets/images/bg-board.png"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
-    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+    Graphics2D g2d = (Graphics2D) g;
+    g2d.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+  }
+
+  @Override
+  public void updatedTheme() {
+    repaint();
   }
 }
