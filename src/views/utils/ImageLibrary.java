@@ -45,6 +45,7 @@ public class ImageLibrary {
     loadImage("pawns-bar-left-slot.png");
     loadImage("pawns-bar-left-slot-hovered.png");
     loadImage("pawns-bar-left-slot-selected.png");
+    loadImage("pawns-bar-left-slot-hint.png");
     loadImage("pawns-bar-right-slot.png");
     loadImage("pawns-bar-right-slot-hovered.png");
     loadImage("pawns-bar-right-slot-selected.png");
@@ -67,11 +68,13 @@ public class ImageLibrary {
     loadImage("fr.png");
     loadImage("back.png");
     loadImage("highlight.png");
+    loadImage("hint-cell.png");
     loadImage("double-arrow.png");
   }
 
   /**
-   * Loads an image for both light and dark themes and stores them in the image map.
+   * Loads an image for both light and dark themes and stores them in the image
+   * map.
    *
    * @param name the name of the image file
    */
@@ -87,7 +90,8 @@ public class ImageLibrary {
   }
 
   /**
-   * Retrieves the image corresponding to the specified theme and name from the image map.
+   * Retrieves the image corresponding to the specified theme and name from the
+   * image map.
    *
    * @param theme the theme of the image (e.g., "light" or "dark")
    * @param name  the name of the image file
