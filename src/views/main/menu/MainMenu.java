@@ -61,6 +61,9 @@ public class MainMenu extends JPanel implements ThemeListener {
     menu.setLayout(new GridLayout(4, 1, 0, 5));
     menu.setOpaque(false);
 
+    // Disable load button if there are no saved games
+    checkLoadButton();
+
     logoImage.setSize(200, 65);
     logo = new JLabel(new ImageIcon(logoImage.getImage()));
     menu.add(logo);
@@ -80,5 +83,16 @@ public class MainMenu extends JPanel implements ThemeListener {
   public void updatedTheme() {
     logo.setIcon(new ImageIcon(logoImage.getImage()));
     repaint();
+  }
+
+  /**
+   * Checks if the load button should be enabled or disabled.
+   */
+  public void checkLoadButton() {
+    if (EventsHandler.getController().getSlotFiles().isEmpty()) {
+      btnLoad.setEnabled(false);
+    } else {
+      btnLoad.setEnabled(true);
+    }
   }
 }
