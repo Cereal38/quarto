@@ -25,11 +25,13 @@ import src.views.utils.ImageUtils;
 import src.views.utils.LangUtils;
 
 /**
- * The PlayerFields class represents a component containing the fields to set up a player.
- * It allows users to enter player names and select AI levels.
+ * The PlayerFields class represents a component containing the fields to set up
+ * a player. It allows users to enter player names and select AI levels.
  *
- * <p>The class extends the JPanel class and implements the LanguageChangeListener interface
- * to listen for language change events.</p>
+ * <p>
+ * The class extends the JPanel class and implements the LanguageChangeListener
+ * interface to listen for language change events.
+ * </p>
  */
 
 public class PlayerFields extends JPanel implements LanguageChangeListener {
@@ -56,8 +58,8 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
       new TranslatedString[] { easyStr, mediumStr, hardStr });
 
   /**
-   * Constructs a PlayerFields panel.
-   * Sets up the layout and components for player name input and AI level selection.
+   * Constructs a PlayerFields panel. Sets up the layout and components for player
+   * name input and AI level selection.
    */
   public PlayerFields() {
 
@@ -215,6 +217,18 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
       } else {
         EventsHandler.getController().createModel(player2, player1, namePlayer2.getText(), namePlayer1.getText());
       }
+
+      // Reset fields
+      player1IsAI = false;
+      player2IsAI = false;
+      btnSwitchPlayer1.setKey("switch-to-ai");
+      btnSwitchPlayer2.setKey("switch-to-ai");
+      player1Panel.remove(aiLevelPlayer1);
+      player1Panel.add(namePlayer1, 0);
+      player2Panel.remove(aiLevelPlayer2);
+      player2Panel.add(namePlayer2, 0);
+      namePlayer1.setText(playerStr + "1");
+      namePlayer2.setText(playerStr + "2");
 
       // Start the game
       GameStatusHandler.startGame();
