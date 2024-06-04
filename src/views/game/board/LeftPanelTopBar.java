@@ -1,6 +1,7 @@
 package src.views.game.board;
 
 import java.awt.FlowLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import src.views.components.ImageThemed;
 import src.views.listeners.ThemeListener;
@@ -21,6 +22,7 @@ public class LeftPanelTopBar extends JPanel implements ThemeListener {
     ThemeUtils.addThemeListener(this);
 
     setLayout(new FlowLayout(FlowLayout.LEFT, 12, 14));
+    setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
     UndoButton btnUndo = new UndoButton();
     RedoButton btnRedo = new RedoButton();
@@ -37,6 +39,7 @@ public class LeftPanelTopBar extends JPanel implements ThemeListener {
         add(new PauseButton());
       }
     }
+
   }
 
   /**

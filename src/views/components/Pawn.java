@@ -20,6 +20,7 @@ public class Pawn extends JButton implements ThemeListener {
   public static final int NOT_PLAYED = 0;
   public static final int SELECTED = 1;
   public static final int PLAYED = 2;
+  public static final int HINT = 3;
 
   private String code;
   private int state;
@@ -140,6 +141,9 @@ public class Pawn extends JButton implements ThemeListener {
     return hovered;
   }
 
+  public boolean isHint(){
+    return state == HINT;
+  }
   /**
    * Retrieves the image of the pawn.
    *

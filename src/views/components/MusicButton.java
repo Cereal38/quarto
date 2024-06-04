@@ -3,62 +3,62 @@ package src.views.components;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import src.views.utils.ImageUtils;
+import src.views.listeners.ThemeListener;
+import src.views.utils.AudioUtils;
+import src.views.utils.ThemeUtils;
 
-/**
- * A button to toggle music on or off.
- */
-public class MusicButton extends JButton {
+public class MusicButton extends JButton implements ThemeListener {
 
-    private boolean isMusicOn;
-    private TranslatedString tooltip;
+  private boolean isMusicOn;
+  private AudioUtils audioUtils;
+  ImageThemed onImage = new ImageThemed("music-on.png");
+  ImageThemed offImage = new ImageThemed("music-off.png");
+  ImageIcon onIcon;
+  ImageIcon offIcon;
 
-    private boolean isLightTheme = true;
+  public MusicButton() {
+    ThemeUtils.addThemeListener(this);
 
-    // Load icons
-    ImageIcon musicOnImg = ImageUtils.loadImage("music-on.png", 30, 30);
-    ImageIcon musicOffImg = ImageUtils.loadImage("music-off.png", 30, 30);
+    isMusicOn = false;
 
-    // dark theme icons
-    ImageIcon musicOnWhiteImg = ImageUtils.loadImage("music-on-white.png", 30, 30);
-    ImageIcon musicOffWhiteImg = ImageUtils.loadImage("music-off-white.png", 30, 30);
+    // Add style
+    onImage.setSize(30, 30);
+    ImageIcon onIcon = new ImageIcon(onImage.getImage());
+    offImage.setSize(30, 30);
+    ImageIcon offIcon = new ImageIcon(offImage.getImage());
+    setBorder(BorderFactory.createEmptyBorder());
+    setContentAreaFilled(false);
+    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-    /**
-     * Constructs a new MusicButton.
-     */
-    public MusicButton() {
-        isMusicOn = true;
+    setIcon(onIcon);
 
-        // Add style
-        setIcon(musicOnImg);
-        setBorder(BorderFactory.createEmptyBorder());
-        setContentAreaFilled(false);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    // Add action
+    setActionCommand("Music");
+    addActionListener(e -> {
+      isMusicOn = !isMusicOn;
+      if (isMusicOn) {
+        setIcon(offIcon);
+        audioUtils = new AudioUtils();
+        audioUtils.loadAudio("assets/music/bg-music.wav"); // Chemin de votre fichier audio
+        audioUtils.play();
+      } else {
+        setIcon(onIcon);
+        audioUtils.stop();
+      }
+    });
 
-        // Add action
-        setActionCommand("Music");
-        addActionListener(e -> {
-            isMusicOn = !isMusicOn;
-            updateIcon(isLightTheme);
-        });
+    // Add tooltip
+    setToolTipText("Toggle Music"); // Vous pouvez utiliser votre TranslatedString ici
+  }
 
-        // Add tooltip
-        tooltip = new TranslatedString("musicButtonTooltip", this, true);
-        setToolTipText(tooltip.getText());
+  @Override
+  public void updatedTheme() {
+    if (isMusicOn) {
+      offIcon = new ImageIcon(offImage.getImage());
+      setIcon(offIcon);
+    } else {
+      onIcon = new ImageIcon(onImage.getImage());
+      setIcon(onIcon);
     }
-
-    /**
-     * Updates the icon of the button based on the theme.
-     *
-     * @param isLightTheme true if the theme is light, false otherwise
-     */
-    public void updateIcon(boolean isLightTheme) {
-        this.isLightTheme = isLightTheme;
-        if (isMusicOn) {
-            setIcon(isLightTheme ? musicOnImg : musicOnWhiteImg);
-        } else {
-            setIcon(isLightTheme ? musicOffImg : musicOffWhiteImg);
-        }
-    }
-
+  }
 }

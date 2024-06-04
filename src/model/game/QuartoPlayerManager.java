@@ -118,7 +118,7 @@ public class QuartoPlayerManager {
         }
 
         // AI player
-        model.delay(1000); // Add 1 second delay when AI is selecting a pawn
+        model.delay(500); // Add 1 second delay when AI is selecting a pawn
         if (getCurrentPlayerType() == 1) {
             randomAIPlayer.selectPawn(model);
         } else if (getCurrentPlayerType() == 2) {
@@ -147,7 +147,7 @@ public class QuartoPlayerManager {
             return;
         }
         // Add 1 second delay when AI is playing
-        model.delay(1000);
+        model.delay(500);
         if (getCurrentPlayerType() == 1) {
             randomAIPlayer.playShot(model);
         } else if (getCurrentPlayerType() == 2) {

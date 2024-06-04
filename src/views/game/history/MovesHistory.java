@@ -1,11 +1,14 @@
 package src.views.game.history;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -29,6 +32,7 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
   private TranslatedString placedItAtStr = new TranslatedString("placed-it-at");
   private TranslatedString selectedThePawnStr = new TranslatedString("selected-the-pawn");
   private ImageThemed bgImage = new ImageThemed("squared-background.png");
+  private ImageThemed bgTitle = new ImageThemed("gameboard-center-top-bar.png");
 
   /**
    * Constructs a MovesHistory panel.
@@ -36,7 +40,27 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
   public MovesHistory() {
     ThemeUtils.addThemeListener(this);
 
-    setPreferredSize(new Dimension(00, DimensionUtils.getMainFrameHeight()));
+    setPreferredSize(new Dimension(200, DimensionUtils.getMainFrameHeight()));
+
+    // Create a panel to hold the title and moves container
+    JPanel mainPanel = new JPanel(new BorderLayout());
+
+    // Create and set up the title label
+    JLabel titleLabel = new JLabel("Move History");
+    titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    titleLabel.setHorizontalAlignment(JLabel.CENTER);
+    titleLabel.setPreferredSize(new Dimension(200, 38)); // Adjust the height as needed
+    // set background color to d3a547 and color to white
+    titleLabel.setForeground(new java.awt.Color(255, 255, 255));
+    // titleLabel.setBackground bgTitle
+    titleLabel.setIcon(new ImageIcon(bgTitle.getImage()));
+    // write the title on the top of the image
+    titleLabel.setVerticalTextPosition(JLabel.CENTER);
+    titleLabel.setHorizontalTextPosition(JLabel.CENTER);
+
+    // titleLabel.setOpaque(true);
+    // add margin to the title
+    mainPanel.add(titleLabel, BorderLayout.NORTH);
 
     movesContainer = new JPanel() {
       @Override
@@ -49,7 +73,11 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
     };
 
     movesContainer.setLayout(new GridBagLayout());
-    setViewportView(movesContainer);
+
+    // Add movesContainer to the mainPanel
+    mainPanel.add(movesContainer, BorderLayout.CENTER);
+
+    setViewportView(mainPanel);
     setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     clear();
     updateHistory();
@@ -85,12 +113,10 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
     moveConstraints.fill = GridBagConstraints.HORIZONTAL;
     moveConstraints.weightx = 1.0;
 
-    int moveNumber = 1; // Start with 1 for the most recent move
-
     // Add moves to container with separators in between
     for (int i = GameStatusHandler.getMoveComponents().size() - 1; i >= 0; i--) {
       moveConstraints.gridy = 2 * i; // Move
-      moveConstraints.insets = new Insets(0, 70, 0, 70); // Set insets to reduce space
+      moveConstraints.insets = new Insets(5, 70, 5, 70); // Set insets to reduce space
 
       movesContainer.add(GameStatusHandler.getMoveComponents().get(i), moveConstraints);
 
@@ -107,6 +133,9 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
     movesContainer.repaint();
     // Scroll to the top
     getVerticalScrollBar().setValue(0);
+    // make sure the scroll bar invisible
+    getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+
   }
 
   /**

@@ -32,6 +32,7 @@
   "manualButtonTooltip": "Ouvrir le manuel",
   "menuButtonTooltip": "Ouvrir le menu",
   "redoButtonTooltip": "Refaire",
+  "hintButtonTooltip": "Indice",
   "themeButtonTooltip": "Changer le thème",
   "undoButtonTooltip": "Annuler",
   "backButtonTooltip": "Retourner dans le menu principal",
@@ -64,5 +65,5 @@
   "no": "Non",
   "error-text": "Le nom ne peut pas etre vide",
   "overwrite-confirm": "Êtes-vous sûr de vouloir écraser la partie enregistrée existante portant ce nom ?",
-  "overwrite-title" : "Écraser le jeu existant"
+  "overwrite-title": "Écraser le jeu existant"
 }
