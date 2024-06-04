@@ -36,6 +36,9 @@ public class AudioUtils {
         if (clip != null) {
             clip.start();
         }
+        //reduce volume
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-10.0f);
     }
 
     public void stop() {
