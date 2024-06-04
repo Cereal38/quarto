@@ -20,16 +20,31 @@ public class MiniMaxAIPlayer implements Player {
         this.heuristics = heuristics;
     }
 
+    // Method to count the number of free spaces on the board
+    private int getFreeSpaces(QuartoModel quartoModel) {
+        int freeSpaces = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (quartoModel.isTableEmpty(i, j)) {
+                    freeSpaces++;
+                }
+            }
+        }
+        return freeSpaces;
+    }
+
+    // Method to adjust the maximum depth based on the number of free spaces
     private void adjustMaxDepth(QuartoModel quartoModel) {
-        if (countMoves < 10){
+        int freeSpaces = getFreeSpaces(quartoModel);
+        if (freeSpaces >= 12) {  // Early game
             maxDepth = 2;
-        } else if (countMoves < 15){
+        } else if (freeSpaces >= 8) {  // Mid game
             maxDepth = 3;
-        } else if (countMoves < 20){
+        } else if (freeSpaces >= 4) {  // Late game
             maxDepth = 4;
-        } else if (countMoves < 30){
+        } else {  // End game
             maxDepth = 5;
-        } else { maxDepth = 6; }
+        }
     }
 
 
@@ -141,8 +156,6 @@ public class MiniMaxAIPlayer implements Player {
                 }
             }
         }
-        countMoves += 2;
-
         // Randomly choose among the best moves
         int len = bestMovesAxis.size() / 2;
         int indexAxis = random.nextInt(len) * 2;
