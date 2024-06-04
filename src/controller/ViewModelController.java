@@ -190,7 +190,7 @@ public class ViewModelController implements ViewModelListener {
         if (hint != null && (hint[0] == i && hint[1] == j)) {
           isHint = true;
         }
-        tableCells[i][j] = new Cell(pawn, i, j, isWinningCell || isHint);
+        tableCells[i][j] = new Cell(pawn, i, j, isWinningCell, isHint);
       }
     }
     return tableCells;
