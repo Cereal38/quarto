@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
 import src.views.listeners.ThemeListener;
+import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
 /**
@@ -33,7 +34,7 @@ public class HistoryButton extends JButton implements ThemeListener {
     setContentAreaFilled(false);
 
     addActionListener(e -> {
-      // Action listener functionality can be added here
+      GameStatusHandler.pauseGame();
     });
 
     tooltip = new TranslatedString("historyButton", this, true);
