@@ -27,7 +27,7 @@ public class Cell extends JPanel implements ThemeListener {
   private boolean highlighted;
   private boolean hinted;
   private ImageThemed highlightImage = new ImageThemed("highlight.png");
-  private ImageThemed hintImage = new ImageThemed("cell-hint.png");
+  private ImageThemed hintImage = new ImageThemed("hint-cell.png");
 
   /**
    * Constructs a cell with the specified pawn, line, column, and highlighted
@@ -98,7 +98,7 @@ public class Cell extends JPanel implements ThemeListener {
     if (highlighted) { // Highlight the cell because win cell
       g.drawImage(highlightImage.getImage(), 15, 15, getWidth() - 30, getHeight() - 30, this);
     } else if (hinted && GameStatusHandler.isHintClicked()) { // Highlight the cell because hint
-      g.drawImage(hintImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+      g.drawImage(hintImage.getImage(), 15, 15, getWidth() - 30, getHeight() - 30, this);
     }
   }
 
