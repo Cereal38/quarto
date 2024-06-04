@@ -61,6 +61,11 @@ public class MainMenu extends JPanel implements ThemeListener {
     menu.setLayout(new GridLayout(4, 1, 0, 5));
     menu.setOpaque(false);
 
+    // Disable load button if there are no saved games
+    if (EventsHandler.getController().getSlotFiles().isEmpty()) {
+      btnLoad.setEnabled(false);
+    }
+
     logoImage.setSize(200, 65);
     logo = new JLabel(new ImageIcon(logoImage.getImage()));
     menu.add(logo);
