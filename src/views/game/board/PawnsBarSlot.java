@@ -25,13 +25,15 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
   private ImageThemed bgImage;
   private ImageThemed bgImageHovered;
   private ImageThemed bgImageSelected;
+  private ImageThemed bgImageHinted;
   private Pawn pawn;
 
   /**
    * Constructor.
    *
    * @param pawn     The pawn associated with this slot.
-   * @param position The position of the slot (PawnsBarSlot.LEFT or PawnsBarSlot.RIGHT).
+   * @param position The position of the slot (PawnsBarSlot.LEFT or
+   *                 PawnsBarSlot.RIGHT).
    */
   public PawnsBarSlot(Pawn pawn, int position) {
 
@@ -61,10 +63,12 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
         bgImage = new ImageThemed("pawns-bar-left-slot.png");
         bgImageHovered = new ImageThemed("pawns-bar-left-slot-hovered.png");
         bgImageSelected = new ImageThemed("pawns-bar-left-slot-selected.png");
+        bgImageHinted = new ImageThemed("pawns-bar-left-slot-hint.png");
       } else {
         bgImage = new ImageThemed("pawns-bar-right-slot.png");
         bgImageHovered = new ImageThemed("pawns-bar-right-slot-hovered.png");
         bgImageSelected = new ImageThemed("pawns-bar-right-slot-selected.png");
+        bgImageHinted = new ImageThemed("pawns-bar-right-slot-hint.png");
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -101,8 +105,8 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
     } else if ((pawn != null && pawn.isHovered()) && EventsHandler.getController().isSelectionPhase()
         && !GameStatusHandler.isPaused()) {
       g.drawImage(bgImageHovered.getImage(), 0, 0, getWidth(), getHeight(), this);
-    }else if (pawn!= null && pawn.isHint() && GameStatusHandler.isHintClicked()){
-      g.drawImage(bgImageHovered.getImage(), 0, 0, getWidth(), getHeight(), this);
+    } else if (pawn != null && pawn.isHint() && GameStatusHandler.isHintClicked()) {
+      g.drawImage(bgImageHinted.getImage(), 0, 0, getWidth(), getHeight(), this);
     } else {
       g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
     }

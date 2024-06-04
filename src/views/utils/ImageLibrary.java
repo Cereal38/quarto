@@ -49,6 +49,7 @@ public class ImageLibrary {
     loadImage("pawns-bar-right-slot.png");
     loadImage("pawns-bar-right-slot-hovered.png");
     loadImage("pawns-bar-right-slot-selected.png");
+    loadImage("pawns-bar-right-slot-hint.png");
     loadImage("gameboard-left-top-bar.png");
     loadImage("gameboard-right-top-bar.png");
     loadImage("gameboard-center-top-bar.png");
