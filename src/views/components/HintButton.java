@@ -35,7 +35,7 @@ public class HintButton extends JButton implements ThemeListener {
       GameStatusHandler.hintClicked();
     });
 
-    tooltip = new TranslatedString("redoButtonTooltip", this, true);
+    tooltip = new TranslatedString("hintButtonTooltip", this, true);
   }
 
   @Override
