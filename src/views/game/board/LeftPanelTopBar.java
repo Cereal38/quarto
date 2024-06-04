@@ -1,14 +1,10 @@
 package src.views.game.board;
 
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
-
-import src.views.components.HintButton;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 import src.views.components.ImageThemed;
 import src.views.listeners.ThemeListener;
-import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
@@ -26,6 +22,7 @@ public class LeftPanelTopBar extends JPanel implements ThemeListener {
     ThemeUtils.addThemeListener(this);
 
     setLayout(new FlowLayout(FlowLayout.LEFT, 12, 14));
+    setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
     UndoButton btnUndo = new UndoButton();
     RedoButton btnRedo = new RedoButton();
