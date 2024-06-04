@@ -69,7 +69,6 @@ public class EventsHandler {
     return mainPanel;
   }
 
-
   /**
    * Sets the dialog panel for displaying dialogs.
    *
@@ -103,6 +102,10 @@ public class EventsHandler {
    * @param destination the destination to navigate to
    */
   public static void navigate(String destination) {
+    // If the destination is the main menu, refresh the load button status
+    if (destination.equals("MainMenu")) {
+      mainMenu.checkLoadButton();
+    }
     cardLayout.show(mainPanel, destination);
   }
 
