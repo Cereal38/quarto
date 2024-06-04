@@ -8,7 +8,6 @@ package src.controller;
 
 import java.io.IOException;
 import java.util.List;
-
 import src.model.ai.Heuristics;
 import src.model.ai.MiniMaxAIPlayer;
 import src.model.game.QuartoModel;
@@ -34,13 +33,13 @@ public class ViewModelController implements ViewModelListener {
 
   // TODO: Get it from the model
 
-  /**  Constants representing game states */
+  /** Constants representing game states */
   public static final int SELECT = 0;
   public static final int PLAY = 1;
 
   /**
-   * Constructs a new ViewModelController object.
-   * Initializes the slot manager and loads slot files from the directory.
+   * Constructs a new ViewModelController object. Initializes the slot manager and
+   * loads slot files from the directory.
    */
   public ViewModelController() {
     aiPlayer = new MiniMaxAIPlayer(2, new Heuristics());
@@ -51,10 +50,10 @@ public class ViewModelController implements ViewModelListener {
   /**
    * Creates a new game model with the specified player types and names.
    *
-   * @param type1  The type of player 1 (human or AI).
-   * @param type2  The type of player 2 (human or AI).
-   * @param name1  The name of player 1.
-   * @param name2  The name of player 2.
+   * @param type1 The type of player 1 (human or AI).
+   * @param type2 The type of player 2 (human or AI).
+   * @param name1 The name of player 1.
+   * @param name2 The name of player 2.
    */
   @Override
   public void createModel(int type1, int type2, String name1, String name2) {
@@ -89,9 +88,9 @@ public class ViewModelController implements ViewModelListener {
     this.quartoModel = new QuartoModel(index);
   }
 
-
   /**
-   * Retrieves the list of slot files available for saving and loading game states.
+   * Retrieves the list of slot files available for saving and loading game
+   * states.
    *
    * @return A list of SlotFile objects representing the slot files.
    */
@@ -109,7 +108,6 @@ public class ViewModelController implements ViewModelListener {
   public void clearSlot(int id) {
     slotManager.clearSlotFile(id);
   }
-
 
   /**
    * Plays a shot on the specified line and column.
@@ -159,7 +157,6 @@ public class ViewModelController implements ViewModelListener {
     return quartoModel.canUndo();
   }
 
-
   /**
    * Get the current state of the board.
    *
@@ -190,7 +187,7 @@ public class ViewModelController implements ViewModelListener {
             break;
           }
         }
-        if (hint != null && (hint[0] == i && hint[1]==j)){
+        if (hint != null && (hint[0] == i && hint[1] == j)) {
           isHint = true;
         }
         tableCells[i][j] = new Cell(pawn, i, j, isWinningCell || isHint);
@@ -226,7 +223,7 @@ public class ViewModelController implements ViewModelListener {
     for (int i = 0; i < pawns.length; i++) {
       if (pawns[i] != null) {
         int index = FormatUtils.byteToIndex(pawns[i].getPawn());
-        if (hint != -1 && hint == i){
+        if (hint != -1 && hint == i) {
           result[index] = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.HINT, size, size);
         } else {
           result[index] = PawnUtils.getPawn(FormatUtils.byteToString(pawns[i].getPawn()), Pawn.NOT_PLAYED, size, size);
@@ -257,7 +254,8 @@ public class ViewModelController implements ViewModelListener {
   /**
    * Retrieves the string representation of the currently selected pawn.
    *
-   * @return The string representation of the selected pawn, or null if no pawn is selected.
+   * @return The string representation of the selected pawn, or null if no pawn is
+   *         selected.
    */
   public String getSelectedPawnStr() {
     if (getSelectedPawn() == null) {
@@ -265,7 +263,6 @@ public class ViewModelController implements ViewModelListener {
     }
     return FormatUtils.byteToString(getSelectedPawn().getPawn());
   }
-
 
   /**
    * Get the current player. 1 for player 1, 2 for player 2.
@@ -280,7 +277,8 @@ public class ViewModelController implements ViewModelListener {
   /**
    * Retrieves the name of the current player.
    *
-   * @return The name of the current player, or null if the model is not initialized.
+   * @return The name of the current player, or null if the model is not
+   *         initialized.
    */
   public String getCurrentPlayerName() {
     if (quartoModel == null) {
@@ -440,10 +438,11 @@ public class ViewModelController implements ViewModelListener {
   }
 
   /**
-   * Provides a hint for playing the next shot by utilizing the AI to determine the best move.
+   * Provides a hint for playing the next shot by utilizing the AI to determine
+   * the best move.
    *
-   * @return an array with the coordinates of the best move, where the first element is the row and
-   *         the second element is the column.
+   * @return an array with the coordinates of the best move, where the first
+   *         element is the row and the second element is the column.
    */
   public int[] playShotHint() {
     if (isPlayPhase())
@@ -452,12 +451,13 @@ public class ViewModelController implements ViewModelListener {
   }
 
   /**
-   * Provides a hint for selecting the next pawn by utilizing the AI to determine the best pawn to select.
+   * Provides a hint for selecting the next pawn by utilizing the AI to determine
+   * the best pawn to select.
    *
    * @return the index of the best pawn to select.
    */
   public int selectPawnHint() {
-    if (isSelectionPhase())
+    if (isSelectionPhase() && !quartoModel.hasAWinner() && !quartoModel.isATie())
       return aiPlayer.getBestPawn(this.quartoModel);
     return -1;
   }
