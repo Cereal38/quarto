@@ -50,17 +50,16 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
     titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
     titleLabel.setPreferredSize(new Dimension(200, 38)); // Adjust the height as needed
-    //set  background color to d3a547 and color to white
+    // set background color to d3a547 and color to white
     titleLabel.setForeground(new java.awt.Color(255, 255, 255));
     // titleLabel.setBackground bgTitle
     titleLabel.setIcon(new ImageIcon(bgTitle.getImage()));
-    //write the title on the top of the image
+    // write the title on the top of the image
     titleLabel.setVerticalTextPosition(JLabel.CENTER);
     titleLabel.setHorizontalTextPosition(JLabel.CENTER);
 
-    
     // titleLabel.setOpaque(true);
-    //add margin to the title
+    // add margin to the title
     mainPanel.add(titleLabel, BorderLayout.NORTH);
 
     movesContainer = new JPanel() {
@@ -134,7 +133,7 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
     movesContainer.repaint();
     // Scroll to the top
     getVerticalScrollBar().setValue(0);
-    //make sure the scroll bar invisible 
+    // make sure the scroll bar invisible
     getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
 
   }

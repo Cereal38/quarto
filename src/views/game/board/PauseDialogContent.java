@@ -13,6 +13,9 @@ import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents the content of the pause dialog.
+ */
 public class PauseDialogContent extends JPanel implements ThemeListener {
   private static final int MARGIN = 20;
 
@@ -22,6 +25,9 @@ public class PauseDialogContent extends JPanel implements ThemeListener {
   private CustomizedButton btnMainMenu = new CustomizedButton("main-menu");
   private ImageThemed bgImage = new ImageThemed("squared-background.png");
 
+  /**
+   * Constructs a PauseDialogContent object.
+   */
   public PauseDialogContent() {
     ThemeUtils.addThemeListener(this);
 
@@ -61,9 +67,11 @@ public class PauseDialogContent extends JPanel implements ThemeListener {
     add(btnRestart);
     add(btnRules);
     add(btnMainMenu);
-
   }
 
+  /**
+   * Paints the background image of the dialog content.
+   */
   @Override
   protected void paintComponent(java.awt.Graphics g) {
     super.paintComponent(g);
@@ -71,6 +79,9 @@ public class PauseDialogContent extends JPanel implements ThemeListener {
     g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
   }
 
+  /**
+   * Updates the theme of the dialog content.
+   */
   @Override
   public void updatedTheme() {
     repaint();

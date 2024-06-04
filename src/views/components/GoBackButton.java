@@ -3,31 +3,49 @@ package src.views.components;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import src.views.components.TranslatedString;
+import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
-import src.views.utils.ImageUtils;
+import src.views.utils.ThemeUtils;
 
-public class GoBackButton extends JButton {
-    private TranslatedString tooltip;
-    private boolean isLightTheme = true;
+/**
+ * A button used for navigating back to the previous page.
+ * <p>
+ * This button provides functionality to navigate back to the previous page and
+ * displays an icon for visual indication. It also supports displaying a
+ * tooltip.
+ */
+public class GoBackButton extends JButton implements ThemeListener {
+  private TranslatedString tooltip;
+  private ImageThemed image = new ImageThemed("back.png");
 
-    // Load icon
-    ImageIcon backImg = ImageUtils.loadImage("go-back.png", 32, 32);
+  /**
+   * Constructs a new GoBackButton.
+   * <p>
+   * This constructor initializes the button with the appropriate icon and adds an
+   * action listener to handle navigation to the previous page.
+   */
+  public GoBackButton() {
+    ThemeUtils.addThemeListener(this);
+    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-    public GoBackButton() {
+    // Add style
+    image.setSize(24, 24);
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
+    setBorder(BorderFactory.createEmptyBorder());
+    setContentAreaFilled(false);
 
-        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    addActionListener(e -> {
+      // Navigate back to the previous page
+      EventsHandler.navigate("MainMenu");
+    });
 
-        // Add style
-        setIcon(backImg);
-        setBorder(BorderFactory.createEmptyBorder());
-        setContentAreaFilled(false);
+    tooltip = new TranslatedString("backButtonTooltip", this, true);
+  }
 
-        addActionListener(e -> {
-            // Navigate back to the previous page
-            EventsHandler.navigate("MainMenu");
-        });
-
-        tooltip = new TranslatedString("backButtonTooltip", this, true);
-    }
+  @Override
+  public void updatedTheme() {
+    ImageIcon icon = new ImageIcon(image.getImage());
+    setIcon(icon);
+  }
 }

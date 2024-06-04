@@ -14,6 +14,10 @@ import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
+/**
+ * Represents a slot in the pawns bar.
+ */
+
 public class PawnsBarSlot extends JPanel implements ThemeListener {
 
   public static final int LEFT = 0;
@@ -21,13 +25,15 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
   private ImageThemed bgImage;
   private ImageThemed bgImageHovered;
   private ImageThemed bgImageSelected;
+  private ImageThemed bgImageHinted;
   private Pawn pawn;
 
   /**
    * Constructor.
    *
-   * @param pawn
-   * @param position: PawnsBarSlot.LEFT or PawnsBarSlot.RIGHT
+   * @param pawn     The pawn associated with this slot.
+   * @param position The position of the slot (PawnsBarSlot.LEFT or
+   *                 PawnsBarSlot.RIGHT).
    */
   public PawnsBarSlot(Pawn pawn, int position) {
 
@@ -57,17 +63,19 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
         bgImage = new ImageThemed("pawns-bar-left-slot.png");
         bgImageHovered = new ImageThemed("pawns-bar-left-slot-hovered.png");
         bgImageSelected = new ImageThemed("pawns-bar-left-slot-selected.png");
+        bgImageHinted = new ImageThemed("pawns-bar-left-slot-hint.png");
       } else {
         bgImage = new ImageThemed("pawns-bar-right-slot.png");
         bgImageHovered = new ImageThemed("pawns-bar-right-slot-hovered.png");
         bgImageSelected = new ImageThemed("pawns-bar-right-slot-selected.png");
+        bgImageHinted = new ImageThemed("pawns-bar-right-slot-hint.png");
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-    // Set cursor pointer if selection phase and not paused
-    if (EventsHandler.getController().isSelectionPhase() && !GameStatusHandler.isPaused()) {
+    // Set cursor pointer if selection phase, not paused and not empty slot
+    if (EventsHandler.getController().isSelectionPhase() && !GameStatusHandler.isPaused() && pawn != null) {
       setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     }
 
@@ -97,6 +105,8 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
     } else if ((pawn != null && pawn.isHovered()) && EventsHandler.getController().isSelectionPhase()
         && !GameStatusHandler.isPaused()) {
       g.drawImage(bgImageHovered.getImage(), 0, 0, getWidth(), getHeight(), this);
+    } else if (pawn != null && pawn.isHint() && GameStatusHandler.isHintClicked()) {
+      g.drawImage(bgImageHinted.getImage(), 0, 0, getWidth(), getHeight(), this);
     } else {
       g.drawImage(bgImage.getImage(), 0, 0, getWidth(), getHeight(), this);
     }

@@ -6,25 +6,32 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.util.Objects;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import src.views.components.GoBackButton;
 import src.views.components.ImageThemed;
 import src.views.components.TranslatedLabel;
 import src.views.listeners.ThemeListener;
-import src.views.utils.ImageUtils;
 import src.views.utils.ThemeUtils;
+
+/**
+ * The ChoosePlayers class represents the panel for choosing player names.
+ * It allows users to enter the names of the players who will participate in the game.
+ *
+ * <p>The class extends the JPanel class and implements the ThemeListener interface
+ * to listen for theme change events.</p>
+ */
 
 public class ChoosePlayers extends JPanel implements ThemeListener {
   private ImageThemed bgImage = new ImageThemed("bg-board.png");
-  private Image woodTexture;
+  private ImageThemed topbarImage = new ImageThemed("flat.png");
 
+  /**
+   * Constructs a ChoosePlayers panel.
+   * Sets up the layout and components for choosing player names.
+   */
   public ChoosePlayers() {
     ThemeUtils.addThemeListener(this);
-
-    woodTexture = Objects.requireNonNull(ImageUtils.loadImage("wood.jpeg", 50, 50)).getImage();
 
     setLayout(new BorderLayout());
 
@@ -35,7 +42,7 @@ public class ChoosePlayers extends JPanel implements ThemeListener {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(woodTexture, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
       }
     };
     topPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
@@ -51,7 +58,7 @@ public class ChoosePlayers extends JPanel implements ThemeListener {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(woodTexture, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(topbarImage.getImage(), 0, 0, getWidth(), getHeight(), this);
       }
     };
     labelPanel.add(titleLabel);

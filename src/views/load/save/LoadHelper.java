@@ -3,51 +3,57 @@ package src.views.load.save;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import src.structures.SlotFile;
+import src.views.components.ImageThemed;
 import src.views.components.RoundBorder;
 import src.views.components.TranslatedButton;
 import src.views.components.TranslatedString;
 import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ImageUtils;
+
+/**
+ * Helper class for creating and rendering slots in the LoadPage.
+ */
 
 public class LoadHelper {
   JPanel slotsPanel;
   List<SlotFile> slotFiles;
   LoadPage loadSavePage;
-  Image woodTexture;
-  Image differentWood;
+  private ImageThemed slotImage = new ImageThemed("flat.png");
 
   public LoadHelper(LoadPage l) {
     this.slotFiles = EventsHandler.getController().getSlotFiles();
     loadSavePage = l;
-    woodTexture = Objects.requireNonNull(ImageUtils.loadImage("wood.jpeg", 50, 50)).getImage();
-    differentWood = Objects.requireNonNull(ImageUtils.loadImage("woodSlots.png", 50, 50)).getImage();
   }
 
+  /**
+   * Creates a panel for a slot with the specified title, date, and ID.
+   * @param slotTitle The title of the slot.
+   * @param savedDate The date when the slot was saved.
+   * @param id The ID of the slot.
+   * @return The JPanel representing the slot.
+   */
   public JPanel createSlotPanel(String slotTitle, Date savedDate, int id) {
     JPanel slotPanel = new JPanel(new BorderLayout()) {
       @Override
-      protected void paintComponent(Graphics g) {
+      protected void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
-        g.drawImage(woodTexture, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(slotImage.getImage(), 0, 0, getWidth(), getHeight(), this);
       }
+
     };
     slotPanel.setOpaque(false);
 
@@ -64,8 +70,7 @@ public class LoadHelper {
     JLabel titleLabel = new JLabel(slotTitle);
     titleLabel.setFont(titleLabel.getFont().deriveFont(20f));
     leftPanel.add(titleLabel);
-    TranslatedString date = new TranslatedString("saved-date");
-    JLabel dateLabel = new JLabel(date.getText() + savedDate.toString());
+    JLabel dateLabel = new JLabel(savedDate.toString());
     leftPanel.add(dateLabel);
     contentPanel.add(leftPanel, BorderLayout.WEST);
 
@@ -125,6 +130,11 @@ public class LoadHelper {
     return slotPanel;
   }
 
+  /**
+   * Renders the slots panel with the given list of slot files.
+   * @param slotsPanel The panel containing the slots.
+   * @param slotFiles The list of slot files.
+   */
   public void renderSlots(JPanel slotsPanel, List<SlotFile> slotFiles) {
     slotsPanel.removeAll();
 
@@ -136,23 +146,15 @@ public class LoadHelper {
     gbc.gridy = GridBagConstraints.RELATIVE;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.weightx = 1.0;
-    gbc.insets = new Insets(0, 0, 0, 0); // Remove any insets (spacing) between slots
+    gbc.insets = new Insets(0, 0, 10, 0);
 
     for (SlotFile slotFile : slotFiles) {
       JPanel slotPanel = createSlotPanel(slotFile.getFilename(), new Date(slotFile.getLastModified()),
           slotFile.getId());
       slotsPanel.add(slotPanel, gbc);
     }
-
     slotsPanel.revalidate();
     slotsPanel.repaint();
   }
 
-  public Image getWoodTexture() {
-    return woodTexture;
-  }
-
-  public Image getDifferentWood() {
-    return differentWood;
-  }
 }

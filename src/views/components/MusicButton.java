@@ -4,13 +4,14 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import src.views.utils.ImageUtils;
+import src.views.utils.AudioUtils;
 
 public class MusicButton extends JButton {
 
     private boolean isMusicOn;
-    private TranslatedString tooltip;
-
     private boolean isLightTheme = true;
+
+    private AudioUtils audioUtils;
 
     // Load icons
     ImageIcon musicOnImg = ImageUtils.loadImage("music-on.png", 30, 30);
@@ -22,6 +23,8 @@ public class MusicButton extends JButton {
 
     public MusicButton() {
         isMusicOn = true;
+        audioUtils = new AudioUtils();
+        audioUtils.loadAudio("assets/music/bg-music.wav"); // Chemin de votre fichier audio
 
         // Add style
         setIcon(musicOnImg);
@@ -34,11 +37,18 @@ public class MusicButton extends JButton {
         addActionListener(e -> {
             isMusicOn = !isMusicOn;
             updateIcon(isLightTheme);
+            if (isMusicOn) {
+                audioUtils.play();
+            } else {
+                audioUtils.stop();
+            }
         });
 
         // Add tooltip
-        tooltip = new TranslatedString("musicButtonTooltip", this, true);
-        setToolTipText(tooltip.getText());
+        setToolTipText("Toggle Music"); // Vous pouvez utiliser votre TranslatedString ici
+
+        // Start music
+        audioUtils.play();
     }
 
     public void updateIcon(boolean isLightTheme) {
@@ -49,5 +59,4 @@ public class MusicButton extends JButton {
             setIcon(isLightTheme ? musicOffImg : musicOffWhiteImg);
         }
     }
-
 }
