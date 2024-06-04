@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import src.model.game.QuartoHistory;
 import src.views.components.ImageThemed;
+import src.views.components.TranslatedLabel;
 import src.views.components.TranslatedString;
 import src.views.listeners.ThemeListener;
 import src.views.utils.DimensionUtils;
@@ -46,7 +47,7 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
     JPanel mainPanel = new JPanel(new BorderLayout());
 
     // Create and set up the title label
-    JLabel titleLabel = new JLabel("Move History");
+    TranslatedLabel titleLabel = new TranslatedLabel("move-history");
     titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
     titleLabel.setPreferredSize(new Dimension(200, 38)); // Adjust the height as needed
