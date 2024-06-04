@@ -13,12 +13,14 @@ import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
 
 /**
- * The MainMenu class represents the main menu of the game application.
- * It provides options for starting a new game and loading a saved game.
- * This menu is displayed when the game application starts.
+ * The MainMenu class represents the main menu of the game application. It
+ * provides options for starting a new game and loading a saved game. This menu
+ * is displayed when the game application starts.
  *
- * <p>The MainMenu class extends the JPanel class and implements the ThemeListener interface
- * to listen for theme change events.</p>
+ * <p>
+ * The MainMenu class extends the JPanel class and implements the ThemeListener
+ * interface to listen for theme change events.
+ * </p>
  */
 
 public class MainMenu extends JPanel implements ThemeListener {
@@ -59,7 +61,7 @@ public class MainMenu extends JPanel implements ThemeListener {
     menu.setLayout(new GridLayout(4, 1, 0, 5));
     menu.setOpaque(false);
 
-    logoImage.setSize(200, 75);
+    logoImage.setSize(200, 65);
     logo = new JLabel(new ImageIcon(logoImage.getImage()));
     menu.add(logo);
     menu.add(new JLabel()); // Divider
