@@ -85,7 +85,8 @@ public class LoadHelper {
 
     // Load Game button (colored green)
     TranslatedButton loadGameButton = new TranslatedButton("load-game");
-    loadGameButton.setBackground(Color.GREEN); // Set background color to green
+    loadGameButton.setBackground(new Color(50,121,199)); // Set background color to blue
+    loadGameButton.setForeground(Color.WHITE);
     loadGameButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -99,7 +100,7 @@ public class LoadHelper {
 
     // Clear Slot button (colored red)
     TranslatedButton clearSlotButton = new TranslatedButton("clear-slot");
-    clearSlotButton.setBackground(Color.RED); // Set background color to red
+    clearSlotButton.setBackground(new Color(164,28,14)); // Set background color to red
     clearSlotButton.setForeground(Color.WHITE);
     clearSlotButton.addActionListener(new ActionListener() {
       @Override
