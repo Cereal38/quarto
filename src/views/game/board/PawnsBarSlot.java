@@ -74,8 +74,8 @@ public class PawnsBarSlot extends JPanel implements ThemeListener {
       e.printStackTrace();
     }
 
-    // Set cursor pointer if selection phase and not paused
-    if (EventsHandler.getController().isSelectionPhase() && !GameStatusHandler.isPaused()) {
+    // Set cursor pointer if selection phase, not paused and not empty slot
+    if (EventsHandler.getController().isSelectionPhase() && !GameStatusHandler.isPaused() && pawn != null) {
       setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     }
 

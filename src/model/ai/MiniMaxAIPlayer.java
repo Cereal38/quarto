@@ -15,6 +15,8 @@ public class MiniMaxAIPlayer implements Player {
     private int actualPawnScore; // Score of the currently selected pawn
     private Heuristics heuristics; // Heuristic values for evaluating the board
 
+    private int countMoves = 0;
+
     // Constructor to initialize the AI player with a specified max depth and heuristics
     public MiniMaxAIPlayer(int maxDepth, Heuristics heuristics) {
         this.maxDepth = maxDepth;
@@ -22,9 +24,38 @@ public class MiniMaxAIPlayer implements Player {
         this.heuristics = heuristics;
     }
 
+    // Method to count the number of free spaces on the board
+    private int getFreeSpaces(QuartoModel quartoModel) {
+        int freeSpaces = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (quartoModel.isTableEmpty(i, j)) {
+                    freeSpaces++;
+                }
+            }
+        }
+        return freeSpaces;
+    }
+
+    // Method to adjust the maximum depth based on the number of free spaces
+    private void adjustMaxDepth(QuartoModel quartoModel) {
+        int freeSpaces = getFreeSpaces(quartoModel);
+        if (freeSpaces >= 12) {  // Early game
+            maxDepth = 2;
+        } else if (freeSpaces >= 8) {  // Mid game
+            maxDepth = 3;
+        } else if (freeSpaces >= 4) {  // Late game
+            maxDepth = 4;
+        } else {  // End game
+            maxDepth = 5;
+        }
+    }
+
+
     // Method to select the best pawn using minimax algorithm
     @Override
     public void selectPawn(QuartoModel quartoModel) {
+        adjustMaxDepth(quartoModel);
         int bestPawnIndex = getBestPawn(quartoModel);
         quartoModel.selectPawnHuman(bestPawnIndex);
         System.out.println("Pawn chosen by Minimax AI is " + bestPawnIndex + ".");
@@ -33,6 +64,7 @@ public class MiniMaxAIPlayer implements Player {
     // Method to play the best move using minimax algorithm
     @Override
     public void playShot(QuartoModel quartoModel) {
+        adjustMaxDepth(quartoModel);
         int[] bestMove = getBestMove(quartoModel);
         while (!quartoModel.isTableEmpty(bestMove[0], bestMove[1])) {
             bestMove = getBestMove(quartoModel);
@@ -91,6 +123,7 @@ public class MiniMaxAIPlayer implements Player {
                 }
             }
         }
+        countMoves += 2;
 
         quartoModel.setNext(next);
         // Randomly choose among the best pawns
@@ -129,7 +162,6 @@ public class MiniMaxAIPlayer implements Player {
                 }
             }
         }
-
         // Randomly choose among the best moves
         int len = bestMovesAxis.size() / 2;
         int indexAxis = random.nextInt(len) * 2;
