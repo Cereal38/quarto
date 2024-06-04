@@ -1,9 +1,14 @@
 package src.views.game.board;
 
 import java.awt.FlowLayout;
-import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+import src.views.components.HintButton;
 import src.views.components.ImageThemed;
 import src.views.listeners.ThemeListener;
+import src.views.utils.EventsHandler;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;
 
@@ -37,6 +42,7 @@ public class LeftPanelTopBar extends JPanel implements ThemeListener {
         add(new PauseButton());
       }
     }
+
   }
 
   /**

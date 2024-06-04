@@ -25,7 +25,9 @@ public class Cell extends JPanel implements ThemeListener {
   private Pawn ghostPawn;
   private boolean hovered;
   private boolean highlighted;
+  private boolean hinted;
   private ImageThemed highlightImage = new ImageThemed("highlight.png");
+  private ImageThemed hintImage = new ImageThemed("hint-cell.png");
 
   /**
    * Constructs a cell with the specified pawn, line, column, and highlighted
@@ -36,7 +38,7 @@ public class Cell extends JPanel implements ThemeListener {
    * @param column      the column index of the cell
    * @param highlighted true if the cell is highlighted, false otherwise
    */
-  public Cell(Pawn pawn, int line, int column, boolean highlighted) {
+  public Cell(Pawn pawn, int line, int column, boolean highlighted, boolean hinted) {
     ThemeUtils.addThemeListener(this);
 
     setOpaque(false);
@@ -45,6 +47,7 @@ public class Cell extends JPanel implements ThemeListener {
     this.column = column;
     this.pawn = pawn;
     this.highlighted = highlighted;
+    this.hinted = hinted;
 
     if (!hasPawn() && canPlay() && !GameStatusHandler.isPaused()) {
       setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -92,8 +95,10 @@ public class Cell extends JPanel implements ThemeListener {
       g2d.drawImage(ghostPawn.getImage(), 22, 5, null);
     }
 
-    if (highlighted) {
+    if (highlighted) { // Highlight the cell because win cell
       g.drawImage(highlightImage.getImage(), 15, 15, getWidth() - 30, getHeight() - 30, this);
+    } else if (hinted && GameStatusHandler.isHintClicked()) { // Highlight the cell because hint
+      g.drawImage(hintImage.getImage(), 15, 15, getWidth() - 30, getHeight() - 30, this);
     }
   }
 

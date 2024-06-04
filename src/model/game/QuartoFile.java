@@ -193,6 +193,15 @@ public class QuartoFile {
     }
 
     /**
+     * Gets the current save state of the game.
+     *
+     * @return The current save state.
+     */
+    public QuartoHistory getNext() {
+        return save.getNext();
+    }
+
+    /**
      * Gets the head of the game history.
      *
      * @return The head of the game history.
@@ -208,6 +217,15 @@ public class QuartoFile {
      */
     public void setSave(QuartoHistory s) {
         save = s;
+    }
+
+    /**
+     * Sets the next save state of the game.
+     *
+     * @param n The new next save state.
+     */
+    public void setNext(QuartoHistory n) {
+        save.setNext(n);
     }
 
     // Methods for retrieving information about the current game state
