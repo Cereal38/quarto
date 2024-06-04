@@ -1,4 +1,9 @@
-package src.model;
+package src.model.tests;
+
+import src.model.game.QuartoHistory;
+import src.model.game.QuartoModel;
+import src.model.game.QuartoPawn;
+import src.model.game.SlotManager;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -161,9 +166,9 @@ public class QuartoGameTester {
 
     private void printState(QuartoHistory state) {
         if (state.getState() == 0) {
-            System.out.println("Etat 0: le joueur "+ state.currentPlayer + " " + state.playerName + " a donné le pion" + state.getIndexPawn());
+            System.out.println("Etat 0: le joueur "+ state.currentPlayer() + " " + state.playerName() + " a donné le pion" + state.getIndexPawn());
         } else if (state.getState() == 1) {
-            System.out.println("Etat 1: le joueur "+ state.currentPlayer + " " + state.playerName + " a posé le pion en [" + state.getLine() + "," + state.getColumn()+"]");
+            System.out.println("Etat 1: le joueur "+ state.currentPlayer() + " " + state.playerName() + " a posé le pion en [" + state.getLine() + "," + state.getColumn()+"]");
         } else {
             System.out.println("Début du jeu !");
         }

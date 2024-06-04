@@ -164,4 +164,12 @@ public class QuartoHistory {
     public int getNumberOfThePlayer() {
         return currentPlayer;
     }
+
+    public int currentPlayer() {
+        return currentPlayer;
+    }
+
+    public String playerName() {
+        return playerName;
+    }
 }
