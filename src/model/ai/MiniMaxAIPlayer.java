@@ -1,5 +1,6 @@
 package src.model.ai;
 
+import src.model.game.QuartoHistory;
 import src.model.game.QuartoModel;
 import src.model.game.QuartoPawn;
 
@@ -95,7 +96,8 @@ public class MiniMaxAIPlayer implements Player {
     }
 
     // Method to find the best pawn to select using minimax algorithm
-    private int getBestPawn(QuartoModel quartoModel) {
+    public int getBestPawn(QuartoModel quartoModel) {
+        QuartoHistory next = quartoModel.getNext();
         int bestScore = Integer.MIN_VALUE;
         List<Integer> bestPawns = new ArrayList<>();
         QuartoPawn[] availablePawns = quartoModel.getPawnAvailable();
@@ -123,12 +125,14 @@ public class MiniMaxAIPlayer implements Player {
         }
         countMoves += 2;
 
+        quartoModel.setNext(next);
         // Randomly choose among the best pawns
         return bestPawns.get(random.nextInt(bestPawns.size()));
     }
 
     // Method to find the best move to play using minimax algorithm
-    private int[] getBestMove(QuartoModel quartoModel) {
+    public int[] getBestMove(QuartoModel quartoModel) {
+        QuartoHistory next = quartoModel.getNext();
         int[] bestMove = new int[2];
         int bestScore = Integer.MIN_VALUE;
         List<Integer> bestMovesAxis = new ArrayList<>();
@@ -146,7 +150,6 @@ public class MiniMaxAIPlayer implements Player {
                     alpha = alphaBetaValue[0];
                     beta = alphaBetaValue[1];
                     undoSimulation(quartoModel);
-
                     if (score > bestScore) {
                         bestScore = score;
                         bestMovesAxis.clear();
@@ -169,6 +172,7 @@ public class MiniMaxAIPlayer implements Player {
             bestMove[0] = bestMovesAxis.get(indexAxis);
             bestMove[1] = bestMovesAxis.get(indexAxis + 1);
         }
+        quartoModel.setNext(next);
         return bestMove;
     }
 

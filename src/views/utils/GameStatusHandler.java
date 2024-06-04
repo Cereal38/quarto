@@ -18,6 +18,8 @@ public class GameStatusHandler {
 
   private static boolean isPaused = false;
 
+  private static boolean hint = false;
+
   // ================== Game Status Listeners ==================
 
   /**
@@ -62,7 +64,7 @@ public class GameStatusHandler {
    */
   private static void aiPlay() {
     if (EventsHandler.getController().isCurrentPlayerAI()) {
-      // We call methods with bullshit data because it's decided by the AI in the
+      // We call methods with random data because it's decided by the AI in the
       // model
       if (EventsHandler.getController().isPlayPhase()) {
         playShot(0, 0);
@@ -72,11 +74,13 @@ public class GameStatusHandler {
     }
   }
 
+
   /**
    * Everytime an action is performed, we inform the listeners and check if the AI
    * needs to take an action.
    */
   private static void actionPerformed() {
+    hint = false;
     informListeners();
     // Using invokeLater to let the UI update before the AI plays
     SwingUtilities.invokeLater(() -> aiPlay());
@@ -255,5 +259,15 @@ public class GameStatusHandler {
   public static boolean isPvP() {
     return !EventsHandler.getController().isPlayer1AI() && !EventsHandler.getController().isPlayer2AI();
   }
+
+  public static void hintClicked(){
+    hint = true;
+    informListeners();
+  }
+
+  public static boolean isHintClicked(){
+    return hint;
+  }
+
 
 }
