@@ -72,6 +72,8 @@ public class ImageLibrary {
     loadImage("hint-cell.png");
     loadImage("double-arrow.png");
     loadImage("hint.png");
+    loadImage("music-on.png");
+    loadImage("music-off.png");
   }
 
   /**
