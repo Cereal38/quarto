@@ -1,9 +1,9 @@
 package src.views.game.board;
 
 import java.awt.FlowLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import src.views.components.HintButton;
 import src.views.components.ImageThemed;
 import src.views.listeners.ThemeListener;
@@ -24,10 +24,10 @@ public class RightPanelTopBar extends JPanel implements ThemeListener {
     ThemeUtils.addThemeListener(this);
     HintButton btnHint = new HintButton();
 
-
     add(btnHint);
 
     setLayout(new FlowLayout(FlowLayout.LEFT, 12, 14));
+    setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
 
     PauseMenuButton btnPause = new PauseMenuButton();
 
@@ -45,7 +45,6 @@ public class RightPanelTopBar extends JPanel implements ThemeListener {
     add(historyButton);
     add(btnPause);
     btnHint.setVisible(!EventsHandler.getController().isCurrentPlayerAI());
-
 
   }
 
