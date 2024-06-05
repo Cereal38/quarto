@@ -64,7 +64,7 @@ public class MainMenu extends JPanel implements ThemeListener {
     // Disable load button if there are no saved games
     checkLoadButton();
 
-    logoImage.setSize(200, 65);
+    logoImage.setSize(200, 45);
     logo = new JLabel(new ImageIcon(logoImage.getImage()));
     menu.add(logo);
     menu.add(new JLabel()); // Divider
