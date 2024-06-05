@@ -8,15 +8,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The MediumAIPlayer class represents an AI player for the Quarto game.
+ * This AI uses heuristics to make decisions and attempts to play optimally based on the current game state.
+ */
+
 public class MediumAIPlayer implements Player {
 
     private final Random random;
     private final QuartoWin quartoWin;
+
+    /**
+     * Constructs a MediumAIPlayer with a random number generator and an instance of QuartoWin.
+     */
     public MediumAIPlayer() {
         random = new Random();
         quartoWin = new QuartoWin();
     }
 
+    /**
+     * Determines if a given list of pawns is complete, meaning it contains exactly 4 non-null pawns.
+     *
+     * @param pawns an array of QuartoPawn objects.
+     * @return true if the list is complete, false otherwise.
+     * @throws IllegalArgumentException if the list does not contain exactly 4 pawns.
+     */
     public boolean isCompleteList(QuartoPawn[] pawns) {
         if (pawns.length != 4) {
             throw new IllegalArgumentException("The list must contain exactly 4 QuartoPawn objects.");
@@ -29,6 +45,12 @@ public class MediumAIPlayer implements Player {
         return true;
     }
 
+    /**
+     * Determines if a given list of pawns has the potential to form a winning line.
+     *
+     * @param pawns an array of QuartoPawn objects.
+     * @return true if the list has potential, false otherwise.
+     */
     public boolean hasPotentialList(QuartoPawn[] pawns){
         //if list is complete, there is no potential
         if(isCompleteList(pawns)){
@@ -59,7 +81,13 @@ public class MediumAIPlayer implements Player {
                 hollowCount == 0 || hollowCount == pawnCount);
     }
 
-    // Checks if placing a pawn is an immediate winning pawn
+    /**
+     * Checks if placing a given pawn on the board results in an immediate win.
+     *
+     * @param quartoModel the current state of the Quarto game.
+     * @param pawn the pawn to be placed.
+     * @return true if placing the pawn results in a win, false otherwise.
+     */
     private boolean isWinningPawn(QuartoModel quartoModel, QuartoPawn pawn) {
         List<int[]> emptyCells = new ArrayList<>();
         QuartoPawn[][] grid = quartoModel.getTable();
@@ -78,6 +106,12 @@ public class MediumAIPlayer implements Player {
         return false;
     }
 
+    /**
+     * Determines if all available pawns can result in a win when placed.
+     *
+     * @param quartoModel the current state of the Quarto game.
+     * @return true if all available pawns result in a win, false otherwise.
+     */
     private boolean areAllPawnWinning(QuartoModel quartoModel){
         QuartoPawn[] listOfPawn = quartoModel.getPawnAvailable();
         for(QuartoPawn pawn : listOfPawn){
@@ -88,6 +122,13 @@ public class MediumAIPlayer implements Player {
         return true;
     }
 
+    /**
+     * Updates the characteristics count array based on the given pawns.
+     *
+     * @param characteristics an array to store characteristic counts.
+     * @param pawns an array of QuartoPawn objects.
+     * @throws IllegalArgumentException if the input arrays do not have the expected sizes.
+     */
     public void updateCharacteristics(int[] characteristics, QuartoPawn[] pawns) {
         // Checks if input tables are of correct size
         if (characteristics.length != 8 || pawns.length != 4) {
@@ -108,6 +149,12 @@ public class MediumAIPlayer implements Player {
         }
     }
 
+    /**
+     * Calculates the characteristics counts from the current state of the game board.
+     *
+     * @param grid the current state of the game board.
+     * @return an array of characteristic counts.
+     */
     public int[] calculateCharacteristicsFromGrid(QuartoPawn[][] grid) {
         int[] characteristics = new int[8];
 
@@ -152,6 +199,12 @@ public class MediumAIPlayer implements Player {
         return characteristics;
     }
 
+    /**
+     * Calculates scores for the available pawns based on the current state of the game board.
+     *
+     * @param quartoModel the current state of the Quarto game.
+     * @return an array of scores for each available pawn.
+     */
     public int[] calculateAvailablePawnsScores(QuartoModel quartoModel) {
         QuartoPawn[] listOfPawn = quartoModel.getPawnAvailable();
         int[] pawnScores = new int[16];
@@ -185,6 +238,11 @@ public class MediumAIPlayer implements Player {
         return pawnScores;
     }
 
+    /**
+     * Selects the best pawn for the human player based on the AI's evaluation.
+     *
+     * @param quartoModel the current state of the Quarto game.
+     */
     @Override
     public void selectPawn(QuartoModel quartoModel) {
         int[] pawnScores = calculateAvailablePawnsScores(quartoModel);
@@ -207,6 +265,11 @@ public class MediumAIPlayer implements Player {
         quartoModel.selectPawnHuman(selectedPawnIndex);
     }
 
+    /**
+     * Plays a shot for the AI player based on the current game state.
+     *
+     * @param quartoModel the current state of the Quarto game.
+     */
     @Override
     public void playShot(QuartoModel quartoModel) {
         List<int[]> emptyCells = new ArrayList<>();
@@ -296,6 +359,15 @@ public class MediumAIPlayer implements Player {
         }
     }
 
+    /**
+     * Calculates the alignment score for a given cell.
+     *
+     * @param grid   the current state of the game board.
+     * @param pawn   the pawn to be placed.
+     * @param x      the x-coordinate of the cell.
+     * @param y      the y-coordinate of the cell.
+     * @return the alignment score for the given cell.
+     */
     private int getAlignmentScore(QuartoPawn[][] grid, QuartoPawn pawn, int x, int y) {
         int score = 0;
         grid[x][y] = pawn;
@@ -314,6 +386,16 @@ public class MediumAIPlayer implements Player {
         return score;
     }
 
+    /**
+     * Evaluates the alignment of pawns in a line for potential score.
+     *
+     * @param grid the current state of the game board.
+     * @param x1   the x-coordinate of the starting point of the line.
+     * @param y1   the y-coordinate of the starting point of the line.
+     * @param x2   the x-coordinate of the ending point of the line.
+     * @param y2   the y-coordinate of the ending point of the line.
+     * @return the alignment score for the given line.
+     */
     private int evaluateAlignment(QuartoPawn[][] grid, int x1, int y1, int x2, int y2) {
         int dx = (x2 - x1) / 3;
         int dy = (y2 - y1) / 3;
@@ -345,7 +427,15 @@ public class MediumAIPlayer implements Player {
         return alignmentScore;
     }
 
-    // Checks if placing a pawn at (x, y) results in a winning move
+    /**
+     * Checks if placing a pawn at the specified location results in a winning move.
+     *
+     * @param grid the current state of the game board.
+     * @param pawn the pawn to be placed.
+     * @param x    the x-coordinate of the cell.
+     * @param y    the y-coordinate of the cell.
+     * @return true if placing the pawn at (x, y) results in a winning move, otherwise false.
+     */
     private boolean isWinningMove(QuartoPawn[][] grid, QuartoPawn pawn, int x, int y) {
         grid[x][y] = pawn;
         boolean winning = quartoWin.winSituationLine(grid, x) ||
@@ -355,7 +445,15 @@ public class MediumAIPlayer implements Player {
         return winning;
     }
 
-    // Evaluates the optimal position to play for the selected pawn
+    /**
+     * Evaluates the optimal position to play for the selected pawn based on the current game state.
+     *
+     * @param grid the current state of the game board.
+     * @param pawn the pawn to be placed.
+     * @param x    the x-coordinate of the cell.
+     * @param y    the y-coordinate of the cell.
+     * @return the score representing the potential of the given position.
+     */
     private int evaluatePosition(QuartoPawn[][] grid, QuartoPawn pawn, int x, int y) {
         int score = 0;
         grid[x][y] = pawn;
@@ -371,7 +469,16 @@ public class MediumAIPlayer implements Player {
         return score;
     }
 
-    // Evaluates a line (row, column, or diagonal) for potential score
+    /**
+     * Evaluates a line (row, column, or diagonal) for potential score.
+     *
+     * @param grid the current state of the game board.
+     * @param x1   the x-coordinate of the starting point of the line.
+     * @param y1   the y-coordinate of the starting point of the line.
+     * @param x2   the x-coordinate of the ending point of the line.
+     * @param y2   the y-coordinate of the ending point of the line.
+     * @return the score representing the potential of the given line.
+     */
     private int evaluateLine(QuartoPawn[][] grid, int x1, int y1, int x2, int y2) {
         int[] characteristics = new int[8];
         int dx = (x2 - x1) / 3;
