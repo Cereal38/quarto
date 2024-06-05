@@ -34,7 +34,6 @@ public class MainFrame extends JFrame {
   private DialogPanel rules;
   private DialogPanel about;
   private static LoadPage loadPage;
-  private SavePage savePage;
   private RulesPage rulesPage;
   private RulesPage aboutPage;
   private DialogPanel save;
@@ -62,7 +61,6 @@ public class MainFrame extends JFrame {
     mainPanel = new JPanel(cardLayout);
     choosePlayers = new ChoosePlayers();
     loadPage = new LoadPage();
-    savePage = new SavePage(loadPage);
 
     // Create app pages
     mainMenu = new MainMenu();
@@ -77,7 +75,6 @@ public class MainFrame extends JFrame {
     mainPanel.add(choosePlayers, "ChoosePlayers");
     mainPanel.add(gameBoard, "GameBoard");
     mainPanel.add(loadPage, "LoadPage");
-    mainPanel.add(savePage, "SavePage");
 
     add(mainPanel);
 
