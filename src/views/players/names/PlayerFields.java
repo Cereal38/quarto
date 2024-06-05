@@ -36,6 +36,12 @@ import src.views.utils.LangUtils;
 
 public class PlayerFields extends JPanel implements LanguageChangeListener {
 
+  /** Constants */
+  public static final int PLAYER = 0;
+  public static final int EASY = 2;
+  public static final int MEDIUM = 3;
+  public static final int HARD = 4;
+
   private CustomizedButton btnSwitchPlayer1 = new CustomizedButton("switch-to-ai");
   private CustomizedButton btnSwitchPlayer2 = new CustomizedButton("switch-to-ai");
   private CustomizedButton btnStartGame = new CustomizedButton("start");
@@ -286,13 +292,13 @@ public class PlayerFields extends JPanel implements LanguageChangeListener {
   private int getAIPlayerLevel(JComboBox<TranslatedString> aiLevel) {
     switch (aiLevel.getSelectedIndex()) {
     case 0: // Easy
-      return 2;
+      return EASY;
     case 1: // Medium
-      return 3;
+      return MEDIUM;
     case 2: // Hard
-      return 4;
+      return HARD;
     default: // Player
-      return 0;
+      return PLAYER;
     }
   }
 
