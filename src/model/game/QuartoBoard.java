@@ -1,11 +1,12 @@
+package src.model.game;
+
+import java.util.List;
+
 /**
  * The QuartoBoard class represents the game board for a game of Quarto.
  * It manages the state of the game board, available pawns, selected pawn,
  * and provides methods for checking winning situations.
  */
-package src.model.game;
-
-import java.util.List;
 
 public class QuartoBoard {
     /** The 2D array representing the game board, where each cell holds a QuartoPawn object. */

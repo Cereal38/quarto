@@ -8,23 +8,62 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MiniMaxAIPlayer implements Player {
-    private int maxDepth; // Maximum depth for the minimax algorithm
-    private Random random; // Random number generator for choosing among equally good moves
-    private QuartoPawn actualPawn; // The currently selected pawn
-    private int actualPawnScore; // Score of the currently selected pawn
-    private Heuristics heuristics; // Heuristic values for evaluating the board
+/**
+ * The MiniMaxAIPlayer class represents an AI player that uses the MiniMax algorithm with alpha-beta pruning
+ * to select the best pawn and play the best move in a game of Quarto.
+ * It evaluates the game board using heuristics and adjusts the maximum depth of the search based on the number
+ * of free spaces on the board, aiming to select the most favorable moves.
+ */
 
+public class MiniMaxAIPlayer implements Player {
+    /**
+     * Represents the maximum depth for the MiniMax algorithm.
+     */
+    private int maxDepth;
+
+    /**
+     * Random number generator used for choosing among equally good moves.
+     */
+    private Random random;
+
+    /**
+     * The pawn currently selected by the AI.
+     */
+    private QuartoPawn actualPawn;
+
+    /**
+     * The score of the currently selected pawn.
+     */
+    private int actualPawnScore;
+
+    /**
+     * Heuristic values used for evaluating the board.
+     */
+    private Heuristics heuristics;
+
+    /**
+     * The count of moves made by the AI.
+     */
     private int countMoves = 0;
 
-    // Constructor to initialize the AI player with a specified max depth and heuristics
+    /**
+     * Initializes the MiniMaxAIPlayer with a specified maximum depth and heuristic values.
+     *
+     * @param maxDepth   The maximum depth for the MiniMax algorithm.
+     * @param heuristics Heuristic values for evaluating the board.
+     */
     public MiniMaxAIPlayer(int maxDepth, Heuristics heuristics) {
         this.maxDepth = maxDepth;
         this.random = new Random();
         this.heuristics = heuristics;
     }
 
-    // Method to count the number of free spaces on the board
+    /**
+     * Counts the number of free spaces on the game board.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     * @return The number of free spaces on the game board.
+     */
     private int getFreeSpaces(QuartoModel quartoModel) {
         int freeSpaces = 0;
         for (int i = 0; i < 4; i++) {
@@ -37,7 +76,12 @@ public class MiniMaxAIPlayer implements Player {
         return freeSpaces;
     }
 
-    // Method to adjust the maximum depth based on the number of free spaces
+
+    /**
+     * Adjusts the maximum depth of the MiniMax algorithm based on the number of free spaces on the game board.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     */
     private void adjustMaxDepth(QuartoModel quartoModel) {
         int freeSpaces = getFreeSpaces(quartoModel);
         if (freeSpaces >= 12) {  // Early game
@@ -51,8 +95,11 @@ public class MiniMaxAIPlayer implements Player {
         }
     }
 
-
-    // Method to select the best pawn using minimax algorithm
+    /**
+     * Selects the best pawn using the MiniMax algorithm and makes the selection in the QuartoModel.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     */
     @Override
     public void selectPawn(QuartoModel quartoModel) {
         adjustMaxDepth(quartoModel);
@@ -61,7 +108,11 @@ public class MiniMaxAIPlayer implements Player {
         System.out.println("Pawn chosen by Minimax AI is " + bestPawnIndex + ".");
     }
 
-    // Method to play the best move using minimax algorithm
+    /**
+     * Plays the best move using the MiniMax algorithm and performs the move in the QuartoModel.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     */
     @Override
     public void playShot(QuartoModel quartoModel) {
         adjustMaxDepth(quartoModel);
@@ -73,7 +124,15 @@ public class MiniMaxAIPlayer implements Player {
         System.out.println("Shot played by Minimax AI at (" + bestMove[0] + "," + bestMove[1] + ").");
     }
 
-    // Alpha-beta pruning helper method
+    /**
+     * Helper method implementing alpha-beta pruning for the MiniMax algorithm.
+     *
+     * @param alpha               The current alpha value.
+     * @param beta                The current beta value.
+     * @param score               The score to evaluate.
+     * @param isMaximizingPlayer  Indicates whether the current player is maximizing.
+     * @return                    An array containing the updated alpha, beta, and a flag indicating if pruning occurred.
+     */
     private int[] alphaBeta(int alpha, int beta, int score, boolean isMaximizingPlayer) {
         int[] alphaBetaValue = new int[3];
         alphaBetaValue[2] = 0; // To indicate if pruning has occurred
@@ -95,7 +154,12 @@ public class MiniMaxAIPlayer implements Player {
         return alphaBetaValue;
     }
 
-    // Method to find the best pawn to select using minimax algorithm
+    /**
+     * Finds the best pawn to select using the MiniMax algorithm.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     * @return            The index of the best pawn to select.
+     */
     public int getBestPawn(QuartoModel quartoModel) {
         QuartoHistory next = quartoModel.getNext();
         int bestScore = Integer.MIN_VALUE;
@@ -130,7 +194,12 @@ public class MiniMaxAIPlayer implements Player {
         return bestPawns.get(random.nextInt(bestPawns.size()));
     }
 
-    // Method to find the best move to play using minimax algorithm
+    /**
+     * Finds the best move to play using the MiniMax algorithm.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     * @return            An array containing the coordinates of the best move [row, column].
+     */
     public int[] getBestMove(QuartoModel quartoModel) {
         QuartoHistory next = quartoModel.getNext();
         int[] bestMove = new int[2];
@@ -176,7 +245,17 @@ public class MiniMaxAIPlayer implements Player {
         return bestMove;
     }
 
-    // Minimax algorithm with alpha-beta pruning
+    /**
+     * Performs the MiniMax algorithm with alpha-beta pruning to find the best move or pawn selection.
+     *
+     * @param quartoModel         The QuartoModel representing the current state of the game.
+     * @param depth               The current depth in the MiniMax search tree.
+     * @param isMaximizingPlayer  A boolean indicating whether the current player is maximizing or minimizing.
+     * @param isSelectingPawn     A boolean indicating whether the current action is selecting a pawn.
+     * @param alpha               The alpha value for alpha-beta pruning.
+     * @param beta                The beta value for alpha-beta pruning.
+     * @return                    The best score for the current state of the game.
+     */
     private int minimax(QuartoModel quartoModel, int depth, boolean isMaximizingPlayer, boolean isSelectingPawn, int alpha, int beta) {
         // Base case: if maximum depth reached or game is over
         if (depth == maxDepth || quartoModel.hasAWinner() || quartoModel.isATie()) {
@@ -228,7 +307,13 @@ public class MiniMaxAIPlayer implements Player {
         return bestScore;
     }
 
-    // Evaluate the risk on the board based on the number of pawns on the board
+    /**
+     * Evaluates the risk on the board based on the number of pawns on the board.
+     *
+     * @param table      The 2D array representing the game board.
+     * @param isAIPlayer A boolean indicating whether the AI player is evaluating the risk.
+     * @return The risk value based on the number of pawns on the board.
+     */
     private int evaluateRisk(QuartoPawn[][] table, boolean isAIPlayer) {
         int count = 0;
         // Count the number of occupied spaces on the board
@@ -248,22 +333,43 @@ public class MiniMaxAIPlayer implements Player {
         return isAIPlayer ? count * heuristics.getRiskValue() : -count * heuristics.getRiskValue();
     }
 
-    // Simulate placing a pawn on the board
+    /**
+     * Simulates placing a pawn on the board.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     * @param row         The row index where the pawn will be placed.
+     * @param column      The column index where the pawn will be placed.
+     */
     private void simulatePlacePawn(QuartoModel quartoModel, int row, int column) {
         quartoModel.playShotHuman(row, column);
     }
 
-    // Simulate selecting a pawn
+    /**
+     * Simulates selecting a pawn.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     * @param index       The index of the pawn to be selected.
+     */
     private void simulateSelectPawn(QuartoModel quartoModel, int index) {
         quartoModel.selectPawnHuman(index);
     }
 
-    // Undo the last simulation
+    /**
+     * Undoes the last simulation.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     */
     private void undoSimulation(QuartoModel quartoModel) {
         quartoModel.undo();
     }
 
-    // Evaluate the board for the current state
+    /**
+     * Evaluates the board for the current state.
+     *
+     * @param quartoModel The QuartoModel representing the current state of the game.
+     * @param isAIPlayer  A boolean indicating whether the AI player is evaluating the board.
+     * @return The evaluation score of the board.
+     */
     private int evaluateBoard(QuartoModel quartoModel, boolean isAIPlayer) {
         int score = 0;
         // Evaluate all rows, columns, and diagonals
@@ -274,7 +380,14 @@ public class MiniMaxAIPlayer implements Player {
         return isAIPlayer ? score : -score;
     }
 
+
     // Evaluate all lines (rows, columns, or diagonals)
+    /**
+     * Evaluates an array of lines (rows, columns, or diagonals).
+     *
+     * @param lines The array of lines to be evaluated.
+     * @return The total score obtained from evaluating all lines.
+     */
     private int evaluateLines(QuartoPawn[][] lines) {
         int score = 0;
         for (QuartoPawn[] line : lines) {
@@ -283,7 +396,12 @@ public class MiniMaxAIPlayer implements Player {
         return score;
     }
 
-    // Evaluate a single line (row, column, or diagonal)
+    /**
+     * Evaluates a single line (row, column, or diagonal).
+     *
+     * @param line The line to be evaluated.
+     * @return The score obtained from evaluating the line.
+     */
     private int evaluateLine(QuartoPawn[] line) {
         int score = 0;
         int commonCharacteristics = countCommonCharacteristicsInLine(line);
@@ -303,7 +421,12 @@ public class MiniMaxAIPlayer implements Player {
         return score;
     }
 
-    // Count the common characteristics in a line
+    /**
+     * Counts the common characteristics in a line.
+     *
+     * @param line The line to be evaluated.
+     * @return The number of common characteristics in the line.
+     */
     private int countCommonCharacteristicsInLine(QuartoPawn[] line) {
         actualPawnScore = 0;
         if (line.length != 4) {
