@@ -3,7 +3,8 @@ package src.views.game.board;
 import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import src.views.components.ImageThemed;
+
+import src.views.components.*;
 import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
 import src.views.utils.ThemeUtils;

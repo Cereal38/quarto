@@ -119,7 +119,7 @@ public class QuartoPlayerManager {
         }
 
         // AI player
-        model.delay(500); // Add 1 second delay when AI is selecting a pawn
+        model.delay(500); // Add 0.5 second delay when AI is selecting a pawn
         if (getCurrentPlayerType() == 1) {
             randomAIPlayer.selectPawn(model);
         } else if (getCurrentPlayerType() == 2) {

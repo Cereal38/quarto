@@ -1,6 +1,5 @@
-package src.views.game.board;
+package src.views.components;
 
-import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -8,23 +7,19 @@ import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
 import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ThemeUtils;
 
 /**
- * Represents a button used for displaying the game history.
+ * Represents a button for resuming the game.
  */
-public class HistoryButton extends JButton implements ThemeListener {
+public class ResumeButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
-  private ImageThemed image = new ImageThemed("history.png");
+  private ImageThemed image = new ImageThemed("resume.png");
 
   /**
-   * Constructs a HistoryButton object.
+   * Constructs a ResumeButton.
    */
-  public HistoryButton() {
-    ThemeUtils.addThemeListener(this);
-
-    // Set cursor to hand
-    setCursor(new Cursor(Cursor.HAND_CURSOR));
+  public ResumeButton() {
+    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
     // Add style
     image.setSize(32, 32);
@@ -32,17 +27,13 @@ public class HistoryButton extends JButton implements ThemeListener {
     setIcon(icon);
     setBorder(BorderFactory.createEmptyBorder());
     setContentAreaFilled(false);
-
     addActionListener(e -> {
-      GameStatusHandler.pauseGame();
+      GameStatusHandler.resumeGame();
     });
 
-    tooltip = new TranslatedString("historyButton", this, true);
+    tooltip = new TranslatedString("resume-tooltip", this, true);
   }
 
-  /**
-   * Handles theme updates for the history button.
-   */
   @Override
   public void updatedTheme() {
     ImageIcon icon = new ImageIcon(image.getImage());

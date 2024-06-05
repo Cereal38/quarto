@@ -1,4 +1,4 @@
-package src.views.game.board;
+package src.views.components;
 
 import java.awt.Cursor;
 import javax.swing.BorderFactory;

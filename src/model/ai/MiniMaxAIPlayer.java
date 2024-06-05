@@ -84,14 +84,16 @@ public class MiniMaxAIPlayer implements Player {
      */
     private void adjustMaxDepth(QuartoModel quartoModel) {
         int freeSpaces = getFreeSpaces(quartoModel);
-        if (freeSpaces >= 12) {  // Early game
+        if (freeSpaces >= 11) {  // Early game
             maxDepth = 2;
-        } else if (freeSpaces >= 8) {  // Mid game
+        } else if (freeSpaces >= 9) {  // Mid game
             maxDepth = 3;
-        } else if (freeSpaces >= 4) {  // Late game
+        } else if (freeSpaces >= 7) {  // Late game
             maxDepth = 4;
-        } else {  // End game
+        }else if (freeSpaces >= 5) {  // Late game
             maxDepth = 5;
+        }  else {  // End game
+            maxDepth = 6;
         }
     }
 
