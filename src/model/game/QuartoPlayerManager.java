@@ -1,10 +1,11 @@
+package src.model.game;
+
+import src.model.ai.*;
+
 /**
  * The QuartoPlayerManager class manages the players in a game of Quarto.
  * It handles player types, AI players, current player state, and player actions.
  */
-package src.model.game;
-
-import src.model.ai.*;
 
 public class QuartoPlayerManager {
     /** The index of the current player (1 for Player 1 and 2 for Player 2). */

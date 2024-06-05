@@ -1,19 +1,18 @@
+package src.model.game;
+
+import src.structures.SlotFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The SlotManager class manages the slot files used for saving and loading game states.
  * It provides methods to interact with the slot files, such as clearing a slot file, loading slot files
  * from the designated directory, getting the list of slot files, finding a slot file by ID,
  * and creating a new slot file.
  */
-package src.model.game;
-
-import src.structures.SlotFile;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SlotManager {
     /**  List to store SlotFile objects representing saved game slots*/
