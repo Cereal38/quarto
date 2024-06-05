@@ -1,9 +1,3 @@
-/**
- * The ViewModelController class serves as the controller in the Model-View-Controller (MVC) architecture
- * for managing the game state and interactions between the game model and the user interface.
- * It provides methods for creating, saving, and loading game states, as well as handling user actions
- * such as playing shots, selecting pawns, and checking for game-winning conditions.
- */
 package src.controller;
 
 import java.io.IOException;
@@ -20,6 +14,13 @@ import src.views.listeners.ViewModelListener;
 import src.views.utils.DimensionUtils;
 import src.views.utils.FormatUtils;
 import src.views.utils.PawnUtils;
+
+/**
+ * The ViewModelController class serves as the controller in the Model-View-Controller (MVC) architecture
+ * for managing the game state and interactions between the game model and the user interface.
+ * It provides methods for creating, saving, and loading game states, as well as handling user actions
+ * such as playing shots, selecting pawns, and checking for game-winning conditions.
+ */
 
 public class ViewModelController implements ViewModelListener {
   /** The game model instance */
