@@ -1,7 +1,8 @@
+package src.structures;
+
 /**
  * Represents a slot file with an ID, filename, and last modified timestamp.
  */
-package src.structures;
 
 public class SlotFile {
     private int id;
