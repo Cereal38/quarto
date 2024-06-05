@@ -3,6 +3,7 @@ package src.views.utils;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 
@@ -84,8 +85,12 @@ public class ImageLibrary {
    */
   private static void loadImage(String name) {
     try {
-      Image imgLight = ImageIO.read(new File("assets/images/light/" + name));
-      Image imgDark = ImageIO.read(new File("assets/images/dark/" + name));
+      InputStream inputStreamLight = ClassLoader.getSystemClassLoader().getResourceAsStream("assets/images/light/"+name);
+        assert inputStreamLight != null;
+        Image imgLight = ImageIO.read(inputStreamLight);
+      InputStream inputStreamDark = ClassLoader.getSystemClassLoader().getResourceAsStream("assets/images/dark/" +name);
+        assert inputStreamDark != null;
+        Image imgDark = ImageIO.read(inputStreamDark);
       imageMap.put("light" + name, imgLight);
       imageMap.put("dark" + name, imgDark);
     } catch (IOException e) {

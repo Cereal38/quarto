@@ -1,8 +1,6 @@
 package src.views.utils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,9 +95,17 @@ public class LangUtils {
    */
   private static Map<String, String> loadJson(String fileName) {
     Map<String, String> jsonMap = new HashMap<>();
-    String filePath = "lang/" + fileName;
 
-    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    // Use the class loader to load the resource
+    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    InputStream inputStream = classLoader.getResourceAsStream("lang/" + fileName);
+
+    if (inputStream == null) {
+      // Resource not found
+      throw new IllegalArgumentException("File not found: " + fileName);
+    }
+
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
       String line;
       StringBuilder sb = new StringBuilder();
       while ((line = br.readLine()) != null) {
@@ -139,5 +145,6 @@ public class LangUtils {
 
     return jsonMap;
   }
+
 
 }
