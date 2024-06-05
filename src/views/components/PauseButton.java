@@ -1,6 +1,5 @@
-package src.views.game.board;
+package src.views.components;
 
-import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -8,23 +7,19 @@ import src.views.components.ImageThemed;
 import src.views.components.TranslatedString;
 import src.views.listeners.ThemeListener;
 import src.views.utils.GameStatusHandler;
-import src.views.utils.ThemeUtils;
 
 /**
- * Represents a button used to open the pause menu.
+ * Represents a button used to pause the game.
  */
-public class PauseMenuButton extends JButton implements ThemeListener {
+public class PauseButton extends JButton implements ThemeListener {
   private TranslatedString tooltip;
-  private ImageThemed image = new ImageThemed("menu.png");
+  private ImageThemed image = new ImageThemed("pause.png");
 
   /**
-   * Constructs a PauseMenuButton.
+   * Constructs a PauseButton object.
    */
-  public PauseMenuButton() {
-    ThemeUtils.addThemeListener(this);
-
-    // cursor : pointer
-    setCursor(new Cursor(Cursor.HAND_CURSOR));
+  public PauseButton() {
+    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
     // Add style
     image.setSize(32, 32);
@@ -34,11 +29,10 @@ public class PauseMenuButton extends JButton implements ThemeListener {
     setContentAreaFilled(false);
 
     addActionListener(e -> {
-      // Pause the game
       GameStatusHandler.pauseGame();
     });
 
-    tooltip = new TranslatedString("menuButtonTooltip", this, true);
+    tooltip = new TranslatedString("pause-tooltip", this, true);
   }
 
   /**
@@ -49,5 +43,4 @@ public class PauseMenuButton extends JButton implements ThemeListener {
     ImageIcon icon = new ImageIcon(image.getImage());
     setIcon(icon);
   }
-
 }
