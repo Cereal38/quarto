@@ -1,14 +1,12 @@
-/**
- * The QuartoWin class represents the winning conditions and lines in a game of Quarto.
- * It provides methods for checking winning situations and retrieving win lines.
- */
 package src.model.game;
-
-import src.model.game.QuartoPawn;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The QuartoWin class represents the winning conditions and lines in a game of Quarto.
+ * It provides methods for checking winning situations and retrieving win lines.
+ */
 
 public class QuartoWin {
   /** List to store winning line*/

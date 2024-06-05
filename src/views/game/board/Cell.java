@@ -30,13 +30,13 @@ public class Cell extends JPanel implements ThemeListener {
   private ImageThemed hintImage = new ImageThemed("hint-cell.png");
 
   /**
-   * Constructs a cell with the specified pawn, line, column, and highlighted
-   * state.
+   * Constructs a cell with the specified pawn, line, column, and highlighted state.
    *
    * @param pawn        the pawn associated with this cell
    * @param line        the line index of the cell
    * @param column      the column index of the cell
    * @param highlighted true if the cell is highlighted, false otherwise
+   * @param hinted      true if the cell is hinted, false otherwise
    */
   public Cell(Pawn pawn, int line, int column, boolean highlighted, boolean hinted) {
     ThemeUtils.addThemeListener(this);
@@ -80,7 +80,6 @@ public class Cell extends JPanel implements ThemeListener {
         repaint();
       }
     });
-
   }
 
   @Override
@@ -118,12 +117,11 @@ public class Cell extends JPanel implements ThemeListener {
    */
   private boolean canPlay() {
     return EventsHandler.getController().isPlayPhase() && !hasPawn()
-        && !EventsHandler.getController().isCurrentPlayerAI();
+            && !EventsHandler.getController().isCurrentPlayerAI();
   }
 
   @Override
   public void updatedTheme() {
     repaint();
   }
-
 }

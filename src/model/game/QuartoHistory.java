@@ -1,9 +1,10 @@
+package src.model.game;
+
 /**
  * The QuartoHistory class represents a historical record of moves in the Quarto game.
  * It keeps track of each move made during the game, including the selection of pawns
  * and their placement on the game board.
  */
-package src.model.game;
 
 public class QuartoHistory {
     /** The state of the move: 0 for selecting a pawn, 1 for placing a pawn, and 2 for the start of the game. */
@@ -165,11 +166,22 @@ public class QuartoHistory {
         return currentPlayer;
     }
 
+    /**
+     * Returns the current player.
+     *
+     * @return the integer representing the current player.
+     */
     public int currentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Returns the name of the player.
+     *
+     * @return the string representing the player's name.
+     */
     public String playerName() {
         return playerName;
     }
+
 }

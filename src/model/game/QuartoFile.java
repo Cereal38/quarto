@@ -1,7 +1,3 @@
-/**
- * The QuartoFile class represents the file management system for saving and loading game states.
- * It handles file operations such as saving the game state to a file and loading a game state from a file.
- */
 package src.model.game;
 
 import java.io.FileInputStream;
@@ -11,6 +7,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
+
+/**
+ * The QuartoFile class represents the file management system for saving and loading game states.
+ * It handles file operations such as saving the game state to a file and loading a game state from a file.
+ */
 
 public class QuartoFile {
     /** The head of the game history. */

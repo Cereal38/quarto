@@ -7,6 +7,10 @@ import src.views.listeners.ThemeListener;
 import src.views.utils.AudioUtils;
 import src.views.utils.ThemeUtils;
 
+/**
+ * A custom JButton component for toggling music on and off.
+ */
+
 public class MusicButton extends JButton implements ThemeListener {
 
   private boolean isMusicOn;
@@ -16,6 +20,9 @@ public class MusicButton extends JButton implements ThemeListener {
   ImageIcon onIcon;
   ImageIcon offIcon;
 
+  /**
+   * Constructs a MusicButton object.
+   */
   public MusicButton() {
     ThemeUtils.addThemeListener(this);
 
@@ -51,6 +58,9 @@ public class MusicButton extends JButton implements ThemeListener {
     setToolTipText("Toggle Music"); // Vous pouvez utiliser votre TranslatedString ici
   }
 
+  /**
+   * Updates the theme of the MusicButton.
+   */
   @Override
   public void updatedTheme() {
     if (isMusicOn) {

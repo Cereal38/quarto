@@ -1,7 +1,3 @@
-/**
- * The QuartoModel class represents the model component of the Quarto game application.
- * It manages the game state, player interactions, and game logic.
- */
 package src.model.game;
 
 import java.io.File;
@@ -10,6 +6,11 @@ import java.util.List;
 
 import src.model.ai.Heuristics;
 import src.structures.SlotFile;
+
+/**
+ * The QuartoModel class represents the model component of the Quarto game application.
+ * It manages the game state, player interactions, and game logic.
+ */
 
 public class QuartoModel {
 
@@ -600,11 +601,22 @@ public class QuartoModel {
         return file.getSave();
     }
 
+    /**
+     * Sets the next QuartoHistory object.
+     *
+     * @param n the QuartoHistory object to be set as the next.
+     */
     public void setNext(QuartoHistory n) {
         file.setNext(n);
     }
-  
+
+    /**
+     * Returns the next QuartoHistory object.
+     *
+     * @return the QuartoHistory object that is set as the next.
+     */
     public QuartoHistory getNext() {
-      return file.getNext();
+        return file.getNext();
     }
+
 }

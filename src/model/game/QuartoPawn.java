@@ -1,8 +1,9 @@
+package src.model.game;
+
 /**
  * The QuartoPawn class represents a pawn in the game of Quarto.
  * Each pawn is defined by a binary value indicating its attributes.
  */
-package src.model.game;
 
 public class QuartoPawn {
 
