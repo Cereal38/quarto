@@ -66,7 +66,7 @@ public class MainMenu extends JPanel implements ThemeListener {
 
     logoImage.setSize(200, 50);
     logo = new JLabel(new ImageIcon(logoImage.getImage()));
-    menu.add(logo);
+    menu.add(logo); 
     menu.add(new JLabel()); // Divider
     menu.add(btnNewGame);
     menu.add(btnLoad);
