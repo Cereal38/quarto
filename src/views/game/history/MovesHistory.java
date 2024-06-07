@@ -151,13 +151,13 @@ public class MovesHistory extends JScrollPane implements ThemeListener {
     while (save != null) {
       String name = save.getName();
       int pawn = save.getIndexPawn();
-      int x = save.getLine();
+      int x = save.getLine() + 1;
       int y = save.getColumn();
       String moveDescription;
       ImageIcon pawnIcon = null;
       if (name != null) {
         // y 0 is a, y 1 is b, etc.
-        char column = (char) (y + 97);
+        char column =       (char) (y + 97);
         if (save.getState() == 0) {
           String pawnIconString = pawnNumberToString(pawn);
           ImageThemed pawnImage = new ImageThemed(pawnIconString + ".png");
