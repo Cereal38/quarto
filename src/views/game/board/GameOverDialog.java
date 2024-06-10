@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import src.views.components.CustomizedButton;
 import src.views.components.ImageThemed;
+import src.views.components.TranslatedString;
 import src.views.listeners.ThemeListener;
 import src.views.utils.EventsHandler;
 import src.views.utils.ThemeUtils;
@@ -27,6 +28,7 @@ import src.views.utils.ThemeUtils;
 public class GameOverDialog extends JPanel implements ThemeListener {
   private CustomizedButton btnBack = new CustomizedButton("back-to-game");
   private CustomizedButton btnMenu = new CustomizedButton("main-menu");
+  private TranslatedString wins = new TranslatedString("wins");
   private ImageThemed bgImage = new ImageThemed("squared-background.png");
   private ImageThemed crown = new ImageThemed("crown.png");
   private ImageIcon crownIcon;
@@ -91,7 +93,7 @@ public class GameOverDialog extends JPanel implements ThemeListener {
     // Create and add winner label with larger font
     JLabel winnerLabel;
     if (winner != null) {
-      winnerLabel = new JLabel(winner + " wins!");
+      winnerLabel = new JLabel(winner + " " + wins + " !");
     } else {
       winnerLabel = new JLabel("It's a draw!");
     }

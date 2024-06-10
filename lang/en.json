@@ -66,5 +66,6 @@
   "no": "No",
   "error-text": "Name cannot be empty.",
   "overwrite-confirm": "Are you sure you want to over write the existing saved game with this name? ",
-  "overwrite-title": "Over write the existing game"
+  "overwrite-title": "Over write the existing game",
+  "wins": "wins"
 }
